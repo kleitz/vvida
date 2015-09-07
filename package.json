@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/andela-nmartin/vvida.git"
+    "url": "git+https://github.com/andela/vvida.git"
   },
   "author": "NM",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/andela-nmartin/vvida/issues"
+    "url": "https://github.com/andela/vvida/issues"
   },
-  "homepage": "https://github.com/andela-nmartin/vvida#readme",
+  "homepage": "https://github.com/andela/vvida#readme",
   "dependencies": {
     "browser-sync": "^2.9.1",
     "browserify": "^11.0.1",
