@@ -1,16 +1,16 @@
 var gulp = require('gulp');
-var less = require('gulp-less');
-var jade = require('gulp-jade');
-var bower = require('gulp-bower');
-var gutil = require('gulp-util');
-var concat = require('gulp-concat');
-var browserify = require('browserify');
-var path = require('path');
-var stringify = require('stringify');
-var source = require('vinyl-source-stream');
-var imagemin = require('gulp-imagemin');
-var nodemon = require('gulp-nodemon');
-var browserSync = require('browser-sync');
+  less = require('gulp-less');
+  jade = require('gulp-jade');
+  bower = require('gulp-bower');
+  gutil = require('gulp-util');
+  concat = require('gulp-concat');
+  browserify = require('browserify');
+  path = require('path');
+  stringify = require('stringify');
+  source = require('vinyl-source-stream');
+  imagemin = require('gulp-imagemin');
+  nodemon = require('gulp-nodemon');
+  browserSync = require('browser-sync');
 
 gulp.task('browser-sync', function() {
   browserSync({
@@ -24,15 +24,17 @@ gulp.task('bs-reload', function () {
   browserSync.reload();
 });
 
-var paths = {
+paths = {
   public: 'public/**',
   jade: 'app/**/*.jade',
   scripts: 'app/**/*.js',
   images: 'app/images/**/*',
   staticFiles: [
     '!app/**/*.+(less|css|js|jade)',
+    '!app/images/**/*',
      'app/**/*.*'
   ],
+  unitTests: [],
   libTests:['lib/tests/**/*.js'],
   styles: 'app/styles/*.+(less|css)'
 }
@@ -74,6 +76,24 @@ gulp.task('browserify', function() {
         .pipe(gulp.dest('./public/js/'));
 });
 
+gulp.task('lint', function () {
+  return 
+    gulp.src(['./app/**/*.js','./index.js','./lib/**/*.js']).pipe(jshint()).pipe(jshint.reporter('default'));
+});
+
+gulp.task('static-files',function(){
+  return gulp.src(paths.staticFiles)
+    .pipe(gulp.dest('public/'));
+});
+
+gulp.task('nodemon', function () {
+  nodemon({ script: 'index.js', ext: 'js', ignore: ['public/'] })
+    .on('change', ['lint'])
+    .on('restart', function () {
+      console.log('>> node restart');
+    })
+});
+
 gulp.task('watch', function() {
   // livereload.listen({ port: 35729 });
   gulp.watch(paths.jade, ['jade']);
@@ -82,13 +102,22 @@ gulp.task('watch', function() {
   // gulp.watch(paths.public).on('change', livereload.changed);
 });
 
-gulp.task('nodemon', function () {
-  nodemon({ script: 'index.js', ext: 'js', ignore: ['public/', 'node_modules/', 'bower_components'] })
-    .on('change', ['lint'])
-    .on('restart', function () {
-      console.log('>> node restart');
-    })
+gulp.task('watchify', function() {
+  var bundler = watchify(browserify('./app/application.js', watchify.args));
+  bundler.transform(stringify(['.html']));
+  // bundler.transform(es6ify);
+  bundler.on('update', rebundle);
+  function rebundle() {
+    return bundler.bundle()
+      // log errors if they happen
+      .on('error', gutil.log.bind(gutil, 'Browserify Error'))
+      .pipe(source('index.js'))
+      .pipe(gulp.dest('./public/js'));
+  }
+  return rebundle();
 });
 
-gulp.task('build', ['jade','less','bower', 'browserify', 'images']);
-gulp.task('default', ['build','browser-sync','nodemon','watch']);
+gulp.task('build', ['jade','less','static-files','browserify','bower']);
+gulp.task('heroku:production', ['build']);
+gulp.task('production', ['nodemon','build']);
+gulp.task('default', ['nodemon','watch','build']);
