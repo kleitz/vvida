@@ -1,7 +1,7 @@
 //var require the seqalize module
 var Seq = require('sequelize'),
-    db = require('../db_connect'),
-    rsvp = sequelize.define('rsvp', {
+    db = require('../db-connect'),
+    rsvp = db.define('rsvp', {
 
         // FOREIGN KEY
         // references the item id in the items table

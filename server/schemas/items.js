@@ -1,6 +1,6 @@
 //var require the seqalize module
 var Seq = require('sequelize'),
-    db = require('../db_connect'),
+    db = require('../db-connect'),
     items = db.define('items', {
 
         // FOREIGN KEY
