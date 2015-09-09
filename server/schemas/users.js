@@ -2,7 +2,7 @@
 var Seq = require('sequelize'),
     db = require('../db_connect'),
     users = db.define('users', {
-
+        
         //username
         username: {
             type: Seq.STRING,
@@ -24,6 +24,10 @@ var Seq = require('sequelize'),
         lastname: {
             type: Seq.STRING,
             allowNull: false
+        },
+        gender: {
+            type: Seq.ENUM,
+            values:['male','female']
         },
         // date of birth
         dob: {
@@ -61,11 +65,10 @@ var Seq = require('sequelize'),
         // enabled
         // gives options to enable or disable user
 
-        enabled: {
-
+        enabled: { 
             type: Seq.ENUM,
             values: ['yes', 'no']
-                // to be clarified
+            // to be clarified
         }
     });
 
