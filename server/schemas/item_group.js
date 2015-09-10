@@ -1,6 +1,8 @@
 //var require the sequelize module
 var Seq = require('sequelize'),
     db = require('../db-connect'),
+    users = require('./users'),
+    items = require('./items'),
     item_group = db.define('item_group', {
 
         // FOREIGN KEY
@@ -8,6 +10,10 @@ var Seq = require('sequelize'),
         item_id: {
             type: Seq.INTEGER,
             allowNull: false,
+            references: {
+                model: items,
+                key: 'id'
+            }
         },
 
         // FOREIGN KEY
@@ -15,7 +21,11 @@ var Seq = require('sequelize'),
         // The id of the person sharing, sponsoring or recommending the item
         created_by: {
             type: Seq.INTEGER.UNSIGNED,
-            allowNull: false
+            allowNull: false,
+            references: {
+                model: users,
+                key: 'id'
+            }
         },
 
         // FOREIGN KEY
@@ -24,7 +34,11 @@ var Seq = require('sequelize'),
 
         created_for: {
             type: Seq.INTEGER.UNSIGNED,
-            allowNull: false
+            allowNull: false,
+            references: {
+                model: users,
+                key: 'id'
+            }
         }
         // item name
         // e.g sponsored, shared, recommended

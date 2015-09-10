@@ -1,12 +1,17 @@
 //var require the seqalize module
 var Seq = require('sequelize'),
     db = require('../db-connect'),
+    users = require('./users'),
     events = db.define('events', {
         // FOREIGN KEY
         // references the user id in users table
         user_id: {
             type: Seq.INTEGER,
-            allowNull: false
+            allowNull: false,
+            references: {
+                model: users,
+                key: 'id'
+            }
         },
 
         // event name

@@ -1,6 +1,8 @@
 //var require the seqalize module
 var Seq = require('sequelize'),
     db = require('../db-connect'),
+    users = require('./users'),
+    items = require('./items'),
     images = db.define('images', {
 
         // FOREIGN KEY
@@ -8,13 +10,21 @@ var Seq = require('sequelize'),
         item_id: {
             type: Seq.INTEGER,
             allowNull: false,
+            references: {
+                model: items,
+                key: 'id'
+            }
         },
 
         // FOREIGN KEY
         // references the user id in users table
         user_id: {
             type: Seq.INTEGER,
-            allowNull: false
+            allowNull: false,
+            references: {
+                model: users,
+                key: 'id'
+            }
         },
         // image url
         // hold the url of the images
