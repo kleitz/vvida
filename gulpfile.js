@@ -3,7 +3,6 @@ var gulp = require('gulp');
   jade = require('gulp-jade');
   bower = require('gulp-bower');
   gutil = require('gulp-util');
-  concat = require('gulp-concat');
   browserify = require('browserify');
   path = require('path');
   stringify = require('stringify');
