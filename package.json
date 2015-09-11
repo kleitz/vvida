@@ -27,6 +27,9 @@
     "gulp-nodemon": "^2.0.4",
     "gulp-path": "^2.0.0",
     "gulp-util": "^3.0.6",
+    "pg": "^4.4.1",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^3.8.0",
     "stringify": "^3.1.0",
     "vinyl-source-stream": "^1.1.0"
   }
