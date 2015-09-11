@@ -1,4 +1,6 @@
 {
+  "name": "vvida",
+  "version": "1.0.0",
   "dependencies": {
     "angular": "latest",
     "angular-animate": "latest",
