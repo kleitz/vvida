@@ -1,15 +1,13 @@
-var gulp = require('gulp');
-less = require('gulp-less');
-jade = require('gulp-jade');
-bower = require('gulp-bower');
-gutil = require('gulp-util');
-concat = require('gulp-concat');
-browserify = require('browserify');
-path = require('path');
-stringify = require('stringify');
-source = require('vinyl-source-stream');
-imagemin = require('gulp-imagemin');
-nodemon = require('gulp-nodemon'),
+var gulp = require('gulp'),
+  less = require('gulp-less'),
+  jade = require('gulp-jade'),
+  bower = require('gulp-bower'),
+  gutil = require('gulp-util'),
+  browserify = require('browserify'),
+  path = require('path'),
+  source = require('vinyl-source-stream'),
+  imagemin = require('gulp-imagemin'),
+  nodemon = require('gulp-nodemon'),
   paths = {
     public: 'public/**',
     jade: 'app/**/*.jade',
@@ -23,7 +21,7 @@ nodemon = require('gulp-nodemon'),
     unitTests: [],
     libTests: ['lib/tests/**/*.js'],
     styles: 'app/styles/*.+(less|css)'
-  }
+  };
 
 gulp.task('less', function() {
   gulp.src(paths.styles)
@@ -64,6 +62,7 @@ gulp.task('browserify', function() {
     .pipe(gulp.dest('./public/js/'));
 });
 
+
 gulp.task('lint', function() {
   return
   gulp.src(['./app/**/*.js', './index.js', './lib/**/*.js']).pipe(jshint()).pipe(jshint.reporter('default'));
@@ -87,11 +86,9 @@ gulp.task('nodemon', function() {
 });
 
 gulp.task('watch', function() {
-  // livereload.listen({ port: 35729 });
   gulp.watch(paths.jade, ['jade']);
   gulp.watch(paths.styles, ['less']);
   gulp.watch(paths.scripts, ['browserify']);
-  // gulp.watch(paths.public).on('change', livereload.changed);
 });
 
 gulp.task('build', ['jade', 'less', 'static-files', 'browserify', 'bower']);
