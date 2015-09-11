@@ -86,7 +86,7 @@ gulp.task('static-files',function(){
 });
 
 gulp.task('nodemon', function () {
-  nodemon({ script: 'index.js', ext: 'js', ignore: ['public/'] })
+  nodemon({ script: 'index.js', ext: 'js', ignore: ['public/', 'node_modules','bower_components'] })
     .on('change', ['lint'])
     .on('restart', function () {
       console.log('>> node restart');
