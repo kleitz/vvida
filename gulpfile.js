@@ -11,7 +11,7 @@ var gulp = require('gulp'),
   nodemon = require('gulp-nodemon'),
   paths = {
     public: 'public/**',
-    jade: 'app/**/*.jade',
+    jade: ['!app/shared/**', 'app/**/*.jade'],
     scripts: 'app/**/*.js',
     images: 'app/images/**/*',
     staticFiles: [
