@@ -1,70 +1,12 @@
 doctype html
-html(lang='en')
+html(lang='en' ng-app="vvida")
   head
-    base(href='/')
-    meta(charset='utf-8')
-    meta(name='description', content='Reviews and Recommendations of top places, events, products.')
-    link(rel='stylesheet', type='text/css', href='css/reset.css')
-    link(rel='stylesheet', type='text/css', href='css/app.css')
-    title Vvida
+    include shared/head
   body
     main
-      .image-background
-        .image-overlay
-          header
-            .header-logo
-              img(src='images/vvidaLogo.png')
-            nav
-              p Home
-              p About
-              p Event
-              p Login
-          .middle-content
-            h2 WELCOME HOME
-            h4 Create, Review, Rate
-      .top-reviews
-        h3 TOP REVIEWS
-        .content-top-reviews
-          .child-content-top-reviews-1
-            img(src='images/reviews-photo1.jpg')
-            p
-              | Unlike ice cream trucks of yore, Twirl & Dip is pretty stationary in a spot to the right of Cal Academy. When you're facing the museum, swing to the right and follow it to the main road and you'll see the truck on your left. Unless Karl the Fog is completely blanketing the park, there's guaranteed to be a bit of a wait.
-          .child-content-top-reviews-2
-            img(src='images/reviews-photo2.jpeg')
-            p
-              | What should you get? Don't argue with me. It's organic vanilla bean soft serve (none of this "1/2 1/2 swirl" business), dipped in silky Tcho chocolate topped with barely there granules of Maldon sea salt. If you're looking for an Insta-worthy photo op and I know you are, try rainbow sprinkles, honeycomb candy, toffee pieces, etc for some texture and color.
-          .child-content-top-reviews-3
-            img(src='images/reviews-photo3.jpg')
-            p
-              | It only falls one star for how pricey a single cone gets with just one or two add-ons. Unless you're just going for a simple scoop of Mitchell's, a soft-serve cone runs $5-7 easy. But hey, it's organic, fair trade and uses local as much as possible so feel good about your ice-cream indulging self.
-      .events
-        h3 EVENTS
-        .content-events
-          .child-content-top-reviews-1
-            img(src='images/event-photo1.jpg')
-            p
-              | As I walked in, Analog Soul were wrapping up their brief warm-up. The pair are always a joy to hear, but this time the sense of anticipation for Parrish was too strong to fully engage. Some devoted dancers crowded around the booth.
-          .child-content-top-reviews-2
-            img(src='images/event-photo2.jpg')
-            p
-              | Whereas those shows were at Output and Cielo, a pair of established nightclubs, this time he had been booked by DJ duo Analog Soul and DIY promoters Space Is The Place for an eight-hour set at their Brooklyn loft.
-          .child-content-top-reviews-3
-            img(src='images/event-photo3.jpg')
-            p
-              | The festival features three full days of jazz, from July 31 - August 2 at Fort Adams State Park. One of the Park System's national treasures, the Fort is situated at the mouth of Newport Harbor and has panoramic views of the Newport Bridge and the East Passage.
-      .products
-        h3 PRODUCTS
-        .content-products
-          .child-content-top-reviews-1
-            img(src='images/product-photo1.png')
-            p
-              | With AMD graphics, an innovative Trackpad, nine hours of battery life and one of the fastest hard drives we've ever tested, the 2015 MacBook Pro is a force to be reckoned with.
-          .child-content-top-reviews-2
-            img(src='images/product-photo2.jpg')
-            p
-              | Apple has also dropped the iPhone 5S’ sim-free price on the Apple Store and is selling the 16GB model for £459 - making it £80 cheaper than the £540, 16GB iPhone 6.
-          .child-content-top-reviews-3
-            img(src='images/product-photo3.jpg')
-            p
-              | Which brings us to the 7D, a camera that seems determined to wrestle back the king of APS-C crown. At first glance it looks a lot like the EOS 50D - it's unmistakably a member of the EOS family - but a closer look shows that this is far from being the gentle refresh.
+      include shared/header
+      md-content(ui-view)
+  footer
+    include shared/footer
 
+  
