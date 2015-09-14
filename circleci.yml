@@ -10,8 +10,8 @@ deployment:
   production:
     branch: master
     heroku:
-      appname: matsi
+      appname: vvida
   staging:
     branch: develop
     heroku:
-      appname: tatsi
+      appname: vvida-staging
