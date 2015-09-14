@@ -12,6 +12,6 @@ deployment:
     heroku:
       appname: vvida
   staging:
-    branch: develop
+    branch: staging
     heroku:
       appname: vvida-staging
