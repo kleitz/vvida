@@ -54,11 +54,11 @@ gulp.task('bower', function() {
 });
 
 gulp.task('browserify', function() {
-    return browserify('./app/application.js').bundle()
+    return browserify('./app/scripts/application.js').bundle()
         .on('success', gutil.log.bind(gutil, 'Browserify Rebundled'))
         .on('error', gutil.log.bind(gutil, 'Browserify Error: in browserify gulp task'))
         // vinyl-source-stream makes the bundle compatible with gulp
-        .pipe(source('index.js')) // Desired filename
+        .pipe(source('application.js')) // Desired filename
         // Output the file
         .pipe(gulp.dest('./public/js/'));
 });
