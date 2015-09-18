@@ -24,6 +24,12 @@
     }, {
       name: 'About',
       state: 'about'
+    }, {
+      name: 'Events',
+      state: 'events'
+    }, {
+      name: 'Log In',
+      state: 'login'
     }];
 
   }]);
@@ -47,6 +53,11 @@
         url: "/about",
         controller: 'HomeCtrl',
         templateUrl: "views/about.html"
+      })
+      .state('events', {
+        url: "/events",
+        controller: 'HomeCtrl',
+        templateUrl: "views/events.html"
       })
       .state('404', {
         url: "/404",
