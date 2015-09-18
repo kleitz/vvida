@@ -1,0 +1,7 @@
+.footer
+  .md-content.md-padding.md-margin
+    .md-title(style="color: white") About
+    ul(style="list-style-type: none")
+      li(ng-repeat="aboutItem in about" ui-sref="{{aboutItem.state}}")
+        md-button(style="margin: 0; text-align:left; color: white" ){{aboutItem.name}}
+  
