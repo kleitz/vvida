@@ -111,5 +111,6 @@ gulp.task('watchify', function() {
 
 gulp.task('build', ['jade', 'less', 'static-files', 'images', 'browserify', 'bower']);
 gulp.task('heroku:production', ['build']);
+gulp.task('heroku:staging', ['build']);
 gulp.task('production', ['nodemon', 'build']);
 gulp.task('default', ['nodemon', 'watch', 'build']);
