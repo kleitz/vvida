@@ -1,12 +1,10 @@
 doctype html
-html(onload='')
+html(lang='en' ng-app="vvida")
   head
-    title vvida.com
-    link(rel='stylesheet', type='text/css', href='css/styles.css')
+    include shared/head
   body
-    .headerDiv vvida.com
-    #arrayChoice
-      h3 Some Heading
-    #div0
-      p Text Here
-    script(type='text/javascript', src='scripts/index.js')
+    main
+      include shared/header
+      md-content(ui-view)
+  footer
+    include shared/footer

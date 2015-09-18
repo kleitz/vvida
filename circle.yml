@@ -1,0 +1,17 @@
+dependencies:
+ pre:
+  - bower install
+ post:
+  - npm install module-deps
+  - npm install gulp -g
+test:
+  override:
+deployment:
+  production:
+    branch: master
+    heroku:
+      appname: vvida
+  staging:
+    branch: staging
+    heroku:
+      appname: vvida-staging
