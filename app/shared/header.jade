@@ -1,13 +1,7 @@
-.image-background
-    .image-overlay
-      header
-        .header-logo
-          img(src='images/vvidaLogo.png')
-        nav
-          p Home
-          p About
-          p Event
-          p Login
-      .middle-content
-        h2 WELCOME HOME
-        h4 Create, Review, Rate
+md-toolbar.md-accent.md-whiteframe-z3
+  .md-toolbar-tools.md-accent
+    a(ui-sref="home")
+      img(src="images/logo.png" height="32")
+    span(flex)
+    a(ng-repeat="menuItem in menu" ui-sref="{{menuItem.state}}")
+        md-button {{menuItem.name}}
