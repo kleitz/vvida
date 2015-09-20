@@ -82,7 +82,7 @@ gulp.task('nodemon', function() {
     .on('change', ['lint'])
     .on('restart', function() {
       console.log('>> node restart');
-    })
+    });
 });
 
 gulp.task('watch', function() {
@@ -91,22 +91,6 @@ gulp.task('watch', function() {
   gulp.watch(paths.styles, ['less']);
   gulp.watch(paths.scripts, ['browserify']);
   // gulp.watch(paths.public).on('change', livereload.changed);
-});
-
-gulp.task('watchify', function() {
-  var bundler = watchify(browserify('./app/application.js', watchify.args));
-  bundler.transform(stringify(['.html']));
-  // bundler.transform(es6ify);
-  bundler.on('update', rebundle);
-
-  function rebundle() {
-    return bundler.bundle()
-      // log errors if they happen
-      .on('error', gutil.log.bind(gutil, 'Browserify Error'))
-      .pipe(source('index.js'))
-      .pipe(gulp.dest('./public/js'));
-  }
-  return rebundle();
 });
 
 gulp.task('build', ['jade', 'less', 'static-files', 'images', 'browserify', 'bower']);
