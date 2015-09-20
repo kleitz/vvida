@@ -63,6 +63,11 @@ gulp.task('browserify', function() {
     .pipe(gulp.dest('./public/js/'));
 });
 
+gulp.task('lint', function() {
+  return
+  gulp.src(['./app/**/*.js', './index.js', './lib/**/*.js']).pipe(jshint()).pipe(jshint.reporter('default'));
+});
+
 gulp.task('static-files', function() {
   return gulp.src(paths.staticFiles)
     .pipe(gulp.dest('public/'));
