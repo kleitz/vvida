@@ -28,6 +28,7 @@
     "gulp-concat": "^2.6.0",
     "gulp-imagemin": "^2.3.0",
     "gulp-jade": "^1.1.0",
+    "gulp-karma": "0.0.4",
     "gulp-less": "^3.0.3",
     "gulp-nodemon": "^2.0.4",
     "gulp-path": "^2.0.0",
