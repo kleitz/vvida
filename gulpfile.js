@@ -5,7 +5,6 @@ var gulp = require('gulp'),
   gutil = require('gulp-util'),
   browserify = require('browserify'),
   path = require('path'),
-  stringify = require('stringify'),
   source = require('vinyl-source-stream'),
   imagemin = require('gulp-imagemin'),
   nodemon = require('gulp-nodemon'),
@@ -64,8 +63,9 @@ gulp.task('browserify', function() {
 });
 
 gulp.task('lint', function() {
-  return
-  gulp.src(['./app/**/*.js', './index.js', './lib/**/*.js']).pipe(jshint()).pipe(jshint.reporter('default'));
+  return gulp.src(['./app/**/*.js', './index.js', './lib/**/*.js'])
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'));
 });
 
 gulp.task('static-files', function() {
