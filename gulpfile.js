@@ -9,6 +9,7 @@ var gulp = require('gulp'),
   source = require('vinyl-source-stream'),
   imagemin = require('gulp-imagemin'),
   nodemon = require('gulp-nodemon'),
+  karma = require('gulp-karma'),
   paths = {
     public: 'public/**',
     jade: ['!app/shared/**', 'app/**/*.jade'],
@@ -19,10 +20,30 @@ var gulp = require('gulp'),
       '!app/images/**/*',
       'app/**/*.*'
     ],
-    unitTests: [],
+    unitTests: [
+      'public/lib/angular/angular.min.js',
+      'public/lib/angular-ui-router/release/angular-ui-router.min.js',
+      'public/js/application.js',
+      'test/unit/**/*.spec.js'
+    ],
     libTests: ['lib/tests/**/*.js'],
     styles: 'app/styles/*.+(less|css)'
   };
+
+gulp.task('test', function() {
+  // Be sure to return the stream
+  return gulp.src(paths.unitTests)
+    .pipe(karma({
+      configFile: __dirname + '/karma.conf.js',
+      // autoWatch: false,
+      // singleRun: true
+      action: 'run'
+    }))
+    .on('error', function(err) {
+      // Make sure failed tests cause gulp to exit non-zero
+      throw err;
+    });
+});
 
 gulp.task('less', function() {
   gulp.src(paths.styles)
@@ -97,4 +118,4 @@ gulp.task('build', ['jade', 'less', 'static-files', 'images', 'browserify', 'bow
 gulp.task('heroku:production', ['build']);
 gulp.task('heroku:staging', ['build']);
 gulp.task('production', ['nodemon', 'build']);
-gulp.task('default', ['nodemon', 'watch', 'build']);
+gulp.task('default', ['nodemon', 'watch', 'build', 'test']);

@@ -14,29 +14,22 @@ module.exports = function(config) {
 
 
     // list of files / patterns to load in the browser
-    files: [
-      'public/lib/*.min.js',
-      'tests/unit/*.spec.js',
-      'public/js/*.js'
-    ],
+    files: [],
 
 
     // list of files to exclude
-    exclude: [
-    ],
+    exclude: [],
 
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: {
-    },
+    preprocessors: {},
 
 
     // test results reporter to use
-    // possible values: 'dots', 'progress'
+    // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage', 'spec', 'failed'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
-
+    reporters: [ /*'coverage',*/ 'progress'],
 
     // web server port
     port: 9876,
@@ -52,14 +45,31 @@ module.exports = function(config) {
 
 
     // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: true,
+    // on true, on Circle CI will break
+    autoWatch: false,
 
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    // Firefox and Safari can be uncomment for person's who have all the browsers
-    browsers: ['Chrome'] // 'Firefox', 'Safari'],
+    // Options:
+    // - Chrome
+    // - ChromeCanary
+    // - Firefox
+    // - Opera
+    // - Safari
+    // - PhantomJS
+    // - IE
+    browsers: ['Chrome'], // 'Firefox', 'Safari'],
 
+    // https://www.youtube.com/watch?v=FQwZrOAmMAc
+    // To turn off chrome's security limitations that do not allow some basics things to run
+    // That are required while developing
+    // customLauncher: {
+    //   chrome_without_security: {
+    //     base: "Chrome",
+    //     flags: ["--disable-web-security"]
+    //   }
+    // }
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
