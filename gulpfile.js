@@ -3,6 +3,7 @@ var gulp = require('gulp'),
   jade = require('gulp-jade'),
   bower = require('gulp-bower'),
   gutil = require('gulp-util'),
+  jshint = require('jshint'),
   browserify = require('browserify'),
   path = require('path'),
   source = require('vinyl-source-stream'),
@@ -63,7 +64,7 @@ gulp.task('browserify', function() {
 });
 
 gulp.task('lint', function() {
-  return gulp.src(['./app/**/*.js', './index.js', './lib/**/*.js'])
+  return gulp.src(['./app/**/*.js', './index.js', './server/**/*.js'])
     .pipe(jshint())
     .pipe(jshint.reporter('default'));
 });
