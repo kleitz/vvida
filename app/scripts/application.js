@@ -34,62 +34,62 @@
 
     $rootScope.discover = [{
       name: 'The Weekly Vvida',
-      state: 'footer'
+      state: 'home'
     }, {
       name: 'Vvida Blog',
-      state: 'footer'
+      state: 'home'
     }, {
       name: 'Support',
-      state: 'footer'
+      state: 'home'
     }, {
       name: 'Vvida Mobile',
-      state: 'footer'
+      state: 'home'
     }, {
       name: 'Developers',
-      state: 'footer'
+      state: 'home'
     }, {
       name: 'RSS Feed',
-      state: 'footer'
+      state: 'home'
     }];
 
     $rootScope.business = [{
       name: 'Claim your Business Page',
-      state: 'footer'
+      state: 'home'
     }, {
       name: 'Advertise on Vvida',
-      state: 'footer'
+      state: 'home'
     }, {
       name: 'Support',
-      state: 'footer'
+      state: 'home'
     }, {
       name: 'Business Success Stories',
-      state: 'footer'
+      state: 'home'
     }, {
       name: 'Business Support',
-      state: 'footer'
+      state: 'home'
     }, {
       name: 'Vvida Blog for Business Owners',
-      state: 'footer'
+      state: 'home'
     }];
 
     $rootScope.about = [{
       name: 'About Vvida',
-      state: 'footer'
+      state: 'home'
     }, {
       name: 'Press',
-      state: 'footer'
+      state: 'home'
     }, {
       name: 'Content Guidelines',
-      state: 'footer'
+      state: 'home'
     }, {
       name: 'Terms of Service',
-      state: 'footer'
+      state: 'home'
     }, {
       name: 'Private Policy',
-      state: 'footer'
+      state: 'home'
     }, {
       name: 'Ad Choices',
-      state: 'footer'
+      state: 'home'
     }];
 
 
@@ -119,11 +119,6 @@
         url: "/events",
         controller: 'HomeCtrl',
         templateUrl: "views/events.html"
-      })
-      .state('footer', {
-        url: "/footer",
-        controller: 'HomeCtrl',
-        templateUrl: "views/footer.html"
       })
       .state('404', {
         url: "/404",
