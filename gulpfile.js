@@ -24,7 +24,7 @@ var gulp = require('gulp'),
       'public/lib/angular/angular.min.js',
       'public/lib/angular-ui-router/release/angular-ui-router.min.js',
       'public/js/application.js',
-      'test/unit/**/*.spec.js'
+      'tests/unit/**/*.spec.js'
     ],
     libTests: ['lib/tests/**/*.js'],
     styles: 'app/styles/*.+(less|css)'
