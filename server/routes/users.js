@@ -1,3 +1,5 @@
+var User = require('../schemas/users');
+
 module.exports = function(app, config, passport) {
   // login with email
   app.route('/api/login')
@@ -13,8 +15,6 @@ module.exports = function(app, config, passport) {
   app.route('/api/signup')
     .post(passport.authenticate('signup'), function(req, res) {
       res.json({
-        id: req.user.id,
-        email: req.user.email,
         message: "You have been succcefully sign up to vvida"
       });
     });
@@ -32,7 +32,7 @@ module.exports = function(app, config, passport) {
         params: req.params
       });
     });
-
+    // user email update route
   app.route('/api/users/:id')
     .get(function(req, res) {
       res.json({
@@ -41,9 +41,30 @@ module.exports = function(app, config, passport) {
       });
     })
     .put(function(req, res) {
-      res.json({
-        message: " Hey user are you ready to edit your profile",
-        params: req.params
+      // edit user email
+      var userId = req.param.id,
+        email = req.body.email,
+        update;
+
+      update = User.update({
+        email: email
+      }, {
+        where: {
+          id: userId
+        }
+      }).then(function() {
+        if (!update) {
+          res.json({
+            isUpdate: false,
+            message: "Email Update failed"
+          });
+        } else {
+          res.json({
+            id: userId,
+            email: email,
+            message: "Email succesfully changed, nice work user",
+          });
+        }
       });
     })
     .delete(function(req, res) {
