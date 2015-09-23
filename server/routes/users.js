@@ -4,21 +4,18 @@ module.exports = function(app, config, passport) {
     .post(passport.authenticate('login'), function(req, res) {
       res.json({
         id: req.user.id,
-        username: req.user.username
+        username: req.user.email,
+        isLoggedIn: true
       });
     });
 
   // signup with email route
   app.route('/api/signup')
-    .get(function(req, res) {
+    .post(passport.authenticate('signup'), function(req, res) {
       res.json({
-        message: "user has been allowed to login"
-      });
-    })
-    .post(function(req, res) {
-      res.json({
-        message: " Hey user are you ready to edit your profile",
-        params: req.params
+        id: req.user.id,
+        email: req.user.email,
+        message: "You have been succcefully sign up to vvida"
       });
     });
 
