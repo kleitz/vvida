@@ -9,9 +9,9 @@ var express = require('express'),
   routes = require('./server/routes'),
   app = express(),
   passport = require('passport'),
-  LocalStrategy = require('passport-local').Strategy,
+  localStrategy = require('passport-local').Strategy,
   session = require('express-session'),
-  auth = require('./server/routes/auth');
+  auth = require('./server/services/auth');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'server/views'));
@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 
-auth(passport, LocalStrategy);
+auth(passport, localStrategy);
 passport.serializeUser(function(user, done) {
   done(null, user);
 });
