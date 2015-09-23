@@ -4,11 +4,7 @@ module.exports = function(app, config, passport) {
   // login with email
   app.route('/api/login')
     .post(passport.authenticate('login'), function(req, res) {
-      res.json({
-        id: req.user.id,
-        username: req.user.email,
-        isLoggedIn: true
-      });
+      res.json(req.user);
     });
 
   // signup with email route
@@ -28,46 +24,45 @@ module.exports = function(app, config, passport) {
     })
     .post(function(req, res) {
       res.json({
-        message: " Hey user are you ready to edit your profile",
+        message: "Hey user are you ready to edit your profile",
         params: req.params
       });
     });
-    // user email update route
+
+  // user email update route
   app.route('/api/users/:id')
     .get(function(req, res) {
-      res.json({
-        name: "thomas",
-        params: req.params
+      var userId = req.params.id;
+      User.findOne({
+        where: {
+          id: userId
+        }
+      }).then(function(user) {
+        if (!user) {
+          res.status(404).send('User not found');
+        } else {
+          user.password = null;
+          delete user.password;
+          res.json(user);
+        }
       });
     })
     .put(function(req, res) {
       // edit user email
-      var userId = req.param.id,
-        email = req.body.email,
-        update;
-
-      update = User.update({
-        email: email
-      }, {
+      delete req.body.password;
+      var update = User.update(req.body, {
         where: {
-          id: userId
+          id: req.params.id
         }
       }).then(function() {
         if (!update) {
-          res.json({
-            isUpdate: false,
-            message: "Email Update failed"
-          });
+          res.status(500).send('Error updating profile.');
         } else {
-          res.json({
-            id: userId,
-            email: email,
-            message: "Email succesfully changed, nice work user",
-          });
+          res.send('Profile updated successfully.');
         }
       });
     })
     .delete(function(req, res) {
-
+      res.status(501).send('Not implemented');
     });
 };
