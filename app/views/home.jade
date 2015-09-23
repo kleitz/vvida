@@ -1,18 +1,24 @@
-md-card.jumbotron 
+md-card.jumbotron
     .jumbotron-image.md-card-image(style='background-image: url(images/vvidaStockPhoto_2.jpg); padding-bottom: 0')
       .image-overlay(style="padding-bottom: 0; display: flex; flex-direction: column;")
         p WELCOME HOME
         p.jumbotron-middle-small-text Create, Review, Rate
         .space
-        .search-div
-          .search-bar
-            input.items 
-            input.items
-            md-button.items.button Search
-              
-        
-      
-      
+        .search-div(layout layout-sm="column" flex)
+          .search-bar(layout layout-sm="column" flex-60)
+            md-input-container(flex)
+              label Product
+              md-icon(class="fa fa-2x fa-puzzle-piece")
+              input(ng-model="search.searchItem")
+            md-input-container(flex)
+              label Location
+              md-icon(class="fa fa-2x fa-map-marker")
+              input(ng-model="search.location")
+            md-input-container.search-button(flex-30)
+              md-button(class="md-warn md-raised")
+                i(class="fa fa-search")
+                |Search
+
 .top-reviews
   h4.md-margin TOP REVIEWS
   .content-top-reviews(layout="row" layout-sm="column")
