@@ -27,7 +27,6 @@
     "process",
     "__dirname",
     "console"
-
   ],
   "quotmark": true,
   "trailing": true,
