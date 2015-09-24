@@ -24,9 +24,6 @@
     "inject",
     "module",
     "require",
-    "console",
-    "process",
-    "favicon"
   ],
   "quotmark": true,
   "trailing": true,
