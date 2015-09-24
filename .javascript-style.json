@@ -23,7 +23,10 @@
     "angular",
     "inject",
     "module",
-    "require"
+    "require",
+    "process",
+    "__dirname",
+    "console"
   ],
   "quotmark": true,
   "trailing": true,
