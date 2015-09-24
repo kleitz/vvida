@@ -23,7 +23,7 @@
     "angular",
     "inject",
     "module",
-    "require",
+    "require"
   ],
   "quotmark": true,
   "trailing": true,
