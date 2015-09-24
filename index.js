@@ -2,14 +2,14 @@ var express = require('express'),
   path = require('path'),
   env = process.env.NODE_ENV || 'development',
   config = require('./server/config')[env],
-  favicon = require('serve-favicon'),
+  //favicon = require('serve-favicon'),
   logger = require('morgan'),
   cookieParser = require('cookie-parser'),
   bodyParser = require('body-parser'),
   routes = require('./server/routes'),
   app = express(),
   passport = require('passport'),
-  localStrategy = require('passport-local').Strategy,
+  LocalStrategy = require('passport-local').Strategy,
   session = require('express-session'),
   auth = require('./server/services/auth');
 
@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 
-auth(passport, localStrategy);
+auth(passport, LocalStrategy);
 passport.serializeUser(function(user, done) {
   done(null, user);
 });
@@ -66,6 +66,7 @@ if (env === 'development') {
       message: err.message,
       error: err
     });
+    next();
   });
 }
 

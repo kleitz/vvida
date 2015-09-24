@@ -23,7 +23,10 @@
     "angular",
     "inject",
     "module",
-    "require"
+    "require",
+    "console",
+    "process",
+    "favicon"
   ],
   "quotmark": true,
   "trailing": true,

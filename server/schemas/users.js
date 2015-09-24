@@ -42,6 +42,7 @@ var Seq = require('sequelize'),
       // email
       email: {
         type: Seq.STRING,
+        unique:true,
         validate: {
           isEmail: true
         }
