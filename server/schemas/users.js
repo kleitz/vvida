@@ -6,19 +6,16 @@ var Seq = require('sequelize'),
       //username
       username: {
         type: Seq.STRING,
-        allowNull: false,
         unique: true,
       },
       //password
       password: {
         type: Seq.STRING,
-        allowNull: false,
         unique: true
       },
       // firstname
       firstname: {
         type: Seq.STRING,
-        allowNull: false,
         validate: {
           isAlpha: true
         }
@@ -26,7 +23,6 @@ var Seq = require('sequelize'),
       // lastname
       lastname: {
         type: Seq.STRING,
-        allowNull: false,
         validate: {
           isAlpha: true
         }
@@ -46,7 +42,6 @@ var Seq = require('sequelize'),
       // email
       email: {
         type: Seq.STRING,
-        allowNull: false,
         validate: {
           isEmail: true
         }
@@ -54,24 +49,20 @@ var Seq = require('sequelize'),
       // country
       country: {
         type: Seq.STRING,
-        allowNull: false
       },
       // city
       city: {
         type: Seq.STRING,
-        allowNull: false
       },
       // role
       role: {
         type: Seq.ENUM,
         values: ['user', 'admin', 'super-admin'],
-        allowNull: false
       },
       // status
       status: {
         type: Seq.ENUM,
         values: ['active', 'innactive'],
-        allowNull: false
       },
 
       // enabled
