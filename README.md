@@ -1,2 +1,47 @@
-# vvida
-## Live Life Large
+# Vvida
+Vvida is a nightlife and product review app. It enables the users to reviews services offered by various establishments, e.g restaurants, hotels, clubs, food, transport, vacation places etc. as well as products used by consumers.  
+
+## Installation
+
+1. Clone the repository at https://github.com/andela/vvida.git or go to the project github page here https://github.com/andela/vvida/ and download the zip file of the project. Unzip it.  
+1. Navigate to your terminal.
+1. Check that you are on the master branch using `git status`.  
+1. Run  `bower install` and `npm install` to install project dependencies.
+
+## Usage
+Run `gulp` on your terminal.
+Navigate to `http://localhost:3000`  
+
+## Contributing
+1. Fork it!
+1. Create your feature branch: `git checkout -b my-new-feature`
+1. Commit your changes: `git commit -m 'Add some feature`
+1. Push to the branch: `git push origin my-new-feature`
+1. Submit a pull request :D
+
+## File List
+
+./app  
+./server  
+.bowerrc  
+.gitignore  
+.hound.yml  
+.javascript-style.json  
+.bower.json  
+circle.yml  
+gulpfile.js  
+index.js  
+package.json  
+Procfile  
+README.md  
+
+## Author and contributors
+
+Godson Ukpere   
+Thomas Nyambati 
+Eugene Mutai  
+Martin Mwangi  
+Hannah Koske  
+
+
+
