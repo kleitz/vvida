@@ -3,8 +3,8 @@ Vvida is a nightlife and product review app. It enables the users to reviews ser
 
 ## Installation
 
-1. Download and install [**Node JS**](**https://nodejs.org/en/**) if not already installed.
-1. Download and install [**PostgreSQL**](**http://www.postgresql.org/download/**) if not already installed.  
+1. Download and install [**Node JS**](https://nodejs.org/en/) if not already installed.
+1. Download and install [**PostgreSQL**](http://www.postgresql.org/download/) if not already installed.  
 1. Clone the [**repository here**](https://github.com/andela/vvida.git) or go to the project github page here [https://github.com/andela/vvida/] and download the zip file of the project. Unzip it.  
 1. Navigate to your terminal and change your directory to the **vvida project directory**.
 1. Check that you are on the master branch using `git status`.
