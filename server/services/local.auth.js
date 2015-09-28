@@ -1,6 +1,6 @@
 var User = require('../schemas/users'),
   bcrypt = require('bcrypt-nodejs');
-//
+
 module.exports = function(passport, LocalStrategy) {
   // signup middleware for local signup
   passport.use('signup', new LocalStrategy({
@@ -41,7 +41,9 @@ module.exports = function(passport, LocalStrategy) {
         });
       }
 
-      if (user.password !== password) {
+      // we require to compare the sent password hashed value with the saved hashed value
+      var hashedPassword = bcrypt.hashSync(password);
+      if (user.password !== hashedPassword) {
         return done(null, false, {
           message: 'invalid password'
         });

@@ -10,8 +10,10 @@ var express = require('express'),
   app = express(),
   passport = require('passport'),
   LocalStrategy = require('passport-local').Strategy,
+  FacebookStrategy = require('passport-facebook').Strategy,
+  GoogleStrategy = require('passport-google-oauth').OAuth2Strategy,
   session = require('express-session'),
-  auth = require('./server/services/auth');
+  auth = require('./server/services');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'server/views'));
@@ -25,7 +27,7 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 
-auth(passport, LocalStrategy);
+auth(passport, LocalStrategy, FacebookStrategy, GoogleStrategy);
 passport.serializeUser(function(user, done) {
   done(null, user);
 });
