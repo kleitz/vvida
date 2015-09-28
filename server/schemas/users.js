@@ -3,19 +3,21 @@ var Seq = require('sequelize'),
   db = require('../config/db-connect'),
   users = db.define('users', {
 
-      //username
+      // username
       username: {
         type: Seq.STRING,
         unique: true,
       },
-      //password
+      // password
       password: {
         type: Seq.STRING,
-        unique: true
+        unique: true,
+        allowNull: true,
       },
       // firstname
       firstname: {
         type: Seq.STRING,
+        allowNull: true,
         validate: {
           isAlpha: true
         }
@@ -23,13 +25,15 @@ var Seq = require('sequelize'),
       // lastname
       lastname: {
         type: Seq.STRING,
+        allowNull: true,
         validate: {
           isAlpha: true
         }
       },
       gender: {
         type: Seq.ENUM,
-        values: ['male', 'female']
+        values: ['male', 'female', 'hidden'],
+        defaultValue: 'hidden'
       },
       // date of birth
       dob: {
@@ -42,7 +46,7 @@ var Seq = require('sequelize'),
       // email
       email: {
         type: Seq.STRING,
-        unique:true,
+        unique: true,
         validate: {
           isEmail: true
         }
@@ -50,20 +54,35 @@ var Seq = require('sequelize'),
       // country
       country: {
         type: Seq.STRING,
+        allowNull: true,
       },
       // city
       city: {
         type: Seq.STRING,
+        allowNull: true,
       },
       // role
       role: {
         type: Seq.ENUM,
         values: ['user', 'admin', 'super-admin'],
+        defaultValue: 'user'
       },
       // status
       status: {
         type: Seq.ENUM,
         values: ['active', 'innactive'],
+        defaultValue: 'active'
+      },
+
+      // facebook and google IDs of the user
+      facebook_auth_id: {
+        type: Seq.STRING,
+        allowNull: true,
+      },
+
+      google_auth_id: {
+        type: Seq.STRING,
+        allowNull: true,
       },
 
       // enabled
@@ -71,12 +90,23 @@ var Seq = require('sequelize'),
 
       enabled: {
         type: Seq.ENUM,
-        values: ['yes', 'no']
-          // to be clarified
+        values: ['yes', 'no'],
+        // to be clarified
+        defaultValue: 'yes'
       }
     },
     // table configuration
     {
+      instanceMethods: {
+        getFullname: function() {
+          return [this.firstname, this.lastname].join(' ')
+        },
+        setFullname: function(value) {
+          var names = value.split(' ');
+          this.setDataValue('firstname', names.slice(0, -1).join(' '));
+          this.setDataValue('lastname', names.slice(-1).join(' '));
+        },
+      },
       // prevent time stamps from using camelase
       // updatedAt to updated_at and createdAt to created-at
       underscore: true,
