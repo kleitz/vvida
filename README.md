@@ -1,5 +1,5 @@
 # Vvida
-Vvida is a nightlife and product review app. It enables the users to review services offered by various establishments, e.g restaurants, hotels, clubs, food, transport, vacation places etc. as well as products used by consumers.  
+Vvida is a nightlife establishment, service and product review app. It enables the users to review services offered by various establishments, e.g restaurants, hotels, clubs, food, transport, vacation places etc. as well as products used by consumers.  
 
 ## Installation
 
