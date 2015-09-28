@@ -11,7 +11,7 @@ Vvida is a nightlife and product review app. It enables the users to reviews ser
 1. Run `npm install bower` first, then `bower install` to install front-end dependencies and lastly `npm install` to install back-end dependencies.
 
 ## Usage
-Run `gulp` on your terminal.
+Run `gulp` on your terminal.  
 Navigate to `http://localhost:3000` on your browser.   
 
 ## Contributing
