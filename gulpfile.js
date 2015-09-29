@@ -106,6 +106,18 @@ gulp.task('nodemon', function() {
     });
 });
 
+gulp.task('e2e',function(cb){
+  gulp.src(["./lib/protractor/tests/**/*.js"])
+  .pipe(protractor({
+      configFile: "./protractor.conf.js",
+      args: ['--baseUrl', 'http://127.0.0.1:8000']
+  }))    
+  .on('error', function(e) {
+        console.log(e)
+  })
+  .on('end', cb);    
+});
+
 gulp.task('watch', function() {
   // livereload.listen({ port: 35729 });
   gulp.watch(paths.jade, ['jade']);
