@@ -1,0 +1,18 @@
+.signup(ng-controller='LoginCtrl', layout='column', style='padding-bottom: 15px;')
+  md-content(layout-padding='', style='height: 600px;padding: 24px;')
+    md-toolbar
+      .md-toolbar-tools
+        h2.md-flex sign up
+      md-card
+        md-input-container(md-no-float='')
+          br
+          md-icon(class="fa fa fa-map-marker")
+          input(ng-model='user.email', class="email" type='email', placeholder='Email Address', ng-required='true')
+        md-input-container(md-no-float='')
+          // Use floating placeholder instead of label
+          md-icon(class="fa fa fa-map-marker")
+          input(ng-model='user.password', class="password" type='password', placeholder='Password', ng-required='true')
+          br
+        md-radio
+        md-button.md-raised.md-primary Warn
+        br
