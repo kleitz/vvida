@@ -1,19 +1,20 @@
 .event-jumbotron(layout = "row" layout-sm = "column")
-  img.md-margin(src = "images/vvidaStockPhoto_2.jpg" style=" margin-right: 30px; margin-left: 30px;" flex)
-  div.md-margin(flex style="background-color: rgb(255,110,64);  margin-right: 30px; margin-left: 30px;")
-    md-divider(style="background-color: white; margin-left: 40px; margin-right: 40px; margin-top: 20px")
-    h1(style="color: white; text-align: center; font-weight: bolder; text-transform: uppercase;") Event Name
-    md-divider(style="background-color: white; margin-left: 40px; margin-right: 40px; ")
-    p.md-padding(style="color: white; font-size: x-large") "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-div(layout = "row" style="background-color: #f1f1f1; margin-bottom: 0px; padding-bottom: 0px")
-  .md-padding(flex style="color: rgb(255,110,64); text-align: center; font-weight: bolder;")
-    div(style = "border-right: thick solid rgb(255,110,64")
-      h1(style= "text-transform: uppercase;") WHEN
+  img.event-img-jt.md-margin(flex src = "images/vvidaStockPhoto_2.jpg")
+  div.event-text-jt.md-margin(flex)
+    md-divider.text-divider
+    h1.title Event Name
+    md-divider.text-divider
+    p.md-padding.text
+      | "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+.event-info(layout = "row")
+  .info-cat.md-padding(flex)
+    .divider
+      h1.to-uppercase WHEN
       P 7th October 2015
-  .md-padding(flex style="color: rgb(255,110,64); text-align: center; font-weight: bolder;")
-    div(style = "border-right: thick solid rgb(255,110,64")
-      h1(style= "text-transform: uppercase;") WHERE
+  .info-cat.md-padding(flex)
+    .divider
+      h1.to-uppercase WHERE
       P Kindaruma Campus
-  .md-padding(flex style="color: rgb(255,110,64); text-align: center;font-weight: bolder;")
-    h1(style= "text-transform: uppercase;") TIME
+  .info-cat.md-padding(flex)
+    h1.to-uppercase TIME
     P 8.00 TO 12.OO PM
