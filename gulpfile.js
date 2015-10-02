@@ -77,7 +77,8 @@ gulp.task('bower', function() {
 gulp.task('browserify', function() {
   return browserify('./app/scripts/application.js').bundle()
     .on('success', gutil.log.bind(gutil, 'Browserify Rebundled'))
-    .on('error', gutil.log.bind(gutil, 'Browserify Error: in browserify gulp task'))
+    .on('error', gutil.log.bind(gutil, 'Browserify ' +
+        'Error: in browserify gulp task'))
     // vinyl-source-stream makes the bundle compatible with gulp
     .pipe(source('application.js')) // Desired filename
     // Output the file
@@ -109,9 +110,9 @@ gulp.task('nodemon', function() {
 });
 
 gulp.task('e2e',function(cb){
-  gulp.src(["./tests/e2e/*.js"])
+  gulp.src(['./tests/e2e/*.js'])
   .pipe(protractor({
-      configFile: "./protractor.conf.js",
+      configFile: './protractor.conf.js',
       args: ['--baseUrl', 'http://127.0.0.1:8000']
   }))    
   .on('error', function(e) {
@@ -128,7 +129,8 @@ gulp.task('watch', function() {
   // gulp.watch(paths.public).on('change', livereload.changed);
 });
 
-gulp.task('build', ['jade', 'less', 'static-files', 'images', 'browserify', 'bower']);
+gulp.task('build', ['jade', 'less', 'static-files', +
+      'images', 'browserify', 'bower']);
 gulp.task('heroku:production', ['build']);
 gulp.task('heroku:staging', ['build']);
 gulp.task('production', ['nodemon', 'build']);

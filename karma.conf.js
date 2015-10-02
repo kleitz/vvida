@@ -4,7 +4,8 @@
 module.exports = function(config) {
   config.set({
 
-    // base path that will be used to resolve all patterns (eg. files, exclude)
+    // base path that will be used to resolve all patterns (eg. files, 
+    // exclude)
     basePath: '',
 
 
@@ -22,12 +23,14 @@ module.exports = function(config) {
 
 
     // preprocess matching files before serving them to the browser
-    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
+    // available preprocessors: https://npmjs.org/browse/keyword/
+    // karma-preprocessor
     preprocessors: {},
 
 
     // test results reporter to use
-    // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage', 'spec', 'failed'
+    // possible values: 'dots', 'progress', 'junit', 'growl', 
+    // 'coverage', 'spec', 'failed'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
     reporters: [ /*'coverage',*/ 'progress'],
 
@@ -45,7 +48,8 @@ module.exports = function(config) {
     logLevel: config.LOG_INFO,
 
 
-    // enable / disable watching file and executing tests whenever any file changes
+    // enable / disable watching file and executing tests whenever 
+    // any file changes
     // on true, on Circle CI will break
     autoWatch: false,
 
