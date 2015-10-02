@@ -23,7 +23,15 @@
     "angular",
     "inject",
     "module",
-    "require"
+    "require",
+    "process",
+    "__dirname",
+    "console",
+    "browser",
+    "element",
+    "by",
+    "exports",
+    "protractor"
   ],
   "quotmark": true,
   "trailing": true,
