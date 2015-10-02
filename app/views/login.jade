@@ -1,0 +1,53 @@
+.sign-up(ng-controller='LoginCtrl', layout='column', style='padding-bottom: 20px;')
+  div(ng-cloak='')
+    md-content.md-padding
+      md-tabs.md-dynamic-height
+        md-tab(label='Login')
+          md-content.md-padding
+             .custom-signup
+                md-card(layout="column" flex="55")
+                  br
+                  md-card-content
+                    md-input-container
+                      md-icon(class="fa fa-envelope ")
+                      input(ng-model='user.email', type='email', placeholder='Email', ng-required='true')
+                    md-input-container
+                      md-icon(class="fa fa-user-secret ")
+                      input(ng-model='user.password', type='password', placeholder='password')
+                br
+                br
+                section(layout='row', layout-sm='column', layout-align='center center', layout-wrap='')
+                  md-button.md-raised.md-primary.md-hue-2
+                    i(class="fa fa-facebook")
+                    | Login up with Facebook
+                  md-button.md-raised.md-warn
+                    i(class="fa fa-google-plus")
+                    | Login up with Google
+
+        md-tab(label='sign Up')
+          md-content.md-padding
+             .custom-signup
+                md-card(layout="column" flex="55")
+                  br
+                  md-card-content
+                    md-input-container
+                      md-icon(class="fa fa-user")
+                      input(ng-model='user.firstName', type="text", placeholder='First Name' ng-required='true')
+                    md-input-container
+                      md-icon(class="fa fa-user")
+                      input(ng-model='user.lastName', type="text", placeholder='Last Name' ng-required='true')
+                    md-input-container
+                      md-icon(class="fa fa-envelope ")
+                      input(ng-model='user.email', type='email', placeholder='Email', ng-required='true')
+                    md-input-container
+                      md-icon(class="fa fa-user-secret ")
+                      input(ng-model='user.password', type='password', placeholder='password')
+                br
+                br
+                section(layout='row', layout-sm='column', layout-align='center center', layout-wrap='')
+                  md-button.md-raised.md-primary.md-hue-2
+                    i(class="fa fa-facebook")
+                    | sign up with Facebook
+                  md-button.md-raised.md-warn
+                    i(class="fa fa-google-plus")
+                    | sign up with Google
