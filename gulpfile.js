@@ -116,7 +116,7 @@ gulp.task('e2e',function(cb){
       args: ['--baseUrl', 'http://127.0.0.1:8000']
   }))    
   .on('error', function(e) {
-        console.log(e)
+        console.log(e);
   })
   .on('end', cb);    
 });
