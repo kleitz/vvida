@@ -80,7 +80,19 @@ var Seq = require('sequelize'),
         allowNull: true,
       },
 
+      // Access token for facebook
+      facebook_auth_token: {
+        type: Seq.STRING,
+        allowNull: true,
+      },
+
       google_auth_id: {
+        type: Seq.STRING,
+        allowNull: true,
+      },
+
+      // Access token for Google
+      google_auth_token: {
         type: Seq.STRING,
         allowNull: true,
       },
@@ -98,13 +110,14 @@ var Seq = require('sequelize'),
     // table configuration
     {
       instanceMethods: {
-        getFullname: function() {
+        getFullName: function() {
           return [this.firstname, this.lastname].join(' ')
         },
-        setFullname: function(value) {
+        setFullName: function(value) {
           var names = value.split(' ');
           this.setDataValue('firstname', names.slice(0, -1).join(' '));
           this.setDataValue('lastname', names.slice(-1).join(' '));
+          return this;
         },
       },
       // prevent time stamps from using camelase
