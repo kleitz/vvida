@@ -26,7 +26,12 @@
     "require",
     "process",
     "__dirname",
-    "console"
+    "console",
+    "browser",
+    "element",
+    "by",
+    "exports",
+    "protractor"
   ],
   "quotmark": true,
   "trailing": true,
