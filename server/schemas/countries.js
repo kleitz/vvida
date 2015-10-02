@@ -8,8 +8,7 @@ var Seq = require('sequelize'),
         validate: {
           isAlpha: true
         }
-      },
-
+      }
     },
     // table configuration
     {

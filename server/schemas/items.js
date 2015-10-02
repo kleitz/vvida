@@ -1,8 +1,8 @@
 //var require the seqalize module
 var Seq = require('sequelize'),
   db = require('../config/db-connect'),
-  users = require('./users')
-categories = require('./categories'),
+  users = require('./users'),
+  categories = require('./categories'),
   items = db.define('items', {
 
       // FOREIGN KEY

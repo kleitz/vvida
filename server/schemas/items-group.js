@@ -39,7 +39,7 @@ var Seq = require('sequelize'),
           model: users,
           key: 'id'
         }
-      }
+      },
       // item name
       // e.g sponsored, shared, recommended
       group: {
