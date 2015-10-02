@@ -64,7 +64,8 @@ gulp.task('browserify', function() {
 });
 
 gulp.task('lint', function() {
-  return gulp.src(['./app/**/*.js', './index.js', './server/**/*.js', './tests/**/*.js'])
+  return gulp.src(['./app/**/*.js', './index.js',\
+        './server/**/*.js', './tests/**/*.js'])
     .pipe(jshint())
     .pipe(jshint.reporter('default'));
 });
