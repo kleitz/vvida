@@ -77,12 +77,9 @@ module.exports = function(app) {
       }
     }).then(function(event) {
       if (!event) {
-        res.status(500).send('You have successfully deleted your event');
+        res.status(500).send('Delete failed');
       } else {
-        res.json({
-          isDelete: true,
-          message: 'Delete successful'
-        });
+        res.status(200).send('Delete successful');
       }
     });
   });
