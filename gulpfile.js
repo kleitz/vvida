@@ -114,11 +114,11 @@ gulp.task('e2e',function(cb){
   .pipe(protractor({
       configFile: './protractor.conf.js',
       args: ['--baseUrl', 'http://127.0.0.1:8000']
-  }))    
+  }))
   .on('error', function(e) {
         console.log(e);
   })
-  .on('end', cb);    
+  .on('end', cb);
 });
 
 gulp.task('watch', function() {
@@ -129,7 +129,7 @@ gulp.task('watch', function() {
   // gulp.watch(paths.public).on('change', livereload.changed);
 });
 
-gulp.task('build', ['jade', 'less', 'static-files', +
+gulp.task('build', ['jade', 'less', 'static-files',
       'images', 'browserify', 'bower']);
 gulp.task('heroku:production', ['build']);
 gulp.task('heroku:staging', ['build']);
