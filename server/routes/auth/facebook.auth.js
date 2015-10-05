@@ -16,7 +16,7 @@ module.exports = function(app, config, passport) {
   // Otherwise, authentication has failed.
   app.get('/auth/facebook/callback', passport.authenticate('facebook', {
     failureRedirect: '/sign-up',
-    successRedirect: '/'
+    successRedirect: '/#'
       // session: false
   }));
 
