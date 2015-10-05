@@ -6,17 +6,6 @@ var Events = require('../schemas/events');
 module.exports = function(app, config) {
 
   app.route('/api/events')
-    .get(function(req, res) {
-      Events.findAll().then(function(event) {
-        if (!event) {
-          res.status(404).send('events not found');
-        } else {
-          res.json(event);
-        }
-      });
-    });
-
-  app.route('/api/events/:id')
     // create event route.
     .post(function(req, res) {
       Events.sync().then(function() {
@@ -30,9 +19,8 @@ module.exports = function(app, config) {
           sponsor: req.body.sponsor
         }).then(function(event) {
           if (!event) {
-            res.json({
-              isCreated: false,
-              message: "Event was not created"
+            res.status(500).send({
+              error: 'create event failed'
             });
           } else {
             res.json(event);
@@ -41,35 +29,42 @@ module.exports = function(app, config) {
       });
     })
 
-  // read events route
   .get(function(req, res) {
-    return Events.findAll({
-      where: {
-        user_id: req.params.id
-      }
-    }).then(function(event) {
-      if (!event) {
-        res.status(404).send('event not found');
-      } else {
-        res.json(event);
-      }
+    Events.findAll().then(function(event) {
+      res.json(event);
     });
-  })
+  });
+
+  app.route('/api/events/:id')
+    // read events route
+    .get(function(req, res) {
+      return Events.find({
+        where: {
+          id: req.params.id
+        }
+      }).then(function(event) {
+        if (!event) {
+          res.status(404).send('event not found');
+        } else {
+          res.json(event);
+        }
+      });
+    })
 
   // Update events route
   .put(function(req, res) {
     console.log(req.body);
     return Events.update(req.body, {
       where: {
-        user_id: req.params.id
+        id: req.params.id
       }
     }).then(function(update) {
-      if(!update) {
+      if (!update) {
         res.status(500).send('update failed');
       } else {
         res.json({
           isUpdate: true,
-          message: "You have successfully Edited Your profile"
+          message: 'You have successfully Edited Your event'
         });
       }
     });
@@ -82,7 +77,7 @@ module.exports = function(app, config) {
         id: req.params.id
       }
     }).then(function(event) {
-      if(!event) {
+      if (!event) {
         res.status(500).send('You have successfully deleted your event');
       } else {
         res.json({
