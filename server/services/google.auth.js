@@ -30,7 +30,7 @@ module.exports = function(passport, GoogleStrategy) {
           .then(function(user) {
             // If the user does not exist create one
             if (!user) {
-              console.log("The user does not exist.");
+              // console.log('The user does not exist.');
               User.build({
                   email: profile.emails[0].value,
                   role: 'user',
@@ -56,7 +56,7 @@ module.exports = function(passport, GoogleStrategy) {
             // If the user was found, then just do a redirect
             else {
               // or TODO maybe create cookies/sessions
-              console.log("The user exits, just redirecting them", user);
+              // console.log('The user exits, just redirecting them', user);
               done(null, profile);
             }
           })

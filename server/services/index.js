@@ -5,4 +5,4 @@ module.exports = function(passport, LocalStrategy, FacebookStrategy, GoogleStrat
   require('./facebook.auth')(passport, FacebookStrategy);
   require('./google.auth')(passport, GoogleStrategy);
 
-}
+};

@@ -111,7 +111,7 @@ var Seq = require('sequelize'),
     {
       instanceMethods: {
         getFullName: function() {
-          return [this.firstname, this.lastname].join(' ')
+          return [this.firstname, this.lastname].join(' ');
         },
         setFullName: function(value) {
           var names = value.split(' ');

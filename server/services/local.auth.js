@@ -41,7 +41,8 @@ module.exports = function(passport, LocalStrategy) {
         });
       }
 
-      // we require to compare the sent password hashed value with the saved hashed value
+      // we require to compare the sent password
+      // hashed value with the saved hashed value
       var hashedPassword = bcrypt.hashSync(password);
       if (user.password !== hashedPassword) {
         return done(null, false, {

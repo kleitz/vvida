@@ -1,7 +1,8 @@
 var User = require('../schemas/users');
 // Use the FacebookStrategy within Passport.
 // Strategies in Passport require a `verify` function, which accept
-// credentials (in this case, an accessToken, refreshToken, and Facebook profile), and invoke a callback with a user object
+// credentials (in this case, an accessToken, refreshToken,
+// and Facebook profile), and invoke a callback with a user object
 module.exports = function(passport, FacebookStrategy) {
 
   passport.use(new FacebookStrategy({
@@ -23,7 +24,7 @@ module.exports = function(passport, FacebookStrategy) {
           }).then(function(user) {
             // If the user does not exist create one
             if (!user) {
-              console.log("The user does not exist.");
+              // console.log('The user does not exist.');
               User.build({
                   email: profile.emails[0].value,
                   role: 'user',
@@ -46,8 +47,8 @@ module.exports = function(passport, FacebookStrategy) {
             }
             // The user was found, redirect to homepage
             else {
-              console.log("The user exits, just redirecting them");
-              done(null, profile)
+              // console.log('The user exits, just redirecting them');
+              done(null, profile);
             }
           })
           .catch(function(err) {
