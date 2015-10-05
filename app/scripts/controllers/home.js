@@ -1,7 +1,7 @@
-require("./../services/services");
+require('./../services/services');
 angular.module('vvida.controllers')
   .controller('HomeCtrl', ['$scope', function($scope) {
-    $scope.header_image = "images/vvidaLogo.png";
+    $scope.header_image = 'images/vvidaLogo.png';
 
   }])
   .controller('AboutCtrl', ['$scope', 'Utils', function($scope, Utils) {
