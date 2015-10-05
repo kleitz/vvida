@@ -71,11 +71,15 @@ md-card.jumbotron.search-jumbotron {
   width: 100%;
   left: 0;
   top: 0;
+  z-index: 50;
+  @media (max-width: 599px) {
+    height: auto;
+  }
   .search-div {
     position: absolute;
-    width: 100%;
     left: 0;
     bottom: 0;
+    width: 100%;
     background: #fff;
     opacity: 0.8;
     align-items: baseline;
@@ -83,6 +87,8 @@ md-card.jumbotron.search-jumbotron {
       position: relative;
       bottom: 0;
       left: 0;
+      padding: 0;
+      margin: 0 auto;
       md-input-container {
         padding: 1em;
         label {
@@ -90,32 +96,18 @@ md-card.jumbotron.search-jumbotron {
           text-align: left;
         }
         md-icon {
-          margin-top: 5%;
+          margin-top: 7%;
           margin-right: 0;
-          padding-left: 0.8em;
+          padding-left: 0.5em;
           opacity: 0.8;
-          @media (max-width: 599px) {
-            margin-top: 7%;
-            padding-left: 0.5em;
-          }
-          @media (min-width: 1440px) {
-            margin-top: 5%;
-            padding-left: 0.5em;
-          }
         }
-        // input {}
       }
-      padding: 0;
-      margin: 0 auto;
-      width: 65%;
-      height: inherit !important;
-    }
-    z-index: 50;
-    @media (max-width: 599px) {
-      height: auto;
-      .search-bar {
+      @media (max-width: 599px) {
         width: 100%;
         height: auto;
+      }
+      @media (min-width: 1440px) {
+        width: 60%;
       }
     }
   }
