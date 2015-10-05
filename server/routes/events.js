@@ -3,14 +3,14 @@
 
 var Events = require('../schemas/events');
 
-module.exports = function(app, config) {
+module.exports = function(app) {
 
   app.route('/api/events')
     // create event route.
     .post(function(req, res) {
       Events.sync().then(function() {
         return Events.create({
-          user_id: req.params.id,
+          user_id: req.session.id,
           ev_name: req.body.eventName,
           description: req.body.description,
           location: req.body.location,
@@ -53,7 +53,6 @@ module.exports = function(app, config) {
 
   // Update events route
   .put(function(req, res) {
-    console.log(req.body);
     return Events.update(req.body, {
       where: {
         id: req.params.id
