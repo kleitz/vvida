@@ -3,9 +3,9 @@ var gulp = require('gulp'),
   jade = require('gulp-jade'),
   bower = require('gulp-bower'),
   gutil = require('gulp-util'),
+  jshint = require('jshint'),
   browserify = require('browserify'),
   path = require('path'),
-  stringify = require('stringify'),
   source = require('vinyl-source-stream'),
   imagemin = require('gulp-imagemin'),
   nodemon = require('gulp-nodemon'),
@@ -64,8 +64,9 @@ gulp.task('browserify', function() {
 });
 
 gulp.task('lint', function() {
-  return
-  gulp.src(['./app/**/*.js', './index.js', './lib/**/*.js']).pipe(jshint()).pipe(jshint.reporter('default'));
+  return gulp.src(['./app/**/*.js', './index.js', './server/**/*.js', './tests/**/*.js'])
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'));
 });
 
 gulp.task('static-files', function() {
@@ -82,7 +83,7 @@ gulp.task('nodemon', function() {
     .on('change', ['lint'])
     .on('restart', function() {
       console.log('>> node restart');
-    })
+    });
 });
 
 gulp.task('watch', function() {
@@ -93,23 +94,8 @@ gulp.task('watch', function() {
   // gulp.watch(paths.public).on('change', livereload.changed);
 });
 
-gulp.task('watchify', function() {
-  var bundler = watchify(browserify('./app/application.js', watchify.args));
-  bundler.transform(stringify(['.html']));
-  // bundler.transform(es6ify);
-  bundler.on('update', rebundle);
-
-  function rebundle() {
-    return bundler.bundle()
-      // log errors if they happen
-      .on('error', gutil.log.bind(gutil, 'Browserify Error'))
-      .pipe(source('index.js'))
-      .pipe(gulp.dest('./public/js'));
-  }
-  return rebundle();
-});
-
 gulp.task('build', ['jade', 'less', 'static-files', 'images', 'browserify', 'bower']);
 gulp.task('heroku:production', ['build']);
+gulp.task('heroku:staging', ['build']);
 gulp.task('production', ['nodemon', 'build']);
 gulp.task('default', ['nodemon', 'watch', 'build']);

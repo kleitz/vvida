@@ -98,7 +98,7 @@
   window.app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$mdThemingProvider', function($stateProvider, $urlRouterProvider, $locationProvider, $mdThemingProvider) {
     //
     // For any unmatched url, redirect to /state1
-    $urlRouterProvider.otherwise("/404");
+    $urlRouterProvider.otherwise('/404');
     //
     // Now set up the states
     $mdThemingProvider.theme('default')
@@ -106,23 +106,23 @@
       .accentPalette('deep-orange');
     $stateProvider
       .state('home', {
-        url: "/",
+        url: '/',
         controller: 'HomeCtrl',
-        templateUrl: "views/home.html"
+        templateUrl: 'views/home.html'
       })
       .state('about', {
-        url: "/about",
+        url: '/about',
         controller: 'HomeCtrl',
-        templateUrl: "views/about.html"
+        templateUrl: 'views/about.html'
       })
       .state('events', {
-        url: "/events",
+        url: '/events',
         controller: 'HomeCtrl',
-        templateUrl: "views/events.html"
+        templateUrl: 'views/events.html'
       })
       .state('404', {
-        url: "/404",
-        templateUrl: "views/404.html",
+        url: '/404',
+        templateUrl: 'views/404.html',
         controller: function($scope) {}
       });
 
