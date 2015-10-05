@@ -66,25 +66,58 @@ button.md-button {
   font-weight: bold;
 }
 
-.search-div {
-  background: #fff;
-  opacity: 0.8;
-  align-items: center;
-  .search-bar {
-    md-input-container {
-      padding: 15px 15px;
-      label {
-        margin-left: 10%;
-        text-align: left;
+md-card.jumbotron.search-jumbotron {
+  position: relative;
+  width: 100%;
+  left: 0;
+  top: 0;
+  .search-div {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    background: #fff;
+    opacity: 0.8;
+    align-items: baseline;
+    .search-bar {
+      position: relative;
+      bottom: 0;
+      left: 0;
+      md-input-container {
+        padding: 1em;
+        label {
+          margin-left: 10%;
+          text-align: left;
+        }
+        md-icon {
+          margin-top: 5%;
+          margin-right: 0;
+          padding-left: 0.8em;
+          opacity: 0.8;
+          @media (max-width: 599px) {
+            margin-top: 7%;
+            padding-left: 0.5em;
+          }
+          @media (min-width: 1440px) {
+            margin-top: 5%;
+            padding-left: 0.5em;
+          }
+        }
+        // input {}
       }
-      md-icon {
-        margin-top: 7%;
-        opacity: 0.8
+      padding: 0;
+      margin: 0 auto;
+      width: 65%;
+      height: inherit !important;
+    }
+    z-index: 50;
+    @media (max-width: 599px) {
+      height: auto;
+      .search-bar {
+        width: 100%;
+        height: auto;
       }
     }
-    padding: 0;
-    margin: 0 auto;
-    width: 65%;
   }
 }
 
