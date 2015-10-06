@@ -44,7 +44,7 @@ module.exports = function(app) {
         }
       }).then(function(event) {
         if (!event) {
-          res.status(404).send('event not found');
+          res.status(404).send('Event not found');
         } else {
           res.json(event);
         }
@@ -59,7 +59,7 @@ module.exports = function(app) {
       }
     }).then(function(update) {
       if (!update) {
-        res.status(500).send('update failed');
+        res.status(500).send('Update failed');
       } else {
         res.json({
           isUpdate: true,
@@ -75,8 +75,8 @@ module.exports = function(app) {
       where: {
         id: req.params.id
       }
-    }).then(function(event) {
-      if (!event) {
+    }).then(function(err) {
+      if (err) {
         res.status(500).send('Delete failed');
       } else {
         res.status(200).send('Delete successful');
