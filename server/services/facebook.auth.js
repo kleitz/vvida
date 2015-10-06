@@ -24,7 +24,6 @@ module.exports = function(passport, FacebookStrategy) {
           }).then(function(user) {
             // If the user does not exist create one
             if (!user) {
-              // console.log('The user does not exist.');
               User.build({
                   email: profile.emails[0].value,
                   role: 'user',
@@ -47,7 +46,6 @@ module.exports = function(passport, FacebookStrategy) {
             }
             // The user was found, redirect to homepage
             else {
-              // console.log('The user exits, just redirecting them');
               done(null, profile);
             }
           })

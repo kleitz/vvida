@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 
-auth(passport, LocalStrategy, FacebookStrategy, GoogleStrategy);
+auth(passport, LocalStrategy, FacebookStrategy, GoogleStrategy, config);
 passport.serializeUser(function(user, done) {
   done(null, user);
 });

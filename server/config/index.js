@@ -6,7 +6,8 @@ var envVariables = {
     database: process.env.DATABASE_NAME ||'vvida',
     host: process.env.HOST || 'localhost',
     userName: process.env.USER_NAME || 'postgres',
-    password: process.env.PASSWORD || 'root'
+    password: process.env.PASSWORD || 'root',
+    googleClientSecret: process.env.GOOGLE_CLIENT_SECRET || '893360311572-s0cnhs0ffojknftltkmm9cbj1p078d7o.apps.googleusercontent.com'
   },
   development = {
     expressSessionKey: envVariables.expressSessionKey,
@@ -14,6 +15,7 @@ var envVariables = {
     host: envVariables.host,
     username: envVariables.userName,
     password: envVariables.password,
+    googleClientSecret:envVariables.googleClientSecret
   },
   staging = {
     expressSessionKey: envVariables.expressSessionKey,
@@ -21,6 +23,7 @@ var envVariables = {
     host: envVariables.host,
     username: envVariables.userName,
     password: envVariables.password,
+    googleClientSecret:envVariables.googleClientSecret
   },
   production = {
     expressSessionKey: envVariables.expressSessionKey,
@@ -28,6 +31,7 @@ var envVariables = {
     host: envVariables.host,
     username: envVariables.userName,
     password: envVariables.password,
+    googleClientSecret:envVariables.googleClientSecret
   };
 
 module.exports = {

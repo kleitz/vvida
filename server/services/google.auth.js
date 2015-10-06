@@ -3,10 +3,10 @@ var User = require('../schemas/users');
 // Strategies in Passport require a `verify` function, which accept
 // credentials (in this case, an accessToken, refreshToken, and Google
 // profile), and invoke a callback with a user object.
-module.exports = function(passport, GoogleStrategy) {
+module.exports = function(passport, GoogleStrategy, config) {
 
   passport.use(new GoogleStrategy({
-      clientID: '893360311572-s0cnhs0ffojknftltkmm9cbj1p078d7o.apps.googleusercontent.com',
+      clientID: config.googleClientID,
       clientSecret: 'jDV73toE_qjEkjg32p8dNwZ7',
       callbackURL: 'http://localhost:3000/auth/google/callback'
         // returnURL: 'http://localhost:3000/auth/google/callback',
@@ -30,7 +30,6 @@ module.exports = function(passport, GoogleStrategy) {
           .then(function(user) {
             // If the user does not exist create one
             if (!user) {
-              // console.log('The user does not exist.');
               User.build({
                   email: profile.emails[0].value,
                   role: 'user',
@@ -56,7 +55,6 @@ module.exports = function(passport, GoogleStrategy) {
             // If the user was found, then just do a redirect
             else {
               // or TODO maybe create cookies/sessions
-              // console.log('The user exits, just redirecting them', user);
               done(null, profile);
             }
           })
