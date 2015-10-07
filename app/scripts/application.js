@@ -13,7 +13,8 @@
     'vvida.filters',
     'vvida.directives',
     'ui.router',
-    'ngMaterial'
+    'ngMaterial',
+    'ngResource'
   ]);
 
   window.app.run(['$rootScope', function($rootScope) {
