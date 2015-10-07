@@ -9,22 +9,28 @@ module.exports = function(app, config, passport) {
 
   // signup with email route
   app.route('/api/signup')
-    .post(passport.authenticate('signup'), function(req, res) {
-      res.json({
-        message: "You have been succcefully sign up to vvida"
-      });
+    .post(passport.authenticate('signup', {
+      failureFlash: 'Invalid username or password.'
+    }), function(req, res) {
+      res.json(req.user);
     });
 
   // users routes
-  app.route('/api/users/')
+  app.route('/api/users')
     .get(function(req, res) {
-      res.json({
-        name: "thomas"
+      User.findAll().then(function(user) {
+        if (!user) {
+          res.status(404).send('User not found');
+        } else {
+          user.password = null;
+          //delete user.password;
+          res.json(user);
+        }
       });
     })
     .post(function(req, res) {
       res.json({
-        message: "Hey user are you ready to edit your profile",
+        message: 'Hey user are you ready to edit your profile',
         params: req.params
       });
     });
