@@ -20,7 +20,7 @@ module.exports = function(app) {
         }).then(function(event) {
           if (!event) {
             res.status(500).send({
-              error: 'create event failed'
+              error: 'Create event failed'
             });
           } else {
             res.json(event);
