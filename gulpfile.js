@@ -30,7 +30,7 @@ var gulp = require('gulp'),
     styles: 'app/styles/*.+(less|css)'
   };
 
-gulp.task('test', function() {
+gulp.task('test:fend', function() {
   // Be sure to return the stream
   return gulp.src(paths.unitTests)
     .pipe(karma({
@@ -109,7 +109,7 @@ gulp.task('nodemon', function() {
     });
 });
 
-gulp.task('e2e',function(cb){
+gulp.task('test:e2e',function(cb){
   gulp.src(['./tests/e2e/*.js'])
   .pipe(protractor({
       configFile: './protractor.conf.js',
@@ -134,4 +134,5 @@ gulp.task('build', ['jade', 'less', 'static-files',
 gulp.task('heroku:production', ['build']);
 gulp.task('heroku:staging', ['build']);
 gulp.task('production', ['nodemon', 'build']);
-gulp.task('default', ['nodemon', 'watch', 'build', 'test']);
+gulp.task('test', ['test:fend', 'test:e2e']);
+gulp.task('default', ['nodemon', 'watch', 'build']);

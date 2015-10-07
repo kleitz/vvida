@@ -5,7 +5,13 @@
   angular.module('vvida.filters', []);
   angular.module('vvida.directives', []);
 
+  //Require Services
+  require('./services/utils');
+  require('./services/users');
+  // Require Controllers
   require('./controllers/home');
+  require('./controllers/about');
+  require('./controllers/login');
 
   window.app = angular.module('vvida', [
     'vvida.controllers',
@@ -13,6 +19,7 @@
     'vvida.filters',
     'vvida.directives',
     'ui.router',
+    'ngResource',
     'ngMaterial'
   ]);
 
