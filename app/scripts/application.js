@@ -112,7 +112,7 @@
       })
       .state('about', {
         url: '/about',
-        controller: 'HomeCtrl',
+        controller: 'AboutCtrl',
         templateUrl: 'views/about.html'
       })
       .state('events', {
