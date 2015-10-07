@@ -44,7 +44,9 @@ module.exports = function(app) {
         }
       }).then(function(event) {
         if (!event) {
-          res.status(404).send('Event not found');
+          res.status(404).send({
+            message: 'Event not found'
+          });
         } else {
           res.json(event);
         }
@@ -59,7 +61,9 @@ module.exports = function(app) {
       }
     }).then(function(update) {
       if (!update) {
-        res.status(500).send('Update failed');
+        res.status(500).send({
+          error: 'Update failed'
+        });
       } else {
         res.json({
           isUpdate: true,
@@ -77,9 +81,13 @@ module.exports = function(app) {
       }
     }).then(function(err) {
       if (err) {
-        res.status(500).send('Delete failed');
+        res.status(500).send({
+          error: 'Delete failed'
+        });
       } else {
-        res.status(200).send('Delete successful');
+        res.status(200).send({
+          message: 'Delete successful'
+        });
       }
     });
   });
