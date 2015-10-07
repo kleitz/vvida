@@ -1,61 +1,58 @@
-// events api
-// this api will handle all the routes for events
+// Items api
+// this api will handle all the routes for items
 
-var Events = require('../schemas/events');
+var Items = require('../schemas/items');
 
 module.exports = function(app) {
 
-  app.route('/api/events')
-    // create event route.
+  app.route('/api/items')
+    // create item route.
     .post(function(req, res) {
-      Events.sync().then(function() {
-        return Events.create({
+      Items.sync().then(function() {
+        return Items.create({
           user_id: req.session.id,
-          ev_name: req.body.eventName,
-          description: req.body.description,
-          location: req.body.location,
-          venue: req.body.venue,
-          time: req.body.time,
-          sponsor: req.body.sponsor
-        }).then(function(event) {
-          if (!event) {
+          cat_id: req.body.catId,
+          item_name: req.body.itemName,
+          item_desc: req.body.description
+        }).then(function(item) {
+          if (!item) {
             res.status(500).send({
-              error: 'Create event failed'
+              error: 'Create item failed'
             });
           } else {
-            res.json(event);
+            res.json(item);
           }
         });
       });
     })
 
   .get(function(req, res) {
-    Events.findAll().then(function(event) {
-      res.json(event);
+    Items.findAll().then(function(item) {
+      res.json(item);
     });
   });
 
-  app.route('/api/events/:id')
-    // read events route
+  app.route('/api/items/:id')
+    // read items route
     .get(function(req, res) {
-      return Events.find({
+      return Items.find({
         where: {
           id: req.params.id
         }
-      }).then(function(event) {
-        if (!event) {
+      }).then(function(item) {
+        if (!item) {
           res.status(404).send({
-            message: 'Event not found'
+            message: 'Item not found'
           });
         } else {
-          res.json(event);
+          res.json(item);
         }
       });
     })
 
-  // Update events route
+  // Update items route
   .put(function(req, res) {
-    return Events.update(req.body, {
+    return Items.update(req.body, {
       where: {
         id: req.params.id
       }
@@ -67,15 +64,15 @@ module.exports = function(app) {
       } else {
         res.json({
           isUpdate: true,
-          message: 'You have successfully Edited Your event'
+          message: 'You have successfully edited your item'
         });
       }
     });
   })
 
-  // Delete events route
+  // Delete items route
   .delete(function(req, res) {
-    return Events.destroy({
+    return Items.destroy({
       where: {
         id: req.params.id
       }
@@ -85,6 +82,7 @@ module.exports = function(app) {
           error: 'Delete failed'
         });
       } else {
+        console.log(ok);
         res.status(200).send({
           message: 'Delete successful'
         });
