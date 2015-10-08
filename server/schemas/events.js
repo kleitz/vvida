@@ -42,7 +42,6 @@ var Seq = require('sequelize'),
       // time
       time: {
         type: Seq.DATE,
-        allowNull: false
       },
 
       // event sponsors
