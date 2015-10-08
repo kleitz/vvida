@@ -113,7 +113,7 @@ gulp.task('nodemon', function() {
 gulp.task('test:e2e',function(cb){
   gulp.src(['./tests/e2e/*.js'])
   .pipe(protractor({
-      configFile: 'protractor.conf.js',
+      configFile: './protractor.conf.js',
       args: ['--baseUrl', 'http://127.0.0.1:8000']
   }))
   .on('error', function(e) {
