@@ -10,7 +10,7 @@ var gulp = require('gulp'),
   imagemin = require('gulp-imagemin'),
   nodemon = require('gulp-nodemon'),
   karma = require('gulp-karma'),
-  protractor = require('gulp-protractor').protractor,
+  gprotractor = require('gulp-protractor').protractor,
   paths = {
     public: 'public/**',
     jade: ['!app/shared/**', 'app/**/*.jade'],
@@ -79,7 +79,7 @@ gulp.task('browserify', function() {
   return browserify('./app/scripts/application.js').bundle()
     .on('success', gutil.log.bind(gutil, 'Browserify Rebundled'))
     .on('error', gutil.log.bind(gutil, 'Browserify ' +
-        'Error: in browserify gulp task'))
+      'Error: in browserify gulp task'))
     // vinyl-source-stream makes the bundle compatible with gulp
     .pipe(source('application.js')) // Desired filename
     // Output the file
@@ -88,7 +88,8 @@ gulp.task('browserify', function() {
 
 gulp.task('lint', function() {
   return gulp.src(['./app/**/*.js', './index.js', +
-        './server/**/*.js', './tests/**/*.js'])
+      './server/**/*.js', './tests/**/*.js'
+    ])
     .pipe(jshint())
     .pipe(jshint.reporter('default'));
 });
@@ -110,16 +111,16 @@ gulp.task('nodemon', function() {
     });
 });
 
-gulp.task('test:e2e',function(cb){
+gulp.task('test:e2e', function(cb) {
   gulp.src(['./tests/e2e/*.js'])
-  .pipe(protractor({
+    .pipe(gprotractor({
       configFile: './protractor.conf.js',
       args: ['--baseUrl', 'http://127.0.0.1:8000']
-  }))
-  .on('error', function(e) {
-        console.log(e);
-  })
-  .on('end', cb);
+    }))
+    .on('error', function(e) {
+      console.log(e);
+    })
+    .on('end', cb);
 });
 
 gulp.task('watch', function() {
@@ -131,7 +132,8 @@ gulp.task('watch', function() {
 });
 
 gulp.task('build', ['jade', 'less', 'static-files',
-      'images', 'browserify', 'bower']);
+  'images', 'browserify', 'bower'
+]);
 gulp.task('heroku:production', ['build']);
 gulp.task('heroku:staging', ['build']);
 gulp.task('production', ['nodemon', 'build']);
