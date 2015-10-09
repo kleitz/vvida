@@ -30,7 +30,7 @@
     "browser",
     "element",
     "by",
-    "exports",
+    "exports"
   ],
   "quotmark": true,
   "trailing": true,
