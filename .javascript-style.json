@@ -31,7 +31,6 @@
     "element",
     "by",
     "exports",
-    "protractor"
   ],
   "quotmark": true,
   "trailing": true,

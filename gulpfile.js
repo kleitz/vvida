@@ -10,7 +10,7 @@ var gulp = require('gulp'),
   imagemin = require('gulp-imagemin'),
   nodemon = require('gulp-nodemon'),
   karma = require('gulp-karma'),
-  gprotractor = require('gulp-protractor').protractor,
+  protractor = require('gulp-protractor').protractor,
   paths = {
     public: 'public/**',
     jade: ['!app/shared/**', 'app/**/*.jade'],
@@ -113,7 +113,7 @@ gulp.task('nodemon', function() {
 
 gulp.task('test:e2e', function(cb) {
   gulp.src(['./tests/e2e/*.js'])
-    .pipe(gprotractor({
+    .pipe(protractor({
       configFile: './protractor.conf.js',
       args: ['--baseUrl', 'http://127.0.0.1:8000']
     }))
