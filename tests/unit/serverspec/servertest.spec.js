@@ -3,7 +3,7 @@ describe('Testing Vvida Home Controller', function() {
   var mainModule;
 
   beforeEach(function() {
-    mainModule = angular.module('../../../server/routes/users');
+    mainModule = angular.module('vvida');
 
     // inject(function($rootScope, $controller) {
     //   _scope = $rootScope.$new();
@@ -14,6 +14,6 @@ describe('Testing Vvida Home Controller', function() {
   });
 
   it('should be registered', function() {
-    expect(mainModule).toBeDefined();
+    expect(mainModule).not.toEqual(null);
   });
-});
+}); 
