@@ -15,7 +15,7 @@ describe('Root route test', function() {
       // .expect('Content-Type', /html/)
       .end(function(err, res) {
         if (res.status == 200) {
-          expect(res.text).toMatch(/(html)/g);
+          expect(res.header['content-type']).toMatch(/(text\/html)/g);
           done();
         }
       });
