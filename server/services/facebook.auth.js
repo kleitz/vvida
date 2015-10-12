@@ -3,13 +3,9 @@ var User = require('../schemas/users');
 // Strategies in Passport require a `verify` function, which accept
 // credentials (in this case, an accessToken, refreshToken,
 // and Facebook profile), and invoke a callback with a user object
-module.exports = function(passport, FacebookStrategy) {
+module.exports = function(passport, FacebookStrategy, config) {
 
-  passport.use(new FacebookStrategy({
-      clientID: '213258518873900',
-      clientSecret: '76f13fab15780ef80bffc4ec19f24ae1',
-      callbackURL: 'http://localhost:3000/auth/facebook/callback'
-    },
+  passport.use(new FacebookStrategy(config.auth.FACEBOOK,
     function(accessToken, refreshToken, profile, done) {
       // make the code asynchronous
       // User.findOne won't fire until we have all our data back from Facebook
