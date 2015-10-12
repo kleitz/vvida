@@ -13,19 +13,11 @@ module.exports = function(passport, LocalStrategy) {
         email: email,
         password: hash
       });
-    }).then(function(err, user) {
-      if (err) {
-        return (null, false, {
-          message: 'Error occured while creating user'
-        });
-      }
+    }).then(function(user) {
       if (!user) {
-        return done(null, false, {
-          message: 'Sign up failed'
-        });
-      } else {
-        done(null, user);
+        return done(null, false);
       }
+      return done(null, user);
     }).catch(function(err) {
       return done(err);
     });
@@ -43,15 +35,11 @@ module.exports = function(passport, LocalStrategy) {
       }
     }).then(function(user) {
       if (!user) {
-        return done(null, false, {
-          message: 'User not found'
-        });
+        return done(null, false);
       }
 
       if (bcrypt.compareSync(password, user.password) !== true) {
-        return done(null, false, {
-          message: 'Invalid password'
-        });
+        return done(null, false);
       }
 
       return done(null, user);
