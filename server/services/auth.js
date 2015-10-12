@@ -13,14 +13,21 @@ module.exports = function(passport, LocalStrategy) {
         email: email,
         password: hash
       });
-    }).then(function(user) {
+    }).then(function(err, user) {
+      if (err) {
+        return (null, false, {
+          message: 'Error occured while creating user'
+        });
+      }
       if (!user) {
         return done(null, false, {
-          message: 'sign up failed'
+          message: 'Sign up failed'
         });
       } else {
         done(null, user);
       }
+    }).catch(function(err) {
+      return done(err);
     });
   }));
 
@@ -37,17 +44,19 @@ module.exports = function(passport, LocalStrategy) {
     }).then(function(user) {
       if (!user) {
         return done(null, false, {
-          message: 'user not found'
+          message: 'User not found'
         });
       }
 
-      if (bcrypt.compareSync(password, user.password) !== true ) {
+      if (bcrypt.compareSync(password, user.password) !== true) {
         return done(null, false, {
-          message: 'invalid password'
+          message: 'Invalid password'
         });
       }
 
       return done(null, user);
+    }).catch(function(err) {
+      return done(err);
     });
   }));
 };
