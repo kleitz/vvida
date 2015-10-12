@@ -1,18 +1,21 @@
-var request = require('superagent');
+var request = require('superagent'),
+  faker = require('faker');
 
 describe('User RESTful API tests', function() {
 
   var fakeUser = {
-    username: 'eugenemutai',
-    password: 'vvidaTesting',
-    email: 'eugenemutai@gmail.com',
-    firstname: 'Eugene',
-    lastname: 'Mutai',
-    gender: 'male',
-    dob: '30081989',
-    country: 'Kenya',
-    city: 'Nairobi'
-  };
+      password: faker.internet.password(),
+      email: faker.internet.email()
+    },
+    fakeUserInfoUpdates = {
+      username: faker.internet.userName(),
+      firstname: faker.name.firstName(),
+      lastname: faker.name.lastName(),
+      gender: 'male',
+      country: 'Kenya',
+      city: 'Nairobi'
+    },
+    id = undefined;
 
   /**
    * Display a listing of the resource.
@@ -24,11 +27,10 @@ describe('User RESTful API tests', function() {
     request
       .get('http://localhost:3000/api/users')
       // .use(requestPrefix)
-      .set('Content-Type', 'application/json')
+      .accept('application/json')
       // .expect('Content-Type', /json/)
       // .expect(200)
       .end(function(err, res) {
-        // console.log(res);
         if (res.status == 200) {
           if (res.body.length == 0) {
             expect(Object.prototype.toString.call(res.body)).toBe('[object Array]');
@@ -58,10 +60,10 @@ describe('User RESTful API tests', function() {
       .end(function(err, res) {
         if (res.status == 200) {
           var data = res.body;
-          // console.log(data);
           expect(data.email).toBe(fakeUser.email);
           expect(data.id).toBeDefined();
           expect(typeof data.id).toBe('number');
+          id = data.id;
         } else {
           return new Error();
         }
@@ -90,15 +92,15 @@ describe('User RESTful API tests', function() {
    * @param  int  $id
    * @return Response
    */
-  it('should store a newly created resource in storage.', function(done) {
+  it('should display the specified resource.', function(done) {
     request
-      .get('http://localhost:3000/api/users/1')
+      .get('http://localhost:3000/api/users/' + id)
       .accept('application/json')
       // .expect('Content-Type', /json/)
       // .expect(200)
       .end(function(err, res) {
         if (res.status == 200) {
-          expect(JSON.parse(res.text).id).toBe(1);
+          expect(JSON.parse(res.text).id).toBe(id);
         } else {
           expect(res.text).toMatch(/(not found)/g);
         }
@@ -128,9 +130,10 @@ describe('User RESTful API tests', function() {
    * @param  int  $id
    * @return Response
    */
-  it('should update the specified resource in storage.', function() {
+  it('should update the specified resource in storage.', function(done) {
     request
-      .put('http://localhost:3000/api/users/1')
+      .put('http://localhost:3000/api/users/' + id)
+      .send(fakeUserInfoUpdates)
       .accept('application/json')
       // .expect('Content-Type', /json/)
       // .expect(200)
@@ -153,7 +156,7 @@ describe('User RESTful API tests', function() {
    */
   it('should remove the specified resource from storage.', function(done) {
     request
-      .del('http://localhost:3000/api/users/1')
+      .del('http://localhost:3000/api/users/' + id)
       .accept('application/json')
       // .expect('Content-Type', /json/)
       // .expect(200)
