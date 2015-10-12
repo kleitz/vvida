@@ -30,8 +30,7 @@
     "browser",
     "element",
     "by",
-    "exports",
-    "protractor"
+    "exports"
   ],
   "quotmark": true,
   "trailing": true,

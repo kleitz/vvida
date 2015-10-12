@@ -43,8 +43,7 @@ module.exports = function(passport, LocalStrategy) {
 
       // we require to compare the sent password
       // hashed value with the saved hashed value
-      var hashedPassword = bcrypt.hashSync(password);
-      if (user.password !== hashedPassword) {
+      if (!bcrypt.compareSync(password, user.password)) {
         return done(null, false, {
           message: 'invalid password'
         });
