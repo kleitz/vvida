@@ -1,5 +1,6 @@
 describe('Testing Vvida Home Controller', function() {
   // var _scope, HomeController;
+  var mainModule;
 
   beforeEach(function() {
     mainModule = angular.module('vvida');
