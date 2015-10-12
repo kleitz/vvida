@@ -22,8 +22,8 @@ module.exports = function(app, config, passport) {
         if (!user) {
           res.status(404).send('User not found');
         } else {
-          user.password = null;
-          //delete user.password;
+          //user.password = null;
+          delete user.password;
           res.json(user);
         }
       });
