@@ -3,7 +3,7 @@ describe('App module', function() {
   var mainModule;
 
   beforeEach(function() {
-    mainModule = angular.module('App');
+    mainModule = angular.module('vvida');
   });
 
   it('should be registered', function() {
@@ -16,24 +16,24 @@ describe('App module', function() {
         return deps.indexOf(m) >= 0;
       };
       before(function() {
-        deps = module.value('App').requires;
+        deps = module.value('vvida').requires;
       });
 
       //you can also test the module's dependencies
       it("should have App.Controllers as a dependency", function() {
-        expect(hasModule('App.Controllers')).toEqual(true);
+        expect(hasModule('vvida.Controllers')).toEqual(true);
       });
 
       it("should have App.Directives as a dependency", function() {
-        expect(hasModule('App.Directives')).toEqual(true);
+        expect(hasModule('vvida.Directives')).toEqual(true);
       });
 
       it("should have App.Filters as a dependency", function() {
-        expect(hasModule('App.Filters')).toEqual(true);
+        expect(hasModule('vvida.Filters')).toEqual(true);
       });
 
       it("should have App.Routes as a dependency", function() {
-        expect(hasModule('App.Routes')).toEqual(true);
+        expect(hasModule('vvida.Routes')).toEqual(true);
       });
 
       it("should have App.Services as a dependency", function() {
