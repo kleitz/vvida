@@ -3,7 +3,7 @@ describe('Testing Vvida Home Controller', function() {
   var mainModule;
 
   beforeEach(function() {
-    mainModule = angular.module('vvida');
+    mainModule = angular.module('../../../server/routes/users');
 
     // inject(function($rootScope, $controller) {
     //   _scope = $rootScope.$new();
