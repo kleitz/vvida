@@ -47,17 +47,23 @@ module.exports = {
 
   // Middleware to get all users
   getAllUsers: function(req, res) {
-    User.findAll().then(function(user) {
-      if (!user) {
+    User.findAll().then(function(users, err) {
+      if (!users) {
         res.status(404).send({
           success: false,
           error: 'User not found'
         });
       } else {
-        //user.password = null;
-        delete user.password;
-        res.json(user);
+        users.map(function(user) {
+          user.password = null;
+        });
+        res.json(users);
       }
+    }).catch(function(err) {
+      res.status(500).send({
+        success: false,
+        error: err.errors[0].message
+      });
     });
   },
 
@@ -68,7 +74,7 @@ module.exports = {
       where: {
         id: userId
       }
-    }).then(function(user) {
+    }).then(function(user, err) {
       if (!user) {
         res.status(404).send({
           success: false,
@@ -79,6 +85,11 @@ module.exports = {
         delete user.password;
         res.json(user);
       }
+    }).catch(function(err) {
+      res.status(500).send({
+        success: false,
+        error: err.errors[0].message
+      });
     });
   },
   // Middileware to update user data
@@ -101,6 +112,11 @@ module.exports = {
           message: 'Profile updated succesfully'
         });
       }
+    }).catch(function(err) {
+      res.status(500).send({
+        success: false,
+        error: err.errors[0].message
+      });
     });
   },
 
