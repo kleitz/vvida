@@ -1,8 +1,8 @@
-describe('Testing Vvida Controller', function() {
+describe('Testing Vvida Home Controller', function() {
   var _scope, HomeController;
 
   beforeEach(function() {
-    module('home');
+    module('vvida');
 
     inject(function($rootScope, $controller) {
       _scope = $rootScope.$new();
@@ -12,7 +12,7 @@ describe('Testing Vvida Controller', function() {
     });
   });
 
-  it('Should be registered', function() {
+  it('should be registered', function() {
     expect(HomeController).toBeDefined();
   });
 });
