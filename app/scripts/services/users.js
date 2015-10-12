@@ -1,4 +1,5 @@
 angular.module('vvida.services')
+
   .factory('Users', ['$resource', '$http', function($resource, $http) {
     var obj = $resource('/api/users/:id', {
       id: '@id'
@@ -13,6 +14,14 @@ angular.module('vvida.services')
 
     obj.login = function(user, cb) {
       $http.post('/api/users/login', user).success(function(res) {
+        cb(null, res);
+      }).error(function(err) {
+        cb(err);
+      });
+    };
+
+    obj.signup = function(user, cb) {
+      $http.post('/api/users/signup', user).success(function(res) {
         cb(null, res);
       }).error(function(err) {
         cb(err);
