@@ -36,12 +36,6 @@
                   md-card-content
                     form(method='post', ng-submit="signup()")
                       md-input-container
-                        md-icon(class="fa fa-user")
-                        input(ng-model='user.firstName', type="text", placeholder='First Name' ng-required='true')
-                      md-input-container
-                        md-icon(class="fa fa-user")
-                        input(ng-model='user.lastName', type="text", placeholder='Last Name' ng-required='true')
-                      md-input-container
                         md-icon(class="fa fa-envelope ")
                         input(ng-model='user.email', type='email', placeholder='Email', ng-required='true')
                       md-input-container

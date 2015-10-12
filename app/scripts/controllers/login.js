@@ -9,8 +9,9 @@ angular.module('vvida.controllers')
     };
     // signup
     $scope.signup = function() {
-
-      var UserService = new UserService();
-      UserService.getAllUsers();
+      users = new User();
+      users.$save($scope.user, function(err, user) {
+        console.log();
+      });
     };
   }]);

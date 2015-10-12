@@ -1,6 +1,4 @@
 angular.module('vvida.services')
-<<<<<<< HEAD
-
   .factory('Users', ['$resource', '$http', function($resource, $http) {
     var obj = $resource('/api/users/:id', {
       id: '@id'
@@ -31,8 +29,4 @@ angular.module('vvida.services')
 
     return obj;
   }]);
-=======
-.factory('Users',function($resource) {
-  return $resource('/api/users/:id');
-});
->>>>>>> 452c1b0981b57795d6fd2ba668917b803cd927d7
+
