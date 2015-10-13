@@ -3,7 +3,7 @@ describe('vvida module', function() {
   var mainModule;
 
   beforeEach(function() {
-    mainModule = angular.module('vvida.controllers', +
+    mainModule = angular.module('vvida.controllers',
       ['ngRoute']).controller('HomeCtrl');
   });
 
