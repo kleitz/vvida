@@ -7,7 +7,7 @@
   "forin": true,
   "immed": true,
   "latedef": "nofunc",
-  "maxlen": 80,
+  "maxlen": 120,
   "newcap": true,
   "noarg": true,
   "noempty": true,
@@ -30,8 +30,7 @@
     "browser",
     "element",
     "by",
-    "exports",
-    "protractor"
+    "exports"
   ],
   "quotmark": true,
   "trailing": true,
