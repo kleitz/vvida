@@ -20,7 +20,8 @@
     'vvida.directives',
     'ui.router',
     'ngResource',
-    'ngMaterial'
+    'ngMaterial',
+
   ]);
 
   window.app.run(['$rootScope', function($rootScope) {
@@ -127,16 +128,22 @@
         controller: 'HomeCtrl',
         templateUrl: 'views/events.html'
       })
-      .state('login',{
-        url:'/login',
+      .state('login', {
+        url: '/login',
         controller: 'LoginCtrl',
         templateUrl: 'views/login.html'
       })
-      .state('404', {
-        url: '/404',
-        templateUrl: 'views/404.html',
-        controller: function($scope) {}
-      });
+      .state('upload', {
+        url: '/upload',
+        controller: 'AboutCtrl',
+        templateUrl: 'views/upload.html'
+      })
+
+    .state('404', {
+      url: '/404',
+      templateUrl: 'views/404.html',
+      controller: function($scope) {}
+    });
 
     $locationProvider.html5Mode(true);
   }]);

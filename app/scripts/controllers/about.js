@@ -6,7 +6,26 @@ angular.module('vvida.controllers')
           console.log('Ok button has been clicked!');
         });
     };
+
     $scope.openToast = function() {
       Utils.toast('Hey there!');
+    };
+
+    $scope.uploadFile = function() {
+
+      $scope.fileSelected = function(files) {
+        if (files && files.length) {
+          $scope.file = files[0];
+        }
+
+        $upload.upload({
+            url: '/api/upload', //node.js route
+            file: $scope.file
+          })
+          .success(function(data) {
+            console.log(data, 'uploaded');
+          });
+
+      };
     };
   }]);

@@ -21,3 +21,4 @@ angular.module('vvida.services')
 
     return obj;
   }]);
+
