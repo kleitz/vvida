@@ -48,7 +48,7 @@ gulp.task('test:fend', function() {
 });
 
 gulp.task('test:bend', function() {
-  return gulp.src(['./server/tests/*.spec.js'])
+  return gulp.src(['./server/tests/**/*.spec.js'])
     .pipe(mocha({
       // reporter: 'nyan'
     }))
