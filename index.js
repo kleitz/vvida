@@ -10,8 +10,10 @@ var express = require('express'),
   app = express(),
   passport = require('passport'),
   LocalStrategy = require('passport-local').Strategy,
+  FacebookStrategy = require('passport-facebook').Strategy,
+  GoogleStrategy = require('passport-google-oauth').OAuth2Strategy,
   session = require('express-session'),
-  auth = require('./server/services/auth');
+  auth = require('./server/services/social-auth');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'server/views'));
@@ -25,7 +27,7 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 
-auth(passport, LocalStrategy);
+auth(passport, LocalStrategy, FacebookStrategy, GoogleStrategy, config);
 passport.serializeUser(function(user, done) {
   done(null, user);
 });
@@ -82,7 +84,7 @@ app.use(function(err, req, res, next) {
 
 var server = app.listen(process.env.PORT || 3000, function() {
   console.log('Express server listening on %d, in %s' +
-        'mode', server.address().port, app.get('env'));
+    'mode', server.address().port, app.get('env'));
 });
 
 module.exports = app;
