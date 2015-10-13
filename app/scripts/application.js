@@ -23,7 +23,20 @@
     'ngMaterial'
   ]);
 
-  window.app.run(['$rootScope', function($rootScope) {
+  window.app.run(['$rootScope', '$location', 'Auth', function($rootScope, $location, Auth) {
+
+    $rootScope.$on('$routeChangeStart', function (event) {
+
+      if (!Auth.isLoggedIn()) {
+        console.log('DENY');
+        event.preventDefault();
+        $location.path('/login');
+      }
+      else {
+        console.log('ALLOW');
+        $location.path('/home');
+      }
+    });
 
     $rootScope.menu = [{
       name: 'Home',
@@ -136,6 +149,11 @@
         url: '/404',
         templateUrl: 'views/404.html',
         controller: function($scope) {}
+      })
+      .state('item', {
+        url:'/items',
+        controller: 'ItemsCtrl',
+        templateUrl: 'views/items.html'
       });
 
     $locationProvider.html5Mode(true);
