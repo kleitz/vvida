@@ -8,10 +8,12 @@
   //Require Services
   require('./services/utils');
   require('./services/users');
+  require('./services/products');
   // Require Controllers
   require('./controllers/home');
   require('./controllers/about');
   require('./controllers/login');
+  require('./controllers/events');
 
   window.app = angular.module('vvida', [
     'vvida.controllers',
@@ -124,7 +126,7 @@
       })
       .state('events', {
         url: '/events',
-        controller: 'HomeCtrl',
+        controller: 'EventsCtrl',
         templateUrl: 'views/events.html'
       })
       .state('login',{
