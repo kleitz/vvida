@@ -1,5 +1,6 @@
 var expressKey = process.env.EXPRESS_SESSION_KEY,
 customKey = '436b2efb-0302-4113-9954-f658f554ea87';
+process
 
 var envVariables = {
     expressSessionKey:expressKey || customKey,

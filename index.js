@@ -3,10 +3,12 @@ var express = require('express'),
   env = process.env.NODE_ENV || 'development',
   config = require('./server/config')[env],
   favicon = require('serve-favicon'),
+  multer = require('multer'),
   logger = require('morgan'),
   cookieParser = require('cookie-parser'),
   bodyParser = require('body-parser'),
   routes = require('./server/routes'),
+  cloudinary = require('cloudinary'),
   app = express(),
   passport = require('passport'),
   LocalStrategy = require('passport-local').Strategy,
@@ -25,6 +27,21 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 
+app.use(multer({
+  dest: './uploads/'
+}).single());
+
+app.get('development', function() {
+  app.use(express.errorHandler());
+  cloudinary.config({
+    cloud_name: 'vvida',
+    api_key: '258585947589249',
+    api_secret: 'ZUACNOFbFG3iiQ83XCT1smXdroI'
+  });
+});
+
+app.locals.api_key = cloudinary.config().api_key;
+app.locals.cloud_name = cloudinary.config().cloud_name;
 auth(passport, LocalStrategy);
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -82,7 +99,7 @@ app.use(function(err, req, res, next) {
 
 var server = app.listen(process.env.PORT || 3000, function() {
   console.log('Express server listening on %d, in %s' +
-        'mode', server.address().port, app.get('env'));
+    'mode', server.address().port, app.get('env'));
 });
 
 module.exports = app;
