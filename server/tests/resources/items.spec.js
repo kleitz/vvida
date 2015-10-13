@@ -1,31 +1,35 @@
 var request = require('superagent'),
   faker = require('faker'),
   expect = require('expect.js'),
-  resourceApiURL = 'http://localhost:3000/api/users';
+  resourceApiURL = 'http://localhost:3000/api/items';
 
-describe('User RESTful API tests', function() {
+describe('Items RESTful API tests', function() {
 
-  var fakeUser = {
-      password: faker.internet.password(),
-      email: faker.internet.email()
+  var fakeItemGenerator = function() {
+      return {
+        catId: faker.random.number(),
+        userId: faker.random.number(),
+        itemName: faker.commerce.productName(),
+        description: faker.lorem.sentence()
+      }
     },
-    fakeUserInfoUpdates = {
-      username: faker.internet.userName(),
-      firstname: faker.name.firstName(),
-      lastname: faker.name.lastName(),
-      gender: 'male',
-      country: 'Kenya',
-      city: 'Nairobi'
+    fakeItemUpdater = function() {
+      return {
+        cat_id: faker.random.number(),
+        user_id: faker.random.number(),
+        item_name: faker.commerce.productName(),
+        item_desc: faker.lorem.sentence()
+      }
     },
-    id = undefined;
+    id = null;
 
   /**
    * Display a listing of the resource.
-   * GET /users
+   * GET /items
    *
    * @return Response
    */
-  it('should return all users stored in the database or empty array if DB is empty', function(done) {
+  it('should return all items stored in the database or empty array if DB is empty', function(done) {
     request
       .get(resourceApiURL)
       // .use(requestPrefix)
@@ -41,33 +45,53 @@ describe('User RESTful API tests', function() {
             expect(typeof res.body[0].id).to.be('number');
             expect(typeof res.body[0].password).to.be('string');
           }
-          done();
+        } else {
+          throw err;
         }
+        done();
       });
   });
 
   /**
    * Store a newly created resource in storage.
-   * POST /users
+   * POST /items
    *
    * @return Response
    */
-  it('should store a newly created resource in storage.', function(done) {
+  it('must log in to retain a session', function() {
+    // Must log in to retain a session
+    request
+      .post('http://localhost:3000/api/users/login')
+      .send({
+        email: 'Charlie49@yahoo.com',
+        password: '1f9Pt_znVb6WySj'
+      })
+      .end(function(err, res) {
+        if (err) {
+          throw err;
+        } else {
+          expect(res.status).to.be(200);
+        }
+      });
+  });
+
+  it('should store a newly created resource in storage.', function() {
+    var fakeItem = fakeItemGenerator();
     request
       .post(resourceApiURL)
-      .send(fakeUser)
+      .send(fakeItem)
       .accept('application/json')
       // .expect('Content-Type', /json/)
       // .expect(200)
       .end(function(err, res) {
         if (res.status == 200) {
           var data = res.body;
-          expect(data.email).to.be(fakeUser.email);
+          expect(data.cat_id).to.be(fakeItem.cat_id);
           expect(data.id).to.be.defined;
           expect(typeof data.id).to.be('number');
           id = data.id;
         } else {
-          return new Error();
+          throw err;
         }
         done();
       });
@@ -75,7 +99,7 @@ describe('User RESTful API tests', function() {
 
   /**
    * Show the form for creating the specified resource.
-   * GET /users/{id}/create
+   * GET /items/{id}/create
    *
    * @param  int  $id
    * @return Response
@@ -89,7 +113,7 @@ describe('User RESTful API tests', function() {
 
   /**
    * Display the specified resource.
-   * GET /users/{id}
+   * GET /items/{id}
    *
    * @param  int  $id
    * @return Response
@@ -102,18 +126,18 @@ describe('User RESTful API tests', function() {
       // .expect(200)
       .end(function(err, res) {
         if (res.status == 200) {
-          expect(JSON.parse(res.text).id).to.be(id);
+          expect(res.body.id).to.be(id);
         } else {
-          expect(res.text).to.match(/(not found)/g);
+          expect(res.status).to.be(404);
+          expect(res.body.message).to.match(/(not found)/g);
         }
         done();
       });
-
   });
 
   /**
    * Show the form for editing the specified resource.
-   * GET /users/{id}/edit
+   * GET /items/{id}/edit
    *
    * @param  int  $id
    * @return Response
@@ -127,7 +151,7 @@ describe('User RESTful API tests', function() {
 
   /**
    * Update the specified resource in storage.
-   * PUT /users/{id}
+   * PUT /items/{id}
    *
    * @param  int  $id
    * @return Response
@@ -135,15 +159,16 @@ describe('User RESTful API tests', function() {
   it('should update the specified resource in storage.', function(done) {
     request
       .put(resourceApiURL + '/' + id)
-      .send(fakeUserInfoUpdates)
+      .send(fakeItemUpdater())
       .accept('application/json')
       // .expect('Content-Type', /json/)
       // .expect(200)
       .end(function(err, res) {
         if (res.status == 200) {
-          expect(res.text).to.match(/(success)/);
+          expect(res.body.isUpdate).to.be(true);
+          expect(res.body.message).to.match(/(success)/);
         } else {
-          expect(res.status).to.be(501);
+          expect(res.status).to.be(500);
         }
         done();
       });
@@ -151,7 +176,7 @@ describe('User RESTful API tests', function() {
 
   /**
    * Remove the specified resource from storage.
-   * DELETE /users/{id}
+   * DELETE /items/{id}
    *
    * @param  int  $id
    * @return Response
@@ -163,7 +188,11 @@ describe('User RESTful API tests', function() {
       // .expect('Content-Type', /json/)
       // .expect(200)
       .end(function(err, res) {
-        expect(res.status).to.be(501);
+        if (res.status == 200) {
+          expect(res.body.message).to.match(/(success)/);
+        } else {
+          expect(res.status).to.be(500);
+        }
         done();
       });
   });
