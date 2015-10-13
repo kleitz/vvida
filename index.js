@@ -13,7 +13,7 @@ var express = require('express'),
   FacebookStrategy = require('passport-facebook').Strategy,
   GoogleStrategy = require('passport-google-oauth').OAuth2Strategy,
   session = require('express-session'),
-  auth = require('./server/services');
+  auth = require('./server/services/social-auth');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'server/views'));
@@ -84,7 +84,7 @@ app.use(function(err, req, res, next) {
 
 var server = app.listen(process.env.PORT || 3000, function() {
   console.log('Express server listening on %d, in %s' +
-        'mode', server.address().port, app.get('env'));
+    'mode', server.address().port, app.get('env'));
 });
 
 module.exports = app;
