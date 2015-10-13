@@ -5,14 +5,7 @@ var User = require('../schemas/users');
 // profile), and invoke a callback with a user object.
 module.exports = function(passport, GoogleStrategy, config) {
 
-  passport.use(new GoogleStrategy({
-      clientID: config.googleClientID,
-      clientSecret: 'jDV73toE_qjEkjg32p8dNwZ7',
-      callbackURL: 'http://localhost:3000/auth/google/callback'
-        // returnURL: 'http://localhost:3000/auth/google/callback',
-        // realm: 'http://localhost:3000/',
-        // passReqToCallback: true
-    },
+  passport.use(new GoogleStrategy(config.auth.GOOGLE,
     function(accessToken, refreshToken, profile, done) {
       console.log(profile);
 
