@@ -11,6 +11,7 @@ var gulp = require('gulp'),
   nodemon = require('gulp-nodemon'),
   karma = require('gulp-karma'),
   protractor = require('gulp-protractor').protractor,
+  mocha = require('gulp-mocha'),
   paths = {
     public: 'public/**',
     jade: ['!app/shared/**', 'app/**/*.jade'],
@@ -43,6 +44,19 @@ gulp.task('test:fend', function() {
     .on('error', function(err) {
       // Make sure failed tests cause gulp to exit non-zero
       throw err;
+    });
+});
+
+gulp.task('test:bend', function() {
+  return gulp.src(['./server/tests/*.spec.js'])
+    .pipe(mocha({
+      // reporter: 'nyan'
+    }))
+    .once('error', function() {
+      process.exit(1);
+    })
+    .once('end', function() {
+      process.exit();
     });
 });
 
