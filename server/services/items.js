@@ -1,26 +1,24 @@
 (function() {
-
   'use strict';
-  var Events = require('../schemas/events');
+
+  var Items = require('../schemas/items');
+
   module.exports = {
-    // Create event middlware
-    createEvent: function(req, res) {
-      Events.sync().then(function() {
-        return Events.create({
+    // Middleware to create an item
+    createItem: function(req, res) {
+      Items.sync().then(function() {
+        return Items.create({
           user_id: req.session.id,
-          ev_name: req.body.eventName,
-          description: req.body.description,
-          location: req.body.location,
-          venue: req.body.venue,
-          time: req.body.time,
-          sponsor: req.body.sponsor
-        }).then(function(event, err) {
-          if (!event) {
+          cat_id: req.body.catId,
+          item_name: req.body.itemName,
+          item_desc: req.body.description
+        }).then(function(item) {
+          if (!item) {
             res.status(500).send({
-              error: 'Create event failed'
+              error: 'Create item failed'
             });
           } else {
-            res.json(event);
+            res.json(item);
           }
         });
       }).catch(function(err) {
@@ -30,10 +28,10 @@
       });
     },
 
-    // Middleware to get all the events
-    getAllEvents: function(req, res) {
-      Events.findAll().then(function(event, err) {
-        res.json(event);
+    // Middleware to get all items
+    getAllItems: function(req, res) {
+      Items.findAll().then(function(item) {
+        res.json(item);
       }).catch(function(err) {
         res.status(500).send({
           error: err.message || err.errors[0].message
@@ -41,19 +39,19 @@
       });
     },
 
-    // Middlware to get event by id
-    getEventById: function(req, res) {
-      return Events.find({
+    // Middleware to get an item by id
+    getItemById: function(req, res) {
+      return Items.find({
         where: {
           id: req.params.id
         }
-      }).then(function(event, err) {
-        if (!event) {
+      }).then(function(item) {
+        if (!item) {
           res.status(404).send({
-            message: 'Event not found'
+            message: 'Item not found'
           });
         } else {
-          res.json(event);
+          res.json(item);
         }
       }).catch(function(err) {
         res.status(500).send({
@@ -61,39 +59,39 @@
         });
       });
     },
-    // Middlware to  update events
-    updateEvent: function(req, res) {
-      return Events.update(req.body, {
+
+    // Middleware to update an item
+    updateItem: function(req, res) {
+      return Items.update(req.body, {
         where: {
           id: req.params.id
         }
-      }).then(function(ok, err) {
-        if (err) {
+      }).then(function(update) {
+        if (!update) {
           res.status(500).send({
             error: 'Update failed'
           });
         } else {
           res.json({
             isUpdate: true,
-            message: 'You have successfully Edited Your event'
+            message: 'You have successfully edited your item'
           });
         }
       }).catch(function(err) {
         res.status(500).send({
           error: err.message || err.errors[0].message
-
         });
       });
     },
 
-    // Middleware to delete an event
-    deleteEvent: function(req, res) {
-      return Events.destroy({
+    // Middleware to delete an item
+    deleteItem: function(req, res) {
+      return Items.destroy({
         where: {
           id: req.params.id
         }
-      }).then(function(ok, err) {
-        if (err) {
+      }).then(function(ok) {
+        if (!ok) {
           res.status(500).send({
             error: 'Delete failed'
           });
@@ -111,4 +109,3 @@
   };
 
 })();
-

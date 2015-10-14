@@ -46,9 +46,6 @@
     // Middleware to get all users
     getAllUsers: function(req, res) {
       User.findAll().then(function(users, err) {
-        if (err) {
-          console.log(err);
-        }
         if (!users) {
           res.status(404).send({
             error: 'User not found'
@@ -102,7 +99,7 @@
           res.status(500).send({
             error: err.message || err.errors[0].message
           });
-        } else {
+        }else {
           res.send({
             message: 'Profile updated succesfully'
           });
@@ -121,3 +118,5 @@
     }
   };
 })();
+
+
