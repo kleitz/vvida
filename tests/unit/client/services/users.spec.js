@@ -4,9 +4,10 @@ describe('Users Service Test', function() {
     module('vvida');
   });
 
-  var Users;
+  var Users, $http;
   beforeEach(inject(function($injector) {
     Users = $injector.get('Users');
+    $http = $injector.get('$http');
   }));
 
   describe('Users unit tests', function() {
@@ -15,5 +16,9 @@ describe('Users Service Test', function() {
       expect(typeof Users.login).toBe('function');
     });
 
+    it('$http and its method post should be defined', function() {
+      expect($http.post).toBeDefined();
+      expect(typeof $http.post).toBe('function');
+    });
   });
 });
