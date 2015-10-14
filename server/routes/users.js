@@ -1,18 +1,21 @@
-var userService = require('../services/users');
+var Users = require('../services/users');
 
 module.exports = function(app) {
   // login with email
   app.route('/api/users/login')
-    .post(userService.logIn);
-
+    .post(Users.logIn);
   // users routes
   app.route('/api/users')
-    .get(userService.getAllUsers)
-    .post(userService.signUp);
+    .get(Users.getAllUsers)
+    .post(Users.signUp);
+
+  app.get('/api/users/session', Users.getSession);
 
   // user email update route
   app.route('/api/users/:id')
-    .get(userService.getUserById)
-    .put(userService.updateUser)
-    .delete(userService.deleteUser);
+    .get(Users.getUserById)
+    .put(Users.updateUser)
+    .delete(Users.deleteUser);
+
+
 };

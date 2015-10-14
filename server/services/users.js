@@ -19,6 +19,7 @@
             message: 'authentication failed'
           });
         }
+        req.session.user = user;
         return res.json(user);
       })(req, res, next);
     },
@@ -41,6 +42,16 @@
         // else signup succesful
         return res.json(user);
       })(req, res, next);
+    },
+
+    getSession: function(req, res) {
+      if (req.session.user) {
+        res.status(200).send(req.session);
+      } else {
+        res.status(401).send({
+          error: 'Unathorized Accesss'
+        });
+      }
     },
 
     // Middleware to get all users
@@ -86,6 +97,7 @@
         });
       });
     },
+
     // Middileware to update user data
     updateUser: function(req, res) {
       // edit user email
@@ -99,7 +111,7 @@
           res.status(500).send({
             error: err.message || err.errors[0].message
           });
-        }else {
+        } else {
           res.send({
             message: 'Profile updated succesfully'
           });
@@ -118,5 +130,3 @@
     }
   };
 })();
-
-

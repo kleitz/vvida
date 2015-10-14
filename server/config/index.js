@@ -1,31 +1,24 @@
 var envVariables = {
     expressSessionKey: process.env.EXPRESS_SESSION_KEY,
-    database: process.env.DATABASE_NAME,
-    host: process.env.HOST,
-    userName: process.env.USER_NAME,
-    password: process.env.PASSWORD,
-
+    db: {
+      name: process.env.DATABASE_NAME,
+      dialect: process.env.DATABASE_DIALECT,
+      host: process.env.DATABASE_HOST,
+      username: process.env.DATABASE_USERNAME,
+      password: process.env.DATABASE_PASSWORD
+    }
   },
   development = {
     expressSessionKey: envVariables.expressSessionKey,
-    database: envVariables.database,
-    host: envVariables.host,
-    username: envVariables.userName,
-    password: envVariables.password,
+    db: envVariables.db
   },
   staging = {
     expressSessionKey: envVariables.expressSessionKey,
-    database: envVariables.database,
-    host: envVariables.host,
-    username: envVariables.userName,
-    password: envVariables.password,
+    db: envVariables.db
   },
   production = {
     expressSessionKey: envVariables.expressSessionKey,
-    database: envVariables.database,
-    host: envVariables.host,
-    username: envVariables.userName,
-    password: envVariables.password,
+    db: envVariables.db
   };
 
 module.exports = {
