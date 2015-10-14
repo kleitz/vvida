@@ -28,6 +28,7 @@ var gulp = require('gulp'),
       'public/js/application.js',
       'tests/unit/**/*.spec.js'
     ],
+    serverTests: ['./tests/server/**/*.spec.js'],
     libTests: ['lib/tests/**/*.js'],
     styles: 'app/styles/*.+(less|css)'
   };
@@ -48,7 +49,7 @@ gulp.task('test:fend', function() {
 });
 
 gulp.task('test:bend', function() {
-  return gulp.src(['./server/tests/**/*.spec.js'])
+  return gulp.src(paths.serverTests)
     .pipe(mocha({
       reporter: 'spec'
     }))
