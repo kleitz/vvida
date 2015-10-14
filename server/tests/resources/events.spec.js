@@ -1,6 +1,6 @@
 var request = require('superagent'),
   faker = require('faker'),
-  expect = require('expect.js'),
+  _expect = require('expect.js'),
   resourceApiURL = 'http://localhost:3000/api/events';
 
 describe('Events resource API tests', function() {
@@ -38,16 +38,16 @@ describe('Events resource API tests', function() {
       .get(resourceApiURL)
       // .use(requestPrefix)
       .accept('application/json')
-      // .expect('Content-Type', /json/)
-      // .expect(200)
+      // ._expect('Content-Type', /json/)
+      // ._expect(200)
       .end(function(err, res) {
         if (res.status === 200) {
           if (res.body.length === 0) {
-            expect(Object.prototype.toString.call(res.body)).to.be('[object Array]');
+            _expect(Object.prototype.toString.call(res.body)).to.be('[object Array]');
           } else {
-            expect(res.body.length).to.be.greaterThan(0);
-            expect(typeof res.body[0].id).to.be('number');
-            expect(typeof res.body[0].ev_name).to.be('string');
+            _expect(res.body.length).to.be.greaterThan(0);
+            _expect(typeof res.body[0].id).to.be('number');
+            _expect(typeof res.body[0].ev_name).to.be('string');
           }
         } else {
           throw err;
@@ -74,7 +74,7 @@ describe('Events resource API tests', function() {
         if (err) {
           throw err;
         } else {
-          expect(res.status).to.be(200);
+          _expect(res.status).to.be(200);
         }
       });
   });
@@ -85,15 +85,15 @@ describe('Events resource API tests', function() {
       .post(resourceApiURL)
       .send(fakeEvent)
       .accept('application/json')
-      // .expect('Content-Type', /json/)
-      // .expect(200)
+      // ._expect('Content-Type', /json/)
+      // ._expect(200)
       .end(function(err, res) {
         if (res.status === 200) {
           var newEventStored = res.body;
-          expect(newEventStored.ev_name).to.be(fakeEvent.eventName);
-          expect(newEventStored.description).to.be(fakeEvent.description);
-          expect(newEventStored.id).to.be.ok();
-          expect(typeof newEventStored.id).to.be('number');
+          _expect(newEventStored.ev_name).to.be(fakeEvent.eventName);
+          _expect(newEventStored.description).to.be(fakeEvent.description);
+          _expect(newEventStored.id).to.be.ok();
+          _expect(typeof newEventStored.id).to.be('number');
           id = newEventStored.id;
         } else {
           throw err;
@@ -113,7 +113,7 @@ describe('Events resource API tests', function() {
     // Not used in an angular application
     // since the angular application will route to the edit form
     // and display it
-    expect(true).to.be(true);
+    _expect(true).to.be(true);
   });
 
   /**
@@ -127,14 +127,14 @@ describe('Events resource API tests', function() {
     request
       .get(resourceApiURL + '/' + id)
       .accept('application/json')
-      // .expect('Content-Type', /json/)
-      // .expect(200)
+      // ._expect('Content-Type', /json/)
+      // ._expect(200)
       .end(function(err, res) {
         if (res.status === 200) {
-          expect(res.body.id).to.be(id);
+          _expect(res.body.id).to.be(id);
         } else {
-          expect(res.status).to.be(404);
-          expect(res.body.message).to.match(/(not found)/g);
+          _expect(res.status).to.be(404);
+          _expect(res.body.message).to.match(/(not found)/g);
         }
         done();
       });
@@ -151,7 +151,7 @@ describe('Events resource API tests', function() {
     // Not used in an angular application
     // since the angular application will route to the edit form
     // and display it
-    expect(true).to.be(true);
+    _expect(true).to.be(true);
   });
 
   /**
@@ -166,14 +166,14 @@ describe('Events resource API tests', function() {
       .put(resourceApiURL + '/' + id)
       .send(generateFakeEventUpdates())
       .accept('application/json')
-      // .expect('Content-Type', /json/)
-      // .expect(200)
+      // ._expect('Content-Type', /json/)
+      // ._expect(200)
       .end(function(err, res) {
         if (res.status === 200) {
-          expect(res.body.isUpdate).to.be(true);
-          expect(res.body.message).to.match(/(successful)/);
+          _expect(res.body.isUpdate).to.be(true);
+          _expect(res.body.message).to.match(/(successful)/);
         } else {
-          expect(res.status).to.be(500);
+          _expect(res.status).to.be(500);
         }
         done();
       });
@@ -190,13 +190,13 @@ describe('Events resource API tests', function() {
     request
       .del(resourceApiURL + '/' + id)
       .accept('application/json')
-      // .expect('Content-Type', /json/)
-      // .expect(200)
+      // ._expect('Content-Type', /json/)
+      // ._expect(200)
       .end(function(err, res) {
         if (res.status === 200) {
-          expect(res.body.message).to.match(/(successful)/);
+          _expect(res.body.message).to.match(/(successful)/);
         } else {
-          expect(res.status).to.be(500);
+          _expect(res.status).to.be(500);
         }
         done();
       });

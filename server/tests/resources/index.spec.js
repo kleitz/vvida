@@ -1,5 +1,5 @@
 var request = require('superagent'),
-  expect = require('expect.js');
+  _expect = require('expect.js');
 
 describe('Root route test', function() {
 
@@ -16,7 +16,7 @@ describe('Root route test', function() {
       // .expect('Content-Type', /html/)
       .end(function(err, res) {
         if (res.status == 200) {
-          expect(res.header['content-type']).to.match(/(text\/html)/g);
+          _expect(res.header['content-type']).to.match(/(text\/html)/g);
           done();
         }
       });

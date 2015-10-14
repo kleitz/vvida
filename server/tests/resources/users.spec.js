@@ -1,6 +1,6 @@
 var request = require('superagent'),
   faker = require('faker'),
-  expect = require('expect.js'),
+  _expect = require('expect.js'),
   resourceApiURL = 'http://localhost:3000/api/users';
 
 describe('User RESTful API tests', function() {
@@ -36,11 +36,11 @@ describe('User RESTful API tests', function() {
       .end(function(err, res) {
         if (res.status === 200) {
           if (res.body.length === 0) {
-            expect(Object.prototype.toString.call(res.body)).to.be('[object Array]');
+            _expect(Object.prototype.toString.call(res.body)).to.be('[object Array]');
           } else {
-            expect(res.body.length).to.be.greaterThan(0);
-            expect(typeof res.body[0].id).to.be('number');
-            expect(typeof res.body[0].password).to.be('string');
+            _expect(res.body.length).to.be.greaterThan(0);
+            _expect(typeof res.body[0].id).to.be('number');
+            _expect(typeof res.body[0].password).to.be('string');
           }
           done();
         }
@@ -63,9 +63,9 @@ describe('User RESTful API tests', function() {
       .end(function(err, res) {
         if (res.status === 200) {
           var data = res.body;
-          expect(data.email).to.be(fakeUser.email);
-          expect(data.id).to.be.ok();
-          expect(typeof data.id).to.be('number');
+          _expect(data.email).to.be(fakeUser.email);
+          _expect(data.id).to.be.ok();
+          _expect(typeof data.id).to.be('number');
           id = data.id;
         } else {
           throw err;
@@ -85,7 +85,7 @@ describe('User RESTful API tests', function() {
     // Not used in an angular application
     // since the angular application will route to the edit form
     // and display it
-    expect(true).to.be(true);
+    _expect(true).to.be(true);
   });
 
   /**
@@ -103,10 +103,10 @@ describe('User RESTful API tests', function() {
       // .expect(200)
       .end(function(err, res) {
         if (res.status === 200) {
-          expect(JSON.parse(res.text).id).to.be(id);
+          _expect(JSON.parse(res.text).id).to.be(id);
         } else {
-          expect(res.status).to.be(404);
-          expect(res.text).to.match(/(not found)/g);
+          _expect(res.status).to.be(404);
+          _expect(res.text).to.match(/(not found)/g);
         }
         done();
       });
@@ -124,7 +124,7 @@ describe('User RESTful API tests', function() {
     // Not used in an angular application
     // since the angular application will route to the edit form
     // and display it
-    expect(true).to.be(true);
+    _expect(true).to.be(true);
   });
 
   /**
@@ -143,9 +143,9 @@ describe('User RESTful API tests', function() {
       // .expect(200)
       .end(function(err, res) {
         if (res.status === 200) {
-          expect(res.text).to.match(/(success)/);
+          _expect(res.text).to.match(/(success)/);
         } else {
-          expect(res.status).to.be(501);
+          _expect(res.status).to.be(501);
         }
         done();
       });
@@ -165,7 +165,7 @@ describe('User RESTful API tests', function() {
       // .expect('Content-Type', /json/)
       // .expect(200)
       .end(function(err, res) {
-        expect(res.status).to.be(501);
+        _expect(res.status).to.be(501);
         done();
       });
   });

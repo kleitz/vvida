@@ -1,6 +1,6 @@
 var request = require('superagent'),
   faker = require('faker'),
-  expect = require('expect.js'),
+  _expect = require('expect.js'),
   resourceApiURL = 'http://localhost:3000/api/items';
 
 describe('Items resource API tests', function() {
@@ -40,14 +40,14 @@ describe('Items resource API tests', function() {
       .end(function(err, res) {
         if (res.status == 200) {
           if (res.body.length == 0) {
-            expect(Object.prototype.toString.call(res.body)).to.be('[object Array]');
+            _expect(Object.prototype.toString.call(res.body)).to.be('[object Array]');
           } else {
             var items = res.body;
-            expect(items.length).to.be.greaterThan(0);
-            expect(typeof items[0].id).to.be('number');
-            expect(typeof items[0].item_name).to.be('string');
-            expect(typeof items[0].item_desc).to.be('string');
-            expect(items[0].item_desc).to.match(/\s{2,}/g);
+            _expect(items.length).to.be.greaterThan(0);
+            _expect(typeof items[0].id).to.be('number');
+            _expect(typeof items[0].item_name).to.be('string');
+            _expect(typeof items[0].item_desc).to.be('string');
+            _expect(items[0].item_desc).to.match(/\s{2,}/g);
           }
         } else {
           throw err;
@@ -74,7 +74,7 @@ describe('Items resource API tests', function() {
         if (err) {
           throw err;
         } else {
-          expect(res.status).to.be(200);
+          _expect(res.status).to.be(200);
         }
       });
   });
@@ -90,10 +90,10 @@ describe('Items resource API tests', function() {
       .end(function(err, res) {
         if (res.status == 200) {
           var newItemStored = res.body;
-          expect(newItemStored.cat_id).to.be(fakeItem.catId);
-          expect(newItemStored.item_name).to.be(fakeItem.itemName);
-          expect(newItemStored.id).to.be.ok();
-          expect(typeof newItemStored.id).to.be('number');
+          _expect(newItemStored.cat_id).to.be(fakeItem.catId);
+          _expect(newItemStored.item_name).to.be(fakeItem.itemName);
+          _expect(newItemStored.id).to.be.ok();
+          _expect(typeof newItemStored.id).to.be('number');
           id = newItemStored.id;
         } else {
           throw err;
@@ -113,7 +113,7 @@ describe('Items resource API tests', function() {
     // Not used in an angular application
     // since the angular application will route to the edit form
     // and display it
-    expect(true).to.be(true);
+    _expect(true).to.be(true);
   });
 
   /**
@@ -131,10 +131,10 @@ describe('Items resource API tests', function() {
       // .expect(200)
       .end(function(err, res) {
         if (res.status == 200) {
-          expect(res.body.id).to.be(id);
+          _expect(res.body.id).to.be(id);
         } else {
-          expect(res.status).to.be(404);
-          expect(res.body.message).to.match(/(not found)/g);
+          _expect(res.status).to.be(404);
+          _expect(res.body.message).to.match(/(not found)/g);
         }
         done();
       });
@@ -151,7 +151,7 @@ describe('Items resource API tests', function() {
     // Not used in an angular application
     // since the angular application will route to the edit form
     // and display it
-    expect(true).to.be(true);
+    _expect(true).to.be(true);
   });
 
   /**
@@ -170,10 +170,10 @@ describe('Items resource API tests', function() {
       // .expect(200)
       .end(function(err, res) {
         if (res.status == 200) {
-          expect(res.body.isUpdate).to.be(true);
-          expect(res.body.message).to.match(/(success)/);
+          _expect(res.body.isUpdate).to.be(true);
+          _expect(res.body.message).to.match(/(success)/);
         } else {
-          expect(res.status).to.be(500);
+          _expect(res.status).to.be(500);
         }
         done();
       });
@@ -194,9 +194,9 @@ describe('Items resource API tests', function() {
       // .expect(200)
       .end(function(err, res) {
         if (res.status == 200) {
-          expect(res.body.message).to.match(/(successful)/);
+          _expect(res.body.message).to.match(/(successful)/);
         } else {
-          expect(res.status).to.be(500);
+          _expect(res.status).to.be(500);
         }
         done();
       });
