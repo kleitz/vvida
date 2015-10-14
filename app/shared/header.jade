@@ -1,20 +1,20 @@
-md-toolbar.md-accent.md-whiteframe-z3.hide-sm
+md-toolbar.md-accent.md-whiteframe-z3
   .md-toolbar-tools.md-accent
+    md-button.md-icon-button.show-sm.hide-gt-sm(ng-click='openLeftMenu()')
+      i.fa.fa-bars.fa-2x
     a(ui-sref="home")
-      img(src="images/logo.png" height="32")
+      img(src="images/logo.png" height="24" hide-sm)
+      span.text-color.white &nbsp;Vvida
     span(flex)
-    a(ng-repeat="menuItem in menu" ui-sref="{{menuItem.state}}")
+    a(ng-repeat="menuItem in menu" ui-sref="{{menuItem.state}}" hide-sm)
         md-button {{menuItem.name}}
-md-button.md-icon-button.show-sm.hide-gt-sm(ng-click='openLeftMenu()', ng-controller='HamburgerCtrl')
-  i.fa.fa-bars.fa-2x
-md-sidenav.md-sidenav-left(md-component-id='left')
-  .sidenav-contents
-    a(ui-sref="home") Home
-    a(ui-sref="about") About
-    a(ui-sref="#") Discover
-    a(ui-sref="#") Business
-    a(ui-sref="events") Events
-    a(ui-sref="login") Sign Up
-    a(ui-sref="login") Log In
+md-sidenav.md-sidenav-left(md-component-id='left' hide-gt-sm)
+  md-toolbar.md-accent
+    h1.md-toolbar-tools
+      a(ui-sref="home")
+        img(src="images/logo.png" height="16")
+        span.text-color.white &nbsp;Vvida
+  md-content.sidenav-contents
+    md-button.menu-button(ng-repeat="menuItem in menu" ui-sref="{{menuItem.state}}" ng-click="closeLeftMenu()") {{menuItem.name}}
 
 
