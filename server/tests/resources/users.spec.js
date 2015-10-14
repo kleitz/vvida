@@ -67,7 +67,7 @@ describe('User RESTful API tests', function() {
           expect(typeof data.id).to.be('number');
           id = data.id;
         } else {
-          return new Error();
+          throw err;
         }
         done();
       });
@@ -104,6 +104,7 @@ describe('User RESTful API tests', function() {
         if (res.status == 200) {
           expect(JSON.parse(res.text).id).to.be(id);
         } else {
+          expect(res.status).to.be(404);
           expect(res.text).to.match(/(not found)/g);
         }
         done();
