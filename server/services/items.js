@@ -5,6 +5,7 @@ var Items = require('../schemas/items'),
 
   'use strict';
   itemService = {
+    // Middleware to create an item
     createItem: function(req, res) {
       Items.sync().then(function() {
         return Items.create({
@@ -20,14 +21,26 @@ var Items = require('../schemas/items'),
           } else {
             res.json(item);
           }
+        }).catch(function(err) {
+          res.status(500).send({
+            success: false,
+            error: err.errors[0].message
+          });
         });
       });
     },
+    // Middleware to get all items
     getAllItems: function(req, res) {
       Items.findAll().then(function(item) {
         res.json(item);
+      }).catch(function(err) {
+        res.status(500).send({
+          success: false,
+          error: err.errors[0].message
+        });
       });
     },
+    // Middleware to get an item by id
     getItemById: function(req, res) {
       return Items.find({
         where: {
@@ -41,8 +54,14 @@ var Items = require('../schemas/items'),
         } else {
           res.json(item);
         }
+      }).catch(function(err) {
+        res.status(500).send({
+          success: false,
+          error: err.errors[0].message
+        });
       });
     },
+    // Middleware to update an item
     updateItem: function(req, res) {
       return Items.update(req.body, {
         where: {
@@ -59,8 +78,14 @@ var Items = require('../schemas/items'),
             message: 'You have successfully edited your item'
           });
         }
+      }).catch(function(err) {
+        res.status(500).send({
+          success: false,
+          error: err.errors[0].message
+        });
       });
     },
+    // Middleware to delete an item
     deleteItem: function(req, res) {
       return Items.destroy({
         where: {
@@ -77,8 +102,13 @@ var Items = require('../schemas/items'),
             message: 'Delete successful'
           });
         }
+      }).catch(function(err) {
+        res.status(500).send({
+          success: false,
+          error: err.errors[0].message
+        });
       });
     }
   };
 })();
-module.export(itemService);
+module.exports = itemService;
