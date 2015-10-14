@@ -38,8 +38,8 @@ describe('Items resource API tests', function() {
       // .expect('Content-Type', /json/)
       // .expect(200)
       .end(function(err, res) {
-        if (res.status == 200) {
-          if (res.body.length == 0) {
+        if (res.status === 200) {
+          if (res.body.length === 0) {
             _expect(Object.prototype.toString.call(res.body)).to.be('[object Array]');
           } else {
             var items = res.body;
@@ -88,7 +88,7 @@ describe('Items resource API tests', function() {
       // .expect('Content-Type', /json/)
       // .expect(200)
       .end(function(err, res) {
-        if (res.status == 200) {
+        if (res.status === 200) {
           var newItemStored = res.body;
           _expect(newItemStored.cat_id).to.be(fakeItem.catId);
           _expect(newItemStored.item_name).to.be(fakeItem.itemName);
@@ -130,7 +130,7 @@ describe('Items resource API tests', function() {
       // .expect('Content-Type', /json/)
       // .expect(200)
       .end(function(err, res) {
-        if (res.status == 200) {
+        if (res.status === 200) {
           _expect(res.body.id).to.be(id);
         } else {
           _expect(res.status).to.be(404);
@@ -169,7 +169,7 @@ describe('Items resource API tests', function() {
       // .expect('Content-Type', /json/)
       // .expect(200)
       .end(function(err, res) {
-        if (res.status == 200) {
+        if (res.status === 200) {
           _expect(res.body.isUpdate).to.be(true);
           _expect(res.body.message).to.match(/(success)/);
         } else {
@@ -193,7 +193,7 @@ describe('Items resource API tests', function() {
       // .expect('Content-Type', /json/)
       // .expect(200)
       .end(function(err, res) {
-        if (res.status == 200) {
+        if (res.status === 200) {
           _expect(res.body.message).to.match(/(successful)/);
         } else {
           _expect(res.status).to.be(500);

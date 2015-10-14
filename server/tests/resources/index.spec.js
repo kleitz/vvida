@@ -15,7 +15,7 @@ describe('Root route test', function() {
       // .expect(200)
       // .expect('Content-Type', /html/)
       .end(function(err, res) {
-        if (res.status == 200) {
+        if (res.status === 200) {
           _expect(res.header['content-type']).to.match(/(text\/html)/g);
           done();
         }
