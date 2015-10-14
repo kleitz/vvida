@@ -1,5 +1,6 @@
 angular.module('vvida.controllers')
-  .controller('AboutCtrl', ['$scope', 'Utils', function($scope, Utils) {
+  .controller('AboutCtrl', ['$scope', 'Utils', 'Users', function($scope, Utils, Users) {
+    var users = new Users();
     $scope.openDialog = function(event) {
       Utils.dialog('My name is a String', 'Hey there, I\'m a dialog', event,
         function() {
@@ -12,7 +13,6 @@ angular.module('vvida.controllers')
     };
 
     $scope.uploadFile = function() {
-
       $scope.fileSelected = function(files) {
         if (files && files.length) {
           $scope.file = files[0];
@@ -25,7 +25,6 @@ angular.module('vvida.controllers')
           .success(function(data) {
             console.log(data, 'uploaded');
           });
-
       };
     };
   }]);
