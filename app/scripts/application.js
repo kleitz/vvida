@@ -37,7 +37,7 @@
       }
       else {
         console.log('ALLOW');
-        $location.path('/home');
+        $location.path('/item');
       }
     });
 
