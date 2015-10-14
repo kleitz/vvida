@@ -1,4 +1,4 @@
-var User = require('../schemas/users'),
+var User = require('../../schemas/users'),
   bcrypt = require('bcrypt-nodejs');
 
 module.exports = function(passport, LocalStrategy) {
