@@ -5,5 +5,7 @@ md-toolbar.md-accent.md-whiteframe-z3.hide-sm
     span(flex)
     a(ng-repeat="menuItem in menu" ui-sref="{{menuItem.state}}")
         md-button {{menuItem.name}}
-md-button.md-icon-button.show-sm.hide-gt-sm
+md-button.md-icon-button.show-sm.hide-gt-sm(ng-click='openLeftMenu()', ng-controller='HamburgerCtrl')
   i.fa.fa-bars.fa-2x
+md-sidenav.md-sidenav-left(md-component-id='left')
+  p Left Nav!
