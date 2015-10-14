@@ -19,8 +19,8 @@ angular.module('vvida.services')
       });
     };
 
-    obj.session = function(user, cb) {
-      $http.post('/api/users/session', user).success(function(res) {
+    obj.session = function(cb) {
+      $http.get('/api/users/session').success(function(res) {
         cb(null, res);
       }).error(function(err) {
         cb(err);
