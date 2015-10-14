@@ -8,4 +8,13 @@ md-toolbar.md-accent.md-whiteframe-z3.hide-sm
 md-button.md-icon-button.show-sm.hide-gt-sm(ng-click='openLeftMenu()', ng-controller='HamburgerCtrl')
   i.fa.fa-bars.fa-2x
 md-sidenav.md-sidenav-left(md-component-id='left')
-  p Left Nav!
+  .sidenav-contents
+    a(ui-sref="home") Home
+    a(ui-sref="about") About
+    a(ui-sref="#") Discover
+    a(ui-sref="#") Business
+    a(ui-sref="events") Events
+    a(ui-sref="login") Sign Up
+    a(ui-sref="login") Log In
+
+
