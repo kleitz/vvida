@@ -49,4 +49,3 @@ angular.module('vvida.services')
     };
   });
 
-
