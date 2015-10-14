@@ -3,9 +3,9 @@ var request = require('superagent'),
   expect = require('expect.js'),
   resourceApiURL = 'http://localhost:3000/api/items';
 
-describe('Items RESTful API tests', function() {
+describe('Items resource API tests', function() {
 
-  var fakeItemGenerator = function() {
+  var generateFakeItem = function() {
       return {
         catId: faker.random.number(),
         userId: faker.random.number(),
@@ -13,7 +13,7 @@ describe('Items RESTful API tests', function() {
         description: faker.lorem.sentence()
       }
     },
-    fakeItemUpdater = function() {
+    generateFakeItemUpdate = function() {
       return {
         cat_id: faker.random.number(),
         user_id: faker.random.number(),
@@ -41,9 +41,12 @@ describe('Items RESTful API tests', function() {
           if (res.body.length == 0) {
             expect(Object.prototype.toString.call(res.body)).to.be('[object Array]');
           } else {
-            expect(res.body.length).to.be.greaterThan(0);
-            expect(typeof res.body[0].id).to.be('number');
-            expect(typeof res.body[0].password).to.be('string');
+            var items = res.body;
+            expect(items.length).to.be.greaterThan(0);
+            expect(typeof items[0].id).to.be('number');
+            expect(typeof items[0].item_name).to.be('string');
+            expect(typeof items[0].item_desc).to.be('string');
+            expect(items[0].item_desc).to.match(/\s{2,}/g);
           }
         } else {
           throw err;
@@ -76,7 +79,7 @@ describe('Items RESTful API tests', function() {
   });
 
   it('should store a newly created resource in storage.', function() {
-    var fakeItem = fakeItemGenerator();
+    var fakeItem = generateFakeItem();
     request
       .post(resourceApiURL)
       .send(fakeItem)
@@ -85,11 +88,12 @@ describe('Items RESTful API tests', function() {
       // .expect(200)
       .end(function(err, res) {
         if (res.status == 200) {
-          var data = res.body;
-          expect(data.cat_id).to.be(fakeItem.cat_id);
-          expect(data.id).to.be.defined;
-          expect(typeof data.id).to.be('number');
-          id = data.id;
+          var newItemStored = res.body;
+          expect(newItemStored.cat_id).to.be(fakeItem.catId);
+          expect(newItemStored.item_name).to.be(fakeItem.itemName);
+          expect(newItemStored.id).to.be.defined;
+          expect(typeof newItemStored.id).to.be('number');
+          id = newItemStored.id;
         } else {
           throw err;
         }
@@ -159,7 +163,7 @@ describe('Items RESTful API tests', function() {
   it('should update the specified resource in storage.', function(done) {
     request
       .put(resourceApiURL + '/' + id)
-      .send(fakeItemUpdater())
+      .send(generateFakeItemUpdate())
       .accept('application/json')
       // .expect('Content-Type', /json/)
       // .expect(200)
@@ -189,7 +193,7 @@ describe('Items RESTful API tests', function() {
       // .expect(200)
       .end(function(err, res) {
         if (res.status == 200) {
-          expect(res.body.message).to.match(/(success)/);
+          expect(res.body.message).to.match(/(successful)/);
         } else {
           expect(res.status).to.be(500);
         }
