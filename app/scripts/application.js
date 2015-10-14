@@ -9,6 +9,7 @@
   require('./services/utils');
   require('./services/users');
   require('./services/products');
+  require('./services/auth');
   // Require Controllers
   require('./controllers/home');
   require('./controllers/about');
