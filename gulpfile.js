@@ -21,30 +21,10 @@ var gulp = require('gulp'),
       '!app/images/**/*',
       'app/**/*.*'
     ],
-    unitTests: [
-      'public/lib/angular/angular.min.js',
-      'public/lib/angular-ui-router/release/angular-ui-router.min.js',
-      'public/js/application.js',
-      'tests/unit/**/*.spec.js'
-    ],
+    unitTests: [],
     libTests: ['lib/tests/**/*.js'],
     styles: 'app/styles/*.+(less|css)'
   };
-
-gulp.task('test:fend', function() {
-  // Be sure to return the stream
-  return gulp.src(paths.unitTests)
-    .pipe(karma({
-      configFile: __dirname + '/karma.conf.js',
-      // autoWatch: false,
-      // singleRun: true
-      action: 'run'
-    }))
-    .on('error', function(err) {
-      // Make sure failed tests cause gulp to exit non-zero
-      throw err;
-    });
-});
 
 gulp.task('less', function() {
   gulp.src(paths.styles)
@@ -108,6 +88,21 @@ gulp.task('nodemon', function() {
     .on('change', ['lint'])
     .on('restart', function() {
       console.log('>> node restart');
+    });
+});
+
+gulp.task('test:fend', ['browserify', 'bower'], function() {
+  // Be sure to return the stream
+  return gulp.src(paths.unitTests)
+    .pipe(karma({
+      configFile: __dirname + '/karma.conf.js',
+      // autoWatch: false,
+      // singleRun: true
+      action: 'run'
+    }))
+    .on('error', function(err) {
+      // Make sure failed tests cause gulp to exit non-zero
+      throw err;
     });
 });
 
