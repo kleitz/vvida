@@ -134,8 +134,7 @@
       })
       .state('404', {
         url: '/404',
-        templateUrl: 'views/404.html',
-        controller: function($scope) {}
+        templateUrl: 'views/404.html'
       });
 
     $locationProvider.html5Mode(true);
