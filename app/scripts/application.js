@@ -8,10 +8,14 @@
   //Require Services
   require('./services/utils');
   require('./services/users');
+  require('./services/products');
+
   // Require Controllers
+  require('./controllers/footer');
   require('./controllers/home');
   require('./controllers/about');
   require('./controllers/login');
+  require('./controllers/events');
 
   window.app = angular.module('vvida', [
     'vvida.controllers',
@@ -21,11 +25,9 @@
     'ui.router',
     'ngResource',
     'ngMaterial',
-
   ]);
 
   window.app.run(['$rootScope', function($rootScope) {
-
     $rootScope.menu = [{
       name: 'Home',
       state: 'home'
@@ -39,75 +41,12 @@
       name: 'Log In',
       state: 'login'
     }];
-
-    $rootScope.discover = [{
-      name: 'The Weekly Vvida',
-      state: 'home'
-    }, {
-      name: 'Vvida Blog',
-      state: 'home'
-    }, {
-      name: 'Support',
-      state: 'home'
-    }, {
-      name: 'Vvida Mobile',
-      state: 'home'
-    }, {
-      name: 'Developers',
-      state: 'home'
-    }, {
-      name: 'RSS Feed',
-      state: 'home'
-    }];
-
-    $rootScope.business = [{
-      name: 'Claim your Business Page',
-      state: 'home'
-    }, {
-      name: 'Advertise on Vvida',
-      state: 'home'
-    }, {
-      name: 'Support',
-      state: 'home'
-    }, {
-      name: 'Business Success Stories',
-      state: 'home'
-    }, {
-      name: 'Business Support',
-      state: 'home'
-    }, {
-      name: 'Vvida Blog for Business Owners',
-      state: 'home'
-    }];
-
-    $rootScope.about = [{
-      name: 'About Vvida',
-      state: 'home'
-    }, {
-      name: 'Press',
-      state: 'home'
-    }, {
-      name: 'Content Guidelines',
-      state: 'home'
-    }, {
-      name: 'Terms of Service',
-      state: 'home'
-    }, {
-      name: 'Private Policy',
-      state: 'home'
-    }, {
-      name: 'Ad Choices',
-      state: 'home'
-    }];
-
-
   }]);
 
   window.app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$mdThemingProvider', function($stateProvider, $urlRouterProvider, $locationProvider, $mdThemingProvider) {
-    //
     // For any unmatched url, redirect to /state1
     $urlRouterProvider.otherwise('/404');
-    //
+
     // Now set up the states
     $mdThemingProvider.theme('default')
       .primaryPalette('blue')
@@ -125,7 +64,7 @@
       })
       .state('events', {
         url: '/events',
-        controller: 'HomeCtrl',
+        controller: 'EventsCtrl',
         templateUrl: 'views/events.html'
       })
       .state('login', {
@@ -138,12 +77,11 @@
         controller: 'AboutCtrl',
         templateUrl: 'views/upload.html'
       })
-
-    .state('404', {
-      url: '/404',
-      templateUrl: 'views/404.html',
-      controller: function($scope) {}
-    });
+      .state('404', {
+        url: '/404',
+        templateUrl: 'views/404.html',
+        controller: function($scope) {}
+      });
 
     $locationProvider.html5Mode(true);
   }]);
