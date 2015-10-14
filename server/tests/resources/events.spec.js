@@ -14,7 +14,7 @@ describe('Events resource API tests', function() {
         venue: faker.address.streetAddress(),
         time: faker.date.future(),
         sponsor: faker.company.companyName()
-      }
+      };
     },
     generateFakeEventUpdates = function() {
       return {
@@ -22,9 +22,10 @@ describe('Events resource API tests', function() {
         location: faker.address.streetName(),
         description: faker.lorem.sentence(),
         venue: faker.address.streetAddress()
-      }
+      };
     },
-    id = null;
+    // id to be defined when a resource added
+    id;
 
   /**
    * Display a listing of the resource.
@@ -40,8 +41,8 @@ describe('Events resource API tests', function() {
       // .expect('Content-Type', /json/)
       // .expect(200)
       .end(function(err, res) {
-        if (res.status == 200) {
-          if (res.body.length == 0) {
+        if (res.status === 200) {
+          if (res.body.length === 0) {
             expect(Object.prototype.toString.call(res.body)).to.be('[object Array]');
           } else {
             expect(res.body.length).to.be.greaterThan(0);
@@ -78,7 +79,7 @@ describe('Events resource API tests', function() {
       });
   });
 
-  it('should store a newly created resource in storage.', function() {
+  it('should store a newly created resource in storage.', function(done) {
     var fakeEvent = generateFakeEvent();
     request
       .post(resourceApiURL)
@@ -87,11 +88,11 @@ describe('Events resource API tests', function() {
       // .expect('Content-Type', /json/)
       // .expect(200)
       .end(function(err, res) {
-        if (res.status == 200) {
+        if (res.status === 200) {
           var newEventStored = res.body;
           expect(newEventStored.ev_name).to.be(fakeEvent.eventName);
           expect(newEventStored.description).to.be(fakeEvent.description);
-          expect(newEventStored.id).to.be.defined;
+          expect(newEventStored.id).to.be.ok();
           expect(typeof newEventStored.id).to.be('number');
           id = newEventStored.id;
         } else {
@@ -129,7 +130,7 @@ describe('Events resource API tests', function() {
       // .expect('Content-Type', /json/)
       // .expect(200)
       .end(function(err, res) {
-        if (res.status == 200) {
+        if (res.status === 200) {
           expect(res.body.id).to.be(id);
         } else {
           expect(res.status).to.be(404);
@@ -168,7 +169,7 @@ describe('Events resource API tests', function() {
       // .expect('Content-Type', /json/)
       // .expect(200)
       .end(function(err, res) {
-        if (res.status == 200) {
+        if (res.status === 200) {
           expect(res.body.isUpdate).to.be(true);
           expect(res.body.message).to.match(/(successful)/);
         } else {
@@ -192,7 +193,7 @@ describe('Events resource API tests', function() {
       // .expect('Content-Type', /json/)
       // .expect(200)
       .end(function(err, res) {
-        if (res.status == 200) {
+        if (res.status === 200) {
           expect(res.body.message).to.match(/(successful)/);
         } else {
           expect(res.status).to.be(500);

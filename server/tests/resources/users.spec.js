@@ -17,7 +17,8 @@ describe('User RESTful API tests', function() {
       country: 'Kenya',
       city: 'Nairobi'
     },
-    id = undefined;
+    // id to be defined when a resource added
+    id;
 
   /**
    * Display a listing of the resource.
@@ -33,8 +34,8 @@ describe('User RESTful API tests', function() {
       // .expect('Content-Type', /json/)
       // .expect(200)
       .end(function(err, res) {
-        if (res.status == 200) {
-          if (res.body.length == 0) {
+        if (res.status === 200) {
+          if (res.body.length === 0) {
             expect(Object.prototype.toString.call(res.body)).to.be('[object Array]');
           } else {
             expect(res.body.length).to.be.greaterThan(0);
@@ -60,10 +61,10 @@ describe('User RESTful API tests', function() {
       // .expect('Content-Type', /json/)
       // .expect(200)
       .end(function(err, res) {
-        if (res.status == 200) {
+        if (res.status === 200) {
           var data = res.body;
           expect(data.email).to.be(fakeUser.email);
-          expect(data.id).to.be.defined;
+          expect(data.id).to.be.ok();
           expect(typeof data.id).to.be('number');
           id = data.id;
         } else {
@@ -101,7 +102,7 @@ describe('User RESTful API tests', function() {
       // .expect('Content-Type', /json/)
       // .expect(200)
       .end(function(err, res) {
-        if (res.status == 200) {
+        if (res.status === 200) {
           expect(JSON.parse(res.text).id).to.be(id);
         } else {
           expect(res.status).to.be(404);
@@ -141,7 +142,7 @@ describe('User RESTful API tests', function() {
       // .expect('Content-Type', /json/)
       // .expect(200)
       .end(function(err, res) {
-        if (res.status == 200) {
+        if (res.status === 200) {
           expect(res.text).to.match(/(success)/);
         } else {
           expect(res.status).to.be(501);

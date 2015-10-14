@@ -11,7 +11,7 @@ describe('Items resource API tests', function() {
         userId: faker.random.number(),
         itemName: faker.commerce.productName(),
         description: faker.lorem.sentence()
-      }
+      };
     },
     generateFakeItemUpdate = function() {
       return {
@@ -19,9 +19,10 @@ describe('Items resource API tests', function() {
         user_id: faker.random.number(),
         item_name: faker.commerce.productName(),
         item_desc: faker.lorem.sentence()
-      }
+      };
     },
-    id = null;
+    // id to be defined when a resource added
+    id;
 
   /**
    * Display a listing of the resource.
@@ -78,7 +79,7 @@ describe('Items resource API tests', function() {
       });
   });
 
-  it('should store a newly created resource in storage.', function() {
+  it('should store a newly created resource in storage.', function(done) {
     var fakeItem = generateFakeItem();
     request
       .post(resourceApiURL)
@@ -91,7 +92,7 @@ describe('Items resource API tests', function() {
           var newItemStored = res.body;
           expect(newItemStored.cat_id).to.be(fakeItem.catId);
           expect(newItemStored.item_name).to.be(fakeItem.itemName);
-          expect(newItemStored.id).to.be.defined;
+          expect(newItemStored.id).to.be.ok();
           expect(typeof newItemStored.id).to.be('number');
           id = newItemStored.id;
         } else {
