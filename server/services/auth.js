@@ -15,12 +15,11 @@ module.exports = function(passport, LocalStrategy) {
       });
     }).then(function(user) {
       if (!user) {
-        return done(null, false, {
-          message: 'sign up failed'
-        });
-      } else {
-        done(null, user);
+        return done(null, false);
       }
+      return done(null, user);
+    }).catch(function(err) {
+      return done(err);
     });
   }));
 
@@ -36,18 +35,16 @@ module.exports = function(passport, LocalStrategy) {
       }
     }).then(function(user) {
       if (!user) {
-        return done(null, false, {
-          message: 'user not found'
-        });
+        return done(null, false);
       }
 
-      if (bcrypt.compareSync(password, user.password) !== true ) {
-        return done(null, false, {
-          message: 'invalid password'
-        });
+      if (bcrypt.compareSync(password, user.password) !== true) {
+        return done(null, false);
       }
 
       return done(null, user);
+    }).catch(function(err) {
+      return done(err);
     });
   }));
 };
