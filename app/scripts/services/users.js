@@ -35,29 +35,25 @@ angular.module('vvida.services')
       });
     };
     return obj;
-  }])
+  }]);
 
-  .factory('Users', ['UserResource'], function(UserResource) {
-    users = new UserResource();
+  // .factory('Users', ['UserResource'], function(UserResource) {
+  //   users = new UserResource();
+  //   return {
+  //     getAllUsers: function() {
+  //      return  users.query();
+  //     },
 
-    return {
-      getAllUsers: function() {
-       return  users.query();
-      },
+  //     getUSerById: function(userId) {
+  //       return users.get({id: userId});
+  //     },
 
-      getUSerById: function(userId) {
-        return users.get({id: userId});
-      },
-
-      updateUser: function(userId) {
-        return users.update({id: userId});
-      },
-      deletUser: function(userId) {
-        return users.$delete({id: userId});
-      }
-    };
-  });
-
-
-
+  //     updateUser: function(userId) {
+  //       return users.update({id: userId});
+  //     },
+  //     deletUser: function(userId) {
+  //       return users.$delete({id: userId});
+  //     }
+  //   };
+  // });
 

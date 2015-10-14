@@ -1,27 +1,25 @@
-var User = require('../schemas/users'),
-  passport = require('passport'),
-  userService;
 (function() {
   'use strict';
+  var User = require('../schemas/users'),
+    passport = require('passport');
 
-  userService = {
+  module.exports = {
     // login middleware
     logIn: function(req, res, next) {
       passport.authenticate('login', function(err, user) {
         if (err) {
           // will generate a 409 error
           return res.status(409).send({
-            success: false,
-            error: err.errors[0].message
+            error: err.message || err.errors[0].message
           });
         }
         // Generate a JSON response reflecting authentication status
         if (!user) {
           return res.send({
-            success: false,
             message: 'authentication failed'
           });
         }
+        req.session.user = user;
         return res.json(user);
       })(req, res, next);
     },
@@ -32,14 +30,12 @@ var User = require('../schemas/users'),
         // check for errors, if exist send a response with error
         if (err) {
           return res.status(500).send({
-            success: false,
-            error: err.errors[0].message
+            error: err.message || err.errors[0].message
           });
         }
         // If passport doesn't return the user object,  signup failed
         if (!user) {
           return res.status(500).send({
-            success: false,
             error: 'Signup failed'
           });
         }
@@ -48,12 +44,21 @@ var User = require('../schemas/users'),
       })(req, res, next);
     },
 
+    getSession: function(req, res) {
+      if (req.session.user) {
+        res.status(200).send(req.session);
+      } else {
+        res.status(401).send({
+          error: 'Unathorized Accesss'
+        });
+      }
+    },
+
     // Middleware to get all users
     getAllUsers: function(req, res) {
       User.findAll().then(function(users, err) {
         if (!users) {
           res.status(404).send({
-            success: false,
             error: 'User not found'
           });
         } else {
@@ -64,8 +69,7 @@ var User = require('../schemas/users'),
         }
       }).catch(function(err) {
         res.status(500).send({
-          success: false,
-          error: err.errors[0].message
+          error: err.message || err.errors[0].message
         });
       });
     },
@@ -80,7 +84,6 @@ var User = require('../schemas/users'),
       }).then(function(user, err) {
         if (!user) {
           res.status(404).send({
-            success: false,
             message: 'User not found'
           });
         } else {
@@ -90,11 +93,11 @@ var User = require('../schemas/users'),
         }
       }).catch(function(err) {
         res.status(500).send({
-          success: false,
-          error: err.errors[0].message
+          error: err.message || err.errors[0].message
         });
       });
     },
+
     // Middileware to update user data
     updateUser: function(req, res) {
       // edit user email
@@ -106,27 +109,24 @@ var User = require('../schemas/users'),
       }).then(function(ok, err) {
         if (err) {
           res.status(500).send({
-            success: false,
-            error: err.errors[0].message
+            error: err.message || err.errors[0].message
           });
         } else {
           res.send({
-            success: true,
             message: 'Profile updated succesfully'
           });
         }
       }).catch(function(err) {
         res.status(500).send({
-          success: false,
-          error: err.errors[0].message
+          error: err.message || err.errors[0].message
         });
       });
     },
 
     deleteUser: function(req, res) {
-      res.status(501).send('Not implemented');
+      res.status(501).send({
+        error: 'Not implemented'
+      });
     }
   };
 })();
-
-module.exports = userService;

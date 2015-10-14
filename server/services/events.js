@@ -1,11 +1,8 @@
-var Events = require('../schemas/events'),
-  eventService;
-
 (function() {
 
   'use strict';
-
-  eventService = {
+  var Events = require('../schemas/events');
+  module.exports = {
     // Create event middlware
     createEvent: function(req, res) {
       Events.sync().then(function() {
@@ -25,11 +22,10 @@ var Events = require('../schemas/events'),
           } else {
             res.json(event);
           }
-        }).catch(function(err) {
-          res.status(500).send({
-            success: false,
-            error: err.errors[0].message
-          });
+        });
+      }).catch(function(err) {
+        res.status(500).send({
+          error: err.message || err.errors[0].message
         });
       });
     },
@@ -40,12 +36,12 @@ var Events = require('../schemas/events'),
         res.json(event);
       }).catch(function(err) {
         res.status(500).send({
-          success: false,
-          error: err.errors[0].message
+          error: err.message || err.errors[0].message
         });
       });
     },
-// Middlware to get event by id
+
+    // Middlware to get event by id
     getEventById: function(req, res) {
       return Events.find({
         where: {
@@ -61,8 +57,7 @@ var Events = require('../schemas/events'),
         }
       }).catch(function(err) {
         res.status(500).send({
-          success: false,
-          error: err.errors[0].message
+          error: err.message || err.errors[0].message
         });
       });
     },
@@ -85,8 +80,8 @@ var Events = require('../schemas/events'),
         }
       }).catch(function(err) {
         res.status(500).send({
-          success: false,
-          error: err.errors[0].message
+          error: err.message || err.errors[0].message
+
         });
       });
     },
@@ -109,8 +104,7 @@ var Events = require('../schemas/events'),
         }
       }).catch(function(err) {
         res.status(500).send({
-          success: false,
-          error: err.errors[0].message
+          error: err.message || err.errors[0].message
         });
       });
     }
@@ -118,4 +112,3 @@ var Events = require('../schemas/events'),
 
 })();
 
-module.exports = eventService;
