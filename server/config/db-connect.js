@@ -6,4 +6,7 @@ var Seq = require('sequelize'),
     dialect: 'postgres'
   });
 
+// sequelize.sync({
+//   force: true
+// });
 module.exports = sequelize;

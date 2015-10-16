@@ -23,7 +23,7 @@
     'ngMaterial'
   ]);
 
-  window.app.run(['$rootScope', function($rootScope) {
+  window.app.run(['$rootScope', '$mdSidenav', function($rootScope, $mdSidenav) {
 
     $rootScope.menu = [{
       name: 'Home',
@@ -99,6 +99,13 @@
       state: 'home'
     }];
 
+    $rootScope.openLeftMenu = function() {
+      $mdSidenav('left').toggle();
+    };
+
+    $rootScope.closeLeftMenu = function() {
+      $mdSidenav('left').close();
+    };
 
   }]);
 
@@ -127,8 +134,8 @@
         controller: 'HomeCtrl',
         templateUrl: 'views/events.html'
       })
-      .state('login',{
-        url:'/login',
+      .state('login', {
+        url: '/login',
         controller: 'LoginCtrl',
         templateUrl: 'views/login.html'
       })
