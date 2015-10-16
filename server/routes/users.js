@@ -2,16 +2,8 @@ var User = require('../schemas/users');
 
 module.exports = function(app, config, passport) {
   // login with email
-  app.route('/api/login')
+  app.route('/api/users/login')
     .post(passport.authenticate('login'), function(req, res) {
-      res.json(req.user);
-    });
-
-  // signup with email route
-  app.route('/api/signup')
-    .post(passport.authenticate('signup', {
-      failureFlash: 'Invalid username or password.'
-    }), function(req, res) {
       res.json(req.user);
     });
 
@@ -22,19 +14,17 @@ module.exports = function(app, config, passport) {
         if (!user) {
           res.status(404).send('User not found');
         } else {
-          user.password = null;
-          //delete user.password;
+          //user.password = null;
+          delete user.password;
           res.json(user);
         }
       });
     })
-    .post(function(req, res) {
-      res.json({
-        message: 'Hey user are you ready to edit your profile',
-        params: req.params
-      });
+    .post(passport.authenticate('signup', {
+      failureFlash: 'Invalid username or password.'
+    }), function(req, res) {
+      res.json(req.user);
     });
-
   // user email update route
   app.route('/api/users/:id')
     .get(function(req, res) {
