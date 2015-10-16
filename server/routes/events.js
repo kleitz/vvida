@@ -17,21 +17,21 @@ module.exports = function(app) {
           venue: req.body.venue,
           time: req.body.time,
           sponsor: req.body.sponsor
-        }).then(function(event) {
-          if (!event) {
+        }).then(function(newEvent) {
+          if (!newEvent) {
             res.status(500).send({
-              error: 'Create event failed'
+              error: 'Create new event failed'
             });
           } else {
-            res.json(event);
+            res.json(newEvent);
           }
         });
       });
     })
 
   .get(function(req, res) {
-    Events.findAll().then(function(event) {
-      res.json(event);
+    Events.findAll().then(function(theEvent) {
+      res.json(theEvent);
     });
   });
 
@@ -42,13 +42,13 @@ module.exports = function(app) {
         where: {
           id: req.params.id
         }
-      }).then(function(event) {
-        if (!event) {
+      }).then(function(theEvent) {
+        if (!theEvent) {
           res.status(404).send({
             message: 'Event not found'
           });
         } else {
-          res.json(event);
+          res.json(theEvent);
         }
       });
     })
