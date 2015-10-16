@@ -19,6 +19,7 @@
             message: 'authentication failed'
           });
         }
+        user.password = null;
         req.session.user = user;
         return res.json(user);
       })(req, res, next);
