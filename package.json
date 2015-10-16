@@ -6,7 +6,6 @@
   "scripts": {
     "start": "node index.js",
     "test": "gulp test",
-    "test": "echo \"Error: no test specified\" && exit 0",
     "build": "gulp heroku:production"
   },
   "repository": {
@@ -39,17 +38,17 @@
     "gulp-protractor": "^1.0.0",
     "gulp-util": "^3.0.6",
     "jade": "^1.11.0",
+    "jshint": "^2.8.0",
     "karma": "^0.13.9",
     "karma-chrome-launcher": "^0.2.0",
     "karma-jasmine": "^0.3.6",
-    "jshint": "^2.8.0",
     "morgan": "^1.6.1",
     "passport": "^0.3.0",
     "passport-local": "^1.0.0",
     "pg": "^4.4.1",
     "pg-hstore": "^2.3.2",
     "protractor": "^2.2.0",
-    "selenium-server-standalone-jar": "^2.47.1",
+    "selenium-server-standalone-jar": "2.44.0",
     "sequelize": "^3.8.0",
     "serve-favicon": "^2.3.0",
     "stringify": "^3.1.0",

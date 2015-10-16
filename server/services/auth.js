@@ -41,7 +41,7 @@ module.exports = function(passport, LocalStrategy) {
         });
       }
 
-      if (user.password !== password) {
+      if (bcrypt.compareSync(password, user.password) !== true ) {
         return done(null, false, {
           message: 'invalid password'
         });

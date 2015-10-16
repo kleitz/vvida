@@ -5,7 +5,13 @@
   angular.module('vvida.filters', []);
   angular.module('vvida.directives', []);
 
+  //Require Services
+  require('./services/utils');
+  require('./services/users');
+  // Require Controllers
   require('./controllers/home');
+  require('./controllers/about');
+  require('./controllers/login');
 
   window.app = angular.module('vvida', [
     'vvida.controllers',
@@ -13,6 +19,7 @@
     'vvida.filters',
     'vvida.directives',
     'ui.router',
+    'ngResource',
     'ngMaterial'
   ]);
 
@@ -112,13 +119,18 @@
       })
       .state('about', {
         url: '/about',
-        controller: 'HomeCtrl',
+        controller: 'AboutCtrl',
         templateUrl: 'views/about.html'
       })
       .state('events', {
         url: '/events',
         controller: 'HomeCtrl',
         templateUrl: 'views/events.html'
+      })
+      .state('login',{
+        url:'/login',
+        controller: 'LoginCtrl',
+        templateUrl: 'views/login.html'
       })
       .state('404', {
         url: '/404',
