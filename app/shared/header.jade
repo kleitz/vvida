@@ -8,10 +8,11 @@ md-toolbar.md-accent.md-whiteframe-z3
     span(flex)
     a(ng-repeat="menuItem in menu" ui-sref="{{menuItem.state}}" hide-sm)
         md-button {{menuItem.name}}
-    md-button.md-fab(ng-disabled='true', aria-label='Comment')
-      img(src='user.imageSource')
+    md-button.md-fab(ng-disabled='false', aria-label='Comment', style="height: 20px, width: 20px")
+      img(src="user[0].imageSource")
     h5(style="color: white") {{user[0].userName}}
-    md-button(aria-label='Comment') Logout
+    md-button
+      span.fa.fa-sign-out.fa-2x
 md-sidenav.md-sidenav-left(md-component-id='left' hide-gt-sm)
   md-toolbar.md-accent
     h1.md-toolbar-tools

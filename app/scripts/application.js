@@ -23,7 +23,7 @@
     'ngMaterial'
   ]);
 
-  window.app.run(['$rootScope', '$mdSidenav','$http', function($rootScope, $mdSidenav, $http) {
+  window.app.run(['$rootScope', '$mdSidenav', '$http', function($rootScope, $mdSidenav, $http) {
 
     $rootScope.menu = [{
       name: 'Home',
@@ -34,7 +34,7 @@
     }, {
       name: 'Events',
       state: 'events'
-    } 
+    }
     // ,{
     //   name: 'Log In',
     //   state: 'login'
@@ -117,8 +117,8 @@
     };
 
     $rootScope.user =[{
-      userName: "Nate"
-      // imageSource: user.imageSource
+      userName: "Nate",
+      imageSource: "images/logo.png"
     }];
 
   }]);
