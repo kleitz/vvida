@@ -1,6 +1,10 @@
+var env = process.env.NODE_ENV || 'development';
+if (env === 'development') {
+  require('dotenv').load();
+}
+
 var express = require('express'),
   path = require('path'),
-  env = process.env.NODE_ENV || 'development',
   config = require('./server/config')[env],
   favicon = require('serve-favicon'),
   logger = require('morgan'),
