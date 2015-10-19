@@ -34,10 +34,12 @@
     }, {
       name: 'Events',
       state: 'events'
-    }, {
-      name: 'Log In',
-      state: 'login'
-    }];
+    } 
+    // ,{
+    //   name: 'Log In',
+    //   state: 'login'
+    // }
+    ];
 
     $rootScope.discover = [{
       name: 'The Weekly Vvida',
@@ -109,10 +111,15 @@
 
     $rootScope.getSession = function() {
       $http.get('/api/users/session')
-      .Success(function(err, session) {
+      .success(function(err, session) {
         console.log(session);
       });
     };
+
+    $rootScope.user =[{
+      userName: "Nate"
+      // imageSource: user.imageSource
+    }];
 
   }]);
 
