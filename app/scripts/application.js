@@ -23,7 +23,7 @@
     'ngMaterial'
   ]);
 
-  window.app.run(['$rootScope', '$mdSidenav', function($rootScope, $mdSidenav) {
+  window.app.run(['$rootScope', '$mdSidenav','$http', function($rootScope, $mdSidenav, $http) {
 
     $rootScope.menu = [{
       name: 'Home',
@@ -105,6 +105,13 @@
 
     $rootScope.closeLeftMenu = function() {
       $mdSidenav('left').close();
+    };
+
+    $rootScope.getSession = function() {
+      $http.get('/api/users/session')
+      .Success(function(err, session) {
+        console.log(session);
+      });
     };
 
   }]);
