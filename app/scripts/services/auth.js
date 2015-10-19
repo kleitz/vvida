@@ -3,7 +3,7 @@ angular.module('vvida.services')
     var user;
 
     return{
-      setUser : function(aUser){
+      getUser : function(aUser){
           user = aUser;
       },
       isLoggedIn : function(){
