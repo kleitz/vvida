@@ -15,16 +15,16 @@
                       md-input-container
                         md-icon(class="fa fa-user-secret ")
                         input(ng-model='user.password', type='password', placeholder='password')
-                      md-button.md-raised.md-warn(class ='login-button', type='submit')
+                      md-button.md-raised.md-warn(class ='login-button', aria-label="Login", type='submit')
                         i(class="fa fa-send")
                         | Login
                 br
                 br
                 section(layout='row', layout-sm='column', layout-align='center center', layout-wrap='')
-                  md-button.md-raised.md-primary.md-hue-2(class='third-party-button')
+                  md-button.md-raised.md-primary.md-hue-2(class='third-party-button', aria-label="Facebook", ng-click="facebook()")
                     i(class="fa fa-facebook")
                     | Login up with Facebook
-                  md-button.md-raised.md-warn(class='third-party-button')
+                  md-button.md-raised.md-warn(class='third-party-button', aria-label="Google", ng-click="google()")
                     i(class="fa fa-google-plus")
                     | Login up with Google
 
@@ -34,7 +34,7 @@
                 md-card(layout="column" flex="55")
                   br
                   md-card-content
-                    form(method='post', action='/api/signup')
+                    form
                       md-input-container
                         md-icon(class="fa fa-user")
                         input(ng-model='user.firstName', type="text", placeholder='First Name' ng-required='true')
@@ -47,15 +47,15 @@
                       md-input-container
                         md-icon(class="fa fa-user-secret ")
                         input(ng-model='user.password', type='password', placeholder='password')
-                      md-button.md-raised.md-warn(class='sign-up-button')
+                      md-button.md-raised.md-warn(class='sign-up-button', aria-label="Signup")
                         i(class="fa fa-send")
                         | sign Up
                 br
                 br
                 section(layout='row', layout-sm='column', layout-align='center center', layout-wrap='')
-                  md-button.md-raised.md-primary.md-hue-2(class='third-party-button')
+                  md-button.md-raised.md-primary.md-hue-2(class='third-party-button',aria-label="FacebookSignUp", ng-click="facebook()")
                     i(class="fa fa-facebook")
                     | sign up with Facebook
-                  md-button.md-raised.md-warn(class='third-party-button')
+                  md-button.md-raised.md-warn(class='third-party-button', aria-label="GoogleSignUp", ng-click="google()")
                     i(class="fa fa-google-plus")
                     | sign up with Google
