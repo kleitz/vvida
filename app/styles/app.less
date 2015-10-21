@@ -159,19 +159,23 @@ md-toolbar.md-menu-toolbar {}
 }
 
 .jumbotron-image {
-    background: center center no-repeat;
+    background: url(../images/vvidaStockPhoto_2.jpg) center center no-repeat;
     background-size: cover;
+    padding-bottom: 0;
     height: 600px;
     width: 100%;
     .image-overlay {
         background: rgba(0, 0, 0, 0.2);
         height: inherit;
         text-align: center;
+        padding-bottom: 0;
+        display: flex;
+        flex-direction: column;
         p {
             margin-top: 200px;
             font-size: 3.5em;
             color: white;
-            font-weight: bold;
+            text-shadow: 0 0 4px #333;
             display: inline-block;
             margin-bottom: 0px;
         }
@@ -339,7 +343,7 @@ h3 {
     input {
         margin: 5px 0;
         padding: 10px 3px;
-        width: 284px;
+        max-width: 284px;
         display: inline-block;
     }
     & > a {

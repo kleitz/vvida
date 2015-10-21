@@ -15,12 +15,11 @@ module.exports = function(passport, LocalStrategy) {
       });
     }).then(function(user) {
       if (!user) {
-        return done(null, false, {
-          message: 'sign up failed'
-        });
-      } else {
-        done(null, user);
+        return done(null, false);
       }
+      return done(null, user);
+    }).catch(function(err) {
+      return done(err);
     });
   }));
 
@@ -36,9 +35,7 @@ module.exports = function(passport, LocalStrategy) {
       }
     }).then(function(user) {
       if (!user) {
-        return done(null, false, {
-          message: 'user not found'
-        });
+        return done(null, false);
       }
 
       // we require to compare the sent password
@@ -48,8 +45,9 @@ module.exports = function(passport, LocalStrategy) {
           message: 'invalid password'
         });
       }
-
       return done(null, user);
+    }).catch(function(err) {
+      return done(err);
     });
   }));
 };
