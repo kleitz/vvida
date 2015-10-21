@@ -10,9 +10,9 @@ md-toolbar.md-accent.md-whiteframe-z3
         md-button {{menuItem.name}}
     div(ng-if="currentUser" layout)
       md-button.md-fab(ng-disabled='false', aria-label='Comment', style="height: 20px, width: 20px")
-        img(ng-src="{{currentUser.picture}}")
-      h5(style="color: white") {{currentUser.name}}
-      md-button(aria-label="Sign out" ng-controller="")
+        img(ng-src="{{currentUser.picture_url}}")
+      h5(style="color: white") {{currentUser.firstname}}
+      md-button(aria-label="Sign out")
         span.fa.fa-sign-out.fa-2x
         md-tooltip Sign out
     md-button(ng-if="!currentUser" ui-sref="login" )

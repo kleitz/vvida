@@ -130,8 +130,8 @@
       });
     },
 
-    logOut: function(req, res){
-      req.logOut();
+    logout: function(req, res){
+      req.logout();
       res.json({success: "true", message: "Succesfully logged out"});
       res.redirect('/');
     }

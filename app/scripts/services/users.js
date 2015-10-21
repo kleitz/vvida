@@ -36,7 +36,7 @@ angular.module('vvida.services')
     };
 
     obj.logout = function(user, cb) {
-      $http.post('/api/users/logout', user).success(function(res) {
+      $http.get('/api/users/logout', user).success(function(res) {
         cb(null, res);
       }).error(function(err) {
         cb(err);
