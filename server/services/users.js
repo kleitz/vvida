@@ -30,7 +30,7 @@
         // check for errors, if exist send a response with error
         if (err) {
           return res.status(500).send({
-            error: err.message || err.errors[0].message
+            error: err.errors.message || err.errors[0].message
           });
         }
         // If passport doesn't return the user object,  signup failed

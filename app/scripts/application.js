@@ -33,6 +33,7 @@
 
     Users.session(function(err, res) {
       if (!err) {
+        console.log("currentUser:  ", res);
         $rootScope.currentUser = res;
       } else {
         console.log("Error: ", err);
