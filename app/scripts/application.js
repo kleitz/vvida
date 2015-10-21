@@ -34,7 +34,7 @@
     Users.session(function(err, res) {
       if (!err) {
         console.log("currentUser:  ", res);
-        $rootScope.currentUser = res;
+        $rootScope.currentUser = {name: res.firstname + ' ' + res.lastname, picture: res.picture_url};
       } else {
         console.log("Error: ", err);
       }

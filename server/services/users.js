@@ -27,10 +27,11 @@
     // singup middleware
     signUp: function(req, res, next) {
       passport.authenticate('signup', function(err, user) {
+        console.log(user);
         // check for errors, if exist send a response with error
         if (err) {
           return res.status(500).send({
-            error: err.errors.message || err.errors[0].message
+            error: err.message || err.errors[0].message
           });
         }
         // If passport doesn't return the user object,  signup failed
@@ -46,7 +47,7 @@
 
     getSession: function(req, res) {
       if (req.session.user) {
-        res.status(200).send(req.session);
+        res.status(200).send(req.session.user);
       } else {
         res.status(401).send({
           error: 'Unathorized Accesss'
@@ -127,6 +128,12 @@
       res.status(501).send({
         error: 'Not implemented'
       });
+    },
+
+    logOut: function(req, res){
+      req.logOut();
+      res.json({success: "true", message: "Succesfully logged out"});
+      res.redirect('/');
     }
   };
 })();

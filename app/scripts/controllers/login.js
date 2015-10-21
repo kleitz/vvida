@@ -1,5 +1,5 @@
 angular.module('vvida.controllers')
-  .controller('LoginCtrl', ['$scope', 'Users', 'Auth', function($scope, Users, Auth) {
+  .controller('LoginCtrl', ['$scope', 'Users', function($scope, Users) {
     // login
     $scope.login = function() {
 

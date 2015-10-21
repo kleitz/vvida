@@ -34,6 +34,15 @@ angular.module('vvida.services')
         cb(err);
       });
     };
+
+    obj.logout = function(user, cb) {
+      $http.post('/api/users/logout', user).success(function(res) {
+        cb(null, res);
+      }).error(function(err) {
+        cb(err);
+      });
+    };
+
     return obj;
   }]);
 
