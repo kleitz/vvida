@@ -34,12 +34,7 @@
     }, {
       name: 'Events',
       state: 'events'
-    }
-    // ,{
-    //   name: 'Log In',
-    //   state: 'login'
-    // }
-    ];
+    }];
 
     $rootScope.discover = [{
       name: 'The Weekly Vvida',
@@ -111,16 +106,11 @@
 
     $rootScope.getSession = function() {
       $http.get('/api/users/session')
-      .success(function(err, session) {
-        console.log(session);
-      });
+        .success(function(err, session) {
+
+          console.log(session);
+        });
     };
-
-    $rootScope.user =[{
-      userName: "Nate",
-      imageSource: "images/logo.png"
-    }];
-
   }]);
 
   window.app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$mdThemingProvider', function($stateProvider, $urlRouterProvider, $locationProvider, $mdThemingProvider) {
