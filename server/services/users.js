@@ -15,8 +15,8 @@
         }
         // Generate a JSON response reflecting authentication status
         if (!user) {
-          return res.send({
-            message: 'authentication failed'
+          return res.status(500).send({
+            error: 'authentication failed'
           });
         }
         req.session.user = user;
@@ -130,10 +130,16 @@
       });
     },
 
-    logout: function(req, res){
-      req.logout();
-      res.json({success: "true", message: "Succesfully logged out"});
-      res.redirect('/');
+    logout: function(req, res) {
+      req.session.destroy(function(err) {
+        if (!err) {
+          res.json({
+            message: "Succesfully logged out"
+          });
+        } else {
+          res.status(500).send(err);
+        }
+      });
     }
   };
 })();

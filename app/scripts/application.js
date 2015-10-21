@@ -81,6 +81,11 @@
         controller: 'LoginCtrl',
         templateUrl: 'views/login.html'
       })
+      .state('logout', {
+        url: '/',
+        controller: 'HeaderCtrl',
+        templateUrl: 'views/home.html'
+      })
       .state('upload', {
         url: '/upload',
         controller: 'AboutCtrl',
