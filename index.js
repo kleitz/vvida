@@ -34,7 +34,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(multer({
     dest: './uploads/',
-}).array('photos', 12));
+}).single('photo'));
 
 app.locals.api_key = cloudinary.config().api_key;
 app.locals.cloud_name = cloudinary.config().cloud_name;

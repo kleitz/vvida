@@ -7,13 +7,11 @@ module.exports = function(passport, LocalStrategy) {
     usernameField: 'email',
     passwordField: 'password'
   }, function(email, password, done) {
-    User.sync().then(function() {
       var hash = bcrypt.hashSync(password);
       return User.create({
         email: email,
         password: hash
-      });
-    }).then(function(user) {
+      }).then(function(user) {
       if (!user) {
         return done(null, false);
       }

@@ -2,16 +2,15 @@
   'use strict';
 
   var Items = require('../schemas/items');
-
   module.exports = {
-    // Middleware to create an item
+    //Middleware to create an item
     createItem: function(req, res) {
-      Items.sync().then(function() {
         return Items.create({
-          user_id: req.session.id,
+          user_id: req.params.id,
           cat_id: req.body.catId,
           item_name: req.body.itemName,
-          item_desc: req.body.description
+          item_desc: req.body.description,
+          img_id: req.img_id
         }).then(function(item) {
           if (!item) {
             res.status(500).send({
@@ -20,7 +19,6 @@
           } else {
             res.json(item);
           }
-        });
       }).catch(function(err) {
         res.status(500).send({
           error: err.message || err.errors[0].message

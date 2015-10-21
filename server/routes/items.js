@@ -3,13 +3,14 @@
 (function() {
   'use strict';
 
-  var itemService = require('../services/items');
+  var itemService = require('../services/items'),
+  upload = require('../services/upload');
 
   module.exports = function(app) {
 
-    app.route('/api/items')
+    app.route('/api/items/:id')
       // create item route.
-      .post(itemService.createItem)
+      .post(upload.uploadImage, itemService.createItem)
       .get(itemService.getAllItems);
 
     app.route('/api/items/:id')
