@@ -1,5 +1,5 @@
 angular.module('vvida.services')
-  .factory('UserResource', ['$resource', '$http', function($resource, $http) {
+  .factory('Users', ['$resource', '$http', function($resource, $http) {
     var obj = $resource('/api/users/:id', {
       id: '@id'
     }, {

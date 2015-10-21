@@ -29,17 +29,13 @@
   ]);
 
 
-  window.app.run(['$rootScope', '$location', 'Auth', function($rootScope, $location, Auth) {
+  window.app.run(['$rootScope', '$location', 'Users', function($rootScope, $location, Users) {
 
-    $rootScope.$on('$routeChangeStart', function(event) {
-
-      if (!Auth.isLoggedIn()) {
-        console.log('DENY');
-        event.preventDefault();
-        $location.path('/login');
+    Users.session(function(err, res) {
+      if (!err) {
+        $rootScope.currentUser = res;
       } else {
-        console.log('ALLOW');
-        $location.path('/item');
+        console.log("Error: ", err);
       }
     });
 

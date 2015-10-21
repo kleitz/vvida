@@ -1,5 +1,5 @@
 angular.module('vvida.controllers')
-  .controller('EventCtrl', ['$scope', 'Users', function($scope, UserResource) {
+  .controller('EventCtrl', ['$scope', 'Users', function($scope, Users) {
     // login
     $scope.users = function() {
      users = Users.getAllUsers;
