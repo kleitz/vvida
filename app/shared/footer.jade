@@ -3,17 +3,17 @@
 
     .footer-item-group
       .md-title.text-white.footer-titles About
-        div(ng-repeat="aboutItem in about" ui-sref="{{aboutItem.state}}", aria-label="About")
+        div(ng-repeat="aboutItem in about" ui-sref="{{aboutItem.state}}", aria-label="aboutItem.name")
           md-button.footer-button {{aboutItem.name}}
 
     .footer-item-group
       .md-title.text-white.footer-titles Discover
-        div(ng-repeat="item in discover" ui-sref="{{item.state}}", aria-label="Discover")
+        div(ng-repeat="item in discover" ui-sref="{{item.state}}", aria-label="item.name")
           md-button.footer-button {{item.name}}
 
     .footer-item-group
       .md-title.text-white.footer-titles Business
-        div(ng-repeat="item in business" ui-sref="{{item.state}}", aria-label="Business")
+        div(ng-repeat="item in business" ui-sref="{{item.state}}", aria-label="item.name")
           md-button.footer-button {{item.name}}
 
   md-divider(style="background-color: white; margin-left: 80px; margin-right: 80px; ")
