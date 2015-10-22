@@ -7,7 +7,7 @@ var Seq = require('sequelize'),
   });
 
 sequelize.sync({
-  force: true
+  //force: true
 });
 
 module.exports = sequelize;

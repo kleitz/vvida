@@ -5,6 +5,7 @@
   module.exports = {
     //Middleware to create an item
     createItem: function(req, res) {
+        console.log("this is it" + req);
         return Items.create({
           user_id: req.params.id,
           cat_id: req.body.catId,

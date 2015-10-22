@@ -10,7 +10,7 @@
 
     app.route('/api/items/:id')
       // create item route.
-      .post(upload.uploadImage, itemService.createItem)
+      .post(upload.image, itemService.createItem)
       .get(itemService.getAllItems);
 
     app.route('/api/items/:id')
