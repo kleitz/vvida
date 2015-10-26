@@ -30,30 +30,32 @@
     'ngCookies'
   ]);
 
-  window.app.run(['$rootScope', '$location', '$cookies', '$state', 'Users', function($rootScope, $location, $cookies, $state, Users) {
-    // Check if the user's session is still being persisted in the servers
-    Users.session(function(err, res) {
-      // if yes!
-      if (!err) {
-        $rootScope.currentUser = res;
-      }
-      // user was removed from session
-      else {
-        console.log("Error: ", err.error);
-      }
-    });
+  window.app.run(['$rootScope', '$location', 'Users',
+    function($rootScope, $location, Users) {
+      // Check if the user's session is still being persisted in the servers
+      Users.session(function(err, res) {
+        // if yes!
+        if (!err) {
+          $rootScope.currentUser = res;
+        }
+        // user was removed from session
+        else {
+          console.log('Error: ', err.error);
+        }
+      });
 
-    $rootScope.menu = [{
-      name: 'Home',
-      state: 'home'
-    }, {
-      name: 'About',
-      state: 'about'
-    }, {
-      name: 'Events',
-      state: 'events'
-    }];
-  }]);
+      $rootScope.menu = [{
+        name: 'Home',
+        state: 'home'
+      }, {
+        name: 'About',
+        state: 'about'
+      }, {
+        name: 'Events',
+        state: 'events'
+      }];
+    }
+  ]);
 
   window.app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$mdThemingProvider', function($stateProvider, $urlRouterProvider, $locationProvider, $mdThemingProvider) {
     // For any unmatched url, redirect to /state1
