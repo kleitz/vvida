@@ -62,12 +62,17 @@
           res.status(404).send({
             error: 'User not found'
           });
+        } else if (err) {
+          res.status(500).send({
+            error: 'Error retrieving users'
+          });
         } else {
           users.map(function(user) {
             user.password = null;
           });
           res.json(users);
         }
+
       }).catch(function(err) {
         res.status(500).send({
           error: err.message || err.errors[0].message
@@ -87,6 +92,9 @@
           res.status(404).send({
             message: 'User not found'
           });
+        }
+        if (err) {
+
         } else {
           user.password = null;
           delete user.password;
@@ -103,7 +111,7 @@
     updateUser: function(req, res) {
       // edit user email
       delete req.body.password;
-      var update = User.update(req.body, {
+      User.update(req.body, {
         where: {
           id: req.params.id
         }
@@ -134,7 +142,7 @@
       req.session.destroy(function(err) {
         if (!err) {
           res.json({
-            message: "Succesfully logged out"
+            message: 'Succesfully logged out'
           });
         } else {
           res.status(500).send(err);
