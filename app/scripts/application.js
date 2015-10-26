@@ -34,12 +34,9 @@
     function($rootScope, $location, Users) {
       // Check if the user's session is still being persisted in the servers
       Users.session(function(err, res) {
-        // if yes!
         if (!err) {
           $rootScope.currentUser = res;
-        }
-        // user was removed from session
-        else {
+        } else {
           console.log('Error: ', err.error);
         }
       });
