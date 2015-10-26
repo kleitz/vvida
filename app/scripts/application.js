@@ -37,6 +37,9 @@
     }, {
       name: 'Log In',
       state: 'login'
+    }, {
+      name: 'User',
+      state: 'welcome'
     }];
 
     $rootScope.discover = [{
@@ -138,6 +141,11 @@
         url: '/login',
         controller: 'LoginCtrl',
         templateUrl: 'views/login.html'
+      })
+      .state('welcome', {
+        url: '/welcome',
+        controller: 'welcomeCtrl',
+        templateUrl: 'views/welcome.html'
       })
       .state('404', {
         url: '/404',
