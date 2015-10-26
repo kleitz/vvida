@@ -8,7 +8,9 @@ var config = require('./server/config')[env],
   path = require('path'),
   favicon = require('serve-favicon'),
   multer = require('multer'),
-  upload      =   multer({ dest: './uploads/'}),
+  upload = multer({
+    dest: './uploads/'
+  }),
   logger = require('morgan'),
   cookieParser = require('cookie-parser'),
   bodyParser = require('body-parser'),
@@ -33,8 +35,8 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 app.use(multer({
-    dest: './uploads/',
-}).single('photo'));
+  dest: './uploads/',
+}).array('photos', 3));
 
 app.locals.api_key = cloudinary.config().api_key;
 app.locals.cloud_name = cloudinary.config().cloud_name;

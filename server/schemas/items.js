@@ -3,7 +3,6 @@ var Seq = require('sequelize'),
   db = require('../config/db-connect'),
   users = require('./users'),
   categories = require('./categories'),
-  images = require('./images'),
   items = db.define('items', {
 
       // FOREIGN KEY
@@ -24,15 +23,6 @@ var Seq = require('sequelize'),
         allowNull: false,
         references: {
           model: users,
-          key: 'id'
-        }
-      },
-
-      img_id: {
-        type: Seq.INTEGER,
-        allowNull: false,
-        references: {
-          model: images,
           key: 'id'
         }
       },

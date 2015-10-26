@@ -4,21 +4,21 @@
   var Items = require('../schemas/items');
   module.exports = {
     //Middleware to create an item
-    createItem: function(req, res) {
-      console.log("this is it" + req.img_id);
+    create: function(req, res, next) {
+      console.log("this is it" + req);
       return Items.create({
         user_id: req.params.id,
         cat_id: req.body.catId,
         item_name: req.body.itemName,
-        item_desc: req.body.description,
-        img_id: req.img_id
+        item_desc: req.body.description
       }).then(function(item) {
         if (!item) {
           res.status(500).send({
             error: 'Create item failed'
           });
         } else {
-          res.json(item);
+          req.item = item;
+          next();
         }
       }).catch(function(err) {
         res.status(500).send({
@@ -28,7 +28,7 @@
     },
 
     // Middleware to get all items
-    getAllItems: function(req, res) {
+    all: function(req, res) {
       Items.findAll().then(function(item) {
         res.json(item);
       }).catch(function(err) {
@@ -39,7 +39,7 @@
     },
 
     // Middleware to get an item by id
-    getItemById: function(req, res) {
+    find: function(req, res) {
       return Items.find({
         where: {
           id: req.params.id
@@ -60,7 +60,7 @@
     },
 
     // Middleware to update an item
-    updateItem: function(req, res) {
+    update: function(req, res) {
       return Items.update(req.body, {
         where: {
           id: req.params.id
@@ -84,7 +84,7 @@
     },
 
     // Middleware to delete an item
-    deleteItem: function(req, res) {
+    delete: function(req, res) {
       return Items.destroy({
         where: {
           id: req.params.id

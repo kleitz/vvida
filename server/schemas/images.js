@@ -6,9 +6,18 @@ var Seq = require('sequelize'),
   images = db.define('images', {
       // image url
       // hold the url of the images
+      item_id: {
+        type: Seq.INTEGER,
+        allowNull: false,
+        references: {
+          model: items,
+          key: 'id'
+        }
+      },
+
       public_id: {
         type: Seq.STRING,
-        allowNull:false
+        allowNull: false
       },
 
       img_url: {
