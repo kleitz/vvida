@@ -19,6 +19,10 @@
             res.status(500).send({
               error: 'Create event failed'
             });
+          } else if (err) {
+            res.status(500).send({
+              error: 'Error creating event'
+            });
           } else {
             res.json(event);
           }
@@ -33,7 +37,13 @@
     // Middleware to get all the events
     getAllEvents: function(req, res) {
       Events.findAll().then(function(event, err) {
-        res.json(event);
+        if (event) {
+          res.json(event);
+        } else if (err) {
+          res.status(500).send({
+            error: 'Error retrieving events'
+          });
+        }
       }).catch(function(err) {
         res.status(500).send({
           error: err.message || err.errors[0].message
@@ -51,6 +61,10 @@
         if (!event) {
           res.status(404).send({
             message: 'Event not found'
+          });
+        } else if (err) {
+          res.status(500).send({
+            error: 'Error retrieving event'
           });
         } else {
           res.json(event);
@@ -111,4 +125,3 @@
   };
 
 })();
-
