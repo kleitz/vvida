@@ -27,6 +27,7 @@
     'ui.router',
     'ngResource',
     'ngMaterial',
+    'ngCookies'
   ]);
 
   window.app.run(['$rootScope', '$location', 'Users', function($rootScope, $location, Users) {
