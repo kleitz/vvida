@@ -1,5 +1,5 @@
 angular.module('vvida.controllers')
-  .controller('AboutCtrl', ['$scope', 'Utils',function($scope, Utils) {
+  .controller('AboutCtrl', ['$scope', 'Utils', function($scope, Utils) {
     $scope.openDialog = function(event) {
       Utils.dialog('My name is a String', 'Hey there, I\'m a dialog', event,
         function() {
@@ -27,4 +27,3 @@ angular.module('vvida.controllers')
       };
     };
   }]);
-
