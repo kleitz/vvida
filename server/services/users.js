@@ -5,7 +5,7 @@
 
   module.exports = {
     // login middleware
-    logIn: function(req, res, next) {
+    login: function(req, res, next) {
       passport.authenticate('login', function(err, user) {
         if (err) {
           // will generate a 409 error
@@ -24,8 +24,8 @@
       })(req, res, next);
     },
 
-    // singup middleware
-    signUp: function(req, res, next) {
+    // signup middleware
+    signup: function(req, res, next) {
       passport.authenticate('signup', function(err, user) {
         console.log(user);
         // check for errors, if exist send a response with error
@@ -50,7 +50,7 @@
         res.status(200).send(req.session.user);
       } else {
         res.status(401).send({
-          error: 'Unathorized Accesss'
+          error: 'Unathorized Access'
         });
       }
     },
