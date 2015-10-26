@@ -2,7 +2,6 @@
 // this api will handle all the routes for items
 (function() {
   'use strict';
-
   var Item = require('../services/items'),
     upload = require('../services/upload');
 

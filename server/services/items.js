@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  var Items = require('../schemas/items');
+  var Items = require('../schemas/items'); << << << < HEAD
   module.exports = {
     //Middleware to create an item
     create: function(req, res, next) {

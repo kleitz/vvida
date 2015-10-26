@@ -8,9 +8,13 @@ var config = require('./server/config')[env],
   path = require('path'),
   favicon = require('serve-favicon'),
   multer = require('multer'),
+<<<<<<< HEAD
   upload = multer({
     dest: './uploads/'
   }),
+=======
+  upload      =   multer({ dest: './uploads/'}),
+>>>>>>> bfd8e284895bc6f21d1f0d42237e8fa0cda51917
   logger = require('morgan'),
   cookieParser = require('cookie-parser'),
   bodyParser = require('body-parser'),
@@ -35,8 +39,25 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 app.use(multer({
+<<<<<<< HEAD
   dest: './uploads/',
 }).array('photos', 3));
+=======
+    dest: './uploads/',
+    rename: function (fieldname, filename) {
+        return filename.replace(/\W+/g, '-').toLowerCase() + Date.now();
+    },
+    onFileUploadStart: function (file) {
+        console.log(file.fieldname + ' is starting ...');
+    },
+    onFileUploadData: function (file, data) {
+        console.log(data.length + ' of ' + file.fieldname + ' arrived');
+    },
+    onFileUploadComplete: function (file) {
+        console.log(file.fieldname + ' uploaded to  ' + file.path);
+    }
+}).single('photo'));
+>>>>>>> bfd8e284895bc6f21d1f0d42237e8fa0cda51917
 
 app.locals.api_key = cloudinary.config().api_key;
 app.locals.cloud_name = cloudinary.config().cloud_name;
