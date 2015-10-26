@@ -64,7 +64,8 @@
           });
         } else if (err) {
           res.status(500).send({
-            error: 'Error retrieving event'
+            message: 'Error retrieving event',
+            error: err
           });
         } else {
           res.json(event);

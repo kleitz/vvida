@@ -64,7 +64,8 @@
           });
         } else if (err) {
           res.status(500).send({
-            error: 'Error retrieving users'
+            message: 'Error retrieving users',
+            error: err
           });
         } else {
           users.map(function(user) {
@@ -92,9 +93,11 @@
           res.status(404).send({
             message: 'User not found'
           });
-        }
-        if (err) {
-
+        } else if (err) {
+          res.status(500).send({
+            message: 'Error retrieving user',
+            err: err
+          });
         } else {
           user.password = null;
           delete user.password;
