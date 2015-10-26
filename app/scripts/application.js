@@ -29,7 +29,6 @@
     'ngMaterial',
   ]);
 
-
   window.app.run(['$rootScope', '$location', 'Users', function($rootScope, $location, Users) {
     Users.session(function(err, res) {
       if (!err) {
@@ -60,6 +59,7 @@
     $mdThemingProvider.theme('default')
       .primaryPalette('blue')
       .accentPalette('deep-orange');
+
     $stateProvider
       .state('home', {
         url: '/',
