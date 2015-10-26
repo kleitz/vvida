@@ -12,6 +12,7 @@
   require('./controllers/home');
   require('./controllers/about');
   require('./controllers/login');
+  require('./controllers/welcome')
 
   window.app = angular.module('vvida', [
     'vvida.controllers',
@@ -144,7 +145,7 @@
       })
       .state('welcome', {
         url: '/welcome',
-        controller: 'welcomeCtrl',
+        controller: 'WelcomeCtrl',
         templateUrl: 'views/welcome.html'
       })
       .state('404', {
