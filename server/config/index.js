@@ -10,9 +10,18 @@ var passportConfig = require('./passport.config'),
       password: process.env.DATABASE_PASSWORD
     }
   },
-  development = envVariables,
-  staging = envVariables,
-  production = envVariables;
+  development = {
+    expressSessionKey: envVariables.expressSessionKey,
+    db: envVariables.db
+  },
+  staging = {
+    expressSessionKey: envVariables.expressSessionKey,
+    db: envVariables.db
+  },
+  production = {
+    expressSessionKey: envVariables.expressSessionKey,
+    db: envVariables.db
+  };
 
 module.exports = {
   development: development,
