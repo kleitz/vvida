@@ -30,39 +30,30 @@
     'ngCookies'
   ]);
 
-  window.app.run(['$rootScope', '$location', '$cookies', '$state', 'Users',
-    function($rootScope, $location, $cookies, $state, Users) {
-      // get user cookies if they existed before
-      var userCookie = $cookies.get('vvidaUserPersisted');
-      // console.log('Hey I am still logged in. -- ', userCookie)
-      if (userCookie) {
-        // Check if the user's session is still being persisted in the servers
-        Users.session(function(err, res) {
-          // if yes!
-          if (!err || res) {
-            $rootScope.currentUser = userCookie;
-          }
-          // user was removed from session
-          else {
-            console.log('Error: ', err.error);
-            $cookies.remove('vvidaUserPersisted');
-            $state.go('login');
-          }
-        });
+  window.app.run(['$rootScope', '$location', '$cookies', '$state', 'Users', function($rootScope, $location, $cookies, $state, Users) {
+    // Check if the user's session is still being persisted in the servers
+    Users.session(function(err, res) {
+      // if yes!
+      if (!err) {
+        $rootScope.currentUser = res;
       }
+      // user was removed from session
+      else {
+        console.log("Error: ", err.error);
+      }
+    });
 
-      $rootScope.menu = [{
-        name: 'Home',
-        state: 'home'
-      }, {
-        name: 'About',
-        state: 'about'
-      }, {
-        name: 'Events',
-        state: 'events'
-      }];
-    }
-  ]);
+    $rootScope.menu = [{
+      name: 'Home',
+      state: 'home'
+    }, {
+      name: 'About',
+      state: 'about'
+    }, {
+      name: 'Events',
+      state: 'events'
+    }];
+  }]);
 
   window.app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$mdThemingProvider', function($stateProvider, $urlRouterProvider, $locationProvider, $mdThemingProvider) {
     // For any unmatched url, redirect to /state1
