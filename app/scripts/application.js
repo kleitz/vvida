@@ -30,15 +30,25 @@
     'ngCookies'
   ]);
 
-  window.app.run(['$rootScope', '$location', 'Users', function($rootScope, $location, Users) {
-    Users.session(function(err, res) {
-      if (!err) {
-        console.log("currentUser:  ", res);
-        $rootScope.currentUser = res;
-      } else {
-        console.log("Error: ", err);
-      }
-    });
+  window.app.run(['$rootScope', '$location', '$cookies', '$state', 'Users', function($rootScope, $location, $cookies, $state, Users) {
+    // get user cookies if they existed before
+    var userCookie = $cookies.get('vvidaUserPersisted');
+    // console.log('Hey I am still logged in. -- ', userCookie)
+    if (userCookie) {
+      // Check if the user's session is still being persisted in the servers
+      Users.session(function(err, res) {
+        // if yes!
+        if (!err) {
+          $rootScope.currentUser = userCookie;
+        }
+        // user was removed from session
+        else {
+          console.log("Error: ", err.error);
+          $cookies.remove('vvidaUserPersisted');
+          $state.go('login');
+        }
+      });
+    }
 
     $rootScope.menu = [{
       name: 'Home',
