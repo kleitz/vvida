@@ -5,21 +5,21 @@
   module.exports = {
     //Middleware to create an item
     createItem: function(req, res) {
-        console.log("this is it" + req);
-        return Items.create({
-          user_id: req.params.id,
-          cat_id: req.body.catId,
-          item_name: req.body.itemName,
-          item_desc: req.body.description,
-          img_id: req.img_id
-        }).then(function(item) {
-          if (!item) {
-            res.status(500).send({
-              error: 'Create item failed'
-            });
-          } else {
-            res.json(item);
-          }
+      console.log("this is it" + req.img_id);
+      return Items.create({
+        user_id: req.params.id,
+        cat_id: req.body.catId,
+        item_name: req.body.itemName,
+        item_desc: req.body.description,
+        img_id: req.img_id
+      }).then(function(item) {
+        if (!item) {
+          res.status(500).send({
+            error: 'Create item failed'
+          });
+        } else {
+          res.json(item);
+        }
       }).catch(function(err) {
         res.status(500).send({
           error: err.message || err.errors[0].message

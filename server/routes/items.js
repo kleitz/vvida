@@ -4,7 +4,7 @@
   'use strict';
 
   var itemService = require('../services/items'),
-  upload = require('../services/upload');
+    upload = require('../services/upload');
 
   module.exports = function(app) {
 
