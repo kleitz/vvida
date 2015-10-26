@@ -17,6 +17,7 @@
   require('./controllers/about');
   require('./controllers/login');
   require('./controllers/events');
+  require('./controllers/header');
 
   window.app = angular.module('vvida', [
     'vvida.controllers',
@@ -30,7 +31,6 @@
 
 
   window.app.run(['$rootScope', '$location', 'Users', function($rootScope, $location, Users) {
-
     Users.session(function(err, res) {
       if (!err) {
         console.log("currentUser:  ", res);
@@ -80,11 +80,6 @@
         url: '/login',
         controller: 'LoginCtrl',
         templateUrl: 'views/login.html'
-      })
-      .state('logout', {
-        url: '/',
-        controller: 'HeaderCtrl',
-        templateUrl: 'views/home.html'
       })
       .state('upload', {
         url: '/upload',

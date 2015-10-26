@@ -1,13 +1,15 @@
 angular.module('vvida.controllers')
-  .controller('HeaderCtrl', ['$scope', 'Users', function($scope, Users) {
+  .controller('HeaderCtrl', ['$rootScope','$state','$scope', 'Users', function($state,$scope, Users,$rootScope) {
     // logout
     $scope.logout = function() {
       Users.logout($scope.user, function(err, res) {
         if (!err) {
-          $state.go('home');
+          delete $rootScope.currentUser;
+          $state.go('login');
         } else {
           console.log(err, res);
         }
       });
     };
+
   }]);

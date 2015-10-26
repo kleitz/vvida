@@ -1,4 +1,4 @@
-md-toolbar.md-accent.md-whiteframe-z3
+md-toolbar.md-accent.md-whiteframe-z3(ng-controller="HeaderCtrl")
   .md-toolbar-tools.md-accent
     md-button.md-icon-button.show-sm.hide-gt-sm(ng-click='openLeftMenu()')
       i.fa.fa-bars.fa-2x
@@ -12,7 +12,7 @@ md-toolbar.md-accent.md-whiteframe-z3
       md-button.md-fab(ng-disabled='false', aria-label='Comment', style="height: 20px, width: 20px")
         img(ng-src="{{currentUser.picture_url}}")
       h5(style="color: white") {{currentUser.firstname}}
-      md-button(aria-label="Sign out")
+      md-button(aria-label="Sign out" ng-click="logout()")
         span.fa.fa-sign-out.fa-2x
         md-tooltip Sign out
     md-button(ng-if="!currentUser" ui-sref="login")
