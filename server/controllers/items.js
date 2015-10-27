@@ -5,7 +5,7 @@
 
   module.exports = {
     // Middleware to create an item
-    createItem: function(req, res) {
+    create: function(req, res) {
       Items.sync().then(function() {
         return Items.create({
           user_id: req.session.id,
@@ -29,7 +29,7 @@
     },
 
     // Middleware to get all items
-    getAllItems: function(req, res) {
+    all: function(req, res) {
       Items.findAll().then(function(item) {
         res.json(item);
       }).catch(function(err) {
@@ -39,7 +39,7 @@
       });
     },
     // Middleware to get an item by id
-    getItemById: function(req, res) {
+    find: function(req, res) {
       return Items.find({
         where: {
           id: req.params.id
@@ -60,7 +60,7 @@
     },
 
     // Middleware to update an item
-    updateItem: function(req, res) {
+    update: function(req, res) {
       return Items.update(req.body, {
         where: {
           id: req.params.id
@@ -84,7 +84,7 @@
     },
 
     // Middleware to delete an item
-    deleteItem: function(req, res) {
+    delete: function(req, res) {
       return Items.destroy({
         where: {
           id: req.params.id

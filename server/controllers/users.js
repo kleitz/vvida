@@ -45,7 +45,7 @@
       })(req, res, next);
     },
 
-    getSession: function(req, res) {
+    session: function(req, res) {
       if (req.session.user) {
         res.status(200).send(req.session.user);
       } else {
@@ -56,7 +56,7 @@
     },
 
     // Middleware to get all users
-    getAllUsers: function(req, res) {
+    all: function(req, res) {
       User.findAll().then(function(users, err) {
         if (!users) {
           res.status(404).send({
@@ -82,7 +82,7 @@
     },
 
     // Middleware to get users by ID
-    getUserById: function(req, res) {
+    find: function(req, res) {
       var userId = req.params.id;
       User.findOne({
         where: {
@@ -111,7 +111,7 @@
     },
 
     // Middileware to update user data
-    updateUser: function(req, res) {
+    update: function(req, res) {
       // edit user email
       delete req.body.password;
       User.update(req.body, {
@@ -135,7 +135,7 @@
       });
     },
 
-    deleteUser: function(req, res) {
+    delete: function(req, res) {
       res.status(501).send({
         error: 'Not implemented'
       });
