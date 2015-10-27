@@ -1,15 +1,14 @@
 module.exports = function(app, config, passport) {
   // Authenticate the API routes
   app.all('/api/*', function(req, res, next) {
-    console.log(/(post|put|patch)/.test(req.method.toLowerCase()));
     // check if the it's POST/PUT/DELETE request
     if (/(post|put|patch)/.test(req.method.toLowerCase())) {
-      // Check if a user is logged in
-      // or is a login request
+      // Check if a user is logged in or is a login request
       if (req.session.user || /(login)/.test(req.path)) {
         // if yes, let the request go through
         next();
       } else {
+        // Unathorized request
         res.status(401).json({
           message: 'Request is unauthorised.'
         });
