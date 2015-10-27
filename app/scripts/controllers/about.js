@@ -1,5 +1,5 @@
 angular.module('vvida.controllers')
-  .controller('AboutCtrl', ['$scope', 'Utils',function($scope, Utils) {
+  .controller('AboutCtrl', ['$scope', 'Utils', function($scope, Utils) {
     $scope.openDialog = function(event) {
       Utils.dialog('My name is a String', 'Hey there, I\'m a dialog', event,
         function() {
@@ -10,21 +10,4 @@ angular.module('vvida.controllers')
     $scope.openToast = function() {
       Utils.toast('Hey there!');
     };
-
-    $scope.uploadFile = function() {
-      $scope.fileSelected = function(files) {
-        if (files && files.length) {
-          $scope.file = files[0];
-        }
-
-        $upload.upload({
-            url: '/api/upload', //node.js route
-            file: $scope.file
-          })
-          .success(function(data) {
-            console.log(data, 'uploaded');
-          });
-      };
-    };
   }]);
-
