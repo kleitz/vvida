@@ -3,22 +3,22 @@
 (function() {
   'use strict';
 
-  var itemService = require('../services/items');
+  var Items = require('../controllers/items');
 
   module.exports = function(app) {
 
     app.route('/api/items')
       // create item route.
-      .post(itemService.createItem)
-      .get(itemService.getAllItems);
+      .post(Items.create)
+      .get(Items.all);
 
     app.route('/api/items/:id')
       // read items route
-      .get(itemService.getItemById)
+      .get(Items.find)
       // Update items route
-      .put(itemService.updateItem)
+      .put(Items.update)
       // Delete items route
-      .delete(itemService.deleteItem);
+      .delete(Items.delete);
 
   };
 })();

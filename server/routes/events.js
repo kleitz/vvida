@@ -1,19 +1,19 @@
 // events api
 // this api will handle all the routes for events
-var eventService = require('../services/events');
+var Events = require('../controllers/events');
 
 module.exports = function(app) {
 
   app.route('/api/events')
     // create event route.
-    .post(eventService.createEvent)
-    .get(eventService.getAllEvents);
+    .post(Events.create)
+    .get(Events.all);
 
   app.route('/api/events/:id')
     // read events route
-    .get(eventService.getEventById)
+    .get(Events.find)
     // Update events route
-    .put(eventService.updateEvent)
+    .put(Events.update)
     // Delete events route
-    .delete(eventService.deleteEvent);
+    .delete(Events.delete);
 };
