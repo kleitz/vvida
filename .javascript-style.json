@@ -31,6 +31,7 @@
     "element",
     "by",
     "exports"
+    "cloudinary"
   ],
   "quotmark": true,
   "trailing": true,

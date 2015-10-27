@@ -5,24 +5,22 @@
   module.exports = {
     // Create event middlware
     createEvent: function(req, res) {
-      Events.sync().then(function() {
-        return Events.create({
-          user_id: req.session.id,
-          ev_name: req.body.eventName,
-          description: req.body.description,
-          location: req.body.location,
-          venue: req.body.venue,
-          time: req.body.time,
-          sponsor: req.body.sponsor
-        }).then(function(event, err) {
-          if (!event) {
-            res.status(500).send({
-              error: 'Create event failed'
-            });
-          } else {
-            res.json(event);
-          }
-        });
+      return Events.create({
+        user_id: req.session.id,
+        ev_name: req.body.eventName,
+        description: req.body.description,
+        location: req.body.location,
+        venue: req.body.venue,
+        time: req.body.time,
+        sponsor: req.body.sponsor
+      }).then(function(event) {
+        if (!event) {
+          res.status(500).send({
+            error: 'Create event failed'
+          });
+        } else {
+          res.json(event);
+        }
       }).catch(function(err) {
         res.status(500).send({
           error: err.message || err.errors[0].message
@@ -32,7 +30,7 @@
 
     // Middleware to get all the events
     getAllEvents: function(req, res) {
-      Events.findAll().then(function(event, err) {
+      Events.findAll().then(function(event) {
         res.json(event);
       }).catch(function(err) {
         res.status(500).send({
@@ -47,7 +45,7 @@
         where: {
           id: req.params.id
         }
-      }).then(function(event, err) {
+      }).then(function(event) {
         if (!event) {
           res.status(404).send({
             message: 'Event not found'
@@ -111,4 +109,3 @@
   };
 
 })();
-

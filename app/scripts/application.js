@@ -8,7 +8,6 @@
   //Require Services
   require('./services/utils');
   require('./services/users');
-  require('./services/products');
 
   // Require Controllers
   require('./controllers/footer');

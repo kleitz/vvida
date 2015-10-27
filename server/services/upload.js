@@ -3,8 +3,6 @@
 
   var images = require('../schemas/images'),
     cloudinary = require('cloudinary'),
-    multer = require('multer'),
-
     cloudinaryUpload = function(req, path, cb) {
       cloudinary.uploader.upload(path, function(result) {
         console.log(req.item.dataValues.id, result.public_id);
@@ -36,8 +34,6 @@
             error: 'Upload'
           });
         });
-      } else {
-        next();
       }
     },
 

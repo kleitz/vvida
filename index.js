@@ -13,7 +13,6 @@ var config = require('./server/config')[env],
   cookieParser = require('cookie-parser'),
   bodyParser = require('body-parser'),
   routes = require('./server/routes'),
-  cloudinary = require('cloudinary'),
   app = express(),
   passport = require('passport'),
   LocalStrategy = require('passport-local').Strategy,
@@ -60,7 +59,7 @@ app.use(session({
 }));
 
 app.use(passport.session());
-routes(app, config, passport, upload);
+routes(app, config, passport);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

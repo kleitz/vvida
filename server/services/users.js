@@ -57,7 +57,7 @@
 
     // Middleware to get all users
     getAllUsers: function(req, res) {
-      User.findAll().then(function(users, err) {
+      User.findAll().then(function(users) {
         if (!users) {
           res.status(404).send({
             error: 'User not found'
@@ -82,7 +82,7 @@
         where: {
           id: userId
         }
-      }).then(function(user, err) {
+      }).then(function(user) {
         if (!user) {
           res.status(404).send({
             message: 'User not found'
@@ -103,7 +103,7 @@
     updateUser: function(req, res) {
       // edit user email
       delete req.body.password;
-      var update = User.update(req.body, {
+      return User.update(req.body, {
         where: {
           id: req.params.id
         }
