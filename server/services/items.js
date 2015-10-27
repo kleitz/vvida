@@ -1,11 +1,10 @@
 (function() {
   'use strict';
 
-  var Items = require('../schemas/items'); << << << < HEAD
+  var Items = require('../schemas/items');
   module.exports = {
     //Middleware to create an item
     create: function(req, res, next) {
-      console.log("this is it" + req);
       return Items.create({
         user_id: req.params.id,
         cat_id: req.body.catId,

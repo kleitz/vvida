@@ -6,15 +6,9 @@ if (env === 'development') {
 var config = require('./server/config')[env],
   express = require('express'),
   path = require('path'),
+  config = require('./server/config')[env],
   favicon = require('serve-favicon'),
   multer = require('multer'),
-<<<<<<< HEAD
-  upload = multer({
-    dest: './uploads/'
-  }),
-=======
-  upload      =   multer({ dest: './uploads/'}),
->>>>>>> bfd8e284895bc6f21d1f0d42237e8fa0cda51917
   logger = require('morgan'),
   cookieParser = require('cookie-parser'),
   bodyParser = require('body-parser'),
@@ -23,8 +17,10 @@ var config = require('./server/config')[env],
   app = express(),
   passport = require('passport'),
   LocalStrategy = require('passport-local').Strategy,
+  FacebookStrategy = require('passport-facebook').Strategy,
+  GoogleStrategy = require('passport-google-oauth').OAuth2Strategy,
   session = require('express-session'),
-  auth = require('./server/services/auth');
+  auth = require('./server/services/social-auth');
 
 // load env variables from .env file in development environment
 // view engine setup
@@ -39,29 +35,10 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 app.use(multer({
-<<<<<<< HEAD
   dest: './uploads/',
 }).array('photos', 3));
-=======
-    dest: './uploads/',
-    rename: function (fieldname, filename) {
-        return filename.replace(/\W+/g, '-').toLowerCase() + Date.now();
-    },
-    onFileUploadStart: function (file) {
-        console.log(file.fieldname + ' is starting ...');
-    },
-    onFileUploadData: function (file, data) {
-        console.log(data.length + ' of ' + file.fieldname + ' arrived');
-    },
-    onFileUploadComplete: function (file) {
-        console.log(file.fieldname + ' uploaded to  ' + file.path);
-    }
-}).single('photo'));
->>>>>>> bfd8e284895bc6f21d1f0d42237e8fa0cda51917
 
-app.locals.api_key = cloudinary.config().api_key;
-app.locals.cloud_name = cloudinary.config().cloud_name;
-auth(passport, LocalStrategy);
+auth(passport, LocalStrategy, FacebookStrategy, GoogleStrategy, config);
 passport.serializeUser(function(user, done) {
   done(null, user);
 });

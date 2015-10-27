@@ -38,6 +38,12 @@ header {
   margin-left: 30px;
 }
 
+.text-color {
+  &.white {
+    color: #fff;
+  }
+}
+
 .footer-button {
   margin: 0;
   text-align: left;
@@ -133,6 +139,8 @@ md-toolbar,
 }
 
 md-toolbar.md-menu-toolbar {}
+
+.menu-button {}
 
 .ripple-container {
   position: relative;
@@ -355,7 +363,7 @@ h3 {
 .sign-up {
   margin: 0 auto;
   margin-top: 50px;
-  max-width: 700px;
+  width: 700px;
   border-style: solid;
   border-width: 2px;
   border-radius: 3px;
@@ -365,11 +373,32 @@ h3 {
   }
   .custom-signup {
     margin: 0 auto;
-    max-width: 600px;
+    width: 600px;
     margin-bottom: 20px;
     input {
       //width: 600px;
       margin-left: 25px;
     }
   }
+}
+
+md-sidenav.md-sidenav-left {
+  .md-button.menu-button {
+    display: block;
+    text-align: left;
+    margin: 0;
+    padding: 5px 10px;
+    text-color: #777;
+    border-radius: 0;
+    width: 100%;
+  }
+  // .sidenav-contents {
+  // }
+  // a {
+  //   padding: 10px;
+  //   display: block;
+  //   font-size: 1.4em;
+  //   color: white;
+  //   text-decoration: none;
+  // }
 }
