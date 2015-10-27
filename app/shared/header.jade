@@ -1,12 +1,12 @@
 md-toolbar.md-accent.md-whiteframe-z3
   .md-toolbar-tools.md-accent
-    md-button.md-icon-button.show-sm.hide-gt-sm(ng-click='openLeftMenu()')
+    md-button.md-icon-button.show-sm.hide-gt-sm(ng-click='openLeftMenu()', aria-label="openLeftMenu")
       i.fa.fa-bars.fa-2x
     a(ui-sref="home")
       img(src="images/logo.png" height="24" hide-sm)
       span.text-color.white &nbsp;Vvida
     span(flex)
-    a(ng-repeat="menuItem in menu" ui-sref="{{menuItem.state}}" hide-sm)
+    a(ng-repeat="menuItem in menu" ui-sref="{{menuItem.state}}" hide-sm, aria-label="menuItem.state")
         md-button {{menuItem.name}}
 md-sidenav.md-sidenav-left(md-component-id='left' hide-gt-sm)
   md-toolbar.md-accent
@@ -15,6 +15,6 @@ md-sidenav.md-sidenav-left(md-component-id='left' hide-gt-sm)
         img(src="images/logo.png" height="16")
         span.text-color.white &nbsp;Vvida
   md-content.sidenav-contents
-    md-button.menu-button(ng-repeat="menuItem in menu" ui-sref="{{menuItem.state}}" ng-click="closeLeftMenu()") {{menuItem.name}}
+    md-button.menu-button(ng-repeat="menuItem in menu" ui-sref="{{menuItem.state}}" ng-click="closeLeftMenu()", aria-label="menuItem.name") {{menuItem.name}}
 
 

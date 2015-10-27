@@ -1,5 +1,7 @@
 
-var envVariables = {
+var expressKey = process.env.EXPRESS_SESSION_KEY,
+  passportConfig = require('./passport.config'),
+envVariables = {
     expressSessionKey: process.env.EXPRESS_SESSION_KEY,
     db: {
       name: process.env.DATABASE_NAME,
