@@ -400,45 +400,77 @@ md-sidenav.md-sidenav-left {
 }
 
 .welcome_body {
-  background-color: rgb(245, 245, 241);
+    background-color: rgb(245, 245, 241);
 }
 
 .welcome {
-  border-width: 0px 1px 1px 1px;
-  border-style: solid;
-  border-color: rgb(204, 204, 200);
-  width: 1200px;
-  margin: 0 auto;
+    border-width: 0px 1px 1px 1px;
+    border-style: solid;
+    border-color: rgb(204, 204, 200);
+    width: 1200px;
+    margin: 0 auto;
+    background-color: white;
 }
 
 .welcome h4 {
-  color: rgb(255, 110, 64);
-  font-size: 1.2em;
+    color: rgb(255, 110, 64);
+    font-size: 1.2em;
 }
+
 .welcome_main_content {
-  margin: 10px;
-  border-width: 0px 1px 0px 0px;
-  border-style: solid;
-  border-color: rgb(204, 204, 200);
+    margin: 10px;
+    margin-left: 10px;
+    border-width: 0px 1px 0px 0px;
+    border-style: solid;
+    border-color: rgb(204, 204, 200);
 }
 
 .welcome_sideNav {
-  margin: 10px;
+    margin: 10px;
 }
 
 .recentReview .face {
-  border-radius: 20px;
-  border: 1px solid #ddd;
-  width: 48px;
-  margin: 16px;
+    border-radius: 20px;
+    border: 1px solid #ddd;
+    width: 48px;
+    margin: 10px;
 }
 
 .nextReview img {
-  width: 70px;
-  height: 70px;
-  border-radius: 5px;
+    width: 70px;
+    height: 70px;
+    border-radius: 5px;
 }
 
 .nextReview p {
-  display: inline-block;
+    display: inline-block;
 }
+
+.bubble {
+    float: right;
+    position: relative;
+    width: 668px;
+    height: 90px;
+    padding: 11px;
+    background: rgb(249, 244, 242);
+    margin-right: 20px;
+    margin-top: -15px;
+    border: 1px solid rgb(198, 198, 198);
+    -webkit-border-radius: 9px;
+    -moz-border-radius: 9px;
+    border-radius: 9px;
+}
+
+.bubble:after {
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 13px 16px 13px 0;
+    border-color: transparent rgb(198, 198, 198);
+    display: block;
+    width: 0;
+    z-index: 1;
+    left: -16px;
+    top: 28px;
+}
+
