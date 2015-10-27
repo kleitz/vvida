@@ -8,14 +8,12 @@
   //Require Services
   require('./services/utils');
   require('./services/users');
-  require('./services/products');
 
   // Require Controllers
   require('./controllers/footer');
   require('./controllers/home');
   require('./controllers/about');
   require('./controllers/login');
-  require('./controllers/events');
   require('./controllers/header');
 
   window.app = angular.module('vvida', [
