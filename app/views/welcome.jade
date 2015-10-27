@@ -1,1 +1,25 @@
+.welcome_body
+  .welcome(layout="row")
+    .welcome_main_content(flex='67')
+      .nextReview
+        h4 Your Next Review Awaits
+        img(src='images/event-photo2.jpg')
+        p San-Tung Chinese Restaurant
+        input(type='text')
 
+      .recentReview(ng-cloak='')
+        md-toolbar.md-theme-light
+          h2.md-toolbar-tools
+            span  Recent Activity
+        md-content
+          md-list
+            md-list-item.md-4-line(ng-repeat='item in messages')
+              img.face(ng-src="{{item.face}}?{{$index}}", alt="{{item.who}}")
+              .md-list-item-text
+                h3 {{item.what}}
+                h4 {{item.who}}
+                p {{item.notes}}
+              md-divider(md-inset="", ng-if="!$last")
+
+    .welcome_sideNav(flex='33')
+      h4 Review of the Day
