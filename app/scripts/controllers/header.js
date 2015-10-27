@@ -5,7 +5,7 @@ angular.module('vvida.controllers')
       $scope.logout = function() {
         Users.logout($scope.user, function(err, res) {
           if (!err) {
-            $rootScope.currentUser = undefined;
+            delete $rootScope.currentUser;
             $cookies.remove('vvidaUserPersisted');
             $state.go('login');
           } else {

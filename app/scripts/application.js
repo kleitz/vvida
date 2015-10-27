@@ -8,15 +8,12 @@
   //Require Services
   require('./services/utils');
   require('./services/users');
-  require('./services/products');
-  require('./services/auth');
 
   // Require Controllers
   require('./controllers/footer');
   require('./controllers/home');
   require('./controllers/about');
   require('./controllers/login');
-  require('./controllers/events');
   require('./controllers/header');
 
   window.app = angular.module('vvida', [
@@ -34,12 +31,9 @@
     function($rootScope, $location, Users) {
       // Check if the user's session is still being persisted in the servers
       Users.session(function(err, res) {
-        // if yes!
         if (!err) {
           $rootScope.currentUser = res;
-        }
-        // user was removed from session
-        else {
+        } else {
           console.log('Error: ', err.error);
         }
       });
