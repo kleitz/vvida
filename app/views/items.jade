@@ -1,0 +1,34 @@
+.items( layout='column')
+  div(ng-cloak='')
+    md-card
+      md-toolbar
+        .md-toolbar-tools(aria-label="settings")
+          span Add product
+      md-content.md-padding
+        form(method='post' ng-submit="addItems()")
+          md-input-container
+            md-select(placeholder='Categories', ng-model='user', md-on-open='loadUsers()')
+              md-option(ng-value='user', ng-repeat='user in users') {{user.name}}
+          md-input-container
+            md-icon(class="fa fa-envelope")
+            input(ng-model='user.email', type='email', placeholder='Product', ng-required='true')
+          md-input-container
+            md-icon(class="fa fa-envelope")
+            input(ng-model='user.email', type='email', placeholder='Description', ng-required='true',ari)
+          br
+          md-divider
+            h5 Upload Images
+          md-input-container()
+            p(ng-repeat="file in files")
+              {{file}}
+            input(ng-model='user.email', type='file', accept='image/*', ng-required, ng-file-select="upload($files)" ng-multiple="multiple", aria-label="upload")
+          md-button.md-raised.md-warn(class ='login-button', type='submit' aria-label="Add")
+            i(class="fa fa-send")
+            | Add
+
+
+
+
+
+
+

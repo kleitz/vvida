@@ -16,6 +16,4 @@ module.exports = function(app) {
     .put(eventService.updateEvent)
     // Delete events route
     .delete(eventService.deleteEvent);
-
-
 };

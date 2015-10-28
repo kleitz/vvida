@@ -36,7 +36,6 @@
         });
       });
     },
-
     // Middleware to get an item by id
     find: function(req, res) {
       return Items.find({

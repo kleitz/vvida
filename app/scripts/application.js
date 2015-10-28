@@ -14,7 +14,8 @@
   require('./controllers/home');
   require('./controllers/about');
   require('./controllers/login');
-  require('./controllers/events');
+  require('./controllers/header');
+  require('./controllers/items');
 
   window.app = angular.module('vvida', [
     'vvida.controllers',
@@ -24,92 +25,41 @@
     'ui.router',
     'ngResource',
     'ngMaterial',
+    'ngCookies',
+    'angularFileUpload'
   ]);
 
-  window.app.run(['$rootScope', function($rootScope) {
-    $rootScope.menu = [{
-      name: 'Home',
-      state: 'home'
-    }, {
-      name: 'About',
-      state: 'about'
-    }, {
-      name: 'Events',
-      state: 'events'
-    }, {
-      name: 'Log In',
-      state: 'login'
-    }];
+  window.app.run(['$rootScope', '$location', 'Users',
+    function($rootScope, $location, Users) {
+      // Check if the user's session is still being persisted in the servers
+      Users.session(function(err, res) {
+        if (!err) {
+          $rootScope.currentUser = res;
+        } else {
+          console.log('Error: ', err.error);
+        }
+      });
 
-    $rootScope.discover = [{
-      name: 'The Weekly Vvida',
-      state: 'home'
-    }, {
-      name: 'Vvida Blog',
-      state: 'home'
-    }, {
-      name: 'Support',
-      state: 'home'
-    }, {
-      name: 'Vvida Mobile',
-      state: 'home'
-    }, {
-      name: 'Developers',
-      state: 'home'
-    }, {
-      name: 'RSS Feed',
-      state: 'home'
-    }];
+      $rootScope.menu = [{
+        name: 'Home',
+        state: 'home'
+      }, {
+        name: 'About',
+        state: 'about'
+      }, {
+        name: 'Events',
+        state: 'events'
+      }];
 
-    $rootScope.business = [{
-      name: 'Claim your Business Page',
-      state: 'home'
-    }, {
-      name: 'Advertise on Vvida',
-      state: 'home'
-    }, {
-      name: 'Support',
-      state: 'home'
-    }, {
-      name: 'Business Success Stories',
-      state: 'home'
-    }, {
-      name: 'Business Support',
-      state: 'home'
-    }, {
-      name: 'Vvida Blog for Business Owners',
-      state: 'home'
-    }];
+      $rootScope.openLeftMenu = function() {
+        $mdSidenav('left').toggle();
+      };
 
-    $rootScope.about = [{
-      name: 'About Vvida',
-      state: 'home'
-    }, {
-      name: 'Press',
-      state: 'home'
-    }, {
-      name: 'Content Guidelines',
-      state: 'home'
-    }, {
-      name: 'Terms of Service',
-      state: 'home'
-    }, {
-      name: 'Private Policy',
-      state: 'home'
-    }, {
-      name: 'Ad Choices',
-      state: 'home'
-    }];
-
-    $rootScope.openLeftMenu = function() {
-      $mdSidenav('left').toggle();
-    };
-
-    $rootScope.closeLeftMenu = function() {
-      $mdSidenav('left').close();
-    };
-
-  }]);
+      $rootScope.closeLeftMenu = function() {
+        $mdSidenav('left').close();
+      };
+    }
+  ]);
 
   window.app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$mdThemingProvider', function($stateProvider, $urlRouterProvider, $locationProvider, $mdThemingProvider) {
     // For any unmatched url, redirect to /state1
@@ -119,6 +69,7 @@
     $mdThemingProvider.theme('default')
       .primaryPalette('blue')
       .accentPalette('deep-orange');
+
     $stateProvider
       .state('home', {
         url: '/',
@@ -149,6 +100,11 @@
         url: '/404',
         templateUrl: 'views/404.html',
         controller: function($scope) {}
+      })
+      .state('item', {
+        url: '/items',
+        controller: 'ItemsCtrl',
+        templateUrl: 'views/items.html'
       });
 
     $locationProvider.html5Mode(true);

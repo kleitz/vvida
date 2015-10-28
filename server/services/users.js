@@ -5,7 +5,7 @@
 
   module.exports = {
     // login middleware
-    logIn: function(req, res, next) {
+    login: function(req, res, next) {
       passport.authenticate('login', function(err, user) {
         if (err) {
           // will generate a 409 error
@@ -15,8 +15,8 @@
         }
         // Generate a JSON response reflecting authentication status
         if (!user) {
-          return res.send({
-            message: 'authentication failed'
+          return res.status(500).send({
+            error: 'authentication failed'
           });
         }
         user.password = null;
@@ -25,9 +25,10 @@
       })(req, res, next);
     },
 
-    // singup middleware
-    signUp: function(req, res, next) {
+    // signup middleware
+    signup: function(req, res, next) {
       passport.authenticate('signup', function(err, user) {
+        console.log(user);
         // check for errors, if exist send a response with error
         if (err) {
           return res.status(500).send({
@@ -47,10 +48,10 @@
 
     getSession: function(req, res) {
       if (req.session.user) {
-        res.status(200).send(req.session);
+        res.status(200).send(req.session.user);
       } else {
         res.status(401).send({
-          error: 'Unathorized Accesss'
+          error: 'Unathorized Access'
         });
       }
     },
@@ -62,12 +63,18 @@
           res.status(404).send({
             error: 'User not found'
           });
+        } else if (err) {
+          res.status(500).send({
+            message: 'Error retrieving users',
+            error: err
+          });
         } else {
           users.map(function(user) {
             user.password = null;
           });
           res.json(users);
         }
+
       }).catch(function(err) {
         res.status(500).send({
           error: err.message || err.errors[0].message
@@ -87,6 +94,11 @@
           res.status(404).send({
             message: 'User not found'
           });
+        } else if (err) {
+          res.status(500).send({
+            message: 'Error retrieving user',
+            err: err
+          });
         } else {
           user.password = null;
           delete user.password;
@@ -103,7 +115,7 @@
     updateUser: function(req, res) {
       // edit user email
       delete req.body.password;
-      return User.update(req.body, {
+      User.update(req.body, {
         where: {
           id: req.params.id
         }
@@ -127,6 +139,18 @@
     deleteUser: function(req, res) {
       res.status(501).send({
         error: 'Not implemented'
+      });
+    },
+
+    logout: function(req, res) {
+      req.session.destroy(function(err) {
+        if (!err) {
+          res.json({
+            message: 'Succesfully logged out'
+          });
+        } else {
+          res.status(500).send(err);
+        }
       });
     }
   };

@@ -31,7 +31,13 @@
     // Middleware to get all the events
     getAllEvents: function(req, res) {
       Events.findAll().then(function(event) {
-        res.json(event);
+        if (event) {
+          res.json(event);
+        } else {
+          res.status(404).send({
+            error: 'Events not found'
+          });
+        }
       }).catch(function(err) {
         res.status(500).send({
           error: err.message || err.errors[0].message
@@ -49,6 +55,11 @@
         if (!event) {
           res.status(404).send({
             message: 'Event not found'
+          });
+        } else if (err) {
+          res.status(500).send({
+            message: 'Error retrieving event',
+            error: err
           });
         } else {
           res.json(event);

@@ -3,11 +3,14 @@ var Users = require('../services/users');
 module.exports = function(app) {
   // login with email
   app.route('/api/users/login')
-    .post(Users.logIn);
+    .post(Users.login);
+
+  // logout route
+  app.route('/api/users/logout').get(Users.logout);
   // users routes
   app.route('/api/users')
     .get(Users.getAllUsers)
-    .post(Users.signUp);
+    .post(Users.signup);
 
   app.get('/api/users/session', Users.getSession);
 
@@ -16,6 +19,4 @@ module.exports = function(app) {
     .get(Users.getUserById)
     .put(Users.updateUser)
     .delete(Users.deleteUser);
-
-
 };

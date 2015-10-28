@@ -10,8 +10,8 @@ module.exports = function(passport, FacebookStrategy, config) {
       // make the code asynchronous
       // User.findOne won't fire until we have all our data back from Facebook
       process.nextTick(function() {
-
-        // check if the user exists in out database
+        console.log(profile)
+          // check if the user exists in out database
         User.findOne({
             where: {
               'facebook_auth_id': profile.id
@@ -26,8 +26,8 @@ module.exports = function(passport, FacebookStrategy, config) {
                   username: profile.username,
                   facebook_auth_id: profile.id,
                   facebook_auth_token: accessToken,
-                  // provider: 'facebook',
-                  // facebook: profile._json
+                  gender: profile.gender
+                    // facebook: profile._json
                 })
                 .setFullName(profile.displayName)
                 .save()

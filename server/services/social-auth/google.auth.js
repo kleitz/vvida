@@ -7,8 +7,6 @@ module.exports = function(passport, GoogleStrategy, config) {
 
   passport.use(new GoogleStrategy(config.auth.GOOGLE,
     function(accessToken, refreshToken, profile, done) {
-      console.log(profile);
-
       // make the code asynchronous
       // User.findOne won't fire until we have all our data back from Google
       process.nextTick(function() {
@@ -29,8 +27,8 @@ module.exports = function(passport, GoogleStrategy, config) {
                   username: profile.username,
                   google_auth_id: profile.id,
                   google_auth_token: accessToken,
-                  // provider: 'facebook',
-                  // facebook: profile._json
+                  picture_url: profile.photos[0].value,
+                  gender: profile.gender
                 })
                 // set their name
                 .setFullName(profile.displayName)

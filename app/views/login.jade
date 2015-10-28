@@ -15,7 +15,8 @@
                       md-input-container
                         md-icon(class="fa fa-user-secret ")
                         input(ng-model='user.password', type='password', placeholder='password')
-                      md-button.md-raised.md-warn(class ='login-button', aria-label="login", type='submit')
+                      p {{message}}
+                      md-button.md-raised.md-warn(class ='login-button', type='submit')
                         i(class="fa fa-send")
                         | Login
                 br
@@ -23,10 +24,10 @@
                 section(layout='row', layout-sm='column', layout-align='center center', layout-wrap='')
                   md-button.md-raised.md-primary.md-hue-2(class='third-party-button', aria-label="Facebook", ng-click="facebook()")
                     i(class="fa fa-facebook")
-                    | Login up with Facebook
+                    | Login with Facebook
                   md-button.md-raised.md-warn(class='third-party-button', aria-label="Google", ng-click="google()")
                     i(class="fa fa-google-plus")
-                    | Login up with Google
+                    | Login with Google
 
         md-tab(label='sign Up')
           md-content.md-padding
@@ -44,7 +45,7 @@
 
                       md-button.md-raised.md-warn(class='sign-up-button', aria-label="Signup")
                         i(class="fa fa-send")
-                        | sign Up
+                        | Sign Up
                 br
                 br
                 section(layout='row', layout-sm='column', layout-align='center center', layout-wrap='')
@@ -53,4 +54,4 @@
                     | sign up with Facebook
                   md-button.md-raised.md-warn(class='third-party-button', aria-label="GoogleSignUp", ng-click="google()")
                     i(class="fa fa-google-plus")
-                    | sign up with Google
+                    | Sign Up with Google

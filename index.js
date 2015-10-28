@@ -37,6 +37,7 @@ app.use(multer({
   dest: './uploads/',
 }).array('photos', 3));
 
+
 auth(passport, LocalStrategy, FacebookStrategy, GoogleStrategy, config);
 passport.serializeUser(function(user, done) {
   done(null, user);
