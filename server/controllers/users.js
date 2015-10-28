@@ -8,8 +8,7 @@
     login: function(req, res, next) {
       passport.authenticate('login', function(err, user) {
         if (err) {
-          // will generate a 409 error
-          return res.status(409).send({
+          return res.status(500).send({
             error: err.message || err.errors[0].message
           });
         }
@@ -43,6 +42,25 @@
         // else signup succesful
         return res.json(user);
       })(req, res, next);
+    },
+
+    authenticate: function(req, res, next) {
+      // check if the it's POST/PUT/DELETE request
+      if (/(post|put|patch)/.test(req.method.toLowerCase())) {
+        // Check if a user is logged in or is a login request
+        if (req.session.user || /(login)/.test(req.path)) {
+          // if yes, let the request go through
+          next();
+        } else {
+          // Unathorized request
+          res.status(401).json({
+            message: 'Request is unauthorised.'
+          });
+        }
+      } else {
+        // if not just carry on
+        next();
+      }
     },
 
     session: function(req, res) {

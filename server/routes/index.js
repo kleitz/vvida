@@ -6,7 +6,7 @@ module.exports = function(app, config, passport) {
   require('./items')(app, config);
 
   /* GET home page. */
-  app.get('/*', function(req, res, next) {
+  app.get('/*', function(req, res) {
     // res.render('index', { title: 'Express' });
     res.sendFile('index.html', {
       root: './public/'
