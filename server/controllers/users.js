@@ -1,6 +1,6 @@
 (function() {
   'use strict';
-  var User = require('../schemas/users'),
+  var User = require('../models/users'),
     passport = require('passport');
 
   module.exports = {

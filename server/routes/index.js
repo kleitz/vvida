@@ -1,4 +1,5 @@
 module.exports = function(app, config, passport) {
+
   require('./users')(app, config, passport);
   require('./auth/facebook.auth')(app, config, passport);
   require('./auth/google.auth')(app, config, passport);

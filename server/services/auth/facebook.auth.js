@@ -1,4 +1,4 @@
-var User = require('../../schemas/users');
+var User = require('../../models/users');
 // Use the FacebookStrategy within Passport.
 // Strategies in Passport require a `verify` function, which accept
 // credentials (in this case, an accessToken, refreshToken,
