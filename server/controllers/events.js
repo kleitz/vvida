@@ -1,7 +1,7 @@
 (function() {
 
   'use strict';
-  var Events = require('../schemas/events');
+  var Events = require('../models/events');
   module.exports = {
     // Create event middlware
     create: function(req, res) {
