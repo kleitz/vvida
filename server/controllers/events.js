@@ -1,10 +1,10 @@
 (function() {
 
   'use strict';
-  var Events = require('../schemas/events');
+  var Events = require('../models/events');
   module.exports = {
     // Create event middlware
-    createEvent: function(req, res) {
+    create: function(req, res) {
       Events.sync().then(function() {
         return Events.create({
           user_id: req.session.id,
@@ -35,7 +35,7 @@
     },
 
     // Middleware to get all the events
-    getAllEvents: function(req, res) {
+    all: function(req, res) {
       Events.findAll().then(function(event, err) {
         if (event) {
           res.json(event);
@@ -52,7 +52,7 @@
     },
 
     // Middlware to get event by id
-    getEventById: function(req, res) {
+    find: function(req, res) {
       return Events.find({
         where: {
           id: req.params.id
@@ -77,7 +77,7 @@
       });
     },
     // Middlware to  update events
-    updateEvent: function(req, res) {
+    update: function(req, res) {
       return Events.update(req.body, {
         where: {
           id: req.params.id
@@ -102,7 +102,7 @@
     },
 
     // Middleware to delete an event
-    deleteEvent: function(req, res) {
+    delete: function(req, res) {
       return Events.destroy({
         where: {
           id: req.params.id
