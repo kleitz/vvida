@@ -1,26 +1,17 @@
-
-var envVariables = {
-    expressSessionKey: process.env.EXPRESS_SESSION_KEY,
-    db: {
-      name: process.env.DATABASE_NAME,
-      dialect: process.env.DATABASE_DIALECT,
-      host: process.env.DATABASE_HOST,
-      username: process.env.DATABASE_USERNAME,
-      password: process.env.DATABASE_PASSWORD
-    }
+var expressKey = process.env.EXPRESS_SESSION_KEY,
+  customKey = '436b2efb-0302-4113-9954-f658f554ea87',
+  passportConfig = require('./passport.config'),
+  envVariables = {
+    expressSessionKey: expressKey || customKey,
+    database: process.env.DATABASE_NAME || 'vvida',
+    host: process.env.HOST || 'localhost',
+    userName: process.env.USER_NAME || 'postgres',
+    password: process.env.PASSWORD || 'root',
+    auth: passportConfig
   },
-  development = {
-    expressSessionKey: envVariables.expressSessionKey,
-    db: envVariables.db
-  },
-  staging = {
-    expressSessionKey: envVariables.expressSessionKey,
-    db: envVariables.db
-  },
-  production = {
-    expressSessionKey: envVariables.expressSessionKey,
-    db: envVariables.db
-  };
+  development = envVariables,
+  staging = envVariables,
+  production = envVariables;
 
 module.exports = {
   development: development,
