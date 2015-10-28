@@ -8,8 +8,7 @@
     login: function(req, res, next) {
       passport.authenticate('login', function(err, user) {
         if (err) {
-          // will generate a 409 error
-          return res.status(409).send({
+          return res.status(500).send({
             error: err.message || err.errors[0].message
           });
         }
