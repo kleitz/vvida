@@ -1,23 +1,19 @@
-//var require the seqalize module
-var Seq = require('sequelize'),
-  db = require('../config/db-connect'),
-  users = require('./users'),
-  notifications = db.define('notifications', {
-
+module.exports = function(sequelize, DataType) {
+  return sequelize.define('Notifications', {
       // FOREIGN KEY
       // references the user id in users table
-      user_id: {
-        type: Seq.INTEGER,
-        allowNull: false,
-        references: {
-          model: users,
-          key: 'id'
-        }
-      },
-      // item name
-      // hold the name of the notifications
+      // user_id: {
+      //   type: DataType.INTEGER,
+      //   allowNull: false,
+      //   references: {
+      //     model: users,
+      //     key: 'id'
+      //   }
+      // },
+
+      // holds the name of the notifications
       notification: {
-        type: Seq.TEXT,
+        type: DataType.TEXT,
         allowNull: false,
       }
 
@@ -30,5 +26,4 @@ var Seq = require('sequelize'),
       // prevent sequelize from transforming the user tables to prural
       freezetableName: true
     });
-
-module.exports = notifications;
+};

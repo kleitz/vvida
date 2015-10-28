@@ -1,35 +1,29 @@
-//var require the seqalize module
-var Seq = require('sequelize'),
-  db = require('../config/db-connect'),
-  items = require('./items'),
-  users = require('./users'),
-  reviews = db.define('reviews', {
-
+module.exports = function(sequelize, DataType) {
+  return sequelize.define('Reviews', {
       // FOREIGN KEY
       // references the item id in the items table
-      item_id: {
-        type: Seq.INTEGER,
-        allowNull: false,
-        references: {
-          model: items,
-          key: 'id'
-        }
-      },
+      // item_id: {
+      //   type: DataType.INTEGER,
+      //   allowNull: false,
+      //   references: {
+      //     model: items,
+      //     key: 'id'
+      //   }
+      // },
 
       // FOREIGN KEY
       // references the user id in users table
-      user_id: {
-        type: Seq.INTEGER,
-        allowNull: false,
-        references: {
-          model: users,
-          key: 'id'
-        }
-      },
-      // item name
-      // hold the name of the reviews
+      // user_id: {
+      //   type: DataType.INTEGER,
+      //   allowNull: false,
+      //   references: {
+      //     model: users,
+      //     key: 'id'
+      //   }
+      // },
+
       review: {
-        type: Seq.TEXT,
+        type: DataType.TEXT,
         allowNull: false
       }
 
@@ -42,5 +36,4 @@ var Seq = require('sequelize'),
       // prevent sequelize from transforming the user tables to prural
       freezetableName: true
     });
-
-module.exports = reviews;
+};

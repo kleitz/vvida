@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataType) {
-  return sequelize.define('Images', {
+  return sequelize.define('ItemPromotions', {
       // FOREIGN KEY
       // references the item id in the items table
       // item_id: {
@@ -13,8 +13,9 @@ module.exports = function(sequelize, DataType) {
 
       // FOREIGN KEY
       // references the user id in users table
-      // user_id: {
-      //   type: DataType.INTEGER,
+      // The id of the person sharing, sponsoring or recommending the item
+      // created_by: {
+      //   type: DataType.INTEGER.UNSIGNED,
       //   allowNull: false,
       //   references: {
       //     model: users,
@@ -22,13 +23,26 @@ module.exports = function(sequelize, DataType) {
       //   }
       // },
 
-      // image url
-      // hold the url of the images
-      img_url: {
-        type: DataType.STRING,
+      // FOREIGN KEY
+      // references the user id in users table
+      // The id of the person targeted
+      // created_for: {
+      //   type: DataType.INTEGER.UNSIGNED,
+      //   allowNull: false,
+      //   references: {
+      //     model: users,
+      //     key: 'id'
+      //   }
+      // },
+
+      // e.g sponsored, shared, recommended
+      group: {
+        type: DataType.ENUM,
+        values: ['sponsored', 'shared', 'recommended'],
         allowNull: false,
       }
     },
+
     // table configuration
     {
       // prevent time stamps from using camelase
