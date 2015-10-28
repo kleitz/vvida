@@ -1,10 +1,9 @@
-var User = require('../../models/users');
 // Use the FacebookStrategy within Passport.
 // Strategies in Passport require a `verify` function, which accept
 // credentials (in this case, an accessToken, refreshToken,
 // and Facebook profile), and invoke a callback with a user object
-module.exports = function(passport, FacebookStrategy, config) {
-
+module.exports = function(app, passport, FacebookStrategy, config) {
+  var User = app.get('models').users;
   passport.use(new FacebookStrategy(config.auth.FACEBOOK,
     function(accessToken, refreshToken, profile, done) {
       // make the code asynchronous
