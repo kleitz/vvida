@@ -72,7 +72,6 @@
           });
         } else {
           res.json({
-            isUpdate: true,
             message: 'You have successfully edited your item'
           });
         }
