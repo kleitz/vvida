@@ -6,6 +6,7 @@ angular.module('vvida.controllers')
           console.log('Ok button has been clicked!');
         });
     };
+
     $scope.openToast = function() {
       Utils.toast('Hey there!');
     };
