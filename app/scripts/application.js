@@ -10,8 +10,10 @@
   require('./services/users');
   // Require Controllers
   require('./controllers/home');
+  require('./controllers/profile');
   require('./controllers/about');
   require('./controllers/login');
+  require('./controllers/header');
 
   window.app = angular.module('vvida', [
     'vvida.controllers',
@@ -133,6 +135,11 @@
         url: '/events',
         controller: 'HomeCtrl',
         templateUrl: 'views/events.html'
+      })
+      .state('profile', {
+        url: '/edit-profile',
+        controller: 'ProfileCtrl',
+        templateUrl: 'views/edit-profile.html'
       })
       .state('login', {
         url: '/login',
