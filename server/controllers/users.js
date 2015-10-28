@@ -1,7 +1,7 @@
 (function() {
   'use strict';
-  var User = require('../models/users'),
-    passport = require('passport');
+
+  var passport = require('passport');
 
   module.exports = {
     // login middleware
@@ -47,8 +47,8 @@
     authenticate: function(req, res, next) {
       // check if the it's POST/PUT/DELETE request
       if (/(post|put|patch)/.test(req.method.toLowerCase())) {
-        // Check if a user is logged in or is a login request
-        if (req.session.user || /(login)/.test(req.path)) {
+        // Check if a user is logged in, is a login or signup request
+        if (req.session.user || /(users|login)$/.test(req.path)) {
           // if yes, let the request go through
           next();
         } else {
@@ -75,6 +75,7 @@
 
     // Middleware to get all users
     all: function(req, res) {
+      var User = req.app.get('models').users;
       User.findAll().then(function(users, err) {
         if (!users) {
           res.status(404).send({
@@ -101,7 +102,9 @@
 
     // Middleware to get users by ID
     find: function(req, res) {
-      var userId = req.params.id;
+      var User = req.app.get('models').users,
+        userId = req.params.id;
+
       User.findOne({
         where: {
           id: userId
@@ -130,6 +133,7 @@
 
     // Middileware to update user data
     update: function(req, res) {
+      var User = req.app.get('models').users;
       // edit user email
       delete req.body.password;
       User.update(req.body, {
