@@ -4,6 +4,19 @@ body {
     width: 100%;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5 {
+    margin: 0 0 5px 0;
+}
+
+img {
+  border: 0;
+  max-width: 100%;
+  border-radius: 4px;
+}
 header {
     height: 60px;
     margin: 0 auto;
@@ -418,23 +431,31 @@ md-sidenav.md-sidenav-left {
 }
 
 .welcome_main_content {
-    margin: 10px;
-    margin-left: 10px;
     border-width: 0px 1px 0px 0px;
     border-style: solid;
     border-color: rgb(204, 204, 200);
 }
 
-.welcome_sideNav {
-    margin: 10px;
+.recentReview {
+  margin-top: 50px;
 }
 
-.recentReview .face {
-    border-radius: 20px;
-    border: 1px solid #ddd;
-    width: 48px;
-    margin: 10px;
+.recentReview md-card {
+  margin: 0px;
 }
+
+.recentReview md-list-item {
+  padding: 0px;
+}
+
+
+
+// .recentReview .face {
+//     border-radius: 20px;
+//     border: 1px solid #ddd;
+//     width: 96px;
+//     margin: 10px;
+// }
 
 .nextReview img {
     width: 70px;
@@ -442,19 +463,18 @@ md-sidenav.md-sidenav-left {
     border-radius: 5px;
 }
 
-.nextReview p {
-    display: inline-block;
+.nextReview h4 {
+  margin-bottom: 30px;
 }
 
 .bubble {
     float: right;
     position: relative;
-    width: 668px;
+    width: 650px;
     height: 90px;
+    margin-top: -15px;
     padding: 11px;
     background: rgb(249, 244, 242);
-    margin-right: 20px;
-    margin-top: -15px;
     border: 1px solid rgb(198, 198, 198);
     -webkit-border-radius: 9px;
     -moz-border-radius: 9px;
@@ -473,4 +493,10 @@ md-sidenav.md-sidenav-left {
     left: -16px;
     top: 28px;
 }
+
+
+
+
+
+
 
