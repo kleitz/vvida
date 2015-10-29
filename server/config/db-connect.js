@@ -3,7 +3,8 @@ var Seq = require('sequelize'),
   config = require('./index')[env],
   sequelize = new Seq(config.db.name, config.db.username, config.db.password, {
     host: config.host,
-    dialect: config.db.dialect
+    dialect: config.db.dialect,
+    port: 5433
   });
 
 // log the progress/outcome of the connection
