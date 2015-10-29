@@ -4,20 +4,29 @@ angular.module('vvida.controllers')
       // login
       $scope.login = function() {
         Users.login($scope.user, function(err, res) {
-          console.log('Err: ', err, 'Res ', res);
           if (!err) {
             $rootScope.currentUser = res;
             $state.go('home');
           } else {
-            $scope.message = err.error || err;
+            $scope.messageLogin = err.error || err;
           }
         });
       };
       // signup
       $scope.signup = function() {
-        Users.save($scope.user, function(err, user) {
-          console.log(user, err);
-        });
+        if ($scope.user.passwordSignup.trim() === $scope.user.confirmPassword.trim()) {
+          var theUser={email: $scope.user.emailSignup ,password: $scope.user.passwordSignup};
+          Users.save(theUser, function(res) {
+            if (res) {
+              $rootScope.currentUser = res;
+              $state.go('profile');
+            } else {
+              $scope.messageSignup = err.error || err || error;
+            }
+          });
+        } else {
+          $scope.messageSignup = 'Your confirmation password does not match the initial password you have given.';
+        }
       };
     }
   ]);
