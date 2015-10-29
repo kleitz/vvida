@@ -1,5 +1,7 @@
-//var require the seqalize module
-var sequelize = require('../config/db-connect');
+// instantiate the database connection
+var sequelize = require('../config/db-connect'),
+  ucFirst = require('../services/ucfirst'),
+  relationships = require('./relationships');
 
 // load models
 var models = [
@@ -19,17 +21,11 @@ var models = [
 
 // add them to be exported in one go
 models.forEach(function(model) {
-  module.exports[model] = sequelize.import(__dirname + '/' + model);
+  module.exports[ucFirst(model)] = sequelize.import(__dirname + '/' + model);
 });
 
-// describe relationships
-(function(m) {
-  // in here
-  // m.PhoneNumber.belongsTo(m.User);
-  // m.Task.belongsTo(m.User);
-  // m.User.hasMany(m.Task);
-  // m.User.hasMany(m.PhoneNumber);
-})(module.exports);
+// instantiate the relationships
+relationships(module.exports);
 
 // export connection
 module.exports.sequelize = sequelize;
