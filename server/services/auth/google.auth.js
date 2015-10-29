@@ -3,8 +3,8 @@ var User = require('../../models/users');
 // Strategies in Passport require a `verify` function, which accept
 // credentials (in this case, an accessToken, refreshToken, and Google
 // profile), and invoke a callback with a user object.
-module.exports = function(passport, GoogleStrategy, config) {
-
+module.exports = function(passport, config) {
+  var GoogleStrategy = config.strategy.Google;
   passport.use(new GoogleStrategy(config.auth.GOOGLE,
     function(accessToken, refreshToken, profile, done) {
       console.log(profile);
