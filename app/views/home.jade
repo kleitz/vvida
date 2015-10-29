@@ -1,26 +1,25 @@
 md-card.jumbotron.search-jumbotron
-    .jumbotron-image.md-card-image(style='background-image: url(images/vvidaStockPhoto_2.jpg); padding-bottom: 0')
-      .image-overlay(style="padding-bottom: 0; display: flex; flex-direction: column;")
-        p WELCOME HOME
-        p.jumbotron-middle-small-text Create, Review, Rate
-        //- .space
-    .search-div(layout layout-sm="column" flex)
-      .search-bar(layout layout-sm="column" flex-sm=100 flex-gt-sm=75)
-        .search-section(layout flex)
-          md-input-container(flex)
-            label Product
-            md-icon(class="fa fa-2x fa-puzzle-piece")
-            input(ng-model="search.searchItem")
-        .search-section(layout flex)
-          md-input-container(flex)
-            label Location
-            md-icon(class="fa fa-2x fa-map-marker")
-            input(ng-model="search.location")
-        .search-section(layout flex-30)
-          md-input-container.search-button
-            md-button(class="md-warn md-raised")
-              i(class="fa fa-search")
-              |Search
+  .jumbotron-image.md-card-image
+    .image-overlay
+      p WELCOME HOME
+      p.jumbotron-middle-small-text Create, Review, Rate
+  .search-div
+    .search-bar(layout layout-sm="column")
+      .search-section(layout flex)
+        md-input-container(flex)
+          label Product
+          md-icon(class="fa fa-2x fa-puzzle-piece")
+          input(ng-model="search.searchItem")
+      .search-section(layout flex)
+        md-input-container(flex)
+          label Location
+          md-icon(class="fa fa-2x fa-map-marker")
+          input(ng-model="search.location")
+      .search-section(layout)
+        md-input-container.search-button
+          md-button(class="md-warn md-raised")
+            i(class="fa fa-search")
+            | Search
 
 .top-reviews
   h4.md-margin TOP REVIEWS
