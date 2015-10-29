@@ -9,14 +9,14 @@
       passport.authenticate('login', function(err, user) {
         if (err) {
           // will generate a 409 error
-          return res.status(409).send({
+          return res.send({
             error: err.message || err.errors[0].message
           });
         }
         // Generate a JSON response reflecting authentication status
         if (!user) {
           return res.status(500).send({
-            error: 'authentication failed'
+            error: 'Authentication failed.'
           });
         }
         req.session.user = user;
@@ -27,21 +27,20 @@
     // signup middleware
     signup: function(req, res, next) {
       passport.authenticate('signup', function(err, user) {
-        console.log(user);
         // check for errors, if exist send a response with error
         if (err) {
-          return res.status(500).send({
-            error: err.message || err.errors[0].message
+          return res.send({
+            error: err.errors[0].message || err.message
           });
         }
         // If passport doesn't return the user object,  signup failed
         if (!user) {
           return res.status(500).send({
-            error: 'Signup failed'
+            error: 'Signup failed. User already exists.'
           });
         }
         // else signup succesful
-        return res.json(user);
+        return res.json(user.dataValues);
       })(req, res, next);
     },
 
@@ -120,6 +119,7 @@
         }
       }).then(function(ok, err) {
         if (err) {
+          console.log("1. Error: ", err);
           res.status(500).send({
             error: err.message || err.errors[0].message
           });
@@ -129,6 +129,7 @@
           });
         }
       }).catch(function(err) {
+        console.log("2. Error: ", err);
         res.status(500).send({
           error: err.message || err.errors[0].message
         });
