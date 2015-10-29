@@ -28,9 +28,17 @@ angular.module('vvida.services')
     };
 
     obj.signup = function(user, cb) {
-      $http.post('/api/users/signup', user).success(function(res) {
+      $http.post('/api/users', user).success(function(res) {
         cb(null, res);
-      }).error(function(err) {
+      }).catch(function(err) {
+        cb(err);
+      });
+    };
+
+    obj.update = function(user, cb) {
+      $http.put('/api/users/'+user.id, user).success(function(res) {
+        cb(null, res);
+      }).catch(function(err) {
         cb(err);
       });
     };
