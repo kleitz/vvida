@@ -17,9 +17,6 @@ var config = require('./server/config')[env],
   routes = require('./server/routes'),
   app = express(),
   passport = require('passport'),
-  LocalStrategy = require('passport-local').Strategy,
-  FacebookStrategy = require('passport-facebook').Strategy,
-  GoogleStrategy = require('passport-google-oauth').OAuth2Strategy,
   session = require('express-session'),
   auth = require('./server/services/auth');
 
@@ -51,7 +48,8 @@ app.use(multer({
   }
 }).single('photo'));
 
-auth(passport, LocalStrategy, FacebookStrategy, GoogleStrategy, config);
+console.log(config.strategy);
+auth(passport, config);
 passport.serializeUser(function(user, done) {
   done(null, user);
 });
