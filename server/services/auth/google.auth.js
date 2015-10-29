@@ -3,17 +3,17 @@
 // credentials (in this case, an accessToken, refreshToken, and Google
 // profile), and invoke a callback with a user object.
 module.exports = function(app, passport, GoogleStrategy, config) {
-  var User = app.get('models').Users;
+  var Users = app.get('models').Users;
   passport.use(new GoogleStrategy(config.auth.GOOGLE,
     function(accessToken, refreshToken, profile, done) {
       console.log(profile);
 
       // make the code asynchronous
-      // User.findOne won't fire until we have all our data back from Google
+      // Users.findOne won't fire until we have all our data back from Google
       process.nextTick(function() {
 
         // check if the user exists in out database
-        User.findOne({
+        Users.findOne({
             where: {
               'google_auth_id': profile.id
             },
@@ -22,7 +22,7 @@ module.exports = function(app, passport, GoogleStrategy, config) {
           .then(function(user) {
             // If the user does not exist create one
             if (!user) {
-              User.build({
+              Users.build({
                   email: profile.emails[0].value,
                   role: 'user',
                   username: profile.username,

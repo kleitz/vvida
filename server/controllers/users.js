@@ -102,10 +102,10 @@
 
     // Middleware to get users by ID
     find: function(req, res) {
-      var User = req.app.get('models').Users,
+      var Users = req.app.get('models').Users,
         userId = req.params.id;
 
-      User.findOne({
+      Users.findOne({
         where: {
           id: userId
         }
@@ -133,10 +133,10 @@
 
     // Middileware to update user data
     update: function(req, res) {
-      var User = req.app.get('models').Users;
+      var Users = req.app.get('models').Users;
       // edit user email
       delete req.body.password;
-      User.update(req.body, {
+      Users.update(req.body, {
         where: {
           id: req.params.id
         }
