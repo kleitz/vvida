@@ -1,49 +1,41 @@
 md-card.profile-body(layout="column" flex="55" style="margin-top: 30px;")
   br
   md-card-content(style="padding-top: 0px;")
-    form(method='post', action='/api/signup')
+    form(method='post' ng-submit='editProfile()')
       h1 Edit Profile
+      div(layout="row")
+        p Welcome. The email address you have provided is
+        p.email {{currentUser.email}}.
+        p Please complete the following form with your details to complete your registration.
       md-input-container
         md-icon(class="fa fa-user-secret")
-        input(ng-model='user.firstName', type="text", placeholder='Username' ng-required='true')
+        input(ng-model='user.username', type="text", placeholder='Username' ng-required='true')
       md-input-container
-        md-icon(class="fa fa-key")
-        input(ng-model='user.password', type='password', placeholder='Password')
-      md-input-container
-        md-icon(class="fa fa-key")
-        input(ng-model='user.password', type='password', placeholder='Confirm password')
-      md-input-container
-        md-icon(class="fa fa-envelope")
-        input(ng-model='user.lastName', type="Email", placeholder='Email' ng-required='true')
-      md-input-container
-        md-icon(class="fa fa-user")
-        input(ng-model='user.email', type='text', placeholder='First Name', ng-required='true')
-      md-input-container
-        md-icon(class="fa fa-user")
-        input(ng-model='user.email', type='text', placeholder='Last Name', ng-required='true')
-      div(layout="row")
-        md-input-container(style="width: 220px" flex="20")
-          md-icon(class="fa fa-venus-mars")
-          input(placeholder='Gender' disabled)
-        md-input-container(style="margin: 0px;" flex="60")
-          md-radio-group(layout="row" style="margin: 0px; padding: 0px")
-            md-radio-button.md-primary(value="female" flex)
-              md-icon(class="fa fa-venus") Female
-            md-radio-button(value="male" flex)
-              md-icon(class="fa fa-mars" ) Male
-            md-radio-button(value="male" flex)
-              md-icon(class="fa fa-transgender-alt" ) Other
-        md-input-container(style=" padding: 0px; margin: 0px" flex="20")
-          md-datepicker(md-placeholder="Date of Birth" ng-model="user.dob" style="width: 200px")
+        md-icon(class="fa fa-building")
+        input(ng-model='user.city', type='text', placeholder='City', ng-required='true')
       md-input-container
         md-icon(class="fa fa-globe")
         md-select.md-padding.md-margin(ng-model="country")
           md-option(ng-repeat="country in countries" ng-value="country.name"){{country.name}}
-      md-input-container
-        md-icon(class="fa fa-building")
-        input(ng-model='user.email', type='text', placeholder='City', ng-required='true')
-      md-button.md-raised.md-warn(class='sign-up-button')
+      div(layout="row")
+        md-input-container(flex="40")
+          md-icon(class="fa fa-user")
+          input(ng-model='user.firstname', type='text', placeholder='First Name', ng-required='true')
+        md-input-container(flex="40")
+          md-icon(class="fa fa-user")
+          input(ng-model='user.lastname', type='text', placeholder='Last Name', ng-required='true')
+        md-input-container(style=" padding: 0px; margin: 0px" flex="20")
+          md-datepicker(md-placeholder="Date of Birth" ng-model="date" style="width: 200px")
+      md-input-container(style="margin-left: 80px;")
+        md-radio-group(layout="row" ng-model="gender" flex="grow")
+          md-radio-button.md-primary(value="female" flex="33")
+            md-icon(class="fa fa-venus" value="0") Female
+          md-radio-button(value="1" flex="33")
+            md-icon(class="fa fa-mars" ) Male
+          md-radio-button(value="2" flex="33")
+            md-icon(class="fa fa-transgender-alt" ) Other
+      md-button.md-raised.md-warn.md-padding.md-margin(style="width: 250px")
         i(class="fa fa-send")
-        | Sign Up
+        | Complete Signup
 br
 br
