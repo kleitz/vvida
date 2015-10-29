@@ -75,7 +75,7 @@
 
     // Middleware to get all users
     all: function(req, res) {
-      var User = req.app.get('models').users;
+      var User = req.app.get('models').Users;
       User.findAll().then(function(users, err) {
         if (!users) {
           res.status(404).send({
@@ -102,7 +102,7 @@
 
     // Middleware to get users by ID
     find: function(req, res) {
-      var User = req.app.get('models').users,
+      var User = req.app.get('models').Users,
         userId = req.params.id;
 
       User.findOne({
@@ -133,7 +133,7 @@
 
     // Middileware to update user data
     update: function(req, res) {
-      var User = req.app.get('models').users;
+      var User = req.app.get('models').Users;
       // edit user email
       delete req.body.password;
       User.update(req.body, {

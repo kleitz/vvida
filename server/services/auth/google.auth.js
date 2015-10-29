@@ -3,7 +3,7 @@
 // credentials (in this case, an accessToken, refreshToken, and Google
 // profile), and invoke a callback with a user object.
 module.exports = function(app, passport, GoogleStrategy, config) {
-  var User = app.get('models').users;
+  var User = app.get('models').Users;
   passport.use(new GoogleStrategy(config.auth.GOOGLE,
     function(accessToken, refreshToken, profile, done) {
       console.log(profile);

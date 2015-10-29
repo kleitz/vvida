@@ -3,7 +3,7 @@
 // credentials (in this case, an accessToken, refreshToken,
 // and Facebook profile), and invoke a callback with a user object
 module.exports = function(app, passport, FacebookStrategy, config) {
-  var User = app.get('models').users;
+  var User = app.get('models').Users;
   passport.use(new FacebookStrategy(config.auth.FACEBOOK,
     function(accessToken, refreshToken, profile, done) {
       // make the code asynchronous

@@ -1,7 +1,7 @@
 var bcrypt = require('bcrypt-nodejs');
 
 module.exports = function(app, passport, LocalStrategy) {
-  var User = app.get('models').users;
+  var User = app.get('models').Users;
 
   // signup middleware for local signup
   passport.use('signup', new LocalStrategy({
