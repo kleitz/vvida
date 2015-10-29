@@ -9,7 +9,7 @@ var Seq = require('sequelize'),
 
 // log the progress/outcome of the connection
 sequelize.authenticate()
-  .then(function(err) {
+  .then(function() {
     console.log('Connection has been established successfully.');
   }, function(err) {
     console.log('Unable to connect to the database:', err);
