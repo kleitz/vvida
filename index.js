@@ -48,7 +48,6 @@ app.use(multer({
   }
 }).single('photo'));
 
-console.log(config.strategy);
 auth(passport, config);
 passport.serializeUser(function(user, done) {
   done(null, user);
