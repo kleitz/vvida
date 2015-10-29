@@ -1,16 +1,5 @@
 module.exports = function(sequelize, DataType) {
   return sequelize.define('Notifications', {
-      // FOREIGN KEY
-      // references the user id in users table
-      // user_id: {
-      //   type: DataType.INTEGER,
-      //   allowNull: false,
-      //   references: {
-      //     model: users,
-      //     key: 'id'
-      //   }
-      // },
-
       // holds the name of the notifications
       notification: {
         type: DataType.TEXT,

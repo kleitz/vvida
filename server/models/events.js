@@ -1,15 +1,5 @@
 module.exports = function(sequelize, DataType) {
   return sequelize.define('Events', {
-      // FOREIGN KEY
-      // references the user id in users table
-      // user_id: {
-      //   type: DataType.INTEGER,
-      //   allowNull: false,
-      //   references: {
-      //     model: users,
-      //     key: 'id'
-      //   }
-      // },
 
       // event name
       // hold the name of the events

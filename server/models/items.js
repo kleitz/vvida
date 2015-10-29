@@ -1,27 +1,5 @@
 module.exports = function(sequelize, DataType) {
   return sequelize.define('Items', {
-      // FOREIGN KEY
-      // references the category id in the categories table
-      // cat_id: {
-      //   type: DataType.INTEGER,
-      //   allowNull: false,
-      //   references: {
-      //     model: categories,
-      //     key: 'id'
-      //   }
-      // },
-
-      // FOREIGN KEY
-      // references the user id in users table
-      // user_id: {
-      //   type: DataType.INTEGER,
-      //   allowNull: false,
-      //   references: {
-      //     model: users,
-      //     key: 'id'
-      //   }
-      // },
-
       // item name
       // hold the name of the items
       item_name: {
