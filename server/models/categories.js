@@ -2,7 +2,7 @@ module.exports = function(sequelize, DataType) {
   return sequelize.define('Categories', {
       // Type of the category
       // e.g product, service, location
-      cat_type: {
+      type: {
         type: DataType.STRING,
         allowNull: false,
         validate: {

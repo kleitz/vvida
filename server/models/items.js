@@ -2,14 +2,14 @@ module.exports = function(sequelize, DataType) {
   return sequelize.define('Items', {
       // item name
       // hold the name of the items
-      item_name: {
+      name: {
         type: DataType.STRING,
         allowNull: false,
       },
       // item description
       // gives a detailed description of what the item is all about
 
-      item_desc: {
+      desc: {
         type: DataType.TEXT,
         allowNull: true
       }

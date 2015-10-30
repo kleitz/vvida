@@ -1,6 +1,6 @@
 module.exports = function(sequelize, DataType) {
   return sequelize.define('Rating', {
-      rate_value: {
+      value: {
         type: DataType.INTEGER,
         allowNull: false
       }
