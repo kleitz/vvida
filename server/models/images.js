@@ -2,7 +2,7 @@ module.exports = function(sequelize, DataType) {
   return sequelize.define('Images', {
       // image url
       // hold the url of the images
-      url: {
+      img_url: {
         type: DataType.STRING,
         allowNull: false,
       }
