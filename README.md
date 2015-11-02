@@ -1,6 +1,6 @@
 # Vvida
 
-[![Code Climate](https://codeclimate.com/github/andela/vvida/badges/gpa.svg)] [![Test Coverage](https://codeclimate.com/github/andela/vvida/badges/coverage.svg)]
+[![Code Climate](https://codeclimate.com/github/andela/vvida/badges/gpa.svg)](https://codeclimate.com/github/andela/vvida) [![Test Coverage](https://codeclimate.com/github/andela/vvida/badges/coverage.svg)](https://codeclimate.com/github/andela/vvida/coverage)
 
 Vvida is a nightlife establishment, service and product review app. It enables the users to review services offered by various establishments, e.g restaurants, hotels, clubs, food, transport, vacation places etc. as well as products used by consumers.
 
