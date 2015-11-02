@@ -1,6 +1,6 @@
-md-card.profile-body(layout="column" flex="55" style="margin-top: 30px;")
+md-card.profile-body.edit-profile(layout="column" flex="55")
   br
-  md-card-content(style="padding-top: 0px;")
+  md-card-content.content
     form(method='post' ng-submit='editProfile()')
       h1 Edit Profile
       div(layout="row")
@@ -15,8 +15,8 @@ md-card.profile-body(layout="column" flex="55" style="margin-top: 30px;")
         input(ng-model='user.city', type='text', placeholder='City', ng-required='true')
       md-input-container
         md-icon(class="fa fa-globe")
-        md-select.md-padding.md-margin(ng-model="country")
-          md-option(ng-repeat="country in countries", ng-value="country.name", aria-label='Country'){{country.name}}
+        md-select.md-padding.md-margin(ng-model="user.country" aria-label='Country')
+          md-option(ng-repeat="country in countries", ng-value="country.name", ){{country.name}}
       div(layout="row")
         md-input-container(flex="40")
           md-icon(class="fa fa-user")
@@ -24,17 +24,18 @@ md-card.profile-body(layout="column" flex="55" style="margin-top: 30px;")
         md-input-container(flex="40")
           md-icon(class="fa fa-user")
           input(ng-model='user.lastname', type='text', placeholder='Last Name', ng-required='true')
-        md-input-container(style=" padding: 0px; margin: 0px" flex="20")
-          md-datepicker(md-placeholder="Date of Birth", ng-model="theDate", style="width: 200px", aria-label='Date of Birth')
-      md-input-container(style="margin-left: 80px;")
-        md-radio-group(layout="row" ng-model="gender" flex="grow")
+        md-input-container.datepicker-cont(flex="20" aria-label='Date of Birth')
+          md-datepicker.datepicker(md-placeholder="Date of Birth", ng-model="theDate" aria-label='Date of Birth')
+      md-input-container.radio-cont
+        md-radio-group(layout="row" ng-model="user.gender" flex="grow")
           md-radio-button.md-primary(value="female" flex="33")
             md-icon(class="fa fa-venus" value="0") Female
-          md-radio-button(value="1" flex="33")
+          md-radio-button(value="male" flex="33")
             md-icon(class="fa fa-mars" ) Male
-          md-radio-button(value="2" flex="33")
+          md-radio-button(value="hidden" flex="33")
             md-icon(class="fa fa-transgender-alt" ) Other
-      md-button.md-raised.md-warn.md-padding.md-margin(style="width: 250px")
+      p {{message}}
+      md-button.md-raised.md-warn.md-padding.md-margin.button
         i(class="fa fa-send")
         | Complete Signup
 br
