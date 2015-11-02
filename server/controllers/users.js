@@ -1,7 +1,8 @@
 (function() {
   'use strict';
   var User = require('../models/users'),
-    passport = require('passport');
+    passport = require('passport'),
+    countryArray = require('./countries.js');
 
   module.exports = {
     // login middleware
@@ -168,6 +169,10 @@
           res.status(500).send(err);
         }
       });
+    },
+
+    countries: function(req, res){
+      res.status(200).send(countryArray);
     }
   };
 })();
