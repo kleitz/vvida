@@ -96,6 +96,10 @@ var Seq = require('sequelize'),
         type: Seq.STRING,
         allowNull: true,
       },
+      picture_url: {
+        type: Seq.STRING,
+        allowNull: true,
+      },
 
       // enabled
       // gives options to enable or disable user
