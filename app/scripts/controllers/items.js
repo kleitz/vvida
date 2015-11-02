@@ -1,36 +1,17 @@
 angular.module('vvida.controllers')
-  .controller('ItemsCtrl', ['$timeout', '$scope', function($timeout, $scope) {
+  .controller('ItemsCtrl', ['$timeout', '$scope', 'Categories', function($timeout, $scope, Categories) {
     $scope.user = null;
     $scope.users = null;
 
-    $scope.loadUsers = function() {
-
+    $scope.loadCategories = function() {
       // Use timeout to simulate a 650ms request.
       return $timeout(function() {
-
-        $scope.users = $scope.users || [{
-          id: 1,
-          name: 'Scooby Doo'
-        }, {
-          id: 2,
-          name: 'Shaggy Rodgers'
-        }, {
-          id: 3,
-          name: 'Fred Jones'
-        }, {
-          id: 4,
-          name: 'Daphne Blake'
-        }, {
-          id: 5,
-          name: 'Velma Dinkley'
-        }];
-
+        $scope.categories = Categories.query();
+        $scope.categories = $scope.categories;
       }, 650);
     };
 
-    $scope.upload = function(files) {
-      if (files) {
-        $scope.files = files;
-      }
+    $scope.saveImage = function(flow) {
+      console.log(flow.files);
     };
   }]);

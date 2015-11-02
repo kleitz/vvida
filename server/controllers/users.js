@@ -1,6 +1,6 @@
 (function() {
   'use strict';
-  var User = require('../schemas/users'),
+  var User = require('../models/users'),
     passport = require('passport');
 
   module.exports = {
@@ -8,8 +8,7 @@
     login: function(req, res, next) {
       passport.authenticate('login', function(err, user) {
         if (err) {
-          // will generate a 409 error
-          return res.status(409).send({
+          return res.status(500).send({
             error: err.message || err.errors[0].message
           });
         }
@@ -46,7 +45,26 @@
       })(req, res, next);
     },
 
-    getSession: function(req, res) {
+    authenticate: function(req, res, next) {
+      // check if the it's POST/PUT/DELETE request
+      if (/(post|put|patch)/.test(req.method.toLowerCase())) {
+        // Check if a user is logged in or is a login request
+        if (req.session.user || /(login)/.test(req.path)) {
+          // if yes, let the request go through
+          next();
+        } else {
+          // Unathorized request
+          res.status(401).json({
+            message: 'Request is unauthorised.'
+          });
+        }
+      } else {
+        // if not just carry on
+        next();
+      }
+    },
+
+    session: function(req, res) {
       if (req.session.user) {
         res.status(200).send(req.session.user);
       } else {
@@ -57,8 +75,8 @@
     },
 
     // Middleware to get all users
-    getAllUsers: function(req, res) {
-      User.findAll().then(function(users) {
+    all: function(req, res) {
+      User.findAll().then(function(users, err) {
         if (!users) {
           res.status(404).send({
             error: 'User not found'
@@ -83,7 +101,7 @@
     },
 
     // Middleware to get users by ID
-    getUserById: function(req, res) {
+    find: function(req, res) {
       var userId = req.params.id;
       User.findOne({
         where: {
@@ -112,7 +130,7 @@
     },
 
     // Middileware to update user data
-    updateUser: function(req, res) {
+    update: function(req, res) {
       // edit user email
       delete req.body.password;
       User.update(req.body, {
@@ -136,7 +154,7 @@
       });
     },
 
-    deleteUser: function(req, res) {
+    delete: function(req, res) {
       res.status(501).send({
         error: 'Not implemented'
       });

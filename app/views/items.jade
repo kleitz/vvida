@@ -1,30 +1,38 @@
 .items( layout='column')
   div(ng-cloak='')
     md-card
-      md-toolbar
+      md-toolbar.md-accent
         .md-toolbar-tools(aria-label="settings")
           span Add product
       md-content.md-padding
-        form(method='post' ng-submit="addItems()")
-          md-input-container
-            md-select(placeholder='Categories', ng-model='user', md-on-open='loadUsers()')
-              md-option(ng-value='user', ng-repeat='user in users') {{user.name}}
+        form(method='post' ng-submit="addItems($flow)")
           md-input-container
             md-icon(class="fa fa-envelope")
-            input(ng-model='user.email', type='email', placeholder='Product', ng-required='true')
+            md-select(placeholder='Categories', ng-model='user', md-on-open='loadCategories()', class="select")
+              md-option(ng-value='category', ng-repeat='category in categories') {{category.cat_type}}
           md-input-container
             md-icon(class="fa fa-envelope")
-            input(ng-model='user.email', type='email', placeholder='Description', ng-required='true',ari)
+            input(ng-model='item.product', type='text', placeholder='Product', ng-required='true')
+          md-input-container
+            md-icon(class="fa fa-envelope")
+            input(ng-model='item.description', type='text', placeholder='Description', ng-required='true')
           br
           md-divider
-            h5 Upload Images
-          md-input-container()
-            p(ng-repeat="file in files")
-              {{file}}
-            input(ng-model='user.email', type='file', accept='image/*', ng-required, ng-file-select="upload($files)" ng-multiple="multiple", aria-label="upload")
-          md-button.md-raised.md-warn(class ='login-button', type='submit' aria-label="Add")
-            i(class="fa fa-send")
-            | Add
+          .upload(flow-init="", flow-files-submitted='addItems($flow)')
+            h4 Upload images
+            table
+              tr(ng-repeat="file in $flow.files")
+                td{{$index+1}}
+                td{{file.name}}
+                //td>{{file.msg}}
+            span.md-button.md-raised.md-warn( flow-btn="")
+              i(class="fa fa-upload")
+              |  Choose Files
+            br
+            md-button.md-raised.md-warn(class ='login-button', type='submit')
+              i(class="fa fa-plus-circle")
+              | Add
+
 
 
 

@@ -2,13 +2,14 @@
 // this api will handle all the routes for items
 (function() {
   'use strict';
-  var Categories = require('../services/categories');
+  var Categories = require('../controllers/categories');
   module.exports = function(app) {
 
-    app.route('/api/items')
+    app.route('/api/categories')
       // create item route.
-      .post(Categories.delete.create)
-      .get(Categories.delete.all)
+      .post(Categories.create)
+      .get(Categories.all);
+    app.route('/api/categories/:id')
       .delete(Categories.delete);
 
   };

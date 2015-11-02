@@ -1,7 +1,6 @@
 (function() {
   'use strict';
-
-  var Items = require('../schemas/items');
+  var Items = require('../models/items');
   module.exports = {
     //Middleware to create an item
     create: function(req, res, next) {
@@ -70,7 +69,6 @@
           });
         } else {
           res.json({
-            isUpdate: true,
             message: 'You have successfully edited your item'
           });
         }

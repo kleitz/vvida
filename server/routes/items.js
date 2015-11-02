@@ -2,8 +2,8 @@
 // this api will handle all the routes for items
 (function() {
   'use strict';
-  var Item = require('../services/items'),
-    upload = require('../services/upload');
+  var Item = require('../controllers/items'),
+    upload = require('../controllers/upload');
 
   module.exports = function(app) {
 
@@ -19,6 +19,5 @@
       .put(Item.update)
       // Delete items route
       .delete(Item.delete);
-
   };
 })();

@@ -28,6 +28,5 @@ angular.module('vvida.controllers')
       $scope.google = function() {
         $window.location.href = '/auth/google';
       };
-
     }
   ]);

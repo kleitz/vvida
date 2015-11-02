@@ -19,7 +19,7 @@ var config = require('./server/config')[env],
   FacebookStrategy = require('passport-facebook').Strategy,
   GoogleStrategy = require('passport-google-oauth').OAuth2Strategy,
   session = require('express-session'),
-  auth = require('./server/services/social-auth');
+  auth = require('./server/services/auth');
 
 // load env variables from .env file in development environment
 // view engine setup
