@@ -28,7 +28,7 @@
       passport.authenticate('signup', function(err, user) {
         // check for errors, if exist send a response with error
         if (err) {
-          return res.send({
+          return res.status(500).send({
             error: err.errors[0].message || err.message
           });
         }
@@ -133,11 +133,10 @@
       delete req.body.password;
       User.update(req.body, {
         where: {
-          id: req.params.id
+          id: req.params.id,
         }
       }).then(function(ok, err) {
         if (err) {
-          console.log("1. Error: ", err);
           res.status(500).send({
             error: err.message || err.errors[0].message
           });
@@ -147,7 +146,6 @@
           });
         }
       }).catch(function(err) {
-        console.log("2. Error: ", err);
         res.status(500).send({
           error: err.message || err.errors[0].message
         });
