@@ -27,6 +27,15 @@ angular.module('vvida.services')
       });
     };
 
+    obj.countries = function(cb){
+      $http.get('/api/countries').success(function(res) {
+        cb(null, res);
+      }).error(function(err) {
+        cb(err);
+      });
+    };
+
+
     obj.logout = function(user, cb) {
       $http.get('/api/users/logout', user).success(function(res) {
         cb(null, res);
