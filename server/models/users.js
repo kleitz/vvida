@@ -37,7 +37,7 @@ var Seq = require('sequelize'),
       },
       // date of birth
       dob: {
-        type: Seq.INTEGER,
+        type: Seq.DATE,
         allowNull: true,
         validate: {
           isDate: true
@@ -99,6 +99,7 @@ var Seq = require('sequelize'),
       picture_url: {
         type: Seq.STRING,
         allowNull: true,
+        defaultValue: 'images/user.png'
       },
 
       // enabled
