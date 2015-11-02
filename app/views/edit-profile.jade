@@ -16,7 +16,7 @@ md-card.profile-body(layout="column" flex="55" style="margin-top: 30px;")
       md-input-container
         md-icon(class="fa fa-globe")
         md-select.md-padding.md-margin(ng-model="country")
-          md-option(ng-repeat="country in countries" ng-value="country.name"){{country.name}}
+          md-option(ng-repeat="country in countries", ng-value="country.name", aria-label='Country'){{country.name}}
       div(layout="row")
         md-input-container(flex="40")
           md-icon(class="fa fa-user")
@@ -25,7 +25,7 @@ md-card.profile-body(layout="column" flex="55" style="margin-top: 30px;")
           md-icon(class="fa fa-user")
           input(ng-model='user.lastname', type='text', placeholder='Last Name', ng-required='true')
         md-input-container(style=" padding: 0px; margin: 0px" flex="20")
-          md-datepicker(md-placeholder="Date of Birth" ng-model="theDate" style="width: 200px")
+          md-datepicker(md-placeholder="Date of Birth", ng-model="theDate", style="width: 200px", aria-label='Date of Birth')
       md-input-container(style="margin-left: 80px;")
         md-radio-group(layout="row" ng-model="gender" flex="grow")
           md-radio-button.md-primary(value="female" flex="33")
