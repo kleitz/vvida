@@ -420,21 +420,26 @@ angular.module('vvida.controllers')
         name: 'Zimbabwe'
       }];
       $scope.user = {};
-      $scope.date = new Date();
       $scope.user.id = $rootScope.currentUser.id;
-      $scope.user.dob = date.getDate();
+      $scope.user.dob = new Date();
       $scope.editProfile = function() {
+        $scope.user.dob = $scope.theDate.now();
         console.log("Date picker date type: " + typeof($scope.user.dob));
-        console.log("Date picker date instanceof: " + $scope.user.dob instanceof Date);
+        console.log("Date picker date instanceof: " + ($scope.user.dob instanceof Date));
         console.log("Date picker date: " + $scope.user.dob);
-        Users.update($scope.user, function(err, res) {
-          if (!err) {
-            $rootScope.currentUser = res;
-            $state.go('home');
-          } else {
-            $scope.messageLogin = err.error || err;
-          }
-        });
+        if (!$rootScope.currentUser) {
+          $state.go('404');
+        } else {
+          Users.update($scope.user, function(err, res) {
+            if (!err) {
+              $rootScope.currentUser = res;
+              $state.go('home');
+            } else {
+              $scope.messageLogin = err.error || err;
+            }
+          });
+        }
+
       };
     }
   ]);
