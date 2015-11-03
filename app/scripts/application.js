@@ -27,7 +27,7 @@
     'ngResource',
     'ngMaterial',
     'ngCookies',
-    'flow'
+    'angularFileUpload'
   ]);
 
   window.app.run(['$rootScope', '$location', 'Users',
@@ -63,63 +63,52 @@
   ]);
 
   window.app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$mdThemingProvider', function($stateProvider, $urlRouterProvider, $locationProvider, $mdThemingProvider) {
-      // For any unmatched url, redirect to /state1
-      $urlRouterProvider.otherwise('/404');
+    // For any unmatched url, redirect to /state1
+    $urlRouterProvider.otherwise('/404');
 
-      // Now set up the states
-      $mdThemingProvider.theme('default')
-        .primaryPalette('blue')
-        .accentPalette('deep-orange');
+    // Now set up the states
+    $mdThemingProvider.theme('default')
+      .primaryPalette('blue')
+      .accentPalette('deep-orange');
 
-      $stateProvider
-        .state('home', {
-          url: '/',
-          controller: 'HomeCtrl',
-          templateUrl: 'views/home.html'
-        })
-        .state('about', {
-          url: '/about',
-          controller: 'AboutCtrl',
-          templateUrl: 'views/about.html'
-        })
-        .state('events', {
-          url: '/events',
-          controller: 'EventsCtrl',
-          templateUrl: 'views/events.html'
-        })
-        .state('login', {
-          url: '/login',
-          controller: 'LoginCtrl',
-          templateUrl: 'views/login.html'
-        })
-        .state('upload', {
-          url: '/upload',
-          controller: 'AboutCtrl',
-          templateUrl: 'views/upload.html'
-        })
-        .state('404', {
-          url: '/404',
-          templateUrl: 'views/404.html',
-          controller: function($scope) {}
-        })
-        .state('item', {
-          url: '/items',
-          controller: 'ItemsCtrl',
-          templateUrl: 'views/items.html'
-        });
-
-      $locationProvider.html5Mode(true);
-    }])
-    .config(['flowFactoryProvider', function(flowFactoryProvider) {
-      flowFactoryProvider.defaults = {
-        target: '/api/upload',
-        permanentErrors: [404, 500, 501]
-      };
-      // You can also set default events:
-      flowFactoryProvider.on('catchAll', function(event) {
-        //console.log('catchAll', arguments);
+    $stateProvider
+      .state('home', {
+        url: '/',
+        controller: 'HomeCtrl',
+        templateUrl: 'views/home.html'
+      })
+      .state('about', {
+        url: '/about',
+        controller: 'AboutCtrl',
+        templateUrl: 'views/about.html'
+      })
+      .state('events', {
+        url: '/events',
+        controller: 'EventsCtrl',
+        templateUrl: 'views/events.html'
+      })
+      .state('login', {
+        url: '/login',
+        controller: 'LoginCtrl',
+        templateUrl: 'views/login.html'
+      })
+      .state('upload', {
+        url: '/upload',
+        controller: 'AboutCtrl',
+        templateUrl: 'views/upload.html'
+      })
+      .state('404', {
+        url: '/404',
+        templateUrl: 'views/404.html',
+        controller: function($scope) {}
+      })
+      .state('item', {
+        url: '/items',
+        controller: 'ItemsCtrl',
+        templateUrl: 'views/items.html'
       });
-      // Can be used with different implementations of Flow.js
-      // flowFactoryProvider.factory = fustyFlowFactory;
-    }]);
+
+    $locationProvider.html5Mode(true);
+  }])
+
 })();

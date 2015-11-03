@@ -4,11 +4,13 @@
   module.exports = {
     //Middleware to create an item
     create: function(req, res, next) {
+      var item = JSON.parse(req.body.data);
+      console.log(item);
       return Items.create({
         user_id: req.params.id,
-        cat_id: req.body.catId,
-        item_name: req.body.itemName,
-        item_desc: req.body.description
+        cat_id: item.id,
+        item_name: item.name,
+        item_desc: item.description
       }).then(function(item) {
         if (!item) {
           res.status(500).send({
