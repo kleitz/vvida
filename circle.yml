@@ -5,14 +5,14 @@ dependencies:
   - npm install module-deps 
   - npm install gulp -g
 
-database:
-  override:
-    - cp ./database.yml.ci ./database.yml
-    - psql -U ubuntu circle_test < vvida.sql
-
 machine:
   services:
     - postgresql
+
+database:
+  override:
+    - cp ./database.yml.ci ./database.yml
+    - psql -U ubuntu circle_test < db/structure.sql
 
 test:
   override:
