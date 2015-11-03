@@ -13,12 +13,6 @@ machine:
 database:
   override:
     - cp server/config/db-connect.js database.yml
-    - sudo apt-get install postgresql postgresql-contrib
-    - sudo -u postgres psql postgres
-    - \password root
-    - sudo -u postgres createdb vvida
-    - sudo apt-get install postgresql-contrib
-    - sudo -u postgres psql < /usr/share/postgresql/9.3/contrib/adminpack.sql
     - psql -U ubuntu circle_test < vvida.sql
 
 test:
