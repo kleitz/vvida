@@ -18,7 +18,9 @@ angular.module('vvida.controllers')
 
         $scope.editProfile = function() {
           $scope.user.password = $rootScope.currentUser.password;
-          $scope.user.dob = new Date(($scope.theDate).getUTCFullYear(), ($scope.theDate).getUTCMonth(), ($scope.theDate).getUTCDate(), ($scope.theDate).getUTCHours(), ($scope.theDate).getUTCMinutes(), ($scope.theDate).getUTCSeconds());
+          $scope.user.dob = new Date(($scope.theDate).getUTCFullYear(), ($scope.theDate).getUTCMonth(),
+            ($scope.theDate).getUTCDate(), ($scope.theDate).getUTCHours(), ($scope.theDate).getUTCMinutes(),
+            ($scope.theDate).getUTCSeconds());
           if (!$rootScope.currentUser) {
             $state.go('404');
           } else {
