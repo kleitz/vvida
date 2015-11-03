@@ -4,11 +4,13 @@ module.exports = function(m) {
 
   // Events
   m.Events.hasMany(m.Rsvp);
+  m.Events.hasMany(m.Images);
   m.Events.belongsTo(m.Users);
 
   // Images
   m.Images.belongsTo(m.Items);
   m.Images.belongsTo(m.Users);
+  m.Images.belongsTo(m.Events);
 
   // Items
   m.Items.hasMany(m.Images);
