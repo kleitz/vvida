@@ -8,10 +8,13 @@ dependencies:
 machine:
   services:
     - postgresql
+  environment:
+    DATABASE_URL: postgres://ubuntu:@127.0.0.1:5432/circle_test
 
 database:
   override:
-    - psql -U ubuntu circle_test > db/vvida.sql
+    - cp server/config/db-connect.js database.yml
+    - psql -u ubuntu circle_test < db/vvida.sql
 
 test:
   override:
