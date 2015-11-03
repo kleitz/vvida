@@ -16,7 +16,7 @@ md-card.profile-body.edit-profile(layout="column" flex="55")
       md-input-container
         md-icon(class="fa fa-globe")
         md-select.md-padding.md-margin(ng-model="user.country" aria-label='Country')
-          md-option(ng-repeat="country in countries", ng-value="country.name", ){{country.name}}
+          md-option(ng-repeat="country in countries", ng-value="country.name", ) {{country.name}}
       div(layout="row")
         md-input-container(flex="40")
           md-icon(class="fa fa-user")

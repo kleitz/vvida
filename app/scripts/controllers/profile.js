@@ -11,16 +11,17 @@ angular.module('vvida.controllers')
             }];
           }
         });
-        $scope.user = {};
-        $scope.user.id = $rootScope.currentUser.id;
-        $scope.user.country = 'Kenya';
-        $scope.user.email = $rootScope.currentUser.email;
+
+        $scope.user = {
+          id: $rootScope.currentUser.id,
+          country: 'Kenya',
+          email: $rootScope.currentUser.email
+        };
 
         $scope.editProfile = function() {
           $scope.user.password = $rootScope.currentUser.password;
-          $scope.user.dob = new Date(($scope.theDate).getUTCFullYear(), ($scope.theDate).getUTCMonth(),
-            ($scope.theDate).getUTCDate(), ($scope.theDate).getUTCHours(), ($scope.theDate).getUTCMinutes(),
-            ($scope.theDate).getUTCSeconds());
+          $scope.user.dob = new Date(($scope.theDate).getUTCFullYear(), ($scope.theDate).getUTCMonth(), ($scope.theDate).getUTCDate(), ($scope.theDate).getUTCHours(), ($scope.theDate).getUTCMinutes(), ($scope.theDate).getUTCSeconds());
+
           if (!$rootScope.currentUser) {
             $state.go('404');
           } else {
@@ -33,7 +34,6 @@ angular.module('vvida.controllers')
                 'There was a problem updating your profile.';
             });
           }
-
         };
       } else {
         $state.go('login');

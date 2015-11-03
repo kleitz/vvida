@@ -6,7 +6,7 @@ var Seq = require('sequelize'),
     dialect: config.db.dialect
   });
 
-sequelize.sync({
-  force: true
-});
+// sequelize.sync({
+//   force: true
+// });
 module.exports = sequelize;
