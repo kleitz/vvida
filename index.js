@@ -26,7 +26,6 @@ var config = require('./server/config')[env],
 
 // the models variable must be somehow singleton-esque
 // http://bit.ly/1S9cnn5
-// console.log(models);
 app.set('models', models);
 
 // load env variables from .env file in development environment
