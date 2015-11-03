@@ -1,5 +1,4 @@
 module.exports = function(m) {
-  // console.log(m);
   // Categories
   m.Categories.hasMany(m.Items);
 
