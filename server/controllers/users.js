@@ -75,8 +75,8 @@
 
     // Middleware to get all users
     all: function(req, res) {
-      var User = req.app.get('models').Users;
-      User.findAll().then(function(users, err) {
+      var Users = req.app.get('models').Users;
+      Users.findAll().then(function(users, err) {
         if (!users) {
           res.status(404).send({
             error: 'User not found'
