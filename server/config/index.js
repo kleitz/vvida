@@ -9,7 +9,8 @@ var passportConfig = require('./passport.config'),
       dialect: process.env.DATABASE_DIALECT,
       host: process.env.DATABASE_HOST,
       username: process.env.DATABASE_USERNAME,
-      password: process.env.DATABASE_PASSWORD
+      password: process.env.DATABASE_PASSWORD,
+      port: process.env.DATABASE_PORT
     }
   },
   development = envVariables,

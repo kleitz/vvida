@@ -23,8 +23,7 @@
     'vvida.directives',
     'ui.router',
     'ngResource',
-    'ngMaterial',
-    'ngCookies'
+    'ngMaterial'
   ]);
 
   window.app.run(['$rootScope', '$location', 'Users',

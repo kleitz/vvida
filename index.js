@@ -18,7 +18,12 @@ var config = require('./server/config')[env],
   app = express(),
   passport = require('passport'),
   session = require('express-session'),
+  models = require('./server/models'),
   auth = require('./server/services/auth');
+
+// the models variable must be somehow singleton-esque
+// http://bit.ly/1S9cnn5
+app.set('models', models);
 
 // load env variables from .env file in development environment
 // view engine setup
@@ -32,6 +37,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
 }));
+
 app.use(multer({
   dest: './uploads/',
   rename: function(fieldname, filename) {
@@ -48,7 +54,7 @@ app.use(multer({
   }
 }).single('photo'));
 
-auth(passport, config);
+auth(app, passport, config);
 passport.serializeUser(function(user, done) {
   done(null, user);
 });

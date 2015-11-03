@@ -1,8 +1,8 @@
-module.exports = function(passport, config) {
+module.exports = function(app, passport, config) {
 
   // Passport Configuration
-  require('./local.auth')(passport, config);
-  require('./facebook.auth')(passport, config);
-  require('./google.auth')(passport, config);
+  require('./local.auth')(app, passport, config);
+  require('./facebook.auth')(app, passport, config);
+  require('./google.auth')(app, passport, config);
 
 };
