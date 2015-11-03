@@ -10,8 +10,9 @@ database:
     - cp config/database.yml.ci config/database.yml
     - psql -u ubuntu circle_test < vvida.sql
 
-environment:
-  CIRCLE_PROJECT_REPONAME: https://github.com/andela/vvida
+machine:
+  environment:
+    CIRCLE_PROJECT_REPONAME: https://github.com/andela/vvida
 
 test:
   override:
