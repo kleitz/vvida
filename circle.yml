@@ -7,7 +7,7 @@ dependencies:
 
 database:
   override:
-    - cp config/database.yml.ci config/database.yml
+    - cp ./database.yml.ci ./database.yml
     - psql -u ubuntu circle_test < vvida.sql
 
 machine:
