@@ -1,7 +1,9 @@
 var passportConfig = require('./passport.config'),
+  Strategy = require('./strategies'),
   envVariables = {
     expressSessionKey: process.env.EXPRESS_SESSION_KEY,
     auth: passportConfig,
+    strategy: Strategy,
     db: {
       name: process.env.DATABASE_NAME,
       dialect: process.env.DATABASE_DIALECT,

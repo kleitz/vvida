@@ -1,4 +1,4 @@
-module.exports = function(app, config, passport) {
+module.exports = function(app, passport) {
 
   // Redirect the user to Google for authentication.
   // When complete, Google will redirect the user back to the application at
