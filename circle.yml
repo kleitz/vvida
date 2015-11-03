@@ -11,8 +11,8 @@ machine:
 
 database:
   override:
-    - psql -U ubuntu circle_test
-    
+    - psql -U ubuntu circle_test > db/vvida.sql
+
 test:
   override:
   - ./tests/server/resources/*.spec.js
