@@ -15,16 +15,18 @@ angular.module('vvida.controllers')
 
       // signup
       $scope.signup = function() {
-        if($scope.user.passwordSignup.trim().length < 8 ){
-          $scope.messageSignup = 'Your password needs to have a length greater than 8 characters';
-        }
-        else if(!/\d/.test($scope.user.passwordSignup.trim()) || !/\w/.test($scope.user.passwordSignup.trim())){
-          $scope.messageSignup = 'Your password need to contain both numbers and non-word characters';
-        }
-        else if(!/[A-Z]/.test($scope.user.passwordSignup.trim()) || !/[a-z]/.test($scope.user.passwordSignup.trim())){
-          $scope.messageSignup = 'Your password need to contain both uppercase and lower characters';
-        }
-        else if ($scope.user.passwordSignup.trim() === $scope.user.confirmPassword.trim()) {
+        if ($scope.user.passwordSignup.trim().length < 8) {
+          $scope.messageSignup =
+            'Your password needs to have a length greater than 8 characters';
+        } else if (!/\d/.test($scope.user.passwordSignup.trim()) ||
+          !/\w/.test($scope.user.passwordSignup.trim())) {
+          $scope.messageSignup =
+            'Your password need to contain both numbers and non-word characters';
+        } else if (!/[A-Z]/.test($scope.user.passwordSignup.trim()) ||
+          !/[a-z]/.test($scope.user.passwordSignup.trim())) {
+          $scope.messageSignup =
+            'Your password need to contain both uppercase and lower characters';
+        } else if ($scope.user.passwordSignup.trim() === $scope.user.confirmPassword.trim()) {
           var user = {
             email: $scope.user.emailSignup,
             password: $scope.user.passwordSignup
@@ -37,9 +39,9 @@ angular.module('vvida.controllers')
             console.log(err);
             $scope.messageSignup = err.data.error;
           });
-        }
-        else {
-          $scope.messageSignup = 'Your confirmation password does not match the initial password you have given.';
+        } else {
+          $scope.messageSignup =
+            'Your confirmation password does not match the initial password you have given.';
         }
       };
     }
