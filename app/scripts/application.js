@@ -77,7 +77,7 @@
         templateUrl: 'views/events.html'
       })
       .state('profile', {
-        url: '/edit-profile',
+        url: '/user/profile/edit',
         controller: 'ProfileCtrl',
         templateUrl: 'views/edit-profile.html'
       })
