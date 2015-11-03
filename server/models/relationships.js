@@ -1,14 +1,22 @@
 module.exports = function(m) {
   // Categories
   m.Categories.hasMany(m.Items);
+  // for subcategories
+  // this will add the attribute sub_cat_id to Categories
+  m.Categories.hasMany(m.Categories, {
+    as: 'SubCategories',
+    foreignKey: 'sub_cat_id'
+  });
 
   // Events
   m.Events.hasMany(m.Rsvp);
+  m.Events.hasMany(m.Images);
   m.Events.belongsTo(m.Users);
 
   // Images
   m.Images.belongsTo(m.Items);
   m.Images.belongsTo(m.Users);
+  m.Images.belongsTo(m.Events);
 
   // Items
   m.Items.hasMany(m.Images);
@@ -30,17 +38,11 @@ module.exports = function(m) {
   // Notifications
   m.Notifications.belongsTo(m.Users);
 
-  // Review ratings
-  m.Rating.belongsTo(m.Items);
-  m.Rating.belongsTo(m.Reviews);
-  m.Rating.belongsTo(m.Users);
-
   // RSVPs
   m.Rsvp.belongsTo(m.Events);
   m.Rsvp.belongsTo(m.Users);
 
   // Reviews
-  m.Reviews.hasMany(m.Rating);
   m.Reviews.belongsTo(m.Items);
   m.Reviews.belongsTo(m.Users);
 

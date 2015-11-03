@@ -3,8 +3,12 @@ module.exports = function(sequelize, DataType) {
       review: {
         type: DataType.TEXT,
         allowNull: false
+      },
+      rating: {
+        type: DataType.INTEGER.UNSIGNED,
+        allowNull: false,
+        defaultValue: 0
       }
-
     },
     // table configuration
     {

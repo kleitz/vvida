@@ -8,13 +8,6 @@ module.exports = function(sequelize, DataType) {
         validate: {
           isAlpha: true
         }
-      },
-
-      // specifies if it is a sub category
-      is_sub_cat: {
-        type: DataType.BOOLEAN,
-        allowNull: false,
-        defaultValue: false
       }
     },
     // table configuration
