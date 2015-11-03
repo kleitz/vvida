@@ -44,22 +44,17 @@
       })(req, res, next);
     },
 
+    // authenticate either POST/PUT/DELETE request
+    // that requires a user to be logged in
+    // if yes, let the request go through
     authenticate: function(req, res, next) {
-      // check if the it's POST/PUT/DELETE request
-      if (/(post|put|patch)/.test(req.method.toLowerCase())) {
-        // Check if a user is logged in, is a login or signup request
-        if (req.session.user || /(users|login)$/.test(req.path)) {
-          // if yes, let the request go through
-          next();
-        } else {
-          // Unathorized request
-          res.status(401).json({
-            message: 'Request is unauthorised.'
-          });
-        }
-      } else {
-        // if not just carry on
+      if (req.user) {
         next();
+      } else {
+        // Unathorized request
+        res.status(401).json({
+          message: 'Request is unauthorised.'
+        });
       }
     },
 

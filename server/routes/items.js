@@ -3,22 +3,23 @@
 (function() {
   'use strict';
 
-  var Items = require('../controllers/items');
+  var Items = require('../controllers/items'),
+    Users = require('../controllers/users');
 
   module.exports = function(app) {
 
     app.route('/api/items')
-      // create item route.
-      .post(Items.create)
+      // create item .
+      .post(Users.authenticate, Items.create)
       .get(Items.all);
 
     app.route('/api/items/:id')
-      // read items route
+      // read items
       .get(Items.find)
-      // Update items route
-      .put(Items.update)
-      // Delete items route
-      .delete(Items.delete);
+      // Update items
+      .put(Users.authenticate, Items.update)
+      // Delete items
+      .delete(Users.authenticate, Items.delete);
 
   };
 })();
