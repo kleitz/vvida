@@ -2,10 +2,17 @@ dependencies:
  pre:
   - bower install
  post:
-  - npm install module-deps
+  - npm install module-deps 
   - npm install gulp -g
+
+database:
+  override:
+    - psql -u ubuntu circle_test < vvida-setup.sql
+
 test:
   override:
+  - ./tests/server/resources/*.spec.js
+
 deployment:
   production:
     branch: master
