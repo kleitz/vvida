@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataType) {
       // item description
       // gives a detailed description of what the item is all about
 
-      desc: {
+      description: {
         type: DataType.TEXT,
         allowNull: true
       }
