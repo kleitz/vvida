@@ -2,10 +2,7 @@ module.exports = function(m) {
   // Categories
   m.Categories.hasMany(m.Items);
   // for subcategories
-  // this will add the attribute sub_cat_id to Person
-  // In both cases you will be able to do:
-  // Categories#setSubCategories
-  // Categories#getSubCategories
+  // this will add the attribute sub_cat_id to Categories
   m.Categories.hasMany(m.Categories, {
     as: 'SubCategories',
     foreignKey: 'sub_cat_id'
@@ -41,17 +38,11 @@ module.exports = function(m) {
   // Notifications
   m.Notifications.belongsTo(m.Users);
 
-  // Review ratings
-  m.Rating.belongsTo(m.Items);
-  m.Rating.belongsTo(m.Reviews);
-  m.Rating.belongsTo(m.Users);
-
   // RSVPs
   m.Rsvp.belongsTo(m.Events);
   m.Rsvp.belongsTo(m.Users);
 
   // Reviews
-  m.Reviews.hasMany(m.Rating);
   m.Reviews.belongsTo(m.Items);
   m.Reviews.belongsTo(m.Users);
 
