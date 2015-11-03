@@ -8,11 +8,11 @@ dependencies:
 database:
   override:
     - cp ./database.yml.ci ./database.yml
-    - psql -u ubuntu circle_test < vvida.sql
+    - psql -U ubuntu circle_test < vvida.sql
 
 machine:
-  environment:
-    CIRCLE_PROJECT_REPONAME: https://github.com/andela/vvida
+  services:
+    - postgresql
 
 test:
   override:
