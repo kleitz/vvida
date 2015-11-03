@@ -35,7 +35,6 @@ angular.module('vvida.services')
       });
     };
 
-
     obj.logout = function(user, cb) {
       $http.get('/api/users/logout', user).success(function(res) {
         cb(null, res);
