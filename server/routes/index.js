@@ -5,6 +5,9 @@ module.exports = function(app, config, passport) {
   require('./auth/google.auth')(app, passport);
   require('./events')(app, config);
   require('./items')(app, config);
+  require('./categories')(app, config);
+  require('./review')(app, config);
+
 
   /* GET home page. */
   app.get('/*', function(req, res) {
