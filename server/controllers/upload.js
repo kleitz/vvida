@@ -5,10 +5,10 @@
     cloudinary = require('cloudinary'),
     cloudinaryUpload = function(req, path, cb) {
       cloudinary.uploader.upload(path, function(result) {
-        console.log(req.item.dataValues.id, result.public_id);
+        console.log(req.body.id, result.public_id);
         if (result && !result.error) {
           return images.create({
-            item_id: req.item.dataValues.id,
+            item_id: req.body.id,
             public_id: result.public_id,
             img_url: result.url
           }).then(function(image) {
@@ -36,36 +36,41 @@
         });
       }
     },
-
-    images: function(req, res) {
-      req.item.dataValues.images = [];
-      req.item.dataValues.errors = [];
-      if (req.files) {
-        var callback = function(err, image) {
-          if (image) {
-            req.item.dataValues.images.push({
-              id: image.dataValues.id,
-              url: image.dataValues.url
-            });
-          }
-          if (err) {
-            req.item.dataValues.errors.push(err);
-          }
-          console.log(counter, req.files.length);
-          counter++;
-          if (counter === req.files.length) {
-            req.item.images = images;
-            res.send(req.item);
-          }
-        };
-        var counter = 0;
-        for (var i = 0; i < req.files.length; i++) {
-          var path = req.files[i].path;
-          cloudinaryUpload(req, path, callback);
+    delete: function(req, res, next) {
+      cloudinary.uploader.destroy(req.params.id, function(result) {
+        if (result) {
+          req.info = result;
+          console.log(req.info);
+          next();
+        } else {
+          res.status(400).send(err);
         }
-      } else {
-        res.send(req.item);
-      }
+      });
     },
+    deleteImage: function(req, res) {
+
+      return images.destroy({
+        where: {
+          public_id: req.params.id
+        }
+      }).then(function(ok) {
+        if (!ok) {
+          req.info.db = {
+            error: 'Delete failed'
+          };
+
+          res.status(500).send(req.info);
+        } else {
+          req.info.db = {
+            message: 'Delete succesful'
+          };
+          res.status(200).send(req.info);
+        }
+      }).catch(function(err) {
+        res.status(500).send({
+          error: err.message || err.errors[0].message
+        });
+      });
+    }
   };
 })();
