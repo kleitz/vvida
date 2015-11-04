@@ -1,7 +1,8 @@
-var User = require('../../models/users'),
-  bcrypt = require('bcrypt-nodejs');
+module.exports = function(app, passport, config) {
+  var bcrypt = require('bcrypt-nodejs'),
+    Users = app.get('models').Users,
+    LocalStrategy = config.strategy.Local;
 
-module.exports = function(passport, LocalStrategy) {
   // signup middleware for local signup
   passport.use('signup', new LocalStrategy({
     usernameField: 'email',
@@ -27,7 +28,7 @@ module.exports = function(passport, LocalStrategy) {
     passwordField: 'password',
     session: true
   }, function(username, password, done) {
-    User.findOne({
+    Users.findOne({
       where: {
         email: username
       }

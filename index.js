@@ -16,11 +16,13 @@ var config = require('./server/config')[env],
   routes = require('./server/routes'),
   app = express(),
   passport = require('passport'),
-  LocalStrategy = require('passport-local').Strategy,
-  FacebookStrategy = require('passport-facebook').Strategy,
-  GoogleStrategy = require('passport-google-oauth').OAuth2Strategy,
   session = require('express-session'),
+  models = require('./server/models'),
   auth = require('./server/services/auth');
+
+// the models variable must be somehow singleton-esque
+// http://bit.ly/1S9cnn5
+app.set('models', models);
 
 // load env variables from .env file in development environment
 // view engine setup
@@ -34,12 +36,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
 }));
+
 app.use(multer({
   dest: './uploads/',
 }).array('photos', 3));
 
 
-auth(passport, LocalStrategy, FacebookStrategy, GoogleStrategy, config);
+auth(app, passport, config);
 passport.serializeUser(function(user, done) {
   done(null, user);
 });

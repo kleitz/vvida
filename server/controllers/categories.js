@@ -1,9 +1,9 @@
 (function() {
   'use strict';
-  var Category = require('../models/categories');
   module.exports = {
     //Middleware to create an item
     create: function(req, res) {
+      var Category = req.app.get('models').Category;
       return Category.create({
         cat_type: req.body.category,
         is_sub_cat: req.body.subCat
@@ -24,6 +24,7 @@
 
     // Middleware to get all items
     all: function(req, res) {
+      var Category = req.app.get('models').Category;
       Category.findAll().then(function(category) {
         res.json(category);
       }).catch(function(err) {
@@ -34,6 +35,7 @@
     },
     // Middleware to delete an item
     delete: function(req, res) {
+      var Category = req.app.get('models').Category;
       return Category.destroy({
         where: {
           id: req.params.id

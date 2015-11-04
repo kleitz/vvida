@@ -7,7 +7,7 @@
 
   module.exports = function(app) {
 
-    app.route('/api/items/:id')
+    app.route('/api/items')
       // create item route.
       .post(Item.create)
       .get(Item.all);

@@ -1,13 +1,13 @@
 (function() {
   'use strict';
 
-  var images = require('../models/images'),
-    cloudinary = require('cloudinary'),
+  var cloudinary = require('cloudinary'),
     cloudinaryUpload = function(req, path, cb) {
+      var Images = req.app.get('models').Images;
       cloudinary.uploader.upload(path, function(result) {
         console.log(req.body.id, result.public_id);
         if (result && !result.error) {
-          return images.create({
+          return Images.create({
             item_id: req.body.id,
             public_id: result.public_id,
             img_url: result.url
@@ -48,8 +48,8 @@
       });
     },
     deleteImage: function(req, res) {
-
-      return images.destroy({
+      var Images = req.app.get('models').Images;
+      return Images.destroy({
         where: {
           public_id: req.params.id
         }
