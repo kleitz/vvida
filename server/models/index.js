@@ -6,14 +6,12 @@ var sequelize = require('../config/db-connect'),
 // load models
 var models = [
   'categories',
-  'countries',
   'events',
   'images',
   'items',
   'promotions',
   'messages',
   'notifications',
-  'rating',
   'reviews',
   'rsvp',
   'users'
