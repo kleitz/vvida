@@ -35,11 +35,7 @@ module.exports = function(sequelize, DataType) {
       },
       // date of birth
       dob: {
-<<<<<<< HEAD
-        type: Seq.DATE,
-=======
-        type: DataType.INTEGER,
->>>>>>> develop
+        type: DataType.DATE,
         allowNull: true,
         validate: {
           isDate: true
