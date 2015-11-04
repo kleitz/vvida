@@ -3,7 +3,7 @@ module.exports = function(sequelize, DataType) {
 
       // event name
       // hold the name of the events
-      name: {
+      event_name: {
         type: DataType.STRING,
         allowNull: false,
       },
