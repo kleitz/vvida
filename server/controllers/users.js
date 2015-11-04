@@ -1,13 +1,6 @@
 (function() {
   'use strict';
-<<<<<<< HEAD
-  var User = require('../models/users'),
-    passport = require('passport'),
-    countryArray = require('./countries.js');
-=======
-
   var passport = require('passport');
->>>>>>> develop
 
   module.exports = {
     // login middleware
@@ -34,6 +27,7 @@
       passport.authenticate('signup', function(err, user) {
         // check for errors, if exist send a response with error
         if (err) {
+          console.log("Signup Error: ", err);
           return res.status(500).send({
             error: err.errors[0].message || err.message
           });
@@ -178,10 +172,6 @@
           res.status(500).send(err);
         }
       });
-    },
-
-    countries: function(req, res){
-      res.status(200).send(countryArray);
     }
   };
 })();
