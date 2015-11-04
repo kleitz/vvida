@@ -81,6 +81,10 @@
         controller: 'ProfileCtrl',
         templateUrl: 'views/edit-profile.html'
       })
+      .state('userProfile', {
+        url: '/user/profile',
+        templateUrl: 'views/user-profile.html'
+      })
       .state('login', {
         url: '/login',
         controller: 'LoginCtrl',
