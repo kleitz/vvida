@@ -1,6 +1,5 @@
 (function() {
   'use strict';
-
   var passport = require('passport');
 
   module.exports = {
@@ -15,7 +14,7 @@
         // Generate a JSON response reflecting authentication status
         if (!user) {
           return res.status(500).send({
-            error: 'authentication failed'
+            error: 'Authentication failed.'
           });
         }
         req.session.user = user;
@@ -26,21 +25,20 @@
     // signup middleware
     signup: function(req, res, next) {
       passport.authenticate('signup', function(err, user) {
-        console.log(user);
         // check for errors, if exist send a response with error
         if (err) {
           return res.status(500).send({
-            error: err.message || err.errors[0].message
+            error: err.errors[0].message || err.message
           });
         }
         // If passport doesn't return the user object,  signup failed
         if (!user) {
           return res.status(500).send({
-            error: 'Signup failed'
+            error: 'Signup failed. User already exists.'
           });
         }
         // else signup succesful
-        return res.json(user);
+        return res.json(user.dataValues);
       })(req, res, next);
     },
 
@@ -138,7 +136,7 @@
       delete req.body.password;
       Users.update(req.body, {
         where: {
-          id: req.params.id
+          id: req.params.id,
         }
       }).then(function(ok, err) {
         if (err) {

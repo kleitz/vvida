@@ -1,8 +1,8 @@
 var Users = require('../controllers/users');
 
 module.exports = function(app) {
-  // Authenticate user session dependent API routes
-  app.use(Users.authenticate);
+  // // Authenticate user session dependent API routes
+  // app.use(Users.authenticate);
 
   // login with email
   app.route('/api/users/login')
@@ -22,4 +22,5 @@ module.exports = function(app) {
     .get(Users.find)
     .put(Users.update)
     .delete(Users.delete);
+
 };

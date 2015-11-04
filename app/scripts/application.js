@@ -8,10 +8,12 @@
   //Require Services
   require('./services/utils');
   require('./services/users');
+  require('./services/countries');
 
   // Require Controllers
   require('./controllers/footer');
   require('./controllers/home');
+  require('./controllers/profile');
   require('./controllers/about');
   require('./controllers/login');
   require('./controllers/header');
@@ -75,8 +77,13 @@
         controller: 'EventsCtrl',
         templateUrl: 'views/events.html'
       })
+      .state('profile', {
+        url: '/user/{id}/edit',
+        controller: 'ProfileCtrl',
+        templateUrl: 'views/edit-profile.html'
+      })
       .state('login', {
-        url: '/login',
+        url: '/users/login',
         controller: 'LoginCtrl',
         templateUrl: 'views/login.html'
       })
