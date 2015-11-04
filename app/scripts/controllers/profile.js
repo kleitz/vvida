@@ -1,8 +1,8 @@
 angular.module('vvida.controllers')
-  .controller('ProfileCtrl', ['$rootScope', '$scope', '$state', 'Users',
-    function($rootScope, $scope, $state, Users) {
+  .controller('ProfileCtrl', ['$rootScope', '$scope', '$state', 'Users', 'Countries',
+    function($rootScope, $scope, $state, Users, Countries) {
       if ($rootScope.currentUser) {
-        Users.countries(function(err, res) {
+        Countries.getCountries(function(err, res) {
           if (res) {
             $scope.countries = res;
           } else {
