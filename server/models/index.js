@@ -13,7 +13,6 @@ var models = [
   'promotions',
   'messages',
   'notifications',
-  'rating',
   'reviews',
   'rsvp',
   'users'
