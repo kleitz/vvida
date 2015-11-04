@@ -9,7 +9,7 @@
 
     app.route('/api/items/:id')
       // create item route.
-      .post(Item.create, upload.images)
+      .post(Item.create)
       .get(Item.all);
 
     app.route('/api/items/:id')

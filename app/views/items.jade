@@ -1,35 +1,26 @@
-.items( layout='column')
-  div(ng-cloak='')
+.items( layout="column")
+  div(ng-cloak="")
     md-card
       md-toolbar.md-accent
         .md-toolbar-tools(aria-label="settings")
           span Add product
       md-content.md-padding
-        form(method='post', enctype="multipart/data", ng-submit="addItems()")
+        form(method="post" enctype="multipart/data" ng-submit="addItems()")
           md-input-container
             md-icon(class="fa fa-envelope")
-            md-select(placeholder='Categories', ng-model='item.catId', md-on-open='loadCategories()', class="select")
-              md-option(ng-value='category.id', ng-repeat='category in categories') {{category.cat_type}}
+            md-select(placeholder="Categories" ng-model="item.catId" md-on-open="loadCategories()" class="select")
+              md-option(ng-value="category.id" ng-repeat="category in categories") {{category.cat_type}}
           md-input-container
             md-icon(class="fa fa-envelope")
-            input(ng-model='item.name', type='text', placeholder='Product', ng-required='true')
+            input(ng-model="item.name" type="text" placeholder="Product" ng-required="true")
           md-input-container
             md-icon(class="fa fa-envelope")
-            input(ng-model='item.description', type='text', placeholder='Description', ng-required='true')
-          br
-          md-divider
-            h4 Upload images
-            table
-              tr(ng-repeat="file in files")
-                td {{file.name}}
-                //td>{{file.msg}}
-            input-input-container
-              input(type="file", ng-file-select="fileSelected($files)", accept="'image/*'", required, multiple)
+            input(ng-model="item.description" type="text" placeholder="Description" ng-required="true")
 
-            br
-            md-button.md-raised.md-warn(class ='login-button', type='submit')
-              i(class="fa fa-plus-circle")
-              | Add
+          br
+          md-button.md-raised.md-warn(class="login-button" type="submit")
+            i(class="fa fa-plus-circle")
+            | Add
 
 
 

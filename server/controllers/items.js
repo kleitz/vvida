@@ -4,11 +4,9 @@
   module.exports = {
     //Middleware to create an item
     create: function(req, res, next) {
-      var item = JSON.parse(req.body.data);
-      console.log(item);
       return Items.create({
         user_id: req.params.id,
-        cat_id: item.id,
+        cat_id: item.catId,
         item_name: item.name,
         item_desc: item.description
       }).then(function(item) {
@@ -17,8 +15,7 @@
             error: 'Create item failed'
           });
         } else {
-          req.item = item;
-          next();
+          res.json(item);
         }
       }).catch(function(err) {
         res.status(500).send({

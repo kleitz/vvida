@@ -9,6 +9,7 @@ var config = require('./server/config')[env],
   config = require('./server/config')[env],
   favicon = require('serve-favicon'),
   multer = require('multer'),
+
   logger = require('morgan'),
   cookieParser = require('cookie-parser'),
   bodyParser = require('body-parser'),
