@@ -13,10 +13,11 @@ h5 {
 }
 
 img {
-  border: 0;
-  max-width: 100%;
-  border-radius: 4px;
+    border: 0;
+    max-width: 100%;
+    border-radius: 4px;
 }
+
 header {
     height: 60px;
     margin: 0 auto;
@@ -172,19 +173,23 @@ md-toolbar.md-menu-toolbar {}
 }
 
 .jumbotron-image {
-    background: center center no-repeat;
+    background: url(../images/header-background.jpg) center center no-repeat;
     background-size: cover;
+    padding-bottom: 0;
     height: 600px;
     width: 100%;
     .image-overlay {
         background: rgba(0, 0, 0, 0.2);
         height: inherit;
         text-align: center;
+        padding-bottom: 0;
+        display: flex;
+        flex-direction: column;
         p {
             margin-top: 200px;
             font-size: 3.5em;
             color: white;
-            font-weight: bold;
+            text-shadow: 0 0 4px #333;
             display: inline-block;
             margin-bottom: 0px;
         }
@@ -352,7 +357,7 @@ h3 {
     input {
         margin: 5px 0;
         padding: 10px 3px;
-        width: 284px;
+        max-width: 284px;
         display: inline-block;
     }
     & > a {
@@ -412,16 +417,14 @@ md-sidenav.md-sidenav-left {
     // }
 }
 
-.welcome_body {
-    background-color: rgb(245, 245, 241);
-}
-
-.welcome {
+.profile-body {
     border-width: 0px 1px 1px 1px;
     border-style: solid;
     border-color: rgb(204, 204, 200);
     width: 1200px;
     margin: 0 auto;
+    padding-left: 50px;
+    padding-right: 50px;
     background-color: white;
 }
 
@@ -437,25 +440,16 @@ md-sidenav.md-sidenav-left {
 }
 
 .recentReview {
-  margin-top: 50px;
+    margin-top: 50px;
 }
 
 .recentReview md-card {
-  margin: 0px;
+    margin: 0px;
 }
 
 .recentReview md-list-item {
-  padding: 0px;
+    padding: 0px;
 }
-
-
-
-// .recentReview .face {
-//     border-radius: 20px;
-//     border: 1px solid #ddd;
-//     width: 96px;
-//     margin: 10px;
-// }
 
 .nextReview img {
     width: 70px;
@@ -464,7 +458,7 @@ md-sidenav.md-sidenav-left {
 }
 
 .nextReview h4 {
-  margin-bottom: 30px;
+    margin-bottom: 30px;
 }
 
 .bubble {
@@ -494,9 +488,42 @@ md-sidenav.md-sidenav-left {
     top: 28px;
 }
 
+.email {
+    color: #106CC8;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-family: Menlo, Monaco, "Andale Mono", "lucida console", "Courier New", monospace;
+    background: rgba(0, 0, 0, 0.065);
+}
 
+.header-spacing {
+    height: 70px;
+    padding-top: 10px;
+}
 
+.user-name {
+    text-transform: uppercase;
+    color: white;
+}
 
-
-
-
+.edit-profile {
+    margin-top: 30px;
+    .content {
+        padding-top: 0px;
+    }
+    .datepicker-cont {
+        padding: 0px;
+        margin: 0px;
+        .datepicker {
+            width: 200px
+        }
+    }
+    .radio-cont {
+        margin-left: 80px;
+    }
+    .button {
+        width: 250px
+    }
+}

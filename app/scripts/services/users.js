@@ -19,5 +19,21 @@ angular.module('vvida.services')
       });
     };
 
+    obj.session = function(cb) {
+      $http.get('/api/users/session').success(function(res) {
+        cb(null, res);
+      }).error(function(err) {
+        cb(err);
+      });
+    };
+
+    obj.logout = function(user, cb) {
+      $http.get('/api/users/logout', user).success(function(res) {
+        cb(null, res);
+      }).error(function(err) {
+        cb(err);
+      });
+    };
+
     return obj;
   }]);

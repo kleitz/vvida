@@ -1,22 +1,20 @@
-//var require the seqalize module
-var Seq = require('sequelize'),
-  db = require('../config/db-connect'),
-  users = db.define('users', {
+module.exports = function(sequelize, DataType) {
+  return sequelize.define('Users', {
 
       // username
       username: {
-        type: Seq.STRING,
+        type: DataType.STRING,
         unique: true,
       },
       // password
       password: {
-        type: Seq.STRING,
+        type: DataType.STRING,
         unique: true,
         allowNull: true,
       },
       // firstname
       firstname: {
-        type: Seq.STRING,
+        type: DataType.STRING,
         allowNull: true,
         validate: {
           isAlpha: true
@@ -24,20 +22,20 @@ var Seq = require('sequelize'),
       },
       // lastname
       lastname: {
-        type: Seq.STRING,
+        type: DataType.STRING,
         allowNull: true,
         validate: {
           isAlpha: true
         }
       },
       gender: {
-        type: Seq.ENUM,
+        type: DataType.ENUM,
         values: ['male', 'female', 'hidden'],
         defaultValue: 'hidden'
       },
       // date of birth
       dob: {
-        type: Seq.INTEGER,
+        type: DataType.DATE,
         allowNull: true,
         validate: {
           isDate: true
@@ -45,7 +43,7 @@ var Seq = require('sequelize'),
       },
       // email
       email: {
-        type: Seq.STRING,
+        type: DataType.STRING,
         unique: true,
         validate: {
           isEmail: true
@@ -53,55 +51,59 @@ var Seq = require('sequelize'),
       },
       // country
       country: {
-        type: Seq.STRING,
+        type: DataType.STRING,
         allowNull: true,
       },
       // city
       city: {
-        type: Seq.STRING,
+        type: DataType.STRING,
         allowNull: true,
       },
       // role
       role: {
-        type: Seq.ENUM,
+        type: DataType.ENUM,
         values: ['user', 'admin', 'super-admin'],
         defaultValue: 'user'
       },
       // status
       status: {
-        type: Seq.ENUM,
+        type: DataType.ENUM,
         values: ['active', 'innactive'],
         defaultValue: 'active'
       },
 
       // facebook and google IDs of the user
       facebook_auth_id: {
-        type: Seq.STRING,
+        type: DataType.STRING,
         allowNull: true,
       },
 
       // Access token for facebook
       facebook_auth_token: {
-        type: Seq.STRING,
+        type: DataType.STRING,
         allowNull: true,
       },
 
       google_auth_id: {
-        type: Seq.STRING,
+        type: DataType.STRING,
         allowNull: true,
       },
 
       // Access token for Google
       google_auth_token: {
-        type: Seq.STRING,
+        type: DataType.STRING,
         allowNull: true,
+      },
+      picture_url: {
+        type: DataType.STRING,
+        allowNull: true,
+        defaultValue: 'images/user.png'
       },
 
       // enabled
       // gives options to enable or disable user
-
       enabled: {
-        type: Seq.ENUM,
+        type: DataType.ENUM,
         values: ['yes', 'no'],
         // to be clarified
         defaultValue: 'yes'
@@ -122,10 +124,9 @@ var Seq = require('sequelize'),
       },
       // prevent time stamps from using camelase
       // updatedAt to updated_at and createdAt to created-at
-      underscore: true,
+      underscored: true,
       // prevent sequelize from transforming the user tables to prural
       freezetableName: true
     }
   );
-
-module.exports = users;
+};

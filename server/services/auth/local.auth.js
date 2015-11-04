@@ -1,26 +1,26 @@
-var User = require('../../schemas/users'),
-  bcrypt = require('bcrypt-nodejs');
+module.exports = function(app, passport, config) {
+  var bcrypt = require('bcrypt-nodejs'),
+    Users = app.get('models').Users,
+    LocalStrategy = config.strategy.Local;
 
-module.exports = function(passport, LocalStrategy) {
   // signup middleware for local signup
   passport.use('signup', new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password'
   }, function(email, password, done) {
-    User.sync().then(function() {
+    Users.sync().then(function() {
       var hash = bcrypt.hashSync(password);
-      return User.create({
+      return Users.create({
         email: email,
         password: hash
       });
     }).then(function(user) {
       if (!user) {
-        return done(null, false, {
-          message: 'sign up failed'
-        });
-      } else {
-        done(null, user);
+        return done(null, false);
       }
+      return done(null, user);
+    }).catch(function(err) {
+      return done(err);
     });
   }));
 
@@ -30,15 +30,13 @@ module.exports = function(passport, LocalStrategy) {
     passwordField: 'password',
     session: true
   }, function(username, password, done) {
-    User.findOne({
+    Users.findOne({
       where: {
         email: username
       }
     }).then(function(user) {
       if (!user) {
-        return done(null, false, {
-          message: 'user not found'
-        });
+        return done(null, false);
       }
 
       // we require to compare the sent password
@@ -48,8 +46,9 @@ module.exports = function(passport, LocalStrategy) {
           message: 'invalid password'
         });
       }
-
       return done(null, user);
+    }).catch(function(err) {
+      return done(err);
     });
   }));
 };
