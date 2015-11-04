@@ -27,7 +27,6 @@
       passport.authenticate('signup', function(err, user) {
         // check for errors, if exist send a response with error
         if (err) {
-          console.log("Signup Error: ", err);
           return res.status(500).send({
             error: err.errors[0].message || err.message
           });
