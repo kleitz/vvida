@@ -8,6 +8,7 @@
   //Require Services
   require('./services/utils');
   require('./services/users');
+  require('./services/countries');
 
   // Require Controllers
   require('./controllers/footer');
