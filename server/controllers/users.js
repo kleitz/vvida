@@ -158,8 +158,25 @@
     },
 
     delete: function(req, res) {
-      res.status(501).send({
-        error: 'Not implemented'
+      var Users = req.app.get('models').Users;
+      Users.destroy({
+        where: {
+          id: req.params.id
+        }
+      }).then(function(ok, err) {
+        if (err) {
+          res.status(500).send({
+            error: err.message || err.errors[0].message
+          });
+        } else {
+          res.send({
+            message: 'User deleted succesfully'
+          });
+        }
+      }).catch(function(err) {
+        res.status(500).send({
+          error: err.message || err.errors[0].message
+        });
       });
     },
 
