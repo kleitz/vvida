@@ -23,6 +23,4 @@ module.exports = function(app) {
     .put(Users.update)
     .delete(Users.delete);
 
-  app.get('/api/countries', Users.countries);
-
 };

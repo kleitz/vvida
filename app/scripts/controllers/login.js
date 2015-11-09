@@ -34,7 +34,9 @@ angular.module('vvida.controllers')
           Users.save(user, function(res) {
             $rootScope.currentUser = res;
             console.log('$rootScope.currentUser: ', $rootScope.currentUser);
-            $state.go('profile');
+            $state.go('profile', {
+              id: $rootScope.currentUser.id
+            });
           }, function(err) {
             console.log(err);
             $scope.messageSignup = err.data.error;

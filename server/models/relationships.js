@@ -47,7 +47,6 @@ module.exports = function(m) {
   m.Reviews.belongsTo(m.Users);
 
   // Users
-  m.Users.belongsTo(m.Countries);
   m.Users.hasMany(m.Events);
   m.Users.hasMany(m.Images);
   m.Users.hasMany(m.Items);
