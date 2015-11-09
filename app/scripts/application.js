@@ -16,6 +16,7 @@
   require('./controllers/about');
   require('./controllers/login');
   require('./controllers/header');
+  require('./controllers/userProfile');
 
   window.app = angular.module('vvida', [
     'vvida.controllers',
@@ -83,7 +84,28 @@
       })
       .state('userProfile', {
         url: '/user/profile',
-        templateUrl: 'views/user-profile.html'
+        views: {
+          '': {
+            controller: 'UserProfileCtrl',
+            templateUrl: 'views/user-profile.html',
+          },
+          'Reviews@userProfile': {
+            controller: 'UserReviewCtrl',
+            templateUrl: 'views/user-reviews.html',
+          },
+          'Events@userProfile': {
+            controller: 'UserEventsCtrl',
+            templateUrl: 'views/user-events.html',
+          },
+          'Products@userProfile': {
+            controller: 'UserProductsCtrl',
+            templateUrl: 'views/user-products.html',
+          },
+          'Pictures@userProfile': {
+            controller: 'UserPicturesCtrl',
+            templateUrl: 'views/user-pictures.html',
+          },
+        }
       })
       .state('login', {
         url: '/login',
