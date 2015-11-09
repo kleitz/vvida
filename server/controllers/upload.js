@@ -30,10 +30,11 @@
         cloudinaryUpload(req, path, function(err, image) {
           if (image) {
             res.json(image);
+          } else {
+            res.status(400).send({
+              error: 'Upload'
+            });
           }
-          res.status(400).send({
-            error: 'Upload'
-          });
         });
       }
     },
