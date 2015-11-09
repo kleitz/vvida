@@ -1,22 +1,23 @@
 (function() {
   'use strict';
   module.exports = {
-    //Middleware to create an item
-    create: function(req, res, next) {
+    create: function(req, res) {
       var Items = req.app.get('models').Items;
-      return Items.create({
-        user_id: req.params.id,
-        cat_id: req.body.catId,
-        name: req.body.name,
-        item_desc: req.body.description
-      }).then(function(item) {
-        if (!item) {
-          res.status(500).send({
-            error: 'Create item failed'
-          });
-        } else {
-          res.json(item);
-        }
+      Items.sync().then(function() {
+        return Items.create({
+          user_id: req.session.id,
+          category_id: req.body.catId,
+          name: req.body.itemName,
+          description: req.body.description
+        }).then(function(item) {
+          if (!item) {
+            res.status(500).send({
+              error: 'Create item failed'
+            });
+          } else {
+            res.json(item);
+          }
+        });
       }).catch(function(err) {
         res.status(500).send({
           error: err.message || err.errors[0].message
@@ -24,7 +25,6 @@
       });
     },
 
-    // Middleware to get all items
     all: function(req, res) {
       var Items = req.app.get('models').Items;
       Items.findAll().then(function(item) {
@@ -35,7 +35,7 @@
         });
       });
     },
-    // Middleware to get an item by id
+
     find: function(req, res) {
       var Items = req.app.get('models').Items;
       return Items.find({
@@ -57,7 +57,6 @@
       });
     },
 
-    // Middleware to update an item
     update: function(req, res) {
       var Items = req.app.get('models').Items;
       return Items.update(req.body, {
@@ -81,7 +80,6 @@
       });
     },
 
-    // Middleware to delete an item
     delete: function(req, res) {
       var Items = req.app.get('models').Items;
       return Items.destroy({
