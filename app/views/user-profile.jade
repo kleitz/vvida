@@ -5,197 +5,31 @@ md-card.profile-body.edit-profile(layout='column' flex='55' style='background-co
       div(flex="30")
         md-card.ripple-container(md-ink-ripple flex style="width: 215px; height: 215px;")
           .card-images.md-card-image(style='background-image: url(images/male.png)')
-      div(flex="70")
+      div(flex="60")
         p.md-display-3(style='margin-bottom: 0px; padding-bottom: 0px') Brother Ocholla
         p.md-headline(style='margin-top: 5px; padding-top: 0px') Nairobi, Kenya
         div(layout="row" style='margin-top: 0px; padding-top: 0px')
-          md-button.no-space(style='margin-right: 20px;')
+          md-button.no-space(class='md-padding' style='margin-right: 20px;')
             span.fa.fa-camera 150 Photos
-          md-button.no-space(style='margin-right: 20px;')
+          md-button.no-space(class='md-padding' style='margin-right: 20px;')
             span.fa.fa-star 75 Reviews
-          md-button.no-space(style='margin-right: 20px;')
+          md-button.no-space(class='md-padding' style='margin-right: 20px;')
             span.fa.fa-th-large 75 Products
-          md-button.no-space.md-margin
+          md-button.no-space.md-margin(class='md-padding')
             span.fa.fa-calendar 75 Events
+      div(flex="10")
+        md-button.md-raised.md-warn(class ='login-button' md-tooltip='Message Brother Ocholla')
+          span.fa.fa-envelope.fa-2x.md-padding
+
 md-card.profile-body.edit-profile(layout='column' flex='55' style='margin-top: 5px; padding-top: 0px;')
   br
   md-tabs(md-dynamic-height md-border-bottom)
     md-tab(label='Reviews')
-      md-card-content.content
-        h1 Reviews
-        div
-          div(layout="row")
-            div(flex="15")
-              md-card.ripple-container(md-ink-ripple flex style="width: 120px; height: 120px;")
-                .card-images.md-card-image(style='background-image: url(images/female.png)')
-            div(flex="70")
-              p.md-headline(style='font-weight: bolder; margin-bottom: 0px; padding-bottom: 0px') Mrs. Ocholla
-              p(style='margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px') Wives and Girlfriends
-              p(style='margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px') Nairobi, Kenya
-              div(layout='row' style='margin-top: 0px; padding-top: 0px')
-                span.fa.fa-star
-                span.fa.fa-star
-                span.fa.fa-star
-                span.fa.fa-star
-                span.fa.fa-star-o
-          p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        md-divider(style="background-color: white;")
-        div
-          div(layout="row")
-            div(flex="15")
-              md-card.ripple-container(md-ink-ripple flex style="width: 120px; height: 120px;")
-                .card-images.md-card-image(style='background-image: url(images/female.png)')
-            div(flex="70")
-              p.md-headline(style='font-weight: bolder; margin-bottom: 0px; padding-bottom: 0px') Mrs. Ocholla
-              p(style='margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px') Wives and Girlfriends
-              p(style='margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px') Nairobi, Kenya
-              div(layout='row' style='margin-top: 0px; padding-top: 0px')
-                span.fa.fa-star
-                span.fa.fa-star
-                span.fa.fa-star
-                span.fa.fa-star
-                span.fa.fa-star-o
-          p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        md-divider(style="background-color: white;")
-        div
-          div(layout="row")
-            div(flex="15")
-              md-card.ripple-container(md-ink-ripple flex style="width: 120px; height: 120px;")
-                .card-images.md-card-image(style='background-image: url(images/female.png)')
-            div(flex="70")
-              p.md-headline(style='font-weight: bolder; margin-bottom: 0px; padding-bottom: 0px') Mrs. Ocholla
-              p(style='margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px') Wives and Girlfriends
-              p(style='margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px') Nairobi, Kenya
-              div(layout='row' style='margin-top: 0px; padding-top: 0px')
-                span.fa.fa-star
-                span.fa.fa-star
-                span.fa.fa-star
-                span.fa.fa-star
-                span.fa.fa-star-o
-          p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      div(ui-view='Reviews')
+        h1 Hello World!
     md-tab(label='Events')
-      md-card-content.content
-        h1 Events
-        div
-          div(layout="row")
-            div(flex="15")
-              md-card.ripple-container(md-ink-ripple flex style="width: 120px; height: 120px;")
-                .card-images.md-card-image(style='background-image: url(images/female.png)')
-            div(flex="70")
-              p.md-headline(style='font-weight: bolder; margin-bottom: 0px; padding-bottom: 0px') Mrs. Ocholla
-              p(style='margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px') Wives and Girlfriends
-              p(style='margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px') Nairobi, Kenya
-              div(layout='row' style='margin-top: 0px; padding-top: 0px')
-                span.fa.fa-star
-                span.fa.fa-star
-                span.fa.fa-star
-                span.fa.fa-star
-                span.fa.fa-star-o
-          p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        md-divider(style="background-color: white;")
-        div
-          div(layout="row")
-            div(flex="15")
-              md-card.ripple-container(md-ink-ripple flex style="width: 120px; height: 120px;")
-                .card-images.md-card-image(style='background-image: url(images/female.png)')
-            div(flex="70")
-              p.md-headline(style='font-weight: bolder; margin-bottom: 0px; padding-bottom: 0px') Mrs. Ocholla
-              p(style='margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px') Wives and Girlfriends
-              p(style='margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px') Nairobi, Kenya
-              div(layout='row' style='margin-top: 0px; padding-top: 0px')
-                span.fa.fa-star
-                span.fa.fa-star
-                span.fa.fa-star
-                span.fa.fa-star
-                span.fa.fa-star-o
-          p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        md-divider(style="background-color: white;")
-        div
-          div(layout="row")
-            div(flex="15")
-              md-card.ripple-container(md-ink-ripple flex style="width: 120px; height: 120px;")
-                .card-images.md-card-image(style='background-image: url(images/female.png)')
-            div(flex="70")
-              p.md-headline(style='font-weight: bolder; margin-bottom: 0px; padding-bottom: 0px') Mrs. Ocholla
-              p(style='margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px') Wives and Girlfriends
-              p(style='margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px') Nairobi, Kenya
-              div(layout='row' style='margin-top: 0px; padding-top: 0px')
-                span.fa.fa-star
-                span.fa.fa-star
-                span.fa.fa-star
-                span.fa.fa-star
-                span.fa.fa-star-o
-          p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      div(ui-view='Events')
     md-tab(label='Items')
-      md-card-content.content
-        h1 Items
-        div
-          div(layout="row")
-            div(flex="15")
-              md-card.ripple-container(md-ink-ripple flex style="width: 120px; height: 120px;")
-                .card-images.md-card-image(style='background-image: url(images/female.png)')
-            div(flex="70")
-              p.md-headline(style='font-weight: bolder; margin-bottom: 0px; padding-bottom: 0px') Mrs. Ocholla
-              p(style='margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px') Wives and Girlfriends
-              p(style='margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px') Nairobi, Kenya
-              div(layout='row' style='margin-top: 0px; padding-top: 0px')
-                span.fa.fa-star
-                span.fa.fa-star
-                span.fa.fa-star
-                span.fa.fa-star
-                span.fa.fa-star-o
-          p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        md-divider(style="background-color: white;")
-        div
-          div(layout="row")
-            div(flex="15")
-              md-card.ripple-container(md-ink-ripple flex style="width: 120px; height: 120px;")
-                .card-images.md-card-image(style='background-image: url(images/female.png)')
-            div(flex="70")
-              p.md-headline(style='font-weight: bolder; margin-bottom: 0px; padding-bottom: 0px') Mrs. Ocholla
-              p(style='margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px') Wives and Girlfriends
-              p(style='margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px') Nairobi, Kenya
-              div(layout='row' style='margin-top: 0px; padding-top: 0px')
-                span.fa.fa-star
-                span.fa.fa-star
-                span.fa.fa-star
-                span.fa.fa-star
-                span.fa.fa-star-o
-          p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        md-divider(style="background-color: white;")
-        div
-          div(layout="row")
-            div(flex="15")
-              md-card.ripple-container(md-ink-ripple flex style="width: 120px; height: 120px;")
-                .card-images.md-card-image(style='background-image: url(images/female.png)')
-            div(flex="70")
-              p.md-headline(style='font-weight: bolder; margin-bottom: 0px; padding-bottom: 0px') Mrs. Ocholla
-              p(style='margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px') Wives and Girlfriends
-              p(style='margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px') Nairobi, Kenya
-              div(layout='row' style='margin-top: 0px; padding-top: 0px')
-                span.fa.fa-star
-                span.fa.fa-star
-                span.fa.fa-star
-                span.fa.fa-star
-                span.fa.fa-star-o
-          p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      div(ui-view='Products')
     md-tab(label='Photos')
-      md-card-content.content
-        h1 Photos
-        div
-          div(layout="row")
-            div(flex="20")
-              md-card.ripple-container(md-ink-ripple flex style="width: 120px; height: 120px;")
-                .card-images.md-card-image(style='background-image: url(images/female.png)')
-            div(flex="20")
-              md-card.ripple-container(md-ink-ripple flex style="width: 120px; height: 120px;")
-                .card-images.md-card-image(style='background-image: url(images/female.png)')
-            div(flex="20")
-              md-card.ripple-container(md-ink-ripple flex style="width: 120px; height: 120px;")
-                .card-images.md-card-image(style='background-image: url(images/female.png)')
-            div(flex="20")
-              md-card.ripple-container(md-ink-ripple flex style="width: 120px; height: 120px;")
-                .card-images.md-card-image(style='background-image: url(images/female.png)')
-            div(flex="20")
-              md-card.ripple-container(md-ink-ripple flex style="width: 120px; height: 120px;")
-                .card-images.md-card-image(style='background-image: url(images/female.png)')
+      div(ui-view='Pictures')
