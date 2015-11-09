@@ -9,14 +9,19 @@
   require('./services/utils');
   require('./services/users');
   require('./services/categories');
+  require('./services/countries');
+  require('./services/items');
+
 
   // Require Controllers
   require('./controllers/footer');
   require('./controllers/home');
+  require('./controllers/profile');
   require('./controllers/about');
   require('./controllers/login');
   require('./controllers/header');
   require('./controllers/items');
+  require('./controllers/item-img');
 
   window.app = angular.module('vvida', [
     'vvida.controllers',
@@ -87,8 +92,18 @@
         controller: 'EventsCtrl',
         templateUrl: 'views/events.html'
       })
+      .state('profile', {
+        url: '/user/{id}/edit',
+        controller: 'ProfileCtrl',
+        templateUrl: 'views/edit-profile.html'
+      })
+      .state('itemImgUpload', {
+        url: '/item/{id}/img-upload',
+        controller: 'ItemsImgCtrl',
+        templateUrl: 'views/item-image-upload.html'
+      })
       .state('login', {
-        url: '/login',
+        url: '/users/login',
         controller: 'LoginCtrl',
         templateUrl: 'views/login.html'
       })

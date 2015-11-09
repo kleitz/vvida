@@ -9,7 +9,7 @@ module.exports = function(app, passport, config) {
     passwordField: 'password'
   }, function(email, password, done) {
     var hash = bcrypt.hashSync(password);
-    return User.create({
+    return Users.create({
       email: email,
       password: hash
     }).then(function(user) {

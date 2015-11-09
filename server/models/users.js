@@ -35,7 +35,7 @@ module.exports = function(sequelize, DataType) {
       },
       // date of birth
       dob: {
-        type: DataType.INTEGER,
+        type: DataType.DATE,
         allowNull: true,
         validate: {
           isDate: true
@@ -98,6 +98,7 @@ module.exports = function(sequelize, DataType) {
       picture_url: {
         type: DataType.STRING,
         allowNull: true,
+        defaultValue: 'images/user.png'
       },
       // enabled
       // gives options to enable or disable user

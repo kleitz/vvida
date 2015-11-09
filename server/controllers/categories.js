@@ -3,9 +3,9 @@
   module.exports = {
     //Middleware to create an item
     create: function(req, res) {
-      var Category = req.app.get('models').Category;
-      return Category.create({
-        cat_type: req.body.category,
+      var Categories = req.app.get('models').Categories;
+      return Categories.create({
+        type: req.body.category,
         is_sub_cat: req.body.subCat
       }).then(function(category) {
         if (!category) {
@@ -24,8 +24,8 @@
 
     // Middleware to get all items
     all: function(req, res) {
-      var Category = req.app.get('models').Category;
-      Category.findAll().then(function(category) {
+      var Categories = req.app.get('models').Categories;
+      Categories.findAll().then(function(category) {
         res.json(category);
       }).catch(function(err) {
         res.status(500).send({
@@ -35,8 +35,8 @@
     },
     // Middleware to delete an item
     delete: function(req, res) {
-      var Category = req.app.get('models').Category;
-      return Category.destroy({
+      var Categories = req.app.get('models').Categories;
+      return Categories.destroy({
         where: {
           id: req.params.id
         }

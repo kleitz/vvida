@@ -24,6 +24,7 @@
 
   module.exports = {
     image: function(req, res) {
+      console.log(req.files, req.body);
       if (req.files) {
         var path = req.files[0].path;
         cloudinaryUpload(req, path, function(err, image) {

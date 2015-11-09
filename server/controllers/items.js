@@ -1,14 +1,14 @@
 (function() {
   'use strict';
-  var Items = require('../models/items');
   module.exports = {
     //Middleware to create an item
     create: function(req, res, next) {
+      var Items = req.app.get('models').Items;
       return Items.create({
         user_id: req.params.id,
-        cat_id: item.catId,
-        item_name: item.name,
-        item_desc: item.description
+        cat_id: req.body.catId,
+        name: req.body.name,
+        item_desc: req.body.description
       }).then(function(item) {
         if (!item) {
           res.status(500).send({

@@ -1,0 +1,20 @@
+.items( layout="column")
+  div(ng-cloak="")
+    md-card
+      md-toolbar.md-accent
+        .md-toolbar-tools(aria-label="settings")
+          span Add product
+      md-content.md-padding
+        form(ng-submit="upload()")
+          input(input type="file" nv-file-select="" uploader="uploader" multiple)
+          md-input-container
+            md-button.md-raised.md-warn
+              | Upload
+
+
+
+
+
+
+
+
