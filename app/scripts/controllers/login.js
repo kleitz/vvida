@@ -1,6 +1,6 @@
 angular.module('vvida.controllers')
-  .controller('LoginCtrl', ['$rootScope', '$scope', '$state', 'Users',
-    function($rootScope, $scope, $state, Users) {
+  .controller('LoginCtrl', ['$rootScope', '$scope', '$state', 'Users', '$window',
+    function($rootScope, $scope, $state, Users, $window) {
       // login
       $scope.login = function() {
         Users.login($scope.user, function(err, res) {
@@ -45,6 +45,14 @@ angular.module('vvida.controllers')
           $scope.messageSignup =
             'Your confirmation password does not match the initial password you have given.';
         }
+      };
+
+      $scope.facebook = function() {
+        $window.location.href = '/auth/facebook';
+      };
+
+      $scope.google = function() {
+        $window.location.href = '/auth/google';
       };
     }
   ]);
