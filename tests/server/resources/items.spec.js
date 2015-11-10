@@ -21,6 +21,7 @@ describe('Items resource API tests', function() {
         item_desc: faker.lorem.sentence()
       };
     },
+    authToken = null,
     // id to be defined when a resource added
     id;
 
@@ -33,10 +34,7 @@ describe('Items resource API tests', function() {
   it('should return all items stored in the database or empty array if DB is empty', function(done) {
     request
       .get(resourceApiURL)
-      // .use(requestPrefix)
       .accept('application/json')
-      // .expect('Content-Type', /json/)
-      // .expect(200)
       .end(function(err, res) {
         if (res.status === 200) {
           if (res.body.length === 0) {
@@ -50,7 +48,8 @@ describe('Items resource API tests', function() {
             _expect(items[0].item_desc).to.match(/\s{2,}/g);
           }
         } else {
-          throw err;
+          _expect(res.status).to.be.greaterThan(300);
+          _expect(res.body.error).to.be.defined();
         }
         done();
       });
@@ -62,7 +61,7 @@ describe('Items resource API tests', function() {
    *
    * @return Response
    */
-  it('must log in to retain a session', function() {
+  it('Must create session to be able to run actions on items', function() {
     // Must log in to retain a session
     request
       .post('http://localhost:3000/api/users/login')
@@ -72,31 +71,33 @@ describe('Items resource API tests', function() {
       })
       .end(function(err, res) {
         if (err) {
-          throw err;
+          _expect(res.status).to.be.greaterThan(300);
+          _expect(res.body.error).to.be.defined();
         } else {
           _expect(res.status).to.be(200);
+          authToken = res.body.token;
         }
       });
   });
 
   it('should store a newly created resource in storage.', function(done) {
-    var fakeItem = generateFakeItem();
+    var item = generateFakeItem();
     request
       .post(resourceApiURL)
-      .send(fakeItem)
+      .set('X-Access-Token', authToken)
+      .send(item)
       .accept('application/json')
-      // .expect('Content-Type', /json/)
-      // .expect(200)
       .end(function(err, res) {
         if (res.status === 200) {
           var newItemStored = res.body;
-          _expect(newItemStored.cat_id).to.be(fakeItem.catId);
-          _expect(newItemStored.item_name).to.be(fakeItem.itemName);
+          _expect(newItemStored.cat_id).to.be(item.catId);
+          _expect(newItemStored.item_name).to.be(item.itemName);
           _expect(newItemStored.id).to.be.ok();
           _expect(typeof newItemStored.id).to.be('number');
           id = newItemStored.id;
         } else {
-          throw err;
+          _expect(res.status).to.be.greaterThan(300);
+          _expect(res.body.error).to.be.defined();
         }
         done();
       });
@@ -127,8 +128,6 @@ describe('Items resource API tests', function() {
     request
       .get(resourceApiURL + '/' + id)
       .accept('application/json')
-      // .expect('Content-Type', /json/)
-      // .expect(200)
       .end(function(err, res) {
         if (res.status === 200) {
           _expect(res.body.id).to.be(id);
@@ -164,6 +163,7 @@ describe('Items resource API tests', function() {
   it('should update the specified resource in storage.', function(done) {
     request
       .put(resourceApiURL + '/' + id)
+      .set('X-Access-Token', authToken)
       .send(generateFakeItemUpdate())
       .accept('application/json')
       // .expect('Content-Type', /json/)
@@ -189,14 +189,14 @@ describe('Items resource API tests', function() {
   it('should remove the specified resource from storage.', function(done) {
     request
       .del(resourceApiURL + '/' + id)
+      .set('X-Access-Token', authToken)
       .accept('application/json')
-      // .expect('Content-Type', /json/)
-      // .expect(200)
       .end(function(err, res) {
         if (res.status === 200) {
-          _expect(res.body.message).to.match(/(successful)/);
+          _expect(res.body.message).to.match(/(success)/);
         } else {
-          _expect(res.status).to.be(500);
+          _expect(res.status).to.be.greaterThan(300);
+          _expect(res.body.error).to.be.defined();
         }
         done();
       });
