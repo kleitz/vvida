@@ -188,6 +188,101 @@
           res.status(500).send(err);
         }
       });
+    },
+
+    getItems: function(req, res) {
+      var Users = req.app.get('models').Users,
+        Items = req.app.get('models').Items,
+        Categories = req.app.get('models').Categories;
+      Users.findOne({
+        where: {
+          id: req.params.id
+        },
+        include: [{
+          model: Items,
+          include: [Categories]
+        }]
+      }).then(function(user, err) {
+        if (!user) {
+          res.status(404).send({
+            error: 'User not found'
+          });
+        } else if (err) {
+          res.status(500).send({
+            message: 'Error retrieving user',
+            error: err
+          });
+        } else {
+          user.password = null;
+          res.json(user);
+        }
+
+      }).catch(function(err) {
+        res.status(500).send({
+          error: err.message || err.errors[0].message
+        });
+      });
+    },
+    getEvents: function(req, res) {
+      var Users = req.app.get('models').Users,
+        Events = req.app.get('models').Events;
+      Users.findOne({
+        where: {
+          id: req.params.id
+        },
+        include: [Events]
+      }).then(function(user, err) {
+        if (!user) {
+          res.status(404).send({
+            error: 'User not found'
+          });
+        } else if (err) {
+          res.status(500).send({
+            message: 'Error retrieving user',
+            error: err
+          });
+        } else {
+          user.password = null;
+          res.json(user);
+        }
+
+      }).catch(function(err) {
+        res.status(500).send({
+          error: err.message || err.errors[0].message
+        });
+      });
+    },
+    getReviews: function(req, res) {
+      var Users = req.app.get('models').Users,
+        Reviews = req.app.get('models').Reviews,
+        Items = req.app.get('models').Items;
+      Users.findOne({
+        where: {
+          id: req.params.id
+        },
+        include: [{
+          model: Reviews,
+          include: [Items]}]
+      }).then(function(user, err) {
+        if (!user) {
+          res.status(404).send({
+            error: 'User not found'
+          });
+        } else if (err) {
+          res.status(500).send({
+            message: 'Error retrieving user',
+            error: err
+          });
+        } else {
+          user.password = null;
+          res.json(user);
+        }
+
+      }).catch(function(err) {
+        res.status(500).send({
+          error: err.message || err.errors[0].message
+        });
+      });
     }
   };
 })();
