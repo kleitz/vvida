@@ -13,7 +13,7 @@
         }).then(function(item) {
           if (!item) {
             res.status(500).send({
-              error: 'Create item failed'
+              error: 'Failed to create item'
             });
           } else {
             res.json(item);
@@ -71,7 +71,7 @@
           });
         } else {
           res.json({
-            message: 'You have successfully edited your item'
+            message: 'You have successfully updated the item'
           });
         }
       }).catch(function(err) {
