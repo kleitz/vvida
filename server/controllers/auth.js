@@ -4,7 +4,7 @@ var Authorize = function() {};
 Authorize.prototype = {
   authenticate: function(req, res, next) {
     // check header or url parameters or post parameters for token
-    var token = req.headers['x-access-token'];
+    var token = req.headers['x-access-token'] || req.param('token') || req.body.token;
     // decode token
     if (token && token !== 'null') {
       // verifies secret and checks exp
