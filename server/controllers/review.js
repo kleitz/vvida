@@ -29,8 +29,19 @@
 
     all: function(req, res) {
       var Reviews = req.app.get('models').Reviews;
-      Reviews.findAll().then(function(review) {
-        res.json(review);
+      Reviews.findAll().then(function(reviews, err) {
+        if (!reviews) {
+          res.status(404).send({
+            error: 'Reviews not found'
+          });
+        } else if (err) {
+          res.status(500).send({
+            message: 'Error retrieving reviews',
+            error: err
+          });
+        } else {
+          res.json(reviews);
+        }
       }).catch(function(err) {
         res.status(500).send({
           error: err.message || err.error[0].message
