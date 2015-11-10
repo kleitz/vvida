@@ -21,6 +21,7 @@ var config = require('./server/config')[env],
   models = require('./server/models'),
   auth = require('./server/services/auth');
 
+
 // the models variable must be somehow singleton-esque
 // http://bit.ly/1S9cnn5
 app.set('models', models);
