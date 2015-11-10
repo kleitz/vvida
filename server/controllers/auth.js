@@ -4,7 +4,7 @@ var Authorize = function() {};
 Authorize.prototype = {
   authenticate: function(req, res, next) {
     // check header or url parameters or post parameters for token
-    var token = req.headers['x-access-token'] || req.param('token') || req.body.token;
+    var token = req.headers['x-access-token'] || req.params('token') || req.body.token;
     // decode token
     if (token && token !== 'null') {
       // verifies secret and checks exp
@@ -25,8 +25,9 @@ Authorize.prototype = {
       // if there is no token
       // return an error
       var err = new Error('Unauthorised. No user is logged in.');
-      err.status = 401;
-      next(err);
+      res.status(401).json({
+        error: err.message
+      });
     }
   }
 };
