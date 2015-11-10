@@ -21,7 +21,7 @@
   require('./controllers/login');
   require('./controllers/header');
   require('./controllers/items');
-  require('./controllers/item-img');
+  require('./controllers/edit-item');
 
   window.app = angular.module('vvida', [
     'vvida.controllers',
@@ -35,8 +35,8 @@
     'angularFileUpload'
   ]);
 
-  window.app.run(['$rootScope', '$location', 'Users',
-    function($rootScope, $location, Users) {
+  window.app.run(['$rootScope', '$location', '$mdSidenav', 'Users',
+    function($rootScope, $location, $mdSidenav, Users) {
       // Check if the user's session is still being persisted in the servers
       Users.session(function(err, res) {
         if (!err) {
@@ -97,10 +97,10 @@
         controller: 'ProfileCtrl',
         templateUrl: 'views/edit-profile.html'
       })
-      .state('itemImgUpload', {
-        url: '/item/{id}/img-upload',
+      .state('editItem', {
+        url: '/item/{id}/edit',
         controller: 'ItemsImgCtrl',
-        templateUrl: 'views/item-image-upload.html'
+        templateUrl: 'views/edit-item.html'
       })
       .state('login', {
         url: '/users/login',

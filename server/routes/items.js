@@ -2,9 +2,7 @@
 // this api will handle all the routes for items
 (function() {
   'use strict';
-  var Item = require('../controllers/items'),
-    upload = require('../controllers/upload');
-
+  var Item = require('../controllers/items');
   module.exports = function(app) {
 
     app.route('/api/items')

@@ -3,21 +3,19 @@
   module.exports = {
     create: function(req, res) {
       var Items = req.app.get('models').Items;
-      Items.sync().then(function() {
-        return Items.create({
-          user_id: req.session.id,
-          category_id: req.body.catId,
-          name: req.body.itemName,
-          description: req.body.description
-        }).then(function(item) {
-          if (!item) {
-            res.status(500).send({
-              error: 'Create item failed'
-            });
-          } else {
-            res.json(item);
-          }
-        });
+      return Items.create({
+        user_id: req.session.user.id,
+        category_id: req.body.catId,
+        name: req.body.name,
+        description: req.body.description
+      }).then(function(item) {
+        if (!item) {
+          res.status(500).send({
+            error: 'Create item failed'
+          });
+        } else {
+          res.json(item);
+        }
       }).catch(function(err) {
         res.status(500).send({
           error: err.message || err.errors[0].message

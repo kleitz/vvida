@@ -12,7 +12,7 @@ module.exports = function(app, passport, config) {
       // User.findOne won't fire until we have all our data back from Facebook
       process.nextTick(function() {
         // check if the user exists in out database
-        User.findOne({
+        Users.findOne({
             where: {
               'facebook_auth_id': profile.id
             },

@@ -45,7 +45,9 @@
           console.log(req.info);
           next();
         } else {
-          res.status(400).send(err);
+          res.status(400).send({
+            error: 'Delete failed'
+          });
         }
       });
     },

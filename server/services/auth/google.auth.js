@@ -13,7 +13,7 @@ module.exports = function(app, passport, config) {
       process.nextTick(function() {
 
         // check if the user exists in out database
-        User.findOne({
+        Users.findOne({
             where: {
               'google_auth_id': profile.id
             },
