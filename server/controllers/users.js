@@ -7,13 +7,13 @@
     login: function(req, res, next) {
       passport.authenticate('login', function(err, user) {
         if (err) {
-          return res.status(500).send({
+          return res.status(500).json({
             error: err.message || err.errors[0].message
           });
         }
         // Generate a JSON response reflecting authentication status
         if (!user) {
-          return res.status(500).send({
+          return res.status(500).json({
             error: 'Authentication failed.'
           });
         }
@@ -27,13 +27,13 @@
       passport.authenticate('signup', function(err, user) {
         // check for errors, if exist send a response with error
         if (err) {
-          return res.status(500).send({
-            error: err.errors[0].message || err.message
+          return res.status(500).json({
+            error: err.message || err.errors[0].message
           });
         }
         // If passport doesn't return the user object,  signup failed
         if (!user) {
-          return res.status(500).send({
+          return res.status(500).json({
             error: 'Signup failed. User already exists.'
           });
         }
@@ -46,7 +46,7 @@
       if (req.decoded) {
         return res.status(200).json(req.decoded);
       } else {
-        res.status(401).send({
+        res.status(401).json({
           error: 'Unathorized Access'
         });
       }
@@ -57,11 +57,11 @@
       var Users = req.app.get('models').Users;
       Users.findAll().then(function(users, err) {
         if (!users) {
-          res.status(404).send({
+          res.status(404).json({
             error: 'User not found'
           });
         } else if (err) {
-          res.status(500).send({
+          res.status(500).json({
             message: 'Error retrieving users',
             error: err
           });
@@ -73,7 +73,7 @@
         }
 
       }).catch(function(err) {
-        res.status(500).send({
+        res.status(500).json({
           error: err.message || err.errors[0].message
         });
       });
@@ -90,11 +90,11 @@
         }
       }).then(function(user, err) {
         if (!user) {
-          res.status(404).send({
+          res.status(404).json({
             message: 'User not found'
           });
         } else if (err) {
-          res.status(500).send({
+          res.status(500).json({
             message: 'Error retrieving user',
             err: err
           });
@@ -104,7 +104,7 @@
           res.json(user);
         }
       }).catch(function(err) {
-        res.status(500).send({
+        res.status(500).json({
           error: err.message || err.errors[0].message
         });
       });
@@ -121,16 +121,16 @@
         }
       }).then(function(ok, err) {
         if (err) {
-          res.status(500).send({
+          res.status(500).json({
             error: err.message || err.errors[0].message
           });
         } else {
-          res.send({
-            message: 'Profile updated succesfully'
+          res.json({
+            message: 'Profile updated successfully.'
           });
         }
       }).catch(function(err) {
-        res.status(500).send({
+        res.status(500).json({
           error: err.message || err.errors[0].message
         });
       });
@@ -144,16 +144,16 @@
         }
       }).then(function(ok, err) {
         if (err) {
-          res.status(500).send({
+          res.status(500).json({
             error: err.message || err.errors[0].message
           });
         } else {
-          res.send({
-            message: 'User deleted succesfully'
+          res.json({
+            message: 'User deleted successfully'
           });
         }
       }).catch(function(err) {
-        res.status(500).send({
+        res.status(500).json({
           error: err.message || err.errors[0].message
         });
       });
@@ -163,10 +163,12 @@
       req.session.destroy(function(err) {
         if (!err) {
           res.json({
-            message: 'Succesfully logged out'
+            message: 'Successfully logged out'
           });
         } else {
-          res.status(500).send(err);
+          res.status(500).json({
+            error: err.message || err.errors[0].message
+          });
         }
       });
     }
