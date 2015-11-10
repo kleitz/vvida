@@ -85,7 +85,6 @@
       })
       .state('userProfile', {
         url: '/user/profile',
-        controller: 'MainProfileCtrl',
         views: {
           '': {
             controller: 'UserProfileCtrl',
@@ -121,8 +120,7 @@
       })
       .state('404', {
         url: '/404',
-        templateUrl: 'views/404.html',
-        controller: function($scope) {}
+        templateUrl: 'views/404.html'
       })
       .state('item', {
         url: '/items',
