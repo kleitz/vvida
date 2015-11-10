@@ -96,7 +96,7 @@ module.exports = function(sequelize, DataType) {
         defaultValue: 'images/user.png'
       },
       token: {
-        type: DataType.STRING,
+        type: DataType.STRING(1024),
         allowNull: true,
       },
       // enabled
