@@ -23,4 +23,13 @@ module.exports = function(app) {
     .put(Users.update)
     .delete(Users.delete);
 
+  app.route('/api/users/:id/items')
+    .get(Users.getItems);
+
+  app.route('/api/users/:id/reviews')
+    .get(Users.getReviews);
+
+  app.route('/api/users/:id/events')
+    .get(Users.getEvents);
+
 };
