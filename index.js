@@ -1,18 +1,30 @@
-var express = require('express'),
+var env = process.env.NODE_ENV || 'development';
+if (env === 'development') {
+  require('dotenv').load();
+}
+
+var config = require('./server/config')[env],
+  express = require('express'),
   path = require('path'),
-  env = process.env.NODE_ENV || 'development',
   config = require('./server/config')[env],
   favicon = require('serve-favicon'),
+  multer = require('multer'),
+
   logger = require('morgan'),
   cookieParser = require('cookie-parser'),
   bodyParser = require('body-parser'),
   routes = require('./server/routes'),
   app = express(),
   passport = require('passport'),
-  LocalStrategy = require('passport-local').Strategy,
   session = require('express-session'),
+  models = require('./server/models'),
   auth = require('./server/services/auth');
 
+// the models variable must be somehow singleton-esque
+// http://bit.ly/1S9cnn5
+app.set('models', models);
+
+// load env variables from .env file in development environment
 // view engine setup
 app.set('views', path.join(__dirname, 'server/views'));
 app.set('view engine', 'jade');
@@ -25,7 +37,12 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 
-auth(passport, LocalStrategy);
+app.use(multer({
+  dest: './uploads/',
+}).array('photos', 3));
+
+
+auth(app, passport, config);
 passport.serializeUser(function(user, done) {
   done(null, user);
 });
@@ -37,6 +54,7 @@ passport.deserializeUser(function(user, done) {
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, './public')));
 app.use(passport.initialize());
+
 app.use(session({
   secret: config.expressSessionKey,
   // store: sessionStore, // connect-mongo session store
@@ -82,7 +100,7 @@ app.use(function(err, req, res, next) {
 
 var server = app.listen(process.env.PORT || 3000, function() {
   console.log('Express server listening on %d, in %s' +
-        'mode', server.address().port, app.get('env'));
+    ' mode', server.address().port, app.get('env'));
 });
 
 module.exports = app;
