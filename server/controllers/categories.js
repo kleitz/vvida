@@ -1,110 +1,61 @@
-module.exports = {
-  create: function(req, res) {
-    var Categories = req.app.get('models').Categories;
-    Categories.sync()
-      .then(
-        function() {
-          return Categories
-            .create({
-              type: req.body.type
-            })
-            .then(
-              function(category) {
-                if (!category) {
-                  res.status(500)
-                    .send({
-                      error: 'Category creation failed'
-                    });
-                } else {
-                  res.json(category);
-                }
-              });
-        })
-      .catch(function(err) {
-        res.status(500)
-          .send({
-            error: err.message || err.errors[0].message
+(function() {
+  'use strict';
+  module.exports = {
+    //Middleware to create an item
+    create: function(req, res) {
+      var Categories = req.app.get('models').Categories;
+      return Categories.create({
+        type: req.body.category,
+        is_sub_cat: req.body.subCat
+      }).then(function(category) {
+        if (!category) {
+          res.status(500).send({
+            error: 'Create category failed'
           });
-      });
-  },
-  update: function(req, res) {
-    var Categories = req.app.get('models').Categories;
-    Categories.update(req.body, {
-      where: {
-        id: req.params.id
-      }
-    }).then(function(ok, err) {
-      if (err) {
+        } else {
+          res.json(category);
+        }
+      }).catch(function(err) {
         res.status(500).send({
           error: err.message || err.errors[0].message
         });
-      } else {
-        res.send({
-          message: 'Category updated succesfully'
-        });
-      }
-    }).catch(function(err) {
-      res.status(500).send({
-        error: err.message || err.errors[0].message
       });
-    });
-  },
-  delete: function(req, res) {
-    var Categories = req.app.get('models').Categories;
-    Categories.destroy({
-      where: {
-        id: req.params.id
-      }
-    }).then(function(ok, err) {
-      if (err) {
+    },
+
+    // Middleware to get all items
+    all: function(req, res) {
+      var Categories = req.app.get('models').Categories;
+      Categories.findAll().then(function(category) {
+        res.json(category);
+      }).catch(function(err) {
         res.status(500).send({
           error: err.message || err.errors[0].message
         });
-      } else {
-        res.send({
-          message: 'Category deleted succesfully'
-        });
-      }
-    }).catch(function(err) {
-      res.status(500).send({
-        error: err.message || err.errors[0].message
       });
-    });
-  },
-  getAll: function(req, res) {
-    var Categories = req.app.get('models').Categories;
-    Categories.findAll().then(function(review) {
-      res.json(review);
-    }).catch(function(err) {
-      res.status(500).send({
-        error: err.message || err.error[0].message
-      });
-    });
-  },
-  find: function(req, res) {
-    var Categories = req.app.get('models').Categories,
-      catId = req.params.id;
-    Categories.findOne({
-      where: {
-        id: catId
-      }
-    }).then(function(category, err) {
-      if (!category) {
-        res.status(404).send({
-          message: 'Category not found'
-        });
-      } else if (err) {
+    },
+    // Middleware to delete an item
+    delete: function(req, res) {
+      var Categories = req.app.get('models').Categories;
+      return Categories.destroy({
+        where: {
+          id: req.params.id
+        }
+      }).then(function(ok) {
+        if (!ok) {
+          res.status(500).send({
+            error: 'Delete failed'
+          });
+        } else {
+          res.status(200).send({
+            message: 'Delete successful'
+          });
+        }
+      }).catch(function(err) {
         res.status(500).send({
-          message: 'Error retrieving category',
-          err: err
+          error: err.message || err.errors[0].message
         });
-      } else {
-        res.send(category);
-      }
-    }).catch(function(err) {
-      res.status(500).send({
-        error: err.message || err.errors[0].message
       });
-    });
-  }
-};
+    }
+  };
+
+})();

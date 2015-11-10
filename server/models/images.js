@@ -4,8 +4,7 @@ module.exports = function(sequelize, DataType) {
         type: DataType.STRING,
         allowNull: false
       },
-      // image url
-      // hold the url of the images
+
       img_url: {
         type: DataType.STRING,
         allowNull: false,
