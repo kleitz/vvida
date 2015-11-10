@@ -32,17 +32,16 @@ describe('User RESTful API tests', function() {
       .get(resourceApiUrl)
       .accept('application/json')
       .end(function(err, res) {
-        if (res.status === 200) {
+        if (res.ok) {
           if (res.body.length === 0) {
-            _expect(Object.prototype.toString.call(res.body)).to.be('[object Array]');
+            _expect(Array.isArray(res.body)).to.be.ok();
             _expect(res.body).to.be.ok();
           } else {
             _expect(typeof res.body[0].id).to.be('number');
           }
           done();
         } else {
-          _expect(res.status).to.be.greaterThan(399);
-          _expect(res.body.error).to.be.a('string');
+          throw err;
         }
       });
   });
@@ -61,15 +60,14 @@ describe('User RESTful API tests', function() {
       // .expect('Content-Type', /json/)
       // .expect(200)
       .end(function(err, res) {
-        if (res.status === 200) {
+        if (res.ok) {
           var data = res.body;
           _expect(data.email).to.be(newUser.email);
           _expect(data.id).to.be.ok();
           _expect(typeof data.id).to.be('number');
           user = data;
         } else {
-          _expect(res.status).to.be.greaterThan(399);
-          _expect(res.body.error).to.be.a('string');
+          throw err;
         }
         done();
       });
@@ -87,7 +85,7 @@ describe('User RESTful API tests', function() {
       .send(newUser)
       .accept('application/json')
       .end(function(err, res) {
-        if (res.status === 200) {
+        if (res.ok) {
           var data = res.body;
           _expect(data.email).to.be(newUser.email);
           _expect(data.id).to.be.ok();
@@ -98,8 +96,7 @@ describe('User RESTful API tests', function() {
           user = data;
           authToken = data.token;
         } else {
-          _expect(res.status).to.be.greaterThan(399);
-          _expect(res.body.error).to.be.a('string');
+          throw err;
         }
         done();
       });
@@ -133,11 +130,10 @@ describe('User RESTful API tests', function() {
       // .expect('Content-Type', /json/)
       // .expect(200)
       .end(function(err, res) {
-        if (res.status === 200) {
+        if (res.ok) {
           _expect(res.body.id).to.be(user.id);
         } else {
-          _expect(res.status).to.be.greaterThan(399);
-          _expect(res.body.error).to.ok();
+          throw err;
         }
         done();
       });
@@ -172,11 +168,10 @@ describe('User RESTful API tests', function() {
       .send(userInfoUpdates)
       .accept('application/json')
       .end(function(err, res) {
-        if (res.status === 200) {
+        if (res.ok) {
           _expect(res.text).to.match(/(success)/);
         } else {
-          _expect(res.status).to.be.greaterThan(399);
-          _expect(res.body.error).to.be.a('string');
+          throw err;
         }
         done();
       });
@@ -195,11 +190,10 @@ describe('User RESTful API tests', function() {
       .set('X-Access-Token', authToken)
       .accept('application/json')
       .end(function(err, res) {
-        if (res.status === 200) {
+        if (res.ok) {
           _expect(res.text).to.match(/(success)/);
         } else {
-          _expect(res.status).to.be.greaterThan(399);
-          _expect(res.body.error).to.be.a('string');
+          throw err;
         }
         done();
       });
