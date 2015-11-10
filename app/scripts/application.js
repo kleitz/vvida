@@ -85,13 +85,14 @@
       })
       .state('userProfile', {
         url: '/user/profile',
+        controller: 'MainProfileCtrl',
         views: {
           '': {
             controller: 'UserProfileCtrl',
             templateUrl: 'views/user-profile.html',
           },
           'Reviews@userProfile': {
-            controller: 'UserReviewCtrl',
+            controller: 'UserReviewsCtrl',
             templateUrl: 'views/user-reviews.html',
           },
           'Events@userProfile': {
