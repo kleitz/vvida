@@ -15,7 +15,7 @@ sequelize.authenticate()
     console.log('Unable to connect to the database:', err);
   });
 
-// sequelize.sync({
-//   force: true
-// });
+sequelize.sync({
+  // force: true
+});
 module.exports = sequelize;

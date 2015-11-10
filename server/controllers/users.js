@@ -17,7 +17,6 @@
             error: 'Authentication failed.'
           });
         }
-        delete user.password;
         req.session.user = user;
         return res.json(user);
       })(req, res, next);
@@ -115,21 +114,20 @@
     update: function(req, res) {
       var Users = req.app.get('models').Users;
       // edit user email
-      delete req.body.password;
       Users.update(req.body, {
         where: {
           id: req.params.id,
         }
       }).then(function(ok, err) {
         if (err) {
-          res.status(500).json({
+          return res.status(500).json({
             error: err.message || err.errors[0].message
           });
-        } else {
-          res.json({
-            message: 'Profile updated successfully.'
-          });
         }
+
+        res.json({
+          message: 'Profile updated successfully.'
+        });
       }).catch(function(err) {
         res.status(500).json({
           error: err.message || err.errors[0].message
@@ -145,14 +143,14 @@
         }
       }).then(function(ok, err) {
         if (err) {
-          res.status(500).json({
+          return res.status(500).json({
             error: err.message || err.errors[0].message
           });
-        } else {
-          res.json({
-            message: 'User deleted successfully'
-          });
         }
+
+        res.json({
+          message: 'User deleted successfully'
+        });
       }).catch(function(err) {
         res.status(500).json({
           error: err.message || err.errors[0].message

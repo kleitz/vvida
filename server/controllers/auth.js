@@ -11,7 +11,8 @@ Authorize.prototype = {
       jwt.verify(token, req.app.get('superSecret'), function(err, decoded) {
         if (err) {
           err = new Error('Failed to authenticate token.');
-          res.status(500).json({
+          // 403 -- forbidden
+          res.status(403).json({
             error: err.message
           });
         } else {

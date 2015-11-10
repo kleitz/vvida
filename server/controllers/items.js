@@ -6,7 +6,7 @@
       var Items = req.app.get('models').Items;
       Items.sync().then(function() {
         return Items.create({
-          user_id: req.body.id,
+          user_id: req.decoded.id,
           category_id: req.body.catId,
           name: req.body.itemName,
           description: req.body.description
@@ -64,16 +64,16 @@
         where: {
           id: req.params.id
         }
-      }).then(function(update) {
-        if (!update) {
-          res.status(500).send({
+      }).then(function(ok, err) {
+        if (err) {
+          return res.status(500).send({
             error: 'Update failed'
           });
-        } else {
-          res.json({
-            message: 'You have successfully updated the item'
-          });
         }
+
+        res.json({
+          message: 'Item has been updated.'
+        });
       }).catch(function(err) {
         res.status(500).send({
           error: err.message || err.errors[0].message
@@ -87,16 +87,16 @@
         where: {
           id: req.params.id
         }
-      }).then(function(ok) {
-        if (!ok) {
-          res.status(500).send({
+      }).then(function(ok, err) {
+        if (err) {
+          return res.status(500).send({
             error: 'Delete failed'
           });
-        } else {
-          res.status(200).send({
-            message: 'Delete successful'
-          });
         }
+
+        res.status(200).send({
+          message: 'Delete successful'
+        });
       }).catch(function(err) {
         res.status(500).send({
           error: err.message || err.errors[0].message
