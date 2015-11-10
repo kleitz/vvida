@@ -1,31 +1,33 @@
 angular.module('vvida.controllers')
-  .controller('UserProfileCtrl', ['$scope', '$rootScope', '$state', 'Users', function($scope, $rootScope, $state, Users) {
-    if (!$rootScope.currentUser) {
-      $state.go('login');
-    } else {
-      Users.eventsCount(function(err, res) {
-        if (err) {
-          $scope.eventsCount = 0;
-        } else {
-          $scope.eventsCount = res;
-        }
-      });
-      Users.itemsCount(function(err, res) {
-        if (err) {
-          $scope.itemsCount = 0;
-        } else {
-          $scope.itemsCount = res;
-        }
-      });
-      Users.reviewsCount(function(err, res) {
-        if (err) {
-          $scope.reviewsCount = 0;
-        } else {
-          $scope.reviewsCount = res;
-        }
-      });
+  .controller('UserProfileCtrl', ['$scope', '$rootScope', '$state', 'Users',
+    function($scope, $rootScope, $state, Users) {
+      if (!$rootScope.currentUser) {
+        $state.go('login');
+      } else {
+        Users.eventsCount(function(err, res) {
+          if (err) {
+            $scope.eventsCount = 0;
+          } else {
+            $scope.eventsCount = res;
+          }
+        });
+        Users.itemsCount(function(err, res) {
+          if (err) {
+            $scope.itemsCount = 0;
+          } else {
+            $scope.itemsCount = res;
+          }
+        });
+        Users.reviewsCount(function(err, res) {
+          if (err) {
+            $scope.reviewsCount = 0;
+          } else {
+            $scope.reviewsCount = res;
+          }
+        });
+      }
     }
-  }])
+  ])
   .controller('UserEventsCtrl', ['$scope', 'Users', function($scope, Users) {
     Users.events(function(err, res) {
       if (err) {
