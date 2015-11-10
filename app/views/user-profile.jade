@@ -1,27 +1,25 @@
-md-card.profile-body.edit-profile(layout='column' flex='55' style='background-color: rgb(241,241,241)')
+md-card.profile-body.edit-profile.profile-header(layout='column' flex='55')
   br
   md-card-content.content
     div(layout="row")
       div(flex="30")
-        md-card.ripple-container(md-ink-ripple flex style="width: 215px; height: 215px;")
-          .card-images.md-card-image(style='background-image: url(images/male.png)')
-      div(flex="60")
-        p.md-display-3(style='margin-bottom: 0px; padding-bottom: 0px') Brother Ocholla
-        p.md-headline(style='margin-top: 5px; padding-top: 0px') Nairobi, Kenya
-        div(layout="row" style='margin-top: 0px; padding-top: 0px')
-          md-button.no-space(class='md-padding' style='margin-right: 20px;')
+        md-card.ripple-container.profile-pic(md-ink-ripple flex)
+          .card-images.md-card-image(ng-if='currentUser.gender == "male"' style='background-image: url(images/male.png)')
+          .card-images.md-card-image(ng-if='currentUser.gender == "female"' style='background-image: url(images/female.png)')
+      div(flex="70")
+        p.md-display-3(class='packed-bottom') {{currentUser.firstname}} {{currentUser.lastname}}
+        p.md-headline(class='packed-top') {{currentUser.city}}, {{currentUser.country}}
+        div.packed-top(layout="row")
+          md-button.no-space(class='md-padding space-right')
             span.fa.fa-camera 150 Photos
-          md-button.no-space(class='md-padding' style='margin-right: 20px;')
-            span.fa.fa-star 75 Reviews
-          md-button.no-space(class='md-padding' style='margin-right: 20px;')
-            span.fa.fa-th-large 75 Products
+          md-button.no-space(class='md-padding space-right')
+            span.fa.fa-star {{reviewsCount}} Reviews
+          md-button.no-space(class='md-padding space-right')
+            span.fa.fa-th-large {{itemsCount}} Products
           md-button.no-space.md-margin(class='md-padding')
-            span.fa.fa-calendar 75 Events
-      div(flex="10")
-        md-button.md-raised.md-warn(class ='login-button' md-tooltip='Message Brother Ocholla')
-          span.fa.fa-envelope.fa-2x.md-padding
+            span.fa.fa-calendar {{eventsCount}} Events
 
-md-card.profile-body.edit-profile(layout='column' flex='55' style='margin-top: 5px; padding-top: 0px;')
+md-card.profile-body.edit-profile.packed-top(layout='column' flex='55')
   br
   md-tabs(md-dynamic-height md-border-bottom)
     md-tab(label='Reviews')
