@@ -12,6 +12,7 @@ machine:
 
 test:
   override:
+    -gulp test:bend
 
 deployment:
   production:
