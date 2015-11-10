@@ -4,10 +4,7 @@ module.exports = function(sequelize, DataType) {
       // e.g product, service, location
       type: {
         type: DataType.STRING,
-        allowNull: false,
-        validate: {
-          isAlpha: true
-        }
+        allowNull: false
       }
     },
     // table configuration
