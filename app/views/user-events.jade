@@ -5,12 +5,19 @@ md-card-content.content
     div
       div(layout="row")
         div(flex="15")
-          md-card.ripple-container(md-ink-ripple flex style="width: 120px; height: 120px;")
+          md-card.ripple-container.prof-child-img(md-ink-ripple flex)
             .card-images.md-card-image(style='background-image: url(images/event.png)')
         div(flex="70")
-          p.md-headline(style='font-weight: bolder; margin-bottom: 0px; padding-bottom: 0px') {{x.name}}
-          p.md-title(style='margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px') {{parseDate(x.time)}}
-          p.md-subhead(style='margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px') {{x.venue}}, {{x.location}}
-          p(style='margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px') {{x.sponsor}}
+          p.md-headline.packed-bottom.bold-title {{x.name}}
+          p.md-subhead.packed
+            span.fa.fa-clock-o   {{parseDate(x.time)}}
+              md-tooltip Date and Time
+          p.md-subhead.packed
+            span.fa.fa-building-o   {{x.venue}}, {{x.location}}
+              md-tooltip Venue and Location
+          p.packed
+            span.fa.fa-users   {{x.sponsor}}
+              md-tooltip Sponsor
       p {{x.description}}
-    md-divider(style="background-color: white;")
+        md-tooltip Event Description
+    md-divider.prof-divider
