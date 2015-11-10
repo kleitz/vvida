@@ -1,7 +1,6 @@
 dependencies:
  pre:
   - bower install
-  - 
  post:
   - npm install module-deps 
   - npm install gulp -g
@@ -13,7 +12,6 @@ machine:
 
 test:
   override:
-    # - ./tests/server/resources/*.spec.js
 
 deployment:
   production:
