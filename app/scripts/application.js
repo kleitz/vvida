@@ -16,6 +16,7 @@
   require('./controllers/profile');
   require('./controllers/about');
   require('./controllers/login');
+  require('./controllers/welcome');
   require('./controllers/header');
 
   window.app = angular.module('vvida', [
@@ -27,6 +28,7 @@
     'ngResource',
     'ngMaterial'
   ]);
+
 
   window.app.run(['$rootScope', '$location', 'Users',
     function($rootScope, $location, Users) {
@@ -86,6 +88,11 @@
         url: '/users/login',
         controller: 'LoginCtrl',
         templateUrl: 'views/login.html'
+      })
+      .state('welcome', {
+        url: '/welcome',
+        controller: 'WelcomeCtrl',
+        templateUrl: 'views/welcome.html'
       })
       .state('upload', {
         url: '/upload',
