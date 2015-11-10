@@ -5,6 +5,7 @@ module.exports = function(app, config, passport) {
   require('./auth/google.auth')(app, passport);
   require('./events')(app, config);
   require('./items')(app, config);
+  require('./image')(app, config);
   require('./countries')(app);
   require('./categories')(app);
   require('./review')(app);

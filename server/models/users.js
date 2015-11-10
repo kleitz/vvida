@@ -94,12 +94,12 @@ module.exports = function(sequelize, DataType) {
         type: DataType.STRING,
         allowNull: true,
       },
+
       picture_url: {
         type: DataType.STRING,
         allowNull: true,
         defaultValue: 'images/user.png'
       },
-
       // enabled
       // gives options to enable or disable user
       enabled: {

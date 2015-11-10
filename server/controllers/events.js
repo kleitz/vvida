@@ -36,6 +36,7 @@
     },
 
     // Middleware to get all the events
+
     all: function(req, res) {
       var Events = req.app.get('models').Events;
       Events.findAll().then(function(event, err) {
@@ -60,7 +61,7 @@
         where: {
           id: req.params.id
         }
-      }).then(function(event, err) {
+      }).then(function(event) {
         if (!event) {
           res.status(404).send({
             message: 'Event not found'

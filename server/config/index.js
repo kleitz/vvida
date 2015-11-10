@@ -12,13 +12,10 @@ var passportConfig = require('./passport.config'),
       password: process.env.DATABASE_PASSWORD,
       port: process.env.DATABASE_PORT
     }
-  },
-  development = envVariables,
-  staging = envVariables,
-  production = envVariables;
+  };
 
 module.exports = {
-  development: development,
-  staging: staging,
-  production: production,
+  development: envVariables,
+  staging: envVariables,
+  production: envVariables,
 };

@@ -1,6 +1,6 @@
 angular.module('vvida.controllers')
-  .controller('LoginCtrl', ['$rootScope', '$scope', '$state', 'Users',
-    function($rootScope, $scope, $state, Users) {
+  .controller('LoginCtrl', ['$rootScope', '$scope', '$state', 'Users', '$window',
+    function($rootScope, $scope, $state, Users, $window) {
       // login
       $scope.login = function() {
         Users.login($scope.user, function(err, res) {
@@ -8,7 +8,7 @@ angular.module('vvida.controllers')
             $rootScope.currentUser = res;
             $state.go('home');
           } else {
-            $scope.messageLogin = err.error || err;
+            $scope.messageLogin = err.error || err || err[0].message;
           }
         });
       };
@@ -39,12 +39,20 @@ angular.module('vvida.controllers')
             });
           }, function(err) {
             console.log(err);
-            $scope.messageSignup = err.data.error;
+            $scope.messageSignup = err.data.error[0].message;
           });
         } else {
           $scope.messageSignup =
             'Your confirmation password does not match the initial password you have given.';
         }
+      };
+
+      $scope.facebook = function() {
+        $window.location.href = '/auth/facebook';
+      };
+
+      $scope.google = function() {
+        $window.location.href = '/auth/google';
       };
     }
   ]);

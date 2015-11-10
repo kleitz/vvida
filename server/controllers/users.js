@@ -1,7 +1,6 @@
 (function() {
   'use strict';
   var passport = require('passport');
-
   module.exports = {
     // login middleware
     login: function(req, res, next) {
@@ -17,6 +16,7 @@
             error: 'Authentication failed.'
           });
         }
+        user.password = null;
         req.session.user = user;
         return res.json(user);
       })(req, res, next);
@@ -27,7 +27,7 @@
         // check for errors, if exist send a response with error
         if (err) {
           return res.status(500).send({
-            error: err.errors[0].message || err.message
+            error: err.errors || err.message
           });
         }
         // If passport doesn't return the user object,  signup failed
