@@ -4,9 +4,10 @@ md-card.profile-body.edit-profile(layout='column' flex='55')
     form(method='post' ng-submit='editProfile()')
       h1 Edit Profile
       div(layout='row')
-        p Welcome. The email address you have provided is
-        p.email {{currentUser.email}}.
-        p Please complete the following form with your details to complete your registration.
+        p
+          | Welcome. The email address you have provided is
+          span.email{{currentUser.email}}.
+          | Please complete the following form with your details to complete your registration.
       md-input-container
         md-icon(class='fa fa-user-secret')
         input(ng-model='user.username' type='text' placeholder='Username' ng-required='true')
