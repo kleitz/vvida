@@ -24,6 +24,7 @@ var config = require('./server/config')[env],
 // the models variable must be somehow singleton-esque
 // http://bit.ly/1S9cnn5
 app.set('models', models);
+app.set('superSecret', process.env.WEB_TOKEN_SECRET);
 
 // load env variables from .env file in development environment
 // view engine setup

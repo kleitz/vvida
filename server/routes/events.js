@@ -2,7 +2,7 @@
 // this api will handle all the routes for events
 var Events = require('../controllers/events');
 
-module.exports = function(app, config, auth) {
+module.exports = function(app, auth) {
   app.route('/api/events')
     // create event route.
     .post(auth.authenticate, Events.create)
