@@ -71,24 +71,20 @@ module.exports = function(sequelize, DataType) {
         values: ['active', 'innactive'],
         defaultValue: 'active'
       },
-
       // facebook and google IDs of the user
       facebook_auth_id: {
         type: DataType.STRING,
         allowNull: true,
       },
-
       // Access token for facebook
       facebook_auth_token: {
         type: DataType.STRING,
         allowNull: true,
       },
-
       google_auth_id: {
         type: DataType.STRING,
         allowNull: true,
       },
-
       // Access token for Google
       google_auth_token: {
         type: DataType.STRING,
@@ -99,7 +95,10 @@ module.exports = function(sequelize, DataType) {
         allowNull: true,
         defaultValue: 'images/user.png'
       },
-
+      token: {
+        type: DataType.STRING,
+        allowNull: true,
+      },
       // enabled
       // gives options to enable or disable user
       enabled: {
