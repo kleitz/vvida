@@ -35,5 +35,29 @@ angular.module('vvida.services')
       });
     };
 
+    obj.items = function(user, cb) {
+      $http.get('/api/users/' + '2' + '/items').success(function(res) {
+        cb(null, res);
+      }).error(function(err) {
+        cb(err);
+      });
+    };
+
+    obj.reviews = function(user, cb) {
+      $http.get('/api/users/' + '2' + '/reviews').success(function(res) {
+        cb(null, res);
+      }).error(function(err) {
+        cb(err);
+      });
+    };
+
+     obj.events = function(user, cb) {
+      $http.get('/api/users/' + '1' + '/events').success(function(res) {
+        cb(null, res);
+      }).error(function(err) {
+        cb(err);
+      });
+    };
+
     return obj;
   }]);
