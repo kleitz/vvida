@@ -1,19 +1,11 @@
 md-card-content.content
   h1 Photos
   div
-    div(layout="row")
-      div(flex="20")
-        md-card.ripple-container(md-ink-ripple flex style="width: 120px; height: 120px;")
-          .card-images.md-card-image(style='background-image: url(images/female.png)')
-      div(flex="20")
-        md-card.ripple-container(md-ink-ripple flex style="width: 120px; height: 120px;")
-          .card-images.md-card-image(style='background-image: url(images/female.png)')
-      div(flex="20")
-        md-card.ripple-container(md-ink-ripple flex style="width: 120px; height: 120px;")
-          .card-images.md-card-image(style='background-image: url(images/female.png)')
-      div(flex="20")
-        md-card.ripple-container(md-ink-ripple flex style="width: 120px; height: 120px;")
-          .card-images.md-card-image(style='background-image: url(images/female.png)')
-      div(flex="20")
-        md-card.ripple-container(md-ink-ripple flex style="width: 120px; height: 120px;")
-          .card-images.md-card-image(style='background-image: url(images/female.png)')
+    div(layout='row').prof-pic-div
+      div(flex='20' ng-repeat='x in arrayNo(5) track by $index')
+        md-card.ripple-container.prof-child-img(md-ink-ripple flex)
+          .card-images.md-card-image(style='background-image: url(images/product.png)')
+    div(layout='row').prof-pic-div
+      div(flex='20' ng-repeat='x in arrayNo(5) track by $index')
+        md-card.ripple-container.prof-child-img(md-ink-ripple flex)
+          .card-images.md-card-image(style='background-image: url(images/event.png)')
