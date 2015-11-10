@@ -8,7 +8,7 @@
         return Items.create({
           user_id: req.body.id,
           category_id: req.body.catId,
-          name: req.body.itemName,
+          name: req.body.name,
           description: req.body.description
         }).then(function(item) {
           if (!item) {
@@ -103,6 +103,7 @@
         });
       });
     }
+
   };
 
 })();
