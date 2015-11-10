@@ -22,10 +22,10 @@
                 br
                 br
                 section(layout='row', layout-sm='column', layout-align='center center', layout-wrap='')
-                  md-button.md-raised.md-primary.md-hue-2(class='third-party-button')
+                  md-button.md-raised.md-primary.md-hue-2(class='third-party-button', aria-label="Facebook", ng-click="facebook()")
                     i(class="fa fa-facebook")
                     | Login with Facebook
-                  md-button.md-raised.md-warn(class='third-party-button')
+                  md-button.md-raised.md-warn(class='third-party-button', aria-label="Google", ng-click="google()")
                     i(class="fa fa-google-plus")
                     | Login with Google
 
@@ -52,9 +52,10 @@
                 br
                 br
                 section(layout='row', layout-sm='column', layout-align='center center', layout-wrap='')
-                  md-button.md-raised.md-primary.md-hue-2(class='third-party-button')
+                  md-button.md-raised.md-primary.md-hue-2(class='third-party-button',aria-label="FacebookSignUp", ng-click="facebook()")
                     i(class="fa fa-facebook")
-                    | Sign Up with Facebook
-                  md-button.md-raised.md-warn(class='third-party-button')
+                    | sign up with Facebook
+                  md-button.md-raised.md-warn(class='third-party-button', aria-label="GoogleSignUp", ng-click="google()")
+
                     i(class="fa fa-google-plus")
                     | Sign Up with Google

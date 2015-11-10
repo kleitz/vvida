@@ -8,7 +8,10 @@
   //Require Services
   require('./services/utils');
   require('./services/users');
+  require('./services/categories');
   require('./services/countries');
+  require('./services/items');
+
 
   // Require Controllers
   require('./controllers/footer');
@@ -18,6 +21,8 @@
   require('./controllers/login');
   require('./controllers/welcome');
   require('./controllers/header');
+  require('./controllers/items');
+  require('./controllers/edit-item');
 
   window.app = angular.module('vvida', [
     'vvida.controllers',
@@ -26,12 +31,13 @@
     'vvida.directives',
     'ui.router',
     'ngResource',
-    'ngMaterial'
+    'ngMaterial',
+    'ngCookies',
+    'angularFileUpload'
   ]);
 
-
-  window.app.run(['$rootScope', '$location', 'Users',
-    function($rootScope, $location, Users) {
+  window.app.run(['$rootScope', '$location', '$mdSidenav', 'Users',
+    function($rootScope, $location, $mdSidenav, Users) {
       // Check if the user's session is still being persisted in the servers
       Users.session(function(err, res) {
         if (!err) {
@@ -51,6 +57,14 @@
         name: 'Events',
         state: 'events'
       }];
+
+      $rootScope.openLeftMenu = function() {
+        $mdSidenav('left').toggle();
+      };
+
+      $rootScope.closeLeftMenu = function() {
+        $mdSidenav('left').close();
+      };
     }
   ]);
 
@@ -84,6 +98,11 @@
         controller: 'ProfileCtrl',
         templateUrl: 'views/edit-profile.html'
       })
+      .state('editItem', {
+        url: '/item/{id}/edit',
+        controller: 'ItemsImgCtrl',
+        templateUrl: 'views/edit-item.html'
+      })
       .state('login', {
         url: '/users/login',
         controller: 'LoginCtrl',
@@ -112,4 +131,5 @@
 
     $locationProvider.html5Mode(true);
   }]);
+
 })();
