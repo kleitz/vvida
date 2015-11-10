@@ -1,5 +1,5 @@
 angular.module('vvida.services')
-  .factory('Users', ['$resource', '$http', function($resource, $http) {
+  .factory('Users', ['$resource', '$http', '$rootScope', function($resource, $http, $rootScope) {
     var obj = $resource('/api/users/:id', {
       id: '@id'
     }, {
@@ -35,28 +35,64 @@ angular.module('vvida.services')
       });
     };
 
-    obj.items = function(user, cb) {
-      $http.get('/api/users/' + '2' + '/items').success(function(res) {
-        cb(null, res);
-      }).error(function(err) {
-        cb(err);
-      });
+    obj.items = function(cb) {
+      if ($rootScope.currentUser) {
+        $http.get('/api/users/' + $rootScope.currentUser.id + '/items').success(function(res) {
+          cb(null, res);
+        }).error(function(err) {
+          cb(err);
+        });
+      }
     };
 
-    obj.reviews = function(user, cb) {
-      $http.get('/api/users/' + '2' + '/reviews').success(function(res) {
-        cb(null, res);
-      }).error(function(err) {
-        cb(err);
-      });
+    obj.itemsCount = function(cb) {
+      if ($rootScope.currentUser) {
+        $http.get('/api/users/' + $rootScope.currentUser.id + '/items/no').success(function(res) {
+          cb(null, res);
+        }).error(function(err) {
+          cb(err);
+        });
+      }
     };
 
-     obj.events = function(user, cb) {
-      $http.get('/api/users/' + '1' + '/events').success(function(res) {
-        cb(null, res);
-      }).error(function(err) {
-        cb(err);
-      });
+    obj.reviews = function(cb) {
+      if ($rootScope.currentUser) {
+        $http.get('/api/users/' + $rootScope.currentUser.id + '/reviews').success(function(res) {
+          cb(null, res);
+        }).error(function(err) {
+          cb(err);
+        });
+      }
+    };
+
+    obj.reviewsCount = function(cb) {
+      if ($rootScope.currentUser) {
+        $http.get('/api/users/' + $rootScope.currentUser.id + '/reviews/no').success(function(res) {
+          cb(null, res);
+        }).error(function(err) {
+          cb(err);
+        });
+      }
+    };
+
+    obj.events = function(cb) {
+      if ($rootScope.currentUser) {
+        $http.get('/api/users/' + $rootScope.currentUser.id + '/events').success(function(res) {
+          cb(null, res);
+        }).error(function(err) {
+          cb(err);
+        });
+      }
+    };
+
+    obj.eventsCount = function(cb) {
+      if ($rootScope.currentUser) {
+        $http.get('/api/users/' + $rootScope.currentUser.id + '/events/no').success(function(res) {
+          cb(null, res);
+        }).error(function(err) {
+          cb(err);
+        });
+      }
     };
 
     return obj;
