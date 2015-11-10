@@ -9,7 +9,7 @@
       Events.sync().then(function() {
         return Events.create({
           user_id: req.session.id,
-          name: req.body.eventName,
+          name: req.body.name,
           description: req.body.description,
           location: req.body.location,
           venue: req.body.venue,
