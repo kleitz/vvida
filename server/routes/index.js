@@ -1,12 +1,14 @@
+'use strict';
+var auth = require('../controllers/auth');
 module.exports = function(app, config, passport) {
 
-  require('./users')(app, passport);
+  require('./users')(app, passport, auth);
   require('./auth/facebook.auth')(app, passport);
   require('./auth/google.auth')(app, passport);
-  require('./events')(app, config);
-  require('./items')(app, config);
+  require('./events')(app, auth);
+  require('./items')(app, auth);
   require('./countries')(app);
-  require('./categories')(app);
+  require('./categories')(app, auth);
 
   /* GET home page. */
   app.get('/*', function(req, res) {
