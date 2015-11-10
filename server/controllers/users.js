@@ -8,7 +8,7 @@
       passport.authenticate('login', function(err, user) {
         if (err) {
           return res.status(500).json({
-            error: err.message || err.errors[0].message
+            error: 'Something went wrong while logging you in'
           });
         }
         // Generate a JSON response reflecting authentication status
@@ -17,6 +17,7 @@
             error: 'Authentication failed.'
           });
         }
+        delete user.password;
         req.session.user = user;
         return res.json(user);
       })(req, res, next);
