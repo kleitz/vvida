@@ -5,16 +5,22 @@ md-card-content.content
     div
       div(layout="row")
         div(flex="15")
-          md-card.ripple-container(md-ink-ripple flex style="width: 120px; height: 120px;")
-            .card-images.md-card-image(style='background-image: url(images/female.png)')
+          md-card.ripple-container.prof-child-img(md-ink-ripple flex)
+            .card-images.md-card-image(style='background-image: url(images/product.png)')
         div(flex="70")
-          p.md-headline(style='font-weight: bolder; margin-bottom: 0px; padding-bottom: 0px') {{x.Item.name}}
-          p(style='margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px') {{x.review_title}}
-          p(style='margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px') {{x.Category.type}}
-          div(layout='row' style='margin-top: 0px; padding-top: 0px')
+          p.md-headline.packed-bottom.bold-title{{x.Item.name}}
+          p.packed
+            span.fa.fa-comment-o   {{x.review_title}}
+              md-tooltip Review Title
+          p.packed
+            span.fa.fa-list   {{x.Item.Category.type}}
+              md-tooltip Category
+          div.packed-top(layout='row')
+            md-tooltip Rating
             div(layout='row' ng-repeat='y in rateThis(x.rating) track by $index')
               span.fa.fa-star
-            div(layout='row' ng-repeat='y in rateThis(10-x.rating) track by $index')
+            div(layout='row' ng-repeat='y in rateThis(5-x.rating) track by $index')
               span.fa.fa-star-o
       p {{x.review}}
-    md-divider(style="background-color: white;")
+        md-tooltip Review Text
+    md-divider.prof-divider
