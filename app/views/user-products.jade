@@ -5,10 +5,16 @@ md-card-content.content
     div
       div(layout="row")
         div(flex="15")
-          md-card.ripple-container(md-ink-ripple flex style="width: 120px; height: 120px;")
+          md-card.ripple-container.prof-child-img(md-ink-ripple flex)
             .card-images.md-card-image(style='background-image: url(images/product.png)')
         div(flex="70")
-          p.md-headline(style='font-weight: bolder; margin-bottom: 0px; padding-bottom: 0px') {{x.name}}
-          p(style='margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px') {{x.Category.type}}
+          p.md-headline.packed-bottom.bold-title {{x.name}}
+          p.packed
+            span.fa.fa-list   {{x.Category.type}}
+              md-tooltip Category
+          p.packed
+            span.fa.fa-commenting   {{x.Reviews.length}}
+              md-tooltip Reviews
       p {{x.description}}
-    md-divider(style="background-color: white;")
+        md-tooltip Item Description
+    md-divider.prof-divider
