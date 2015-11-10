@@ -1,19 +1,13 @@
 module.exports = function(sequelize, DataType) {
-  return sequelize.define('Reviews', {
-      review: {
-        type: DataType.TEXT,
-        allowNull: false
-      },
-      review_title: {
-        type: DataType.TEXT,
-        allowNull: false
-      },
-      rating: {
-        type: DataType.INTEGER.UNSIGNED,
+  return sequelize.define('ItemPromotions', {
+      // e.g sponsored, shared, recommended
+      group: {
+        type: DataType.ENUM,
+        values: ['sponsored', 'shared', 'recommended'],
         allowNull: false,
-        defaultValue: 0
       }
     },
+
     // table configuration
     {
       // prevent time stamps from using camelase

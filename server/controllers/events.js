@@ -1,14 +1,15 @@
 (function() {
 
   'use strict';
-  var Events = require('../models/events');
+
   module.exports = {
     // Create event middlware
     create: function(req, res) {
+      var Events = req.app.get('models').Events;
       Events.sync().then(function() {
         return Events.create({
           user_id: req.session.id,
-          ev_name: req.body.eventName,
+          name: req.body.eventName,
           description: req.body.description,
           location: req.body.location,
           venue: req.body.venue,
@@ -35,7 +36,9 @@
     },
 
     // Middleware to get all the events
+
     all: function(req, res) {
+      var Events = req.app.get('models').Events;
       Events.findAll().then(function(event, err) {
         if (event) {
           res.json(event);
@@ -53,11 +56,12 @@
 
     // Middlware to get event by id
     find: function(req, res) {
+      var Events = req.app.get('models').Events;
       return Events.find({
         where: {
           id: req.params.id
         }
-      }).then(function(event, err) {
+      }).then(function(event) {
         if (!event) {
           res.status(404).send({
             message: 'Event not found'
@@ -78,6 +82,7 @@
     },
     // Middlware to  update events
     update: function(req, res) {
+      var Events = req.app.get('models').Events;
       return Events.update(req.body, {
         where: {
           id: req.params.id
@@ -103,6 +108,7 @@
 
     // Middleware to delete an event
     delete: function(req, res) {
+      var Events = req.app.get('models').Events;
       return Events.destroy({
         where: {
           id: req.params.id

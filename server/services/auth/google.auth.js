@@ -1,20 +1,19 @@
-var User = require('../../models/users');
 // Use the GoogleStrategy within Passport.
 // Strategies in Passport require a `verify` function, which accept
 // credentials (in this case, an accessToken, refreshToken, and Google
 // profile), and invoke a callback with a user object.
-module.exports = function(passport, GoogleStrategy, config) {
+module.exports = function(app, passport, config) {
+  var GoogleStrategy = config.strategy.Google,
+    Users = app.get('models').Users;
 
   passport.use(new GoogleStrategy(config.auth.GOOGLE,
     function(accessToken, refreshToken, profile, done) {
-      console.log(profile);
-
       // make the code asynchronous
       // User.findOne won't fire until we have all our data back from Google
       process.nextTick(function() {
 
         // check if the user exists in out database
-        User.findOne({
+        Users.findOne({
             where: {
               'google_auth_id': profile.id
             },
@@ -29,8 +28,8 @@ module.exports = function(passport, GoogleStrategy, config) {
                   username: profile.username,
                   google_auth_id: profile.id,
                   google_auth_token: accessToken,
-                  // provider: 'facebook',
-                  // facebook: profile._json
+                  picture_url: profile.photos[0].value,
+                  gender: profile.gender
                 })
                 // set their name
                 .setFullName(profile.displayName)
@@ -56,9 +55,7 @@ module.exports = function(passport, GoogleStrategy, config) {
               return done(err);
             }
           });
-
       });
-
     }
   ));
 
