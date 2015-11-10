@@ -42,23 +42,9 @@
       })(req, res, next);
     },
 
-    // authenticate either POST/PUT/DELETE request
-    // that requires a user to be logged in
-    // if yes, let the request go through
-    authenticate: function(req, res, next) {
-      if (req.user) {
-        next();
-      } else {
-        // Unathorized request
-        res.status(401).json({
-          message: 'Request is unauthorised.'
-        });
-      }
-    },
-
     session: function(req, res) {
-      if (req.session.user) {
-        res.status(200).send(req.session.user);
+      if (req.decoded) {
+        return res.status(200).json(req.decoded);
       } else {
         res.status(401).send({
           error: 'Unathorized Access'
