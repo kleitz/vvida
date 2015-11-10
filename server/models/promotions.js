@@ -1,16 +1,13 @@
 module.exports = function(sequelize, DataType) {
-  return sequelize.define('Images', {
-      public_id: {
-        type: DataType.STRING,
-        allowNull: false
-      },
-      // image url
-      // hold the url of the images
-      img_url: {
-        type: DataType.STRING,
+  return sequelize.define('ItemPromotions', {
+      // e.g sponsored, shared, recommended
+      group: {
+        type: DataType.ENUM,
+        values: ['sponsored', 'shared', 'recommended'],
         allowNull: false,
       }
     },
+
     // table configuration
     {
       // prevent time stamps from using camelase

@@ -1,7 +1,6 @@
 (function() {
   'use strict';
-  var User = require('../models/users'),
-    passport = require('passport');
+  var passport = require('passport');
 
   module.exports = {
     // login middleware
@@ -15,7 +14,7 @@
         // Generate a JSON response reflecting authentication status
         if (!user) {
           return res.status(500).send({
-            error: 'authentication failed'
+            error: 'Authentication failed.'
           });
         }
         req.session.user = user;
@@ -26,29 +25,28 @@
     // signup middleware
     signup: function(req, res, next) {
       passport.authenticate('signup', function(err, user) {
-        console.log(user);
         // check for errors, if exist send a response with error
         if (err) {
           return res.status(500).send({
-            error: err.message || err.errors[0].message
+            error: err.errors[0].message || err.message
           });
         }
         // If passport doesn't return the user object,  signup failed
         if (!user) {
           return res.status(500).send({
-            error: 'Signup failed'
+            error: 'Signup failed. User already exists.'
           });
         }
         // else signup succesful
-        return res.json(user);
+        return res.json(user.dataValues);
       })(req, res, next);
     },
 
     authenticate: function(req, res, next) {
       // check if the it's POST/PUT/DELETE request
       if (/(post|put|patch)/.test(req.method.toLowerCase())) {
-        // Check if a user is logged in or is a login request
-        if (req.session.user || /(login)/.test(req.path)) {
+        // Check if a user is logged in, is a login or signup request
+        if (req.session.user || /(users|login)$/.test(req.path)) {
           // if yes, let the request go through
           next();
         } else {
@@ -75,7 +73,8 @@
 
     // Middleware to get all users
     all: function(req, res) {
-      User.findAll().then(function(users, err) {
+      var Users = req.app.get('models').Users;
+      Users.findAll().then(function(users, err) {
         if (!users) {
           res.status(404).send({
             error: 'User not found'
@@ -101,8 +100,10 @@
 
     // Middleware to get users by ID
     find: function(req, res) {
-      var userId = req.params.id;
-      User.findOne({
+      var Users = req.app.get('models').Users,
+        userId = req.params.id;
+
+      Users.findOne({
         where: {
           id: userId
         }
@@ -130,11 +131,12 @@
 
     // Middileware to update user data
     update: function(req, res) {
+      var Users = req.app.get('models').Users;
       // edit user email
       delete req.body.password;
-      User.update(req.body, {
+      Users.update(req.body, {
         where: {
-          id: req.params.id
+          id: req.params.id,
         }
       }).then(function(ok, err) {
         if (err) {
@@ -154,8 +156,25 @@
     },
 
     delete: function(req, res) {
-      res.status(501).send({
-        error: 'Not implemented'
+      var Users = req.app.get('models').Users;
+      Users.destroy({
+        where: {
+          id: req.params.id
+        }
+      }).then(function(ok, err) {
+        if (err) {
+          res.status(500).send({
+            error: err.message || err.errors[0].message
+          });
+        } else {
+          res.send({
+            message: 'User deleted succesfully'
+          });
+        }
+      }).catch(function(err) {
+        res.status(500).send({
+          error: err.message || err.errors[0].message
+        });
       });
     },
 
