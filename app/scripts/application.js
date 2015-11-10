@@ -57,6 +57,9 @@
       }, {
         name: 'Events',
         state: 'events'
+      }, {
+        name: 'Products',
+        state: 'item'
       }];
 
       $rootScope.openLeftMenu = function() {
