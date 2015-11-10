@@ -8,7 +8,7 @@
       var Events = req.app.get('models').Events;
       Events.sync().then(function() {
         return Events.create({
-          user_id: req.session.id,
+          user_id: req.body.id,
           name: req.body.name,
           description: req.body.description,
           location: req.body.location,
