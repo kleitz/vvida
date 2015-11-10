@@ -7,6 +7,7 @@ module.exports = function(app, config, passport) {
   require('./items')(app, config);
   require('./countries')(app);
   require('./categories')(app);
+  require('./review')(app);
 
   /* GET home page. */
   app.get('/*', function(req, res) {
