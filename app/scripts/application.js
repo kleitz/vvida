@@ -11,6 +11,8 @@
   require('./services/categories');
   require('./services/countries');
   require('./services/items');
+  require('./services/events');
+  require('./services/reviews');
 
 
   // Require Controllers
