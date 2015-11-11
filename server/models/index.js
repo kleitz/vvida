@@ -1,29 +1,35 @@
-// instantiate the database connection
-var sequelize = require('../config/db-connect'),
-  ucFirst = require('../services/ucfirst'),
-  relationships = require('./relationships');
+var fs = require('fs');
+var path = require('path');
+var Sequelize = require('sequelize');
+var basename = path.basename(module.filename);
+var env = process.env.NODE_ENV || 'development';
+var config = require(__dirname + '/../config/database.json')[env];
+var db = {};
 
-// load models
-var models = [
-  'categories',
-  'events',
-  'images',
-  'items',
-  'promotions',
-  'messages',
-  'notifications',
-  'reviews',
-  'rsvp',
-  'users'
-];
+if (config.use_env_variable) {
+  var sequelize = new Sequelize(process.env[config.use_env_variable]);
+} else {
+  var sequelize = new Sequelize(config.database, config.username, config.password, config);
+}
 
-// add them to be exported in one go
-models.forEach(function(model) {
-  module.exports[ucFirst(model)] = sequelize.import(__dirname + '/' + model);
+fs
+  .readdirSync(__dirname)
+  .filter(function(file) {
+    return (file.indexOf('.') !== 0) && (file !== basename);
+  })
+  .forEach(function(file) {
+    if (file.slice(-3) !== '.js') return;
+    var model = sequelize['import'](path.join(__dirname, file));
+    db[model.name] = model;
+  });
+
+Object.keys(db).forEach(function(modelName) {
+  if (db[modelName].associate) {
+    db[modelName].associate(db);
+  }
 });
 
-// instantiate the relationships
-relationships(module.exports);
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
 
-// export connection
-module.exports.sequelize = sequelize;
+module.exports = db;
