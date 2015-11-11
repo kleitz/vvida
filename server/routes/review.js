@@ -1,10 +1,10 @@
 var Reviews = require('../controllers/review');
 
 module.exports = function(app) {
-  app.route('/api/review')
+  app.route('/api/reviews')
     .post(Reviews.create)
     .get(Reviews.all);
-  app.route('/api/review/:id')
+  app.route('/api/reviews/:id')
     .get(Reviews.find)
     .put(Reviews.update)
     .delete(Reviews.delete);
