@@ -7,13 +7,13 @@
     login: function(req, res, next) {
       passport.authenticate('login', function(err, user) {
         if (err) {
-          return res.status(500).send({
-            error: err.message || err.errors[0].message
+          return res.status(500).json({
+            error: 'Something went wrong while logging you in'
           });
         }
         // Generate a JSON response reflecting authentication status
         if (!user) {
-          return res.status(500).send({
+          return res.status(500).json({
             error: 'Authentication failed.'
           });
         }
@@ -28,13 +28,13 @@
       passport.authenticate('signup', function(err, user) {
         // check for errors, if exist send a response with error
         if (err) {
-          return res.status(500).send({
-            error: err.errors || err.message
+          return res.status(500).json({
+            error: err.message || err.errors[0].message || err
           });
         }
         // If passport doesn't return the user object,  signup failed
         if (!user) {
-          return res.status(500).send({
+          return res.status(500).json({
             error: 'Signup failed. User already exists.'
           });
         }
@@ -43,30 +43,11 @@
       })(req, res, next);
     },
 
-    authenticate: function(req, res, next) {
-      // check if the it's POST/PUT/DELETE request
-      if (/(post|put|patch)/.test(req.method.toLowerCase())) {
-        // Check if a user is logged in, is a login or signup request
-        if (req.session.user || /(users|login)$/.test(req.path)) {
-          // if yes, let the request go through
-          next();
-        } else {
-          // Unathorized request
-          res.status(401).json({
-            message: 'Request is unauthorised.'
-          });
-        }
-      } else {
-        // if not just carry on
-        next();
-      }
-    },
-
     session: function(req, res) {
-      if (req.session.user) {
-        res.status(200).send(req.session.user);
+      if (req.decoded) {
+        return res.status(200).json(req.decoded);
       } else {
-        res.status(401).send({
+        res.status(401).json({
           error: 'Unathorized Access'
         });
       }
@@ -77,11 +58,11 @@
       var Users = req.app.get('models').Users;
       Users.findAll().then(function(users, err) {
         if (!users) {
-          res.status(404).send({
+          res.status(404).json({
             error: 'User not found'
           });
         } else if (err) {
-          res.status(500).send({
+          res.status(500).json({
             message: 'Error retrieving users',
             error: err
           });
@@ -93,7 +74,7 @@
         }
 
       }).catch(function(err) {
-        res.status(500).send({
+        res.status(500).json({
           error: err.message || err.errors[0].message
         });
       });
@@ -110,11 +91,11 @@
         }
       }).then(function(user) {
         if (!user) {
-          res.status(404).send({
+          res.status(404).json({
             message: 'User not found'
           });
         } else if (err) {
-          res.status(500).send({
+          res.status(500).json({
             message: 'Error retrieving user',
             err: err
           });
@@ -124,7 +105,7 @@
           res.json(user);
         }
       }).catch(function(err) {
-        res.status(500).send({
+        res.status(500).json({
           error: err.message || err.errors[0].message
         });
       });
@@ -134,23 +115,22 @@
     update: function(req, res) {
       var Users = req.app.get('models').Users;
       // edit user email
-      delete req.body.password;
       Users.update(req.body, {
         where: {
           id: req.params.id,
         }
       }).then(function(ok, err) {
         if (err) {
-          res.status(500).send({
+          return res.status(500).json({
             error: err.message || err.errors[0].message
           });
-        } else {
-          res.send({
-            message: 'Profile updated succesfully'
-          });
         }
+
+        res.json({
+          message: 'Profile updated successfully.'
+        });
       }).catch(function(err) {
-        res.status(500).send({
+        res.status(500).json({
           error: err.message || err.errors[0].message
         });
       });
@@ -164,16 +144,16 @@
         }
       }).then(function(ok, err) {
         if (err) {
-          res.status(500).send({
+          return res.status(500).json({
             error: err.message || err.errors[0].message
           });
-        } else {
-          res.send({
-            message: 'User deleted succesfully'
-          });
         }
+
+        res.json({
+          message: 'User deleted successfully'
+        });
       }).catch(function(err) {
-        res.status(500).send({
+        res.status(500).json({
           error: err.message || err.errors[0].message
         });
       });
@@ -183,10 +163,12 @@
       req.session.destroy(function(err) {
         if (!err) {
           res.json({
-            message: 'Succesfully logged out'
+            message: 'Successfully logged out'
           });
         } else {
-          res.status(500).send(err);
+          res.status(500).json({
+            error: err.message || err.errors[0].message
+          });
         }
       });
     },

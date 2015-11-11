@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataType) {
         allowNull: false
       },
       rating: {
-        type: DataType.INTEGER.UNSIGNED,
+        type: DataType.INTEGER,
         allowNull: false,
         defaultValue: 0
       }
