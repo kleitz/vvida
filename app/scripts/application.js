@@ -31,10 +31,10 @@
     'vvida.services',
     'vvida.filters',
     'vvida.directives',
+    'ngRoute',
     'ui.router',
     'ngResource',
     'ngMaterial',
-    'ngCookies',
     'angularFileUpload'
   ]);
 

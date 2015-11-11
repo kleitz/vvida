@@ -1,31 +1,27 @@
-.items( layout="column")
-  div(ng-cloak="")
-    md-card
-      md-toolbar.md-accent
-        .md-toolbar-tools(aria-label="settings")
-          span Add product
-      md-content.md-padding
-        form(method="post" enctype="multipart/data" ng-submit="addItems()")
-          md-input-container
-            md-icon(class="fa fa-envelope")
-            md-select(placeholder="Categories" ng-model="item.catId" md-on-open="loadCategories()" class="select")
-              md-option(ng-value="category.id" ng-repeat="category in categories") {{category.type}}
-          md-input-container
-            md-icon(class="fa fa-envelope")
-            input(ng-model="item.name" type="text" placeholder="Product" ng-required="true")
-          md-input-container
-            md-icon(class="fa fa-envelope")
-            input(ng-model="item.description" type="text" placeholder="Description" ng-required="true")
-
-          br
-          md-button.md-raised.md-warn(class="login-button" type="submit")
-            i(class="fa fa-plus-circle")
-            | Add
+md-card.items(layout='column' layout-md="column" layout-sm="column" flex='55')
+  br
+  md-card-content.content
 
 
-
-
-
-
-
-
+md-card.items(layout='column' layout-md="column" layout-sm="column" flex='55')
+  md-card-content
+    h4.md-dispaly-4 Add Item
+    br
+    form(method="post" enctype="multipart/data" ng-submit="addItems()")
+      md-input-container
+        i.fa.fa-list
+          |   Categories
+        md-select( ng-model="item.catId" md-on-open="loadCategories()" class="select")
+          md-option(ng-value="category.id" ng-repeat="category in categories") {{category.type}}
+      md-input-container
+        i.fa.fa-coffee
+          |   Product
+        input(ng-model="item.name" type="text" ng-required="true")
+      md-input-container
+        i.fa.fa-file-text
+          |   Description
+        textarea(ng-model="item.description" type="text" ng-required="true" rows='5')
+      br
+      md-button.md-raised.md-warn(class="login-button" type="submit")
+        i(class="fa fa-plus-circle")
+        | Add

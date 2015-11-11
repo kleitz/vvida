@@ -1,47 +1,82 @@
-div(layout='row' layout-sm="column" layout-md="column")
-      div(flex='' layout-sm="column")
-        div(ng-cloak="")
-          md-card
-            md-content.md-padding
-              h4 Edit Items
-              form(ng-submit="updateItem()")
-                form(method="post" enctype="multipart/data" ng-submit="addItems()")
-                  md-input-container
-                    md-icon(class="fa fa-list")
-                    md-select(ng-model="item.catId" md-on-open="loadCategories()" class="select" aria-label="item.catId")
-                      md-option(ng-value="category.id" ng-repeat="category in categories")   {{category.type}}
-                  md-input-container
-                    md-icon(class="fa fa-coffee")
-                    input(ng-model="item.name" type="text" placeholder="Product" ng-required="true")
-                  md-input-container
-                    md-icon(class="fa fa-file-text")
-                    textarea(ng-model="item.description" placeholder="Description" ng-required="true" ng-maxlength="50")
+md-card.items(layout='column' flex='55')
+  br
+  md-card-content.content
+    div(layout="row")
+      div(flex="30")
+        md-card.ripple-container.profile-pic(md-ink-ripple flex)
+          .card-images.md-card-image(ng-if='currentUser.gender == "male"' style='background-image: url(images/male.png)')
+          .card-images.md-card-image(ng-if='currentUser.gender == "female"' style='background-image: url(images/female.png)')
+      div(flex="70")
+        p.md-display-3(class='packed-bottom') {{currentUser.firstname}} {{currentUser.lastname}}
+        p.md-headline(class='packed-top') {{currentUser.city}}, {{currentUser.country}}
+        div.packed-top(layout="row")
+          md-button.no-space(class='md-padding space-right')
+            span.fa.fa-camera 150 Photos
+          md-button.no-space(class='md-padding space-right')
+            span.fa.fa-star {{reviewsCount}} Reviews
+          md-button.no-space(class='md-padding space-right')
+            span.fa.fa-th-large {{itemsCount}} Products
+          md-button.no-space.md-margin(class='md-padding')
+            span.fa.fa-calendar {{eventsCount}} Events
 
+md-card.items(layout='column' flex='55')
+  br
+  md-content
+    md-tabs(md-dynamic-height='', md-border-bottom='')
+      md-tab(label='one')
+        md-content.md-padding
+          h4.md-display-1 Edit Item
+          br
+          form(ng-submit="updateItem()")
+            form(method="post" enctype="multipart/data" ng-submit="addItems()")
+              md-input-container
+                i.fa.fa-list
+                  |   Categories
+                md-select(ng-model="item.catId" md-on-open="loadCategories()" class="select" aria-label="item.catId")
+                  md-option(ng-value="category.id" ng-repeat="category in categories")   {{category.type}}
+              md-input-container
+                i.fa.fa-coffee
+                  |   Product
+                input(ng-model="item.name" type="text" ng-required="true")
+              md-input-container
+                i.fa.fa-file-text
+                  |   Description
+                textarea(ng-model="item.description" ng-required="true" rows="5")
+
+              br
+              md-button.md-raised.md-warn(class="login-button" type="submit")
+                i(class="fa fa-edit")
+                | Update
+
+
+      md-tab(label='two')
+        md-content.md-padding
+          h4.md-display-1 Upload Images
+          form(ng-submit="upload()")
+            md-button.md-raised.md-warn.file-upload
+              i.fa.fa-picture-o
+              | select images
+              input.upload(type="file" nv-file-select="" uploader="uploader" multiple)
+            md-list.listdemoListControls(ng-cloak='')
+              md-subheader.md-no-sticky The queue. Length: {{ uploader.queue.length }}
+              md-list-item(ng-repeat='item in uploader.queue')
+                md-subheader {{ item.file.name }}
                   br
-                  md-button.md-raised.md-warn(class="login-button" type="submit")
-                    i(class="fa fa-edit")
-                    | Add
+                md-progress-linear.md-primary(md-mode='determinate', value='{{item.progress}}')
+                br
 
-      div(flex='' layout-sm="column")
-        div(ng-cloak="")
-          md-card
-            md-content.md-padding
-              h4 Upload Images
-              form(ng-submit="upload()")
-                input(type="file" nv-file-select="" uploader="uploader" multiple)
-                h4 The queue. Length: {{ uploader.queue.length }}
-                    div(ng-repeat='item in uploader.queue')
-                      p Name: {{ item.file.name }}
-                      p  Size: {{ item.file.size/1024/1024|number:2 }} Mb
+              md-divider
+              br
+              div
+                div
+                  md-progress-linear.md-primary(md-mode='determinate', value='{{uploader.progress}}')
+                  br
+                  div(ng-init="showToast()" ng-if="uploader.progress === 100 && !uploader.isUploading")
+                  .total-progress-box
+                    .total-progress(ng-style="{ 'width': uploader.progress + '%' }")
+                md-button.md-raised.md-warn(ng-click='uploader.uploadAll()', ng-disabled='!uploader.getNotUploadedItems().length')
+                  i.fa.fa-cloud-upload
+                md-button.md-raised.md-warn(ng-click='uploader.cancelAll()', ng-disabled='!uploader.isUploading')
+                  i.fa.fa-ban
+                md-button.md-raised.md-warn(ng-click='uploader.clearQueue()', ng-disabled='!uploader.queue.length') Remove all
 
-                      md-progress-linear.md-warn(md-mode='determinate', value='{{item.progress}}')
-
-                  div
-                    div
-                      | Total progress: {{ uploader.progress }}
-                      div(ng-init="showToast()" ng-if="uploader.progress === 100 && !uploader.isUploading")
-                      .total-progress-box
-                        .total-progress(ng-style="{ 'width': uploader.progress + '%' }")
-                    md-button.md-raised.md-warn(ng-click='uploader.uploadAll()', ng-disabled='!uploader.getNotUploadedItems().length') Upload all
-                    md-button.md-raised.md-warn(ng-click='uploader.cancelAll()', ng-disabled='!uploader.isUploading') Cancel all
-                    md-button.md-raised.md-warn(ng-click='uploader.clearQueue()', ng-disabled='!uploader.queue.length') Remove all

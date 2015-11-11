@@ -3,7 +3,6 @@
   angular.module('vvida.controllers')
     .controller('ItemsImgCtrl', ['$scope', '$stateParams', 'Categories', 'FileUploader', 'Utils', 'Items',
       function($scope, $stateParams, Categories, FileUploader, Utils, Items) {
-
         var itemId = $stateParams.id;
         var init = function() {
           $scope.item = {
