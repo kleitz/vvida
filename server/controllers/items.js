@@ -24,8 +24,15 @@
     },
 
     all: function(req, res) {
-      var Items = req.app.get('models').Items;
-      Items.findAll().then(function(item) {
+      var Items = req.app.get('models').Items,
+        Images = req.app.get('models').Images;
+      Items.findAll({
+        limit: 3,
+        order: [
+          ['id', 'DESC']
+        ],
+        include: [Images]
+      }).then(function(item) {
         res.json(item);
       }).catch(function(err) {
         res.status(500).send({
