@@ -4,7 +4,7 @@
 
   module.exports = function(app, config, passport) {
 
-    require('./users')(app, passport, auth);
+    require('./users')(app, auth);
     require('./auth/facebook.auth')(app, passport);
     require('./auth/google.auth')(app, passport);
     require('./events')(app, auth);

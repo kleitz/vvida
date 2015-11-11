@@ -90,6 +90,7 @@ module.exports = function(sequelize, DataType) {
         type: DataType.STRING,
         allowNull: true,
       },
+
       picture_url: {
         type: DataType.STRING,
         allowNull: true,

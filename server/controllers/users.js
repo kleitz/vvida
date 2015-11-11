@@ -1,7 +1,7 @@
 (function() {
   'use strict';
-  var passport = require('passport');
-
+  var passport = require('passport'),
+    countryArray = require('./countries.js');
   module.exports = {
     // login middleware
     login: function(req, res, next) {
@@ -17,6 +17,7 @@
             error: 'Authentication failed.'
           });
         }
+        user.password = null;
         req.session.user = user;
         return res.json(user);
       })(req, res, next);
@@ -28,7 +29,7 @@
         // check for errors, if exist send a response with error
         if (err) {
           return res.status(500).json({
-            error: err.message || err.errors[0].message
+            error: err.message || err.errors[0].message || err
           });
         }
         // If passport doesn't return the user object,  signup failed
@@ -88,7 +89,7 @@
         where: {
           id: userId
         }
-      }).then(function(user, err) {
+      }).then(function(user) {
         if (!user) {
           res.status(404).json({
             message: 'User not found'
@@ -170,6 +171,10 @@
           });
         }
       });
+    },
+
+    countries: function(req, res) {
+      res.status(200).send(countryArray);
     }
   };
 })();

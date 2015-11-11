@@ -127,8 +127,6 @@ describe('User RESTful API tests', function() {
     request
       .get(resourceApiUrl + '/' + user.id)
       .accept('application/json')
-      // .expect('Content-Type', /json/)
-      // .expect(200)
       .end(function(err, res) {
         if (res.ok) {
           _expect(res.body.id).to.be(user.id);

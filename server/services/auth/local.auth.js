@@ -9,12 +9,10 @@ module.exports = function(app, passport, config) {
     usernameField: 'email',
     passwordField: 'password'
   }, function(email, password, done) {
-    Users.sync().then(function() {
-      var hash = bcrypt.hashSync(password);
-      return Users.create({
-        email: email,
-        password: hash
-      });
+    var hash = bcrypt.hashSync(password);
+    return Users.create({
+      email: email,
+      password: hash
     }).then(function(user) {
       if (!user) {
         return done(null, false);
@@ -39,13 +37,10 @@ module.exports = function(app, passport, config) {
       if (!user) {
         return done(null, false);
       }
-
       // we require to compare the sent password
       // hashed value with the saved hashed value
-      if (!bcrypt.compareSync(password, user.password)) {
-        return done(null, false, {
-          message: 'invalid password'
-        });
+      if (bcrypt.compareSync(password, user.password) !== true) {
+        return done(null, false);
       }
 
       delete user.token;

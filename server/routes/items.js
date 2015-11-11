@@ -17,7 +17,6 @@
       .put(auth.authenticate, Items.update)
       // Delete items
       .delete(auth.authenticate, Items.delete);
-
   };
 
 })();

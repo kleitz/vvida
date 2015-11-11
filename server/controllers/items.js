@@ -1,6 +1,5 @@
 (function() {
   'use strict';
-
   module.exports = {
     create: function(req, res) {
       var Items = req.app.get('models').Items;
