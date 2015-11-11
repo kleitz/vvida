@@ -17,7 +17,7 @@ var config = require('./server/config')[env],
   app = express(),
   passport = require('passport'),
   session = require('express-session'),
-  models = require('./server/models'),
+  models = require('./server/models/init'),
   auth = require('./server/services/auth');
 
 
