@@ -9,6 +9,8 @@
         if (result && !result.error) {
           return Images.create({
             item_id: req.body.id,
+            event_id: req.body.id,
+            user_id: req.body.id,
             public_id: result.public_id,
             img_url: result.url
           }).then(function(image) {
