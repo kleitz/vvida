@@ -1,20 +1,37 @@
-.event-jumbotron(layout = "row" layout-sm = "column")
-  img.event-img-jt.md-margin(flex src = "images/vvidaStockPhoto_2.jpg")
-  div.event-text-jt.md-margin(flex)
-    md-divider.text-divider
-    h1.title Event Name
-    md-divider.text-divider
-    p.md-padding.text
-      | "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-.event-info(layout = "row")
-  .info-cat.md-padding(flex)
-    .divider
-      h1.to-uppercase WHEN
-      P 7th October 2015
-  .info-cat.md-padding(flex)
-    .divider
-      h1.to-uppercase WHERE
-      P Kindaruma Campus
-  .info-cat.md-padding(flex)
-    h1.to-uppercase TIME
-    P 8.00 TO 12.OO PM
+.event-jumbotron(style='text-align: center')
+  .event-jumbotron-header.md-margin
+    h2 EVENTS
+  .event-jumbotron-gridlist
+    .gridListdemoBasicUsage(layout layout-align='center center')
+      md-grid-list(md-cols-sm='1', md-cols-md='2', md-cols-gt-md='2', md-row-height-gt-md='1:1', md-row-height='2:2', md-gutter='12px', md-gutter-gt-sm='8px')
+        md-grid-tile.md-whiteframe-8dp.gray(md-rowspan='1', md-colspan='1', md-colspan-sm='1')
+          .md-grid-tile-img.ripple-container(md-ink-ripple flex)
+            img(src='images/eventImage1.jpg')
+          md-grid-tile-footer
+            h3(style='color: white; font-weight: bold') J.COLE PERFORMING LIVE AT THE MADISON SQUARE
+        md-grid-tile.md-whiteframe-8dp.green
+          .md-grid-tile-img.ripple-container(md-ink-ripple flex)
+            img(src='images/eventImage4.jpg')
+          md-grid-tile-footer
+            h3 #2: (1r x 1c)
+        md-grid-tile.md-whiteframe-8dp.yellow
+          .md-grid-tile-img.ripple-container(md-ink-ripple flex)
+            img(src='http://lorempixel.com/640/640/nightlife')
+          md-grid-tile-footer
+            h3 #3: (1r x 1c)
+        md-grid-tile.md-whiteframe-8dp.blue
+          .md-grid-tile-img.ripple-container(md-ink-ripple flex)
+            img(src='http://lorempixel.com/640/640/animals')
+          md-grid-tile-footer
+            h3 #4: (2r x 1c)
+        md-grid-tile.md-whiteframe-8dp.red
+          .md-grid-tile-img.ripple-container(md-ink-ripple flex)
+            img(src='http://lorempixel.com/640/640/business')
+          md-grid-tile-footer
+            h3 #5: (2r x 2c)
+        md-grid-tile.md-whiteframe-8dp.green
+          .md-grid-tile-img.ripple-container(md-ink-ripple flex)
+            img(src='http://lorempixel.com/640/640/nature')
+          md-grid-tile-footer
+            h3 #6: (2r x 1c)
+
