@@ -23,7 +23,8 @@
         Items.get({
           id: itemId
         }, function(item) {
-          console.log(item);
+          $scope.images = item.Images;
+          console.log($scope.images);
           $scope.item = item;
         });
 

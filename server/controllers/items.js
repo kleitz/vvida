@@ -42,11 +42,13 @@
     },
 
     find: function(req, res) {
-      var Items = req.app.get('models').Items;
+      var Items = req.app.get('models').Items,
+        Images = req.app.get('models').Images;
       return Items.find({
         where: {
           id: req.params.id
-        }
+        },
+        include: [Images]
       }).then(function(item) {
         if (!item) {
           res.status(404).send({

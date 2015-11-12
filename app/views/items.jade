@@ -11,16 +11,16 @@ md-card.items(layout='column' layout-md="column" layout-sm="column" flex='55')
       md-input-container
         i.fa.fa-list
           |   Categories
-        md-select( ng-model="item.catId" md-on-open="loadCategories()" class="select")
+        md-select( ng-model="item.catId" md-on-open="loadCategories()" class="select" aria-label="item.catId")
           md-option(ng-value="category.id" ng-repeat="category in categories") {{category.type}}
       md-input-container
         i.fa.fa-coffee
           |   Product
-        input(ng-model="item.name" type="text" ng-required="true")
+        input(ng-model="item.name" type="text" ng-required="true" aria-label="item.name")
       md-input-container
         i.fa.fa-file-text
           |   Description
-        textarea(ng-model="item.description" type="text" ng-required="true" rows='5')
+        textarea(ng-model="item.description" type="text" ng-required="true" rows='5' aria-label="item.description")
       br
       md-button.md-raised.md-warn(class="login-button" type="submit")
         i(class="fa fa-plus-circle")
