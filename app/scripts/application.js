@@ -18,6 +18,7 @@
   require('./controllers/home');
   require('./controllers/profile');
   require('./controllers/about');
+  require('./controllers/events');
   require('./controllers/login');
   require('./controllers/welcome');
   require('./controllers/header');
