@@ -72,32 +72,16 @@
           });
           res.json(users);
         }
-
-      }).catch(function(err) {
-        res.status(500).json({
-          error: err.message || err.errors[0].message
-        });
       });
     },
 
     // Middleware to get users by ID
     find: function(req, res) {
-      var Users = req.app.get('models').Users,
-        userId = req.params.id;
-
-      Users.findOne({
-        where: {
-          id: userId
-        }
-      }).then(function(user) {
+      var Users = req.app.get('models').Users;
+      Users.findById(req.params.id).then(function(user) {
         if (!user) {
           res.status(404).json({
             message: 'User not found'
-          });
-        } else if (err) {
-          res.status(500).json({
-            message: 'Error retrieving user',
-            err: err
           });
         } else {
           user.password = null;
@@ -106,7 +90,8 @@
         }
       }).catch(function(err) {
         res.status(500).json({
-          error: err.message || err.errors[0].message
+          message: 'Error retrieving user',
+          err: err
         });
       });
     },
@@ -129,10 +114,6 @@
         res.json({
           message: 'Profile updated successfully.'
         });
-      }).catch(function(err) {
-        res.status(500).json({
-          error: err.message || err.errors[0].message
-        });
       });
     },
 
@@ -151,10 +132,6 @@
 
         res.json({
           message: 'User deleted successfully'
-        });
-      }).catch(function(err) {
-        res.status(500).json({
-          error: err.message || err.errors[0].message
         });
       });
     },

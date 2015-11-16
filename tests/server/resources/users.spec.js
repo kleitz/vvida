@@ -32,17 +32,14 @@ describe('User RESTful API tests', function() {
       .get(resourceApiUrl)
       .accept('application/json')
       .end(function(err, res) {
-        if (res.ok) {
-          if (res.body.length === 0) {
-            _expect(Array.isArray(res.body)).to.be.ok();
-            _expect(res.body).to.be.ok();
-          } else {
-            _expect(typeof res.body[0].id).to.be('number');
-          }
-          done();
+        _expect(res.status).to.be(200);
+        if (res.body.length === 0) {
+          _expect(Array.isArray(res.body)).to.be.ok();
+          _expect(res.body).to.be.ok();
         } else {
-          throw err;
+          _expect(typeof res.body[0].id).to.be('number');
         }
+        done();
       });
   });
 
@@ -60,15 +57,13 @@ describe('User RESTful API tests', function() {
       // .expect('Content-Type', /json/)
       // .expect(200)
       .end(function(err, res) {
-        if (res.ok) {
-          var data = res.body;
-          _expect(data.email).to.be(newUser.email);
-          _expect(data.id).to.be.ok();
-          _expect(typeof data.id).to.be('number');
-          user = data;
-        } else {
-          throw err;
-        }
+        _expect(res.status).to.be(200);
+
+        var data = res.body;
+        _expect(data.email).to.be(newUser.email);
+        _expect(data.id).to.be.ok();
+        _expect(typeof data.id).to.be('number');
+        user = data;
         done();
       });
   });
@@ -85,19 +80,17 @@ describe('User RESTful API tests', function() {
       .send(newUser)
       .accept('application/json')
       .end(function(err, res) {
-        if (res.ok) {
-          var data = res.body;
-          _expect(data.email).to.be(newUser.email);
-          _expect(data.id).to.be.ok();
-          _expect(data.id).to.be.a('number');
+        _expect(res.status).to.be(200);
 
-          _expect(data.token).to.be.a('string');
-          _expect(data.token.length).to.be.greaterThan(100);
-          user = data;
-          authToken = data.token;
-        } else {
-          throw err;
-        }
+        var data = res.body;
+        _expect(data.email).to.be(newUser.email);
+        _expect(data.id).to.be.ok();
+        _expect(data.id).to.be.a('number');
+
+        _expect(data.token).to.be.a('string');
+        _expect(data.token.length).to.be.greaterThan(100);
+        user = data;
+        authToken = data.token;
         done();
       });
   });
@@ -128,14 +121,10 @@ describe('User RESTful API tests', function() {
       .get(resourceApiUrl + '/' + user.id)
       .accept('application/json')
       .end(function(err, res) {
-        if (res.ok) {
-          _expect(res.body.id).to.be(user.id);
-        } else {
-          throw err;
-        }
+        _expect(res.status).to.be(200);
+        _expect(res.body.id).to.be(user.id);
         done();
       });
-
   });
 
   /**
@@ -166,11 +155,8 @@ describe('User RESTful API tests', function() {
       .send(userInfoUpdates)
       .accept('application/json')
       .end(function(err, res) {
-        if (res.ok) {
-          _expect(res.text).to.match(/(success)/);
-        } else {
-          throw err;
-        }
+        _expect(res.status).to.be(200);
+        _expect(res.text).to.match(/(success)/);
         done();
       });
   });
@@ -188,11 +174,8 @@ describe('User RESTful API tests', function() {
       .set('X-Access-Token', authToken)
       .accept('application/json')
       .end(function(err, res) {
-        if (res.ok) {
-          _expect(res.text).to.match(/(success)/);
-        } else {
-          throw err;
-        }
+        _expect(res.status).to.be(200);
+        _expect(res.text).to.match(/(success)/);
         done();
       });
   });

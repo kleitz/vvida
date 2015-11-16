@@ -1,20 +1,20 @@
 {
   "development": {
-    "username": "postgres",
+    "username": "kn9ts",
     "password": "root",
     "database": "vvida",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {
-    "username": "postgres",
+    "username": "kn9ts",
     "password": "root",
     "database": "vvida",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "production": {
-    "username": "postgres",
+    "username": "kn9ts",
     "password": "root",
     "database": "vvida",
     "host": "127.0.0.1",
