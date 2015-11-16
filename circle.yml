@@ -2,10 +2,17 @@ dependencies:
  pre:
   - bower install
  post:
-  - npm install module-deps
+  - npm install module-deps 
   - npm install gulp -g
+
+machine:
+  environment:
+    CIRCLE_ENV: test
+    DATABASE_URL: postgres://ubuntu:@127.0.0.1:5432/circle_test
+
 test:
   override:
+
 deployment:
   production:
     branch: master
