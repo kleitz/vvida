@@ -30,7 +30,7 @@ module.exports = function(sequelize, DataType) {
       gender: {
         type: DataType.ENUM,
         values: ['male', 'female', 'hidden'],
-        defaultValue: 'hidden'
+        // defaultValue: 'hidden'
       },
       // date of birth
       dob: {

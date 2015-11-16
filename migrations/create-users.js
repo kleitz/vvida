@@ -35,7 +35,7 @@
           gender: {
             type: Sequelize.ENUM,
             values: ['male', 'female', 'hidden'],
-            defaultValue: 'hidden'
+            // defaultValue: 'unknown'
           },
           // date of birth
           dob: {
