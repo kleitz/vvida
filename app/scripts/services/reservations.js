@@ -1,6 +1,6 @@
 angular.module('vvida.services')
   .factory('Reservations', ['$resource', function($resource) {
-    var obj = $resource('/api/reserveations/:id', {
+    return $resource('/api/reserveations/:id', {
       id: '@id'
     }, {
       update: {

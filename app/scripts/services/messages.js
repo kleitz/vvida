@@ -1,6 +1,6 @@
 angular.module('vvida.services')
   .factory('Messages', ['$resource', function($resource) {
-    var obj = $resource('/api/messages/:id', {
+    return $resource('/api/messages/:id', {
       id: '@id'
     }, {
       update: {
