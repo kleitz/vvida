@@ -37,14 +37,10 @@ describe('Items resource API tests', function() {
         password: '3at1ngYums@wh1leD0ingTh3Whip.c0m'
       })
       .end(function(err, res) {
-        if (res.ok) {
-          _expect(res.status).to.be(200);
-          _expect(res.body.token).to.be.a('string');
-          _expect(res.body.token.length).to.be.greaterThan(100);
-          authToken = res.body.token;
-        } else {
-          throw err;
-        }
+        _expect(res.status).to.be(200);
+        _expect(res.body.token).to.be.a('string');
+        _expect(res.body.token.length).to.be.greaterThan(100);
+        authToken = res.body.token;
         done();
       });
   });
@@ -60,21 +56,17 @@ describe('Items resource API tests', function() {
       .get(resourceApiUrl)
       .accept('application/json')
       .end(function(err, res) {
-        if (res.ok) {
-          _expect(res.status).to.be(200);
-          if (res.body.length === 0) {
-            _expect(res.body).to.be.an('array');
-          } else {
-            var items = res.body;
-            _expect(items.length).to.be.greaterThan(0);
-            _expect(items[0].id).to.be.a('number');
-            _expect(items[0].user_id).to.be.a('number');
-            _expect(items[0].name).to.be.a('string');
-            _expect(items[0].description).to.be.a('string');
-            _expect(items[0].description).to.match(/(\s){1,}/g);
-          }
+        _expect(res.status).to.be(200);
+        if (res.body.length === 0) {
+          _expect(res.body).to.be.an('array');
         } else {
-          throw err;
+          var items = res.body;
+          _expect(items.length).to.be.greaterThan(0);
+          _expect(items[0].id).to.be.a('number');
+          _expect(items[0].user_id).to.be.a('number');
+          _expect(items[0].name).to.be.a('string');
+          _expect(items[0].description).to.be.a('string');
+          _expect(items[0].description).to.match(/(\s){1,}/g);
         }
         done();
       });
@@ -88,14 +80,12 @@ describe('Items resource API tests', function() {
       .send(item)
       .accept('application/json')
       .end(function(err, res) {
-        if (res.ok) {
-          var newItem = res.body;
-          _expect(newItem.name).to.be(item.itemName);
-          _expect(newItem.id).to.be.a('number');
-          id = newItem.id;
-        } else {
-          throw err;
-        }
+        _expect(res.status).to.be(200);
+
+        var newItem = res.body;
+        _expect(newItem.name).to.be(item.itemName);
+        _expect(newItem.id).to.be.a('number');
+        id = newItem.id;
         done();
       });
   });
@@ -126,12 +116,8 @@ describe('Items resource API tests', function() {
       .get(resourceApiUrl + '/' + id)
       .accept('application/json')
       .end(function(err, res) {
-        if (res.ok) {
-          _expect(res.status).to.be(200);
-          _expect(res.body.id).to.be(id);
-        } else {
-          throw err;
-        }
+        _expect(res.status).to.be(200);
+        _expect(res.body.id).to.be(id);
         done();
       });
   });
@@ -163,15 +149,9 @@ describe('Items resource API tests', function() {
       .set('X-Access-Token', authToken)
       .send(generateFakeItemUpdate())
       .accept('application/json')
-      // .expect('Content-Type', /json/)
-      // .expect(200)
       .end(function(err, res) {
-        if (res.ok) {
-          _expect(res.status).to.be(200);
-          _expect(res.body.message).to.match(/(updated)/);
-        } else {
-          throw err;
-        }
+        _expect(res.status).to.be(200);
+        _expect(res.body.message).to.match(/(updated)/);
         done();
       });
   });
@@ -189,12 +169,8 @@ describe('Items resource API tests', function() {
       .set('X-Access-Token', authToken)
       .accept('application/json')
       .end(function(err, res) {
-        if (res.ok) {
-          _expect(res.status).to.be(200);
-          _expect(res.body.message).to.match(/(success)/);
-        } else {
-          throw err;
-        }
+        _expect(res.status).to.be(200);
+        _expect(res.body.message).to.match(/(success)/);
         done();
       });
   });

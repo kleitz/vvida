@@ -1,6 +1,5 @@
 module.exports = function(sequelize, DataType) {
   return sequelize.define('Users', {
-
       // username
       username: {
         type: DataType.STRING,
@@ -90,12 +89,13 @@ module.exports = function(sequelize, DataType) {
         type: DataType.STRING,
         allowNull: true,
       },
-
+      // Profile image
       picture_url: {
         type: DataType.STRING,
         allowNull: true,
         defaultValue: 'images/user.png'
       },
+      // JWT token
       token: {
         type: DataType.STRING(1024),
         allowNull: true,
