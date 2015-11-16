@@ -18,7 +18,7 @@ module.exports = {
     }], {});
   },
 
-  down: function(queryInterface, Sequelize) {
+  down: function(queryInterface) {
     /*
       Add reverting commands here.
       Return a promise to correctly handle asynchronicity.
