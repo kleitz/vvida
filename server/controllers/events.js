@@ -5,10 +5,11 @@
   module.exports = {
     // Create event middlware
     create: function(req, res) {
+
       var Events = req.app.get('models').Events;
       return Events.create({
-        user_id: req.session.id,
-        name: req.body.eventName,
+        user_id: req.session.user.id,
+        name: req.body.name,
         description: req.body.description,
         location: req.body.location,
         venue: req.body.venue,
@@ -36,8 +37,15 @@
     // Middleware to get all the events
 
     all: function(req, res) {
-      var Events = req.app.get('models').Events;
-      Events.findAll().then(function(event, err) {
+      var Events = req.app.get('models').Events,
+        Images = req.app.get('models').Images;
+      return Events.findAll({
+        limit: 3,
+        order: [
+          ['id', 'DESC']
+        ],
+        include: [Images]
+      }).then(function(event, err) {
         if (event) {
           res.json(event);
         } else if (err) {
@@ -54,20 +62,17 @@
 
     // Middlware to get event by id
     find: function(req, res) {
-      var Events = req.app.get('models').Events;
+      var Events = req.app.get('models').Events,
+        Images = req.app.get('models').Images;
       return Events.find({
         where: {
-          id: req.params.id
-        }
+          id: req.params.id,
+        },
+        include: [Images]
       }).then(function(event) {
         if (!event) {
           res.status(404).send({
             message: 'Event not found'
-          });
-        } else if (err) {
-          res.status(500).send({
-            message: 'Error retrieving event',
-            error: err
           });
         } else {
           res.json(event);

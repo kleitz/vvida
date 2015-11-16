@@ -40,10 +40,11 @@ md-card.jumbotron.search-jumbotron
 .events
   h4.md-margin EVENTS
   .content-events(layout="row" layout-sm="column" layout-md="column")
-    md-card.ripple-container(md-ink-ripple flex)
+    md-card.ripple-container(md-ink-ripple flex ng-repeat="event in events")
       .card-images.md-card-image(style='background-image: url({{event.Images[0].img_url}})')
       md-card-content
-        p
+        h4.md-display-9 {{event.name}}
+        p {{event.description}}
 
 .products
   h4.md-margin PRODUCTS

@@ -25,6 +25,8 @@
   require('./controllers/header');
   require('./controllers/items');
   require('./controllers/edit-item');
+  require('./controllers/edit-event');
+  require('./controllers/add-event');
 
   window.app = angular.module('vvida', [
     'vvida.controllers',
@@ -104,6 +106,16 @@
         url: '/item/{id}/edit',
         controller: 'ItemsImgCtrl',
         templateUrl: 'views/edit-item.html'
+      })
+      .state('addEvent', {
+        url: '/events/create',
+        controller: 'AddEventCtrl',
+        templateUrl: 'views/add-event.html'
+      })
+      .state('editEvent', {
+        url: '/events/{id}/edit',
+        controller: 'EventsEditCtrl',
+        templateUrl: 'views/edit-event.html'
       })
       .state('login', {
         url: '/users/login',
