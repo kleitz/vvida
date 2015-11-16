@@ -5,4 +5,4 @@ module.exports = {
   'migrations-path': path.resolve('./', 'migrations'),
   'seeders-path': path.resolve('./', 'seeders'),
   'models-path': path.resolve('./', 'server/models')
-}
+};
