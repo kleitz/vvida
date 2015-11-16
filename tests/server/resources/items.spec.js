@@ -33,8 +33,8 @@ describe('Items resource API tests', function() {
     request
       .post('http://localhost:3000/api/users/login')
       .send({
-        email: 'eugene@gmail.com',
-        password: 'password'
+        email: 'vvidaapp@gmail.com',
+        password: '3at1ngYums@wh1leD0ingTh3Whip.c0m'
       })
       .end(function(err, res) {
         if (res.ok) {
@@ -63,7 +63,7 @@ describe('Items resource API tests', function() {
         if (res.ok) {
           _expect(res.status).to.be(200);
           if (res.body.length === 0) {
-            _expect(res.body).to.be(Array);
+            _expect(res.body).to.be.an('array');
           } else {
             var items = res.body;
             _expect(items.length).to.be.greaterThan(0);
