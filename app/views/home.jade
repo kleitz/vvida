@@ -24,18 +24,11 @@ md-card.jumbotron.search-jumbotron
 .top-reviews
   h4.md-margin TOP REVIEWS
   .content-top-reviews(layout="row" layout-sm="column" layout-md="column")
-    md-card.ripple-container(md-ink-ripple flex)
+    md-card.ripple-container(md-ink-ripple flex ng-repeat="review in reviews")
       .card-images.md-card-image(style='background-image: url(images/reviews-photo1.jpg)')
       md-card-content
-        p Unlike ice cream trucks of yore, Twirl &amp; Dip is pretty stationary in a spot to the right of Cal Academy. When you're facing the museum, swing to the right and follow it to the main road and you'll see the truck on your left. Unless Karl the Fog is completely blanketing the park, there's guaranteed to be a bit of a wait.
-    md-card.ripple-container(md-ink-ripple flex)
-      .card-images.md-card-image(style='background-image: url(images/reviews-photo2.jpeg)')
-      md-card-content
-        p What should you get? Don't argue with me. It's organic vanilla bean soft serve (none of this "1/2 1/2 swirl" business), dipped in silky Tcho chocolate topped with barely there granules of Maldon sea salt. If you're looking for an Insta-worthy photo op and I know you are, try rainbow sprinkles, honeycomb candy, toffee pieces, etc for some texture and color.
-    md-card.ripple-container(md-ink-ripple flex)
-      .card-images.md-card-image(style='background-image: url(images/reviews-photo3.jpg)')
-      md-card-content
-        p It only falls one star for how pricey a single cone gets with just one or two add-ons. Unless you're just going for a simple scoop of Mitchell's, a soft-serve cone runs $5-7 easy. But hey, it's organic, fair trade and uses local as much as possible so feel good about your ice-cream indulging self.
+        p {{review.review}}
+
 
 .events
   h4.md-margin EVENTS

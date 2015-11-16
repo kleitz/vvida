@@ -4,12 +4,8 @@ module.exports = function(sequelize, DataType) {
         type: DataType.TEXT,
         allowNull: false
       },
-      review_title: {
-        type: DataType.TEXT,
-        allowNull: false
-      },
       rating: {
-        type: DataType.INTEGER.UNSIGNED,
+        type: DataType.INTEGER,
         allowNull: false,
         defaultValue: 0
       }
