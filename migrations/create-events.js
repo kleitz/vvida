@@ -48,8 +48,13 @@
           sponsor: {
             type: Sequelize.TEXT,
             allowNull: true
+          },
+          created_at: {
+            type: Sequelize.DATE
+          },
+          updated_at: {
+            type: Sequelize.DATE
           }
-
         },
         // table configuration
         {
