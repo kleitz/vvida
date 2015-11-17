@@ -137,9 +137,15 @@
             },
             // to be clarified
             defaultValue: 'yes'
+          },
+          created_at: {
+            type: Sequelize.DATE
+          },
+          updated_at: {
+            type: Sequelize.DATE
           }
         },
-        // table configuration
+        // table configuration 
         {
           instanceMethods: {
             getFullName: function() {
