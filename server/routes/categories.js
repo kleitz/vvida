@@ -1,19 +1,15 @@
-
-// Items api
-// this api will handle all the routes for items
 (function() {
   'use strict';
   var Categories = require('../controllers/categories');
 
-  module.exports = function(app) {
-
+  module.exports = function(app, auth) {
     app.route('/api/categories')
-      // create item route.
-      .post(Categories.create)
+      .post(auth.authenticate, Categories.create)
       .get(Categories.all);
-    app.route('/api/categories/:id')
-      .delete(Categories.delete);
 
+    app.route('/api/categories/:id')
+      // .get(Categories.find)
+      // .put(auth.authenticate, Categories.update)
+      .delete(auth.authenticate, Categories.delete);
   };
 })();
-

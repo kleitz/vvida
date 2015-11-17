@@ -13,6 +13,7 @@
   require('./services/items');
   require('./services/events');
   require('./services/reviews');
+  require('./services/auth');
 
 
   // Require Controllers
@@ -24,9 +25,7 @@
   require('./controllers/welcome');
   require('./controllers/header');
   require('./controllers/items');
-  require('./controllers/edit-item');
-  require('./controllers/edit-event');
-  require('./controllers/add-event');
+  require('./controllers/event');
 
   window.app = angular.module('vvida', [
     'vvida.controllers',
@@ -40,16 +39,20 @@
     'angularFileUpload'
   ]);
 
-  window.app.run(['$rootScope', '$location', '$mdSidenav', 'Users',
-    function($rootScope, $location, $mdSidenav, Users) {
+  window.app.run(['$rootScope', '$location', '$state', '$mdSidenav', 'Users', 'Auth',
+    function($rootScope, $location, $state, $mdSidenav, Users, Auth) {
       // Check if the user's session is still being persisted in the servers
-      Users.session(function(err, res) {
-        if (!err) {
-          $rootScope.currentUser = res;
-        } else {
-          console.log('Error: ', err.error);
-        }
-      });
+      if (Auth.isLoggedIn()) {
+        Users.session(function(err, res) {
+          if (!err) {
+            $rootScope.currentUser = res;
+          } else {
+            console.log('Error: ', err.error);
+          }
+        });
+      } else {
+        $state.go('home');
+      }
 
       $rootScope.menu = [{
         name: 'Home',
@@ -94,7 +97,7 @@
       })
       .state('events', {
         url: '/events',
-        controller: 'EventsCtrl',
+        controller: 'EventCtrl',
         templateUrl: 'views/events.html'
       })
       .state('profile', {
@@ -102,19 +105,24 @@
         controller: 'ProfileCtrl',
         templateUrl: 'views/edit-profile.html'
       })
+      .state('addItem', {
+        url: '/items/create',
+        controller: 'ItemCtrl',
+        templateUrl: 'views/edit-item.html'
+      })
       .state('editItem', {
-        url: '/item/{id}/edit',
-        controller: 'ItemsImgCtrl',
+        url: '/items/{id}/edit',
+        controller: 'ItemCtrl',
         templateUrl: 'views/edit-item.html'
       })
       .state('addEvent', {
         url: '/events/create',
-        controller: 'AddEventCtrl',
+        controller: 'EventCtrl',
         templateUrl: 'views/add-event.html'
       })
       .state('editEvent', {
         url: '/events/{id}/edit',
-        controller: 'EventsEditCtrl',
+        controller: 'EventCtrl',
         templateUrl: 'views/edit-event.html'
       })
       .state('login', {
@@ -136,11 +144,6 @@
         url: '/404',
         templateUrl: 'views/404.html',
         controller: function($scope) {}
-      })
-      .state('item', {
-        url: '/items',
-        controller: 'ItemsCtrl',
-        templateUrl: 'views/items.html'
       });
 
     $locationProvider.html5Mode(true);

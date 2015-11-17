@@ -1,6 +1,5 @@
 module.exports = function(sequelize, DataType) {
   return sequelize.define('Users', {
-
       // username
       username: {
         type: DataType.STRING,
@@ -71,34 +70,35 @@ module.exports = function(sequelize, DataType) {
         values: ['active', 'innactive'],
         defaultValue: 'active'
       },
-
       // facebook and google IDs of the user
       facebook_auth_id: {
         type: DataType.STRING,
         allowNull: true,
       },
-
       // Access token for facebook
       facebook_auth_token: {
         type: DataType.STRING,
         allowNull: true,
       },
-
       google_auth_id: {
         type: DataType.STRING,
         allowNull: true,
       },
-
       // Access token for Google
       google_auth_token: {
         type: DataType.STRING,
         allowNull: true,
       },
-
+      // Profile image
       picture_url: {
         type: DataType.STRING,
         allowNull: true,
         defaultValue: 'images/user.png'
+      },
+      // JWT token
+      token: {
+        type: DataType.STRING(1024),
+        allowNull: true,
       },
       // enabled
       // gives options to enable or disable user
