@@ -34,7 +34,7 @@ machine:
 
 test:
   pre:
-    - node index.js
+    - node index.js:
       background: true
     - sleep 1
   override:
