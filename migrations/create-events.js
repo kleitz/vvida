@@ -9,6 +9,11 @@
             type: Sequelize.INTEGER,
             autoIncrement: true
           },
+          // user_id
+          user_id: {
+            type: Sequelize.INTEGER,
+            autoIncrement: true
+          },
           // event name
           // hold the name of the events
           name: {
