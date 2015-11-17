@@ -33,10 +33,6 @@ machine:
     WEB_TOKEN_SECRET: S0m3StuP1dS3cr3t1H@V3tH@t@mN0tPl@nN1nGt0Sh@R3
 
 test:
-  pre:
-   - node index.js:
-        background: true
-   - sleep 7
   override:
    - npm test
   post:
