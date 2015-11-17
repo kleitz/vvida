@@ -36,7 +36,6 @@ test:
   pre:
     - node index.js:
       background: true
-    - sleep 1
   override:
     - npm test
   post:
