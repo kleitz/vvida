@@ -8,7 +8,6 @@ var config = require('./server/config')[env],
   path = require('path'),
   config = require('./server/config')[env],
   multer = require('multer'),
-
   logger = require('morgan'),
   cookieParser = require('cookie-parser'),
   bodyParser = require('body-parser'),
