@@ -152,9 +152,11 @@
               return this;
             },
           },
-          // prevent time stamps from using camelase
+          // prevent time stamps from using camelcase
           // updatedAt to updated_at and createdAt to created-at
           underscored: true,
+          // dont forget to enable timestamps
+          timestamps: true,
           // prevent sequelize from transforming the user tables to prural
           freezetableName: true
         });
