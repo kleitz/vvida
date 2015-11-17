@@ -13,6 +13,7 @@
   require('./services/items');
   require('./services/events');
   require('./services/reviews');
+  require('./services/auth');
 
 
   // Require Controllers
@@ -38,16 +39,20 @@
     'angularFileUpload'
   ]);
 
-  window.app.run(['$rootScope', '$location', '$mdSidenav', 'Users',
-    function($rootScope, $location, $mdSidenav, Users) {
+  window.app.run(['$rootScope', '$location', '$state', '$mdSidenav', 'Users', 'Auth',
+    function($rootScope, $location, $state, $mdSidenav, Users, Auth) {
       // Check if the user's session is still being persisted in the servers
-      Users.session(function(err, res) {
-        if (!err) {
-          $rootScope.currentUser = res;
-        } else {
-          console.log('Error: ', err.error);
-        }
-      });
+      if (Auth.isLoggedIn()) {
+        Users.session(function(err, res) {
+          if (!err) {
+            $rootScope.currentUser = res;
+          } else {
+            console.log('Error: ', err.error);
+          }
+        });
+      } else {
+        $state.go('home');
+      }
 
       $rootScope.menu = [{
         name: 'Home',
@@ -139,11 +144,6 @@
         url: '/404',
         templateUrl: 'views/404.html',
         controller: function($scope) {}
-      })
-      .state('item', {
-        url: '/items',
-        controller: 'ItemsCtrl',
-        templateUrl: 'views/items.html'
       });
 
     $locationProvider.html5Mode(true);

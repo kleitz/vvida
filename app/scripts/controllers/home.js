@@ -7,5 +7,4 @@ angular.module('vvida.controllers')
     $scope.events = Events.query();
     // Get reviews from the db
     $scope.reviews = Reviews.query();
-    console.log($scope.reviews);
   }]);
