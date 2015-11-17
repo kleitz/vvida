@@ -11,7 +11,7 @@ module.exports = function(sequelize, DataType) {
       // description
       description: {
         type: DataType.TEXT,
-        allowNull: true
+        allowNull: false
       },
 
       // location of the event

@@ -1,0 +1,39 @@
+md-card.items(layout='column' layout-md="column" layout-sm="column" flex='55')
+  br
+  md-card-content.content
+
+
+md-card.items(layout='column' layout-md="column" layout-sm="column" flex='55')
+  md-card-content
+    h4.md-dispaly-4 Add Event
+    br
+    form(method="post" enctype="multipart/data" ng-submit="addEvent()")
+      md-input-container
+        i.fa.fa-glass
+          |   Event Name
+        input(type="text" ng-model="event.name" ng-required="true" aria-label="event.name")
+      md-input-container
+        i.fa.fa-file-text
+          |   Description
+        textarea(ng-model="event.description" rows="5" ng-required="true" aria-label="event.description")
+      md-input-container
+        i.fa.fa-map-marker
+          |   Location
+        input(ng-model="event.location" type="text" ng-required="true" aria-label="event.location")
+      md-input-container
+        i.fa.fa-university
+          |   Venue
+        input(ng-model="event.venue" type="text" ng-required="true" rows='2' aria-label="event.venue")
+
+      i.fa.fa-calendar
+          |   Time
+        md-datepicker(ng-model="event.time" md-placeholder="Enter start date" )
+
+      md-input-container
+        i.fa.fa-thumbs-o-up
+          |   Sponsor
+        input(ng-model="event.sponsor" type="text" ng-required="true" aria-label="event.sponsor")
+      br
+      md-button.md-raised.md-warn(class="login-button" type="submit")
+        i(class="fa fa-plus-circle")
+        | Add
