@@ -33,8 +33,14 @@
             }
           },
           gender: {
-            type: Sequelize.ENUM,
-            values: ['male', 'female', 'hidden'],
+            type: Sequelize.STRING,
+            validate: {
+              isIn: {
+                args: ['male', 'female', 'hidden'],
+                msg: 'Must be either male, female or hidden'
+              }
+            },
+            allowNull: false,
             defaultValue: 'hidden'
           },
           // date of birth
@@ -65,14 +71,25 @@
           },
           // role
           role: {
-            type: Sequelize.ENUM,
-            values: ['user', 'admin', 'super-admin'],
+            type: Sequelize.STRING,
+            validate: {
+              isIn: {
+                args: ['user', 'admin', 'super-admin'],
+                msg: 'Must be either user, admin or super-admin.'
+              }
+            },
+            allowNull: false,
             defaultValue: 'user'
           },
           // status
           status: {
-            type: Sequelize.ENUM,
-            values: ['active', 'innactive'],
+            type: Sequelize.STRING,
+            validate: {
+              isIn: {
+                args: ['active', 'inactive'],
+                msg: 'Must be either active or inactive'
+              }
+            },
             defaultValue: 'active'
           },
 
@@ -111,13 +128,24 @@
           // enabled
           // gives options to enable or disable user
           enabled: {
-            type: Sequelize.ENUM,
-            values: ['yes', 'no'],
+            type: Sequelize.STRING,
+            validate: {
+              isIn: {
+                args: ['yes', 'no'],
+                msg: 'Must be yes or no'
+              }
+            },
             // to be clarified
             defaultValue: 'yes'
+          },
+          created_at: {
+            type: Sequelize.DATE
+          },
+          updated_at: {
+            type: Sequelize.DATE
           }
         },
-        // table configuration
+        // table configuration 
         {
           instanceMethods: {
             getFullName: function() {
@@ -130,9 +158,11 @@
               return this;
             },
           },
-          // prevent time stamps from using camelase
+          // prevent time stamps from using camelcase
           // updatedAt to updated_at and createdAt to created-at
           underscored: true,
+          // dont forget to enable timestamps
+          timestamps: true,
           // prevent sequelize from transforming the user tables to prural
           freezetableName: true
         });
