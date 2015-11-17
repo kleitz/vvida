@@ -1,19 +1,23 @@
-module.exports = function(app, config, passport) {
+(function() {
+  'use strict';
+  var auth = require('../controllers/auth');
 
-  require('./users')(app, passport);
-  require('./auth/facebook.auth')(app, passport);
-  require('./auth/google.auth')(app, passport);
-  require('./events')(app, config);
-  require('./items')(app, config);
-  require('./image')(app, config);
-  require('./countries')(app);
-  require('./categories')(app);
+  module.exports = function(app, config, passport) {
 
-  /* GET home page. */
-  app.get('/*', function(req, res) {
-    // res.render('index', { title: 'Express' });
-    res.sendFile('index.html', {
-      root: './public/'
+    require('./users')(app, auth);
+    require('./auth/facebook.auth')(app, passport);
+    require('./auth/google.auth')(app, passport);
+    require('./events')(app, auth);
+    require('./items')(app, auth);
+    require('./countries')(app);
+    require('./categories')(app, auth);
+
+    /* GET home page. */
+    app.get('/*', function(req, res) {
+      // res.render('index', { title: 'Express' });
+      res.sendFile('index.html', {
+        root: './public/'
+      });
     });
-  });
-};
+  };
+})();
