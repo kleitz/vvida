@@ -7,7 +7,6 @@ var config = require('./server/config')[env],
   express = require('express'),
   path = require('path'),
   config = require('./server/config')[env],
-  // favicon = require('serve-favicon'),
   multer = require('multer'),
 
   logger = require('morgan'),
@@ -32,7 +31,6 @@ app.set('views', path.join(__dirname, 'server/views'));
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
-// app.use(favicon(__dirname + '/public/images/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
