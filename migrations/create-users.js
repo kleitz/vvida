@@ -33,9 +33,15 @@
             }
           },
           gender: {
-            type: Sequelize.ENUM,
-            values: ['male', 'female', 'hidden'],
-            // defaultValue: 'unknown'
+            type: Sequelize.STRING,
+            validate: {
+              isIn: {
+                args: ['male', 'female', 'hidden'],
+                msg: 'Must be either male, female or hidden'
+              }
+            },
+            allowNull: false,
+            defaultValue: 'hidden'
           },
           // date of birth
           dob: {
@@ -65,14 +71,25 @@
           },
           // role
           role: {
-            type: Sequelize.ENUM,
-            values: ['user', 'admin', 'super-admin'],
+            type: Sequelize.STRING,
+            validate: {
+              isIn: {
+                args: ['user', 'admin', 'super-admin'],
+                msg: 'Must be either user, admin or super-admin.'
+              }
+            },
+            allowNull: false,
             defaultValue: 'user'
           },
           // status
           status: {
-            type: Sequelize.ENUM,
-            values: ['active', 'innactive'],
+            type: Sequelize.STRING,
+            validate: {
+              isIn: {
+                args: ['active', 'inactive'],
+                msg: 'Must be either active or inactive'
+              }
+            },
             defaultValue: 'active'
           },
 
@@ -111,8 +128,13 @@
           // enabled
           // gives options to enable or disable user
           enabled: {
-            type: Sequelize.ENUM,
-            values: ['yes', 'no'],
+            type: Sequelize.STRING,
+            validate: {
+              isIn: {
+                args: ['yes', 'no'],
+                msg: 'Must be yes or no'
+              }
+            },
             // to be clarified
             defaultValue: 'yes'
           }
