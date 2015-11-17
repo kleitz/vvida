@@ -35,7 +35,7 @@ machine:
 test:
   override:
     - node index.js &
-    - npm tests
+    - npm test
     - pkill node
 
 deployment:
