@@ -1,8 +1,22 @@
 (function() {
   'use strict';
   angular.module('vvida.controllers')
-    .controller('EventsEditCtrl', ['$scope', '$stateParams', 'FileUploader', 'Utils', 'Events',
-      function($scope, $stateParams, FileUploader, Utils, Events) {
+    .controller('EventCtrl', ['$scope', '$state', '$stateParams', 'FileUploader', 'Utils', 'Events',
+      function($scope, $state, $stateParams, FileUploader, Utils, Events) {
+        // create event
+        $scope.addEvent = function() {
+          Events.save($scope.event, function(event) {
+            if (event) {
+              $state.go('editEvent', {
+                id: event.id
+              });
+            } else {
+              Utils.toast('Event not created');
+            }
+          });
+        };
+
+        //Get the eventId
         var eventId = $stateParams.id;
         var init = function() {
           $scope.event = {

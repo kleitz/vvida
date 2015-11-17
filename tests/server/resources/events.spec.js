@@ -7,25 +7,27 @@ describe('Events resource API tests', function() {
 
   var generateFakeEvent = function() {
       return {
-        userId: faker.random.number(),
-        eventName: faker.commerce.productName(),
+        // userId: faker.random.number(),
+        name: faker.commerce.productName(),
         description: faker.lorem.sentence(),
         location: faker.address.streetName(),
         venue: faker.address.streetAddress(),
-        time: faker.date.future(),
+        time: faker.date.recent(),
         sponsor: faker.company.companyName()
       };
     },
     generateFakeEventUpdates = function() {
       return {
-        ev_name: faker.commerce.productName(),
+        name: faker.commerce.productName(),
         location: faker.address.streetName(),
         description: faker.lorem.sentence(),
         venue: faker.address.streetAddress()
       };
     },
+    authToken = null,
+    // id to be a 'string'when a resource added
     // id to be defined when a resource added
-    id;
+    anEvent;
 
   /**
    * Display a listing of the resource.
@@ -36,21 +38,16 @@ describe('Events resource API tests', function() {
   it('should return all items stored in the database or empty array if DB is empty', function(done) {
     request
       .get(resourceApiURL)
-      // .use(requestPrefix)
       .accept('application/json')
-      // ._expect('Content-Type', /json/)
-      // ._expect(200)
       .end(function(err, res) {
-        if (res.status === 200) {
-          if (res.body.length === 0) {
-            _expect(Object.prototype.toString.call(res.body)).to.be('[object Array]');
-          } else {
-            _expect(res.body.length).to.be.greaterThan(0);
-            _expect(typeof res.body[0].id).to.be('number');
-            _expect(typeof res.body[0].ev_name).to.be('string');
-          }
+        _expect(res.status).to.be(200);
+        if (res.body.length === 0) {
+          _expect(res.body).to.be.an(Array);
         } else {
-          throw err;
+          _expect(res.body.length).to.be.greaterThan(0);
+          _expect(res.body[0].id).to.be.a('number');
+          _expect(res.body[0].name).to.be.a('string');
+          _expect(res.body[0].description).to.be.a('string');
         }
         done();
       });
@@ -62,20 +59,20 @@ describe('Events resource API tests', function() {
    *
    * @return Response
    */
-  it('must log in to retain a session', function() {
+  it('Must create session to be able to run actions on items', function(done) {
     // Must log in to retain a session
     request
       .post('http://localhost:3000/api/users/login')
       .send({
-        email: 'Charlie49@yahoo.com',
-        password: '1f9Pt_znVb6WySj'
+        email: 'vvidaapp@gmail.com',
+        password: '3at1ngYums@wh1leD0ingTh3Whip.c0m'
       })
       .end(function(err, res) {
-        if (err) {
-          throw err;
-        } else {
-          _expect(res.status).to.be(200);
-        }
+        _expect(res.status).to.be(200);
+        _expect(res.body.token).to.be.a('string');
+        _expect(res.body.token.length).to.be.greaterThan(100);
+        authToken = res.body.token;
+        done();
       });
   });
 
@@ -83,21 +80,17 @@ describe('Events resource API tests', function() {
     var fakeEvent = generateFakeEvent();
     request
       .post(resourceApiURL)
+      .set('X-Access-Token', authToken)
       .send(fakeEvent)
       .accept('application/json')
-      // ._expect('Content-Type', /json/)
-      // ._expect(200)
       .end(function(err, res) {
-        if (res.status === 200) {
-          var newEventStored = res.body;
-          _expect(newEventStored.ev_name).to.be(fakeEvent.eventName);
-          _expect(newEventStored.description).to.be(fakeEvent.description);
-          _expect(newEventStored.id).to.be.ok();
-          _expect(typeof newEventStored.id).to.be('number');
-          id = newEventStored.id;
-        } else {
-          throw err;
-        }
+        _expect(res.status).to.be(200);
+
+        var newEventStored = res.body;
+        _expect(newEventStored.name).to.be(fakeEvent.name);
+        _expect(newEventStored.description).to.be(fakeEvent.description);
+        _expect(newEventStored.id).to.be.a('number');
+        anEvent = newEventStored;
         done();
       });
   });
@@ -125,17 +118,11 @@ describe('Events resource API tests', function() {
    */
   it('should display the specified resource.', function(done) {
     request
-      .get(resourceApiURL + '/' + id)
+      .get(resourceApiURL + '/' + anEvent.id)
       .accept('application/json')
-      // ._expect('Content-Type', /json/)
-      // ._expect(200)
       .end(function(err, res) {
-        if (res.status === 200) {
-          _expect(res.body.id).to.be(id);
-        } else {
-          _expect(res.status).to.be(404);
-          _expect(res.body.message).to.match(/(not found)/g);
-        }
+        _expect(res.status).to.be(200);
+        _expect(res.body.id).to.be(anEvent.id);
         done();
       });
   });
@@ -163,18 +150,13 @@ describe('Events resource API tests', function() {
    */
   it('should update the specified resource in storage.', function(done) {
     request
-      .put(resourceApiURL + '/' + id)
+      .put(resourceApiURL + '/' + anEvent.id)
+      .set('X-Access-Token', authToken)
       .send(generateFakeEventUpdates())
       .accept('application/json')
-      // ._expect('Content-Type', /json/)
-      // ._expect(200)
       .end(function(err, res) {
-        if (res.status === 200) {
-          _expect(res.body.isUpdate).to.be(true);
-          _expect(res.body.message).to.match(/(successful)/);
-        } else {
-          _expect(res.status).to.be(500);
-        }
+        _expect(res.status).to.be(200);
+        _expect(res.body.message).to.match(/(successful)/);
         done();
       });
   });
@@ -188,16 +170,12 @@ describe('Events resource API tests', function() {
    */
   it('should remove the specified resource from storage.', function(done) {
     request
-      .del(resourceApiURL + '/' + id)
+      .del(resourceApiURL + '/' + anEvent.id)
+      .set('X-Access-Token', authToken)
       .accept('application/json')
-      // ._expect('Content-Type', /json/)
-      // ._expect(200)
       .end(function(err, res) {
-        if (res.status === 200) {
-          _expect(res.body.message).to.match(/(successful)/);
-        } else {
-          _expect(res.status).to.be(500);
-        }
+        _expect(res.status).to.be(200);
+        _expect(res.body.message).to.match(/(successful)/);
         done();
       });
   });

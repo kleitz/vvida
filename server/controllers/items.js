@@ -3,24 +3,31 @@
   module.exports = {
     create: function(req, res) {
       var Items = req.app.get('models').Items;
-      return Items.create({
-        user_id: req.session.user.id,
-        category_id: req.body.catId,
-        name: req.body.name,
-        description: req.body.description
-      }).then(function(item) {
-        if (!item) {
-          res.status(500).send({
-            error: 'Create item failed'
+      if (req.body.hasOwnProperty('itemName') && req.body.hasOwnProperty('description')) {
+        Items.create({
+            user_id: req.decoded.id,
+            category_id: req.body.catId,
+            name: req.body.itemName,
+            description: req.body.description
+          })
+          .then(function(item) {
+            if (!item) {
+              return res.status(500).send({
+                error: 'Failed to create item'
+              });
+            }
+            res.json(item);
+          })
+          .catch(function(err) {
+            res.status(500).send({
+              error: err.message || err.errors[0].message
+            });
           });
-        } else {
-          res.json(item);
-        }
-      }).catch(function(err) {
-        res.status(500).send({
-          error: err.message || err.errors[0].message
+      } else {
+        res.status(416).json({
+          error: 'All required values have not been provided to create the item.'
         });
-      });
+      }
     },
 
     all: function(req, res) {
@@ -54,9 +61,8 @@
           res.status(404).send({
             message: 'Item not found'
           });
-        } else {
-          res.json(item);
         }
+        res.json(item);
       }).catch(function(err) {
         res.status(500).send({
           error: err.message || err.errors[0].message
@@ -66,22 +72,22 @@
 
     update: function(req, res) {
       var Items = req.app.get('models').Items;
-      return Items.update(req.body, {
+      Items.update(req.body, {
         where: {
           id: req.params.id
         }
-      }).then(function(update) {
-        if (!update) {
-          res.status(500).send({
+      }).then(function(ok, err) {
+        if (err) {
+          return res.status(500).send({
             error: 'Update failed'
           });
-        } else {
-          res.json({
-            message: 'You have successfully edited your item'
-          });
         }
+
+        res.json({
+          message: 'Item has been updated.'
+        });
       }).catch(function(err) {
-        res.status(500).send({
+        return res.status(500).send({
           error: err.message || err.errors[0].message
         });
       });
@@ -89,20 +95,19 @@
 
     delete: function(req, res) {
       var Items = req.app.get('models').Items;
-      return Items.destroy({
+      Items.destroy({
         where: {
           id: req.params.id
         }
-      }).then(function(ok) {
-        if (!ok) {
-          res.status(500).send({
+      }).then(function(ok, err) {
+        if (err) {
+          return res.status(500).send({
             error: 'Delete failed'
           });
-        } else {
-          res.status(200).send({
-            message: 'Delete successful'
-          });
         }
+        res.status(200).send({
+          message: 'Delete successful'
+        });
       }).catch(function(err) {
         res.status(500).send({
           error: err.message || err.errors[0].message

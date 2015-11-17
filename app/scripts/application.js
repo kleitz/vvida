@@ -24,9 +24,7 @@
   require('./controllers/welcome');
   require('./controllers/header');
   require('./controllers/items');
-  require('./controllers/edit-item');
-  require('./controllers/edit-event');
-  require('./controllers/add-event');
+  require('./controllers/event');
 
   window.app = angular.module('vvida', [
     'vvida.controllers',
@@ -94,7 +92,7 @@
       })
       .state('events', {
         url: '/events',
-        controller: 'EventsCtrl',
+        controller: 'EventCtrl',
         templateUrl: 'views/events.html'
       })
       .state('profile', {
@@ -102,19 +100,24 @@
         controller: 'ProfileCtrl',
         templateUrl: 'views/edit-profile.html'
       })
+      .state('addItem', {
+        url: '/items/create',
+        controller: 'ItemCtrl',
+        templateUrl: 'views/edit-item.html'
+      })
       .state('editItem', {
-        url: '/item/{id}/edit',
-        controller: 'ItemsImgCtrl',
+        url: '/items/{id}/edit',
+        controller: 'ItemCtrl',
         templateUrl: 'views/edit-item.html'
       })
       .state('addEvent', {
         url: '/events/create',
-        controller: 'AddEventCtrl',
+        controller: 'EventCtrl',
         templateUrl: 'views/add-event.html'
       })
       .state('editEvent', {
         url: '/events/{id}/edit',
-        controller: 'EventsEditCtrl',
+        controller: 'EventCtrl',
         templateUrl: 'views/edit-event.html'
       })
       .state('login', {
