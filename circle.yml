@@ -35,7 +35,7 @@ machine:
 test:
   pre:
    - node index.js:
-      background: true
+        background: true
   override:
    - npm test
   post:
