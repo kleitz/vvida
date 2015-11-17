@@ -8,6 +8,7 @@ dependencies:
 database:
   override:
     - cp config/database.yml.ci config/database.yml
+    - sequelize db:migrate
     - sequelize db:seed
 
 machine:
