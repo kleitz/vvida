@@ -2,7 +2,7 @@ dependencies:
  pre:
   - bower install
  post:
-  - npm install module-deps 
+  - npm install module-deps
   - npm install gulp -g
 
 database:
@@ -13,11 +13,30 @@ database:
 
 machine:
   environment:
+    NODE_ENV: test
     CIRCLE_ENV: test
+    CLOUDINARY_URL: cloudinary://258585947589249:ZUACNOFbFG3iiQ83XCT1smXdroI@vvida
+    DATABASE_USERNAME: ubuntu
+    DATABASE_PASSWORD:
+    DATABASE_URL: localhost
+    DATABASE_NAME: circle_test
+    DATABASE_DIALECT: postgres
+    DATABASE_PORT: 5432
     DATABASE_URL: postgres://ubuntu:@127.0.0.1:5432/circle_test
+    EXPRESS_SESSION_KEY: 436b2efb-0302-4113-9954-f658f554ea87
+    FACEBOOK_ID: 213258518873900
+    FACEBOOK_SECRET: 76f13fab15780ef80bffc4ec19f24ae1
+    FACEBOOK_CALLBACK_URL: http://localhost:3000/auth/facebook/callback
+    GOOGLE_ID: 893360311572-s0cnhs0ffojknftltkmm9cbj1p078d7o.apps.googleusercontent.com
+    GOOGLE_SECRET: jDV73toE_qjEkjg32p8dNwZ7
+    GOOGLE_CALLBACK_URL: http://localhost:3000/auth/google/callback
+    WEB_TOKEN_SECRET: S0m3StuP1dS3cr3t1H@V3tH@t@mN0tPl@nN1nGt0Sh@R3
 
 test:
   override:
+    - node index.js &
+    - npm tests
+    - pkill node
 
 deployment:
   production:
