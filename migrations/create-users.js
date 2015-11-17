@@ -8,7 +8,6 @@
           id: {
             type: Sequelize.INTEGER,
             autoIncrement: true
-
           },
           // username
           username: {

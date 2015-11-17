@@ -4,7 +4,11 @@
   module.exports = {
     up: function(queryInterface, Sequelize) {
       return queryInterface.createTable('Events', {
-
+          // id
+          id: {
+            type: Sequelize.INTEGER,
+            autoIncrement: true
+          },
           // event name
           // hold the name of the events
           name: {
