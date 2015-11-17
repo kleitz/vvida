@@ -4,7 +4,7 @@
   module.exports = {
     create: function(req, res) {
       var Reviews = req.app.get('models').Reviews;
-      return Reviews.create({
+      Reviews.create({
         user_id: req.body.id,
         item_id: req.body.itemId,
         review: req.body.review,
@@ -42,7 +42,7 @@
 
     update: function(req, res) {
       var Reviews = req.app.get('models').Reviews;
-      return Reviews.update(req.body, {
+      Reviews.update(req.body, {
         where: {
           id: req.params.id
         }
@@ -88,7 +88,7 @@
 
     find: function(req, res) {
       var Reviews = req.app.get('models').Reviews;
-      return Reviews.find({
+      Reviews.find({
         where: {
           id: req.params.id
         }

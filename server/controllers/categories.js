@@ -4,7 +4,7 @@
     //Middleware to create an item
     create: function(req, res) {
       var Categories = req.app.get('models').Categories;
-      return Categories.create({
+      Categories.create({
         type: req.body.category,
         is_sub_cat: req.body.subCat
       }).then(function(category) {

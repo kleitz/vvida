@@ -5,7 +5,6 @@
   module.exports = {
     // Create event middlware
     create: function(req, res) {
-
       var Events = req.app.get('models').Events;
       return Events.create({
         user_id: req.decoded.id,

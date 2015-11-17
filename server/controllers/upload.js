@@ -55,7 +55,7 @@
     },
     deleteImage: function(req, res) {
       var Images = req.app.get('models').Images;
-      return Images.destroy({
+      Images.destroy({
         where: {
           public_id: req.params.id
         }
@@ -64,7 +64,6 @@
           req.info.db = {
             error: 'Delete failed'
           };
-
           res.status(500).send(req.info);
         } else {
           req.info.db = {

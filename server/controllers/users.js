@@ -7,19 +7,22 @@
     login: function(req, res, next) {
       passport.authenticate('login', function(err, user) {
         if (err) {
-          return res.status(500).json({
+          res.status(500).json({
             error: 'Something went wrong while logging you in'
           });
+          return;
         }
         // Generate a JSON response reflecting authentication status
         if (!user) {
-          return res.status(500).json({
+          res.status(500).json({
             error: 'Authentication failed.'
           });
+          return;
         }
+
         user.password = null;
         req.session.user = user;
-        return res.json(user);
+        res.json(user);
       })(req, res, next);
     },
 
@@ -28,24 +31,26 @@
       passport.authenticate('signup', function(err, user) {
         // check for errors, if exist send a response with error
         if (err) {
-          return res.status(500).json({
+          res.status(500).json({
             error: err.message || err.errors[0].message || err
           });
+          return;
         }
         // If passport doesn't return the user object,  signup failed
         if (!user) {
-          return res.status(500).json({
+          res.status(500).json({
             error: 'Signup failed. User already exists.'
           });
+          return;
         }
         // else signup succesful
-        return res.json(user.dataValues);
+        res.json(user.dataValues);
       })(req, res, next);
     },
 
     session: function(req, res) {
       if (req.decoded) {
-        return res.status(200).json(req.decoded);
+        res.status(200).json(req.decoded);
       } else {
         res.status(401).json({
           error: 'Unathorized Access'
@@ -106,9 +111,10 @@
         }
       }).then(function(ok, err) {
         if (err) {
-          return res.status(500).json({
+          res.status(500).json({
             error: err.message || err.errors[0].message
           });
+          return;
         }
 
         res.json({
@@ -125,11 +131,11 @@
         }
       }).then(function(ok, err) {
         if (err) {
-          return res.status(500).json({
+          res.status(500).json({
             error: err.message || err.errors[0].message
           });
+          return;
         }
-
         res.json({
           message: 'User deleted successfully'
         });
