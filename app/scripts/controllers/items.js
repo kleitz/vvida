@@ -58,7 +58,6 @@
         };
 
         init();
-        console.log($scope.uploader.progress);
       }
     ]);
 })();
