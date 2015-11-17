@@ -1,8 +1,8 @@
 (function() {
   'use strict';
   angular.module('vvida.controllers')
-    .controller('ItemCtrl', ['$scope', '$stateParams', 'Categories', 'FileUploader', 'Utils', 'Items',
-      function($scope, $stateParams, Categories, FileUploader, Utils, Items) {
+    .controller('ItemCtrl', ['$scope', '$state', '$stateParams', 'Categories', 'FileUploader', 'Utils', 'Items',
+      function($scope, $state, $stateParams, Categories, FileUploader, Utils, Items) {
 
         // load categories
         $scope.loadCategories = function() {

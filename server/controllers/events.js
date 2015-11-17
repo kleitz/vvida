@@ -41,7 +41,7 @@
           ['id', 'DESC']
         ],
         include: [Images]
-      }).then(function(event, err) {
+      }).then(function(event) {
         if (event) {
           res.json(event);
         }

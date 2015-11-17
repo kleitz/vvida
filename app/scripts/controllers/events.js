@@ -1,8 +1,8 @@
 (function() {
   'use strict';
   angular.module('vvida.controllers')
-    .controller('EventsEditCtrl', ['$scope', '$stateParams', 'FileUploader', 'Utils', 'Events',
-      function($scope, $stateParams, FileUploader, Utils, Events) {
+    .controller('EventsEditCtrl', ['$scope', '$state', '$stateParams', 'FileUploader', 'Utils', 'Events',
+      function($scope, $state, $stateParams, FileUploader, Utils, Events) {
 
         $scope.addEvent = function() {
           Events.save($scope.event, function(event) {
