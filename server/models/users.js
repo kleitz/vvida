@@ -30,7 +30,7 @@ module.exports = function(sequelize, DataType) {
       gender: {
         type: DataType.ENUM,
         values: ['male', 'female', 'hidden'],
-        // defaultValue: 'hidden'
+        defaultValue: 'hidden'
       },
       // date of birth
       dob: {
@@ -62,13 +62,13 @@ module.exports = function(sequelize, DataType) {
       role: {
         type: DataType.ENUM,
         values: ['user', 'admin', 'super-admin'],
-        // defaultValue: 'user'
+        defaultValue: 'user'
       },
       // status
       status: {
         type: DataType.ENUM,
         values: ['active', 'innactive'],
-        // defaultValue: 'active'
+        defaultValue: 'active'
       },
       // facebook and google IDs of the user
       facebook_auth_id: {
@@ -93,7 +93,7 @@ module.exports = function(sequelize, DataType) {
       picture_url: {
         type: DataType.STRING,
         allowNull: true,
-        // defaultValue: 'images/user.png'
+        defaultValue: 'images/user.png'
       },
       // JWT token
       token: {
@@ -106,7 +106,7 @@ module.exports = function(sequelize, DataType) {
         type: DataType.ENUM,
         values: ['yes', 'no'],
         // to be clarified
-        // defaultValue: 'yes'
+        defaultValue: 'yes'
       }
     },
     // table configuration
