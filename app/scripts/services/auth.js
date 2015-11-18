@@ -22,7 +22,6 @@ angular.module('vvida.services')
         var token = Token.get();
         if (token) {
           config.headers['x-access-token'] = token;
-          console.log('Config headers: ', config.headers);
         }
         return config;
       }
