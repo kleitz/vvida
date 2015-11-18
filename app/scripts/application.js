@@ -135,11 +135,17 @@
         controller: 'WelcomeCtrl',
         templateUrl: 'views/welcome.html'
       })
+      .state('review', {
+        url: '/review',
+        controller: 'ReviewCtrl',
+        templateUrl: 'views/review.html'
+      })
       .state('upload', {
         url: '/upload',
         controller: 'AboutCtrl',
         templateUrl: 'views/upload.html'
       })
+      .state('review')
       .state('404', {
         url: '/404',
         templateUrl: 'views/404.html',
