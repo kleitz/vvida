@@ -17,12 +17,14 @@ var config = require('./server/config')[env],
   app = express(),
   passport = require('passport'),
   session = require('express-session'),
-  models = require('./server/models'),
+  models = require('./server/models/init'),
   auth = require('./server/services/auth');
+
 
 // the models variable must be somehow singleton-esque
 // http://bit.ly/1S9cnn5
 app.set('models', models);
+app.set('superSecret', process.env.WEB_TOKEN_SECRET);
 
 // load env variables from .env file in development environment
 // view engine setup
@@ -96,6 +98,7 @@ app.use(function(err, req, res, next) {
     message: err.message,
     error: {}
   });
+  next();
 });
 
 var server = app.listen(process.env.PORT || 3000, function() {

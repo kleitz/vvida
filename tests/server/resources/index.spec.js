@@ -12,13 +12,10 @@ describe('Root route test', function() {
   it('should return index.html', function(done) {
     request
       .get('http://localhost:3000')
-      // .expect(200)
-      // .expect('Content-Type', /html/)
       .end(function(err, res) {
-        if (res.status === 200) {
-          _expect(res.header['content-type']).to.match(/(text\/html)/g);
-          done();
-        }
+        _expect(res.status).to.be(200);
+        _expect(res.header['content-type']).to.match(/(text\/html)/g);
+        done();
       });
   });
 });

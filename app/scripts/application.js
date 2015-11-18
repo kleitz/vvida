@@ -11,6 +11,8 @@
   require('./services/categories');
   require('./services/countries');
   require('./services/items');
+  require('./services/events');
+  require('./services/reviews');
   require('./services/auth');
 
   // Require Controllers
@@ -27,29 +29,34 @@
   require('./controllers/user-profile/pictures');
   require('./controllers/user-profile/reviews');
   require('./controllers/items');
-  require('./controllers/edit-item');
+  require('./controllers/event');
 
   window.app = angular.module('vvida', [
     'vvida.controllers',
     'vvida.services',
     'vvida.filters',
     'vvida.directives',
+    'ngRoute',
     'ui.router',
     'ngResource',
     'ngMaterial',
     'angularFileUpload'
   ]);
 
-  window.app.run(['$rootScope', '$location', '$state', '$mdSidenav', 'Users',
-    function($rootScope, $location, $state, $mdSidenav, Users) {
+  window.app.run(['$rootScope', '$location', '$state', '$mdSidenav', 'Users', 'Auth',
+    function($rootScope, $location, $state, $mdSidenav, Users, Auth) {
       // Check if the user's session is still being persisted in the servers
-      Users.session(function(err, res) {
-        if (!err) {
-          $rootScope.currentUser = res;
-        } else {
-          console.log('Error: ', err.error);
-        }
-      });
+      if (Auth.isLoggedIn()) {
+        Users.session(function(err, res) {
+          if (!err) {
+            $rootScope.currentUser = res;
+          } else {
+            console.log('Error: ', err.error);
+          }
+        });
+      } else {
+        $state.go('home');
+      }
 
       $rootScope.login = function() {
         $state.go('login');
@@ -86,10 +93,11 @@
     // For any unmatched url, redirect to /state1
     $urlRouterProvider.otherwise('/404');
 
-    // Now set up the states
-    $mdThemingProvider.theme('default')
-      .primaryPalette('blue')
-      .accentPalette('deep-orange');
+
+      // Now set up the states
+      $mdThemingProvider.theme('default')
+        .primaryPalette('blue')
+        .accentPalette('deep-orange');
 
     $stateProvider
       .state('home', {
@@ -167,7 +175,8 @@
         templateUrl: 'views/items.html'
       });
 
-    $locationProvider.html5Mode(true);
-  }]);
+      $locationProvider.html5Mode(true);
+    }
+  ]);
 
 })();
