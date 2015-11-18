@@ -7,30 +7,6 @@
     create: function(req, res) {
 
       var Events = req.app.get('models').Events;
-<<<<<<< HEAD
-      Events.sync().then(function() {
-        return Events.create({
-          user_id: req.body.id,
-          name: req.body.name,
-          description: req.body.description,
-          location: req.body.location,
-          venue: req.body.venue,
-          time: req.body.time,
-          sponsor: req.body.sponsor
-        }).then(function(event, err) {
-          if (!event) {
-            res.status(500).send({
-              error: 'Create event failed'
-            });
-          } else if (err) {
-            res.status(500).send({
-              error: 'Error creating event'
-            });
-          } else {
-            res.json(event);
-          }
-        });
-=======
       return Events.create({
         user_id: req.decoded.id,
         name: req.body.name,
@@ -47,7 +23,6 @@
         } else {
           res.json(event);
         }
->>>>>>> develop
       }).catch(function(err) {
         res.status(500).send({
           error: err.message || err.errors[0].message
