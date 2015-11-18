@@ -11,7 +11,7 @@
   require('./services/categories');
   require('./services/countries');
   require('./services/items');
-
+  require('./services/auth');
 
   // Require Controllers
   require('./controllers/footer');
@@ -37,7 +37,6 @@
     'ui.router',
     'ngResource',
     'ngMaterial',
-    'ngCookies',
     'angularFileUpload'
   ]);
 
@@ -80,7 +79,10 @@
     }
   ]);
 
-  window.app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$mdThemingProvider', function($stateProvider, $urlRouterProvider, $locationProvider, $mdThemingProvider) {
+  window.app.config(['$stateProvider', '$httpProvider', '$urlRouterProvider', '$locationProvider', '$mdThemingProvider', function($stateProvider, $httpProvider, $urlRouterProvider, $locationProvider, $mdThemingProvider) {
+
+    $httpProvider.interceptors.push('TokenInjector');
+
     // For any unmatched url, redirect to /state1
     $urlRouterProvider.otherwise('/404');
 
