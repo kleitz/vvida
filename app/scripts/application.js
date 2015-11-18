@@ -21,7 +21,11 @@
   require('./controllers/login');
   require('./controllers/welcome');
   require('./controllers/header');
-  require('./controllers/userProfile');
+  require('./controllers/user-profile/index');
+  require('./controllers/user-profile/events');
+  require('./controllers/user-profile/items');
+  require('./controllers/user-profile/pictures');
+  require('./controllers/user-profile/reviews');
   require('./controllers/items');
   require('./controllers/edit-item');
 
@@ -37,8 +41,8 @@
     'angularFileUpload'
   ]);
 
-  window.app.run(['$rootScope', '$location', '$mdSidenav', 'Users',
-    function($rootScope, $location, $mdSidenav, Users) {
+  window.app.run(['$rootScope', '$location', '$state', '$mdSidenav', 'Users',
+    function($rootScope, $location, $state, $mdSidenav, Users) {
       // Check if the user's session is still being persisted in the servers
       Users.session(function(err, res) {
         if (!err) {
@@ -47,6 +51,10 @@
           console.log('Error: ', err.error);
         }
       });
+
+      $rootScope.login = function() {
+        $state.go('login');
+      };
 
       $rootScope.menu = [{
         name: 'Home',
