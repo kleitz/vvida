@@ -12,7 +12,7 @@
           // user_id
           user_id: {
             type: Sequelize.INTEGER,
-            autoIncrement: true
+            allowNull: false
           },
           category_id: {
             type: Sequelize.INTEGER,
