@@ -14,6 +14,10 @@
             type: Sequelize.INTEGER,
             autoIncrement: true
           },
+          category_id: {
+            type: Sequelize.INTEGER,
+            autoIncrement: true
+          },
           // item name
           // hold the name of the items
           name: {
