@@ -1,4 +1,11 @@
-.items( layout="column")
+div.not-loggedin-div(ng-if='!currentUser')
+  md-card.profile-body.edit-profile(layout='column' layout-align='center center')
+    div.profile-pic
+      img(src='images/lock.png')
+    p.md-headline.packed-bottom You are currently not logged in.
+    p.md-headline.packed-top Click below to login or signup  to continue using vvida.
+    md-button.login-btn(class="md-raised md-primary" aria-label='Login/Signup' ng-click='login()') Go to Login/Signup Page
+.items(ng-if='currentUser' layout="column")
   div(ng-cloak="")
     md-card
       md-toolbar.md-accent
@@ -21,11 +28,3 @@
           md-button.md-raised.md-warn(class="login-button" type="submit")
             i(class="fa fa-plus-circle")
             | Add
-
-
-
-
-
-
-
-

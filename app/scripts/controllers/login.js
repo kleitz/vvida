@@ -1,10 +1,11 @@
 angular.module('vvida.controllers')
-  .controller('LoginCtrl', ['$rootScope', '$scope', '$state', 'Users', '$window',
-    function($rootScope, $scope, $state, Users, $window) {
+  .controller('LoginCtrl', ['$rootScope', '$scope', '$state', '$window', 'Users', 'Auth',
+    function($rootScope, $scope, $state, $window, Users, Auth) {
       // login
       $scope.login = function() {
         Users.login($scope.user, function(err, res) {
           if (!err) {
+            Auth.setToken(res.token);
             $rootScope.currentUser = res;
             $state.go('home');
           } else {
@@ -32,6 +33,7 @@ angular.module('vvida.controllers')
             password: $scope.user.passwordSignup
           };
           Users.save(user, function(res) {
+            Auth.setToken(res.token);
             $rootScope.currentUser = res;
             console.log('$rootScope.currentUser: ', $rootScope.currentUser);
             $state.go('profile', {

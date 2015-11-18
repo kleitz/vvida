@@ -11,7 +11,9 @@
   require('./services/categories');
   require('./services/countries');
   require('./services/items');
-
+  require('./services/events');
+  require('./services/reviews');
+  require('./services/auth');
 
   // Require Controllers
   require('./controllers/footer');
@@ -21,32 +23,44 @@
   require('./controllers/login');
   require('./controllers/welcome');
   require('./controllers/header');
-  require('./controllers/userProfile');
+  require('./controllers/user-profile/index');
+  require('./controllers/user-profile/events');
+  require('./controllers/user-profile/items');
+  require('./controllers/user-profile/pictures');
+  require('./controllers/user-profile/reviews');
   require('./controllers/items');
-  require('./controllers/edit-item');
+  require('./controllers/event');
 
   window.app = angular.module('vvida', [
     'vvida.controllers',
     'vvida.services',
     'vvida.filters',
     'vvida.directives',
+    'ngRoute',
     'ui.router',
     'ngResource',
     'ngMaterial',
-    'ngCookies',
     'angularFileUpload'
   ]);
 
-  window.app.run(['$rootScope', '$location', '$mdSidenav', 'Users',
-    function($rootScope, $location, $mdSidenav, Users) {
+  window.app.run(['$rootScope', '$location', '$state', '$mdSidenav', 'Users', 'Auth',
+    function($rootScope, $location, $state, $mdSidenav, Users, Auth) {
       // Check if the user's session is still being persisted in the servers
-      Users.session(function(err, res) {
-        if (!err) {
-          $rootScope.currentUser = res;
-        } else {
-          console.log('Error: ', err.error);
-        }
-      });
+      if (Auth.isLoggedIn()) {
+        Users.session(function(err, res) {
+          if (!err) {
+            $rootScope.currentUser = res;
+          } else {
+            console.log('Error: ', err.error);
+          }
+        });
+      } else {
+        $state.go('home');
+      }
+
+      $rootScope.login = function() {
+        $state.go('login');
+      };
 
       $rootScope.menu = [{
         name: 'Home',
@@ -72,9 +86,14 @@
     }
   ]);
 
-  window.app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$mdThemingProvider', function($stateProvider, $urlRouterProvider, $locationProvider, $mdThemingProvider) {
+  window.app.config(['$stateProvider', '$httpProvider', '$urlRouterProvider', '$locationProvider', '$mdThemingProvider',
+    function($stateProvider, $httpProvider, $urlRouterProvider, $locationProvider, $mdThemingProvider) {
+
+    $httpProvider.interceptors.push('TokenInjector');
+
     // For any unmatched url, redirect to /state1
     $urlRouterProvider.otherwise('/404');
+
 
     // Now set up the states
     $mdThemingProvider.theme('default')
@@ -127,10 +146,25 @@
           }
         }
       })
-      .state('editItem', {
-        url: '/item/{id}/edit',
-        controller: 'ItemsImgCtrl',
+      .state('addItem', {
+        url: '/items/create',
+        controller: 'ItemCtrl',
         templateUrl: 'views/edit-item.html'
+      })
+      .state('editItem', {
+        url: '/items/{id}/edit',
+        controller: 'ItemCtrl',
+        templateUrl: 'views/edit-item.html'
+      })
+      .state('addEvent', {
+        url: '/events/create',
+        controller: 'EventCtrl',
+        templateUrl: 'views/add-event.html'
+      })
+      .state('editEvent', {
+        url: '/events/{id}/edit',
+        controller: 'EventCtrl',
+        templateUrl: 'views/edit-event.html'
       })
       .state('login', {
         url: '/users/login',
@@ -150,13 +184,7 @@
       .state('404', {
         url: '/404',
         templateUrl: 'views/404.html'
-      })
-      .state('item', {
-        url: '/items',
-        controller: 'ItemsCtrl',
-        templateUrl: 'views/items.html'
       });
-
     $locationProvider.html5Mode(true);
   }]);
 

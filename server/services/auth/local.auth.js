@@ -1,6 +1,7 @@
 module.exports = function(app, passport, config) {
   var bcrypt = require('bcrypt-nodejs'),
     Users = app.get('models').Users,
+    jwt = require('jsonwebtoken'),
     LocalStrategy = config.strategy.Local;
 
   // signup middleware for local signup
@@ -16,7 +17,23 @@ module.exports = function(app, passport, config) {
       if (!user) {
         return done(null, false);
       }
-      return done(null, user);
+      delete user.token;
+      user.token = null;
+      var token = jwt.sign(user, app.get('superSecret'), {
+        expireIn: 180
+      });
+      user.token = token;
+      Users.update(user, {
+        where: {
+          email: user.email
+        }
+      }).then(function(ok, err) {
+        if (err) {
+          return done(err, null);
+        }
+        user.password = undefined;
+        done(null, user);
+      });
     }).catch(function(err) {
       return done(err);
     });
@@ -41,7 +58,26 @@ module.exports = function(app, passport, config) {
       if (bcrypt.compareSync(password, user.password) !== true) {
         return done(null, false);
       }
-      return done(null, user);
+
+      delete user.token;
+      user.token = null;
+      var token = jwt.sign(user, app.get('superSecret'), {
+        expireIn: 180
+      });
+
+      user.token = token;
+
+      Users.update(user, {
+        where: {
+          email: user.email
+        }
+      }).then(function(ok, err) {
+        if (err) {
+          return done(err, null);
+        }
+        user.password = undefined;
+        done(null, user);
+      });
     }).catch(function(err) {
       return done(err);
     });

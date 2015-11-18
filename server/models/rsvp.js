@@ -1,8 +1,15 @@
 module.exports = function(sequelize, DataType) {
   return sequelize.define('Reservations', {
       status: {
-        type: DataType.ENUM,
-        values: ['yes', 'maybe', 'no'],
+        type: DataType.STRING,
+        validate: {
+          isIn: {
+            args: [['yes', 'no', 'maybe']],
+            msg: 'Must be yes, no or maybe.'
+          }
+        },
+        // to be clarified
+        defaultValue: 'yes',
         allowNull: false
       }
     },
