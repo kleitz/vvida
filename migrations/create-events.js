@@ -9,11 +9,6 @@
             type: Sequelize.INTEGER,
             autoIncrement: true
           },
-          // user_id
-          user_id: {
-            type: Sequelize.INTEGER,
-            allowNull: false
-          },
           // event name
           // hold the name of the events
           name: {
@@ -24,7 +19,7 @@
           // description
           description: {
             type: Sequelize.TEXT,
-            allowNull: true
+            allowNull: false
           },
 
           // location of the event
@@ -54,6 +49,11 @@
           },
           updated_at: {
             type: Sequelize.DATE
+          },
+          // user_id
+          user_id: {
+            type: Sequelize.INTEGER,
+            allowNull: false
           }
         },
         // table configuration
