@@ -11,12 +11,12 @@ module.exports = function(sequelize, DataType) {
 
       description: {
         type: DataType.TEXT,
-        allowNull: false;
+        allowNull: false
       },
 
       city: {
         type: DataType.STRING,
-        allowNull: false;
+        allowNull: false
       }
 
     },
