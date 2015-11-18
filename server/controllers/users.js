@@ -108,7 +108,6 @@
             error: err.message || err.errors[0].message
           });
         }
-
         res.json({
           message: 'Profile updated successfully.'
         });
