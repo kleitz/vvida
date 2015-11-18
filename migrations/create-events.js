@@ -14,6 +14,11 @@
             type: Sequelize.INTEGER,
             autoIncrement: true
           },
+          // user_id
+          category_id: {
+            type: Sequelize.INTEGER,
+            autoIncrement: true
+          },
           // event name
           // hold the name of the events
           name: {
