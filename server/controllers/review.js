@@ -26,21 +26,6 @@
 
     all: function(req, res) {
       var Reviews = req.app.get('models').Reviews;
-<<<<<<< HEAD
-      Reviews.findAll().then(function(reviews, err) {
-        if (!reviews) {
-          res.status(404).send({
-            error: 'Reviews not found'
-          });
-        } else if (err) {
-          res.status(500).send({
-            message: 'Error retrieving reviews',
-            error: err
-          });
-        } else {
-          res.json(reviews);
-        }
-=======
       Reviews.findAll({
         limit: 3,
         order: [
@@ -48,7 +33,6 @@
         ]
       }).then(function(review) {
         res.json(review);
->>>>>>> develop
       }).catch(function(err) {
         res.status(500).send({
           error: err.message || err.error[0].message
