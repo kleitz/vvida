@@ -13,7 +13,7 @@
             allowNull: false
           },
           rating: {
-            type: Sequelize.INTEGER.UNSIGNED,
+            type: Sequelize.INTEGER,
             allowNull: false,
             defaultValue: 0
           }

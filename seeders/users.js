@@ -9,6 +9,7 @@ module.exports = {
      * @param  queryInterface, Sequelize
      */
     return queryInterface.bulkInsert('Users', [{
+      id: 1,
       username: 'vvidaapp',
       password: bcrypt.hashSync('3at1ngYums@wh1leD0ingTh3Whip.c0m'),
       gender: 'female',

@@ -94,10 +94,10 @@
     $urlRouterProvider.otherwise('/404');
 
 
-      // Now set up the states
-      $mdThemingProvider.theme('default')
-        .primaryPalette('blue')
-        .accentPalette('deep-orange');
+    // Now set up the states
+    $mdThemingProvider.theme('default')
+      .primaryPalette('blue')
+      .accentPalette('deep-orange');
 
     $stateProvider
       .state('home', {
@@ -145,10 +145,25 @@
           }
         }
       })
-      .state('editItem', {
-        url: '/item/{id}/edit',
-        controller: 'ItemsImgCtrl',
+      .state('addItem', {
+        url: '/items/create',
+        controller: 'ItemCtrl',
         templateUrl: 'views/edit-item.html'
+      })
+      .state('editItem', {
+        url: '/items/{id}/edit',
+        controller: 'ItemCtrl',
+        templateUrl: 'views/edit-item.html'
+      })
+      .state('addEvent', {
+        url: '/events/create',
+        controller: 'EventCtrl',
+        templateUrl: 'views/add-event.html'
+      })
+      .state('editEvent', {
+        url: '/events/{id}/edit',
+        controller: 'EventCtrl',
+        templateUrl: 'views/edit-event.html'
       })
       .state('login', {
         url: '/users/login',
@@ -168,15 +183,8 @@
       .state('404', {
         url: '/404',
         templateUrl: 'views/404.html'
-      })
-      .state('item', {
-        url: '/items',
-        controller: 'ItemsCtrl',
-        templateUrl: 'views/items.html'
       });
-
-      $locationProvider.html5Mode(true);
-    }
-  ]);
+    $locationProvider.html5Mode(true);
+  }]);
 
 })();
