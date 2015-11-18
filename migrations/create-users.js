@@ -12,7 +12,7 @@
           // username
           username: {
             type: Sequelize.STRING,
-            unique: true
+            unique: false
           },
           // password
           password: {
