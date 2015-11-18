@@ -35,7 +35,7 @@ machine:
 
 test:
   override:
-    - gulp jade
+    - gulp build
     - npm test
 
 deployment:
