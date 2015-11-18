@@ -59,17 +59,17 @@
           res.status(404).json({
             error: 'User not found'
           });
-        } else if (err) {
-          res.status(500).json({
-            message: 'Error retrieving users',
-            error: err
-          });
         } else {
           users.map(function(user) {
             user.password = null;
           });
           res.json(users);
         }
+      }).catch(function(err) {
+        res.status(500).json({
+          message: 'Error retrieving user',
+          err: err
+        });
       });
     },
 
