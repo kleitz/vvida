@@ -1,10 +1,11 @@
 angular.module('vvida.controllers')
-  .controller('LoginCtrl', ['$rootScope', '$scope', '$state', 'Users', '$window',
-    function($rootScope, $scope, $state, Users, $window) {
+  .controller('LoginCtrl', ['$rootScope', '$scope', '$state', 'Users', 'Auth',
+    function($rootScope, $scope, $state, Users, Auth) {
       // login
       $scope.login = function() {
         Users.login($scope.user, function(err, res) {
           if (!err) {
+            Auth.setToken(res.token);
             $rootScope.currentUser = res;
             $state.go('home');
           } else {
