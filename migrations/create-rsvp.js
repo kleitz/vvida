@@ -5,8 +5,15 @@
     up: function(queryInterface, Sequelize) {
       return queryInterface.createTable('Reservations', {
           status: {
-            type: Sequelize.ENUM,
-            values: ['yes', 'maybe', 'no'],
+            type: Sequelize.STRING,
+            validate: {
+              isIn: {
+                args: ['yes', 'no', 'maybe'],
+                msg: 'Must be yes, no or maybe.'
+              }
+            },
+            // to be clarified
+            defaultValue: 'yes',
             allowNull: false
           }
         },

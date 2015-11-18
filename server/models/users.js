@@ -28,8 +28,14 @@ module.exports = function(sequelize, DataType) {
         }
       },
       gender: {
-        type: DataType.ENUM,
-        values: ['male', 'female', 'hidden'],
+        type: DataType.STRING,
+        validate: {
+          isIn: {
+            args: ['male', 'female', 'hidden'],
+            msg: 'Must be either male, female or hidden'
+          }
+        },
+        allowNull: false,
         defaultValue: 'hidden'
       },
       // date of birth
@@ -60,8 +66,14 @@ module.exports = function(sequelize, DataType) {
       },
       // role
       role: {
-        type: DataType.ENUM,
-        values: ['user', 'admin', 'super-admin'],
+        type: DataType.STRING,
+        validate: {
+          isIn: {
+            args: ['user', 'admin', 'super-admin'],
+            msg: 'Must be either user, admin or super-admin.'
+          }
+        },
+        allowNull: false,
         defaultValue: 'user'
       },
       // status
@@ -103,8 +115,13 @@ module.exports = function(sequelize, DataType) {
       // enabled
       // gives options to enable or disable user
       enabled: {
-        type: DataType.ENUM,
-        values: ['yes', 'no'],
+        type: DataType.STRING,
+        validate: {
+          isIn: {
+            args: ['yes', 'no'],
+            msg: 'Must be yes or no'
+          }
+        },
         // to be clarified
         defaultValue: 'yes'
       }
