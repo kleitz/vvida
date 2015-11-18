@@ -20,7 +20,9 @@ angular.module('vvida.controllers')
           $scope.user.password = $rootScope.currentUser.password;
           $scope.user.dob = new Date($scope.theDate);
           Users.update($scope.user, function() {
+            var token = $rootScope.currentUser.token;
             $rootScope.currentUser = $scope.user;
+            $rootScope.currentUser.token = token;
             $scope.message =
               'You have successfully updated your profile. Click on the home button to get to vvida homepage.';
           }, function() {
@@ -28,8 +30,6 @@ angular.module('vvida.controllers')
               'There was a problem updating your profile.';
           });
         };
-      } else {
-        $state.go('login');
       }
     }
   ]);
