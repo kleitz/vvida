@@ -1,0 +1,13 @@
+.center-review-inputs(layout='column' layout-align='center center' style='margin-top: 60px; margin-bottom: 60px')
+  md-content
+    md-content(flex)
+      h3 {{user}}, your next review awaits
+      p Review anything from your favorite hotel to your barber shops
+    md-content(flex layout='row', layout-sm='column')
+      md-input-container
+        label Find
+        input(style='width: 400px')
+      md-input-container(style='width: 400px')
+        label City
+        md-select(ng-model='cities')
+          md-option(ng-repeat='city in cities') {{city}}
