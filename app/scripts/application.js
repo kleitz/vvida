@@ -11,6 +11,9 @@
   require('./services/categories');
   require('./services/countries');
   require('./services/items');
+  require('./services/events');
+  require('./services/reviews');
+  require('./services/auth');
 
 
   // Require Controllers
@@ -22,30 +25,34 @@
   require('./controllers/welcome');
   require('./controllers/header');
   require('./controllers/items');
-  require('./controllers/edit-item');
+  require('./controllers/event');
 
   window.app = angular.module('vvida', [
     'vvida.controllers',
     'vvida.services',
     'vvida.filters',
     'vvida.directives',
+    'ngRoute',
     'ui.router',
     'ngResource',
     'ngMaterial',
-    'ngCookies',
     'angularFileUpload'
   ]);
 
-  window.app.run(['$rootScope', '$location', '$mdSidenav', 'Users',
-    function($rootScope, $location, $mdSidenav, Users) {
+  window.app.run(['$rootScope', '$location', '$state', '$mdSidenav', 'Users', 'Auth',
+    function($rootScope, $location, $state, $mdSidenav, Users, Auth) {
       // Check if the user's session is still being persisted in the servers
-      Users.session(function(err, res) {
-        if (!err) {
-          $rootScope.currentUser = res;
-        } else {
-          console.log('Error: ', err.error);
-        }
-      });
+      if (Auth.isLoggedIn()) {
+        Users.session(function(err, res) {
+          if (!err) {
+            $rootScope.currentUser = res;
+          } else {
+            console.log('Error: ', err.error);
+          }
+        });
+      } else {
+        $state.go('home');
+      }
 
       $rootScope.menu = [{
         name: 'Home',
@@ -68,68 +75,80 @@
     }
   ]);
 
-  window.app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$mdThemingProvider', function($stateProvider, $urlRouterProvider, $locationProvider, $mdThemingProvider) {
-    // For any unmatched url, redirect to /state1
-    $urlRouterProvider.otherwise('/404');
+  window.app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$mdThemingProvider',
+    function($stateProvider, $urlRouterProvider, $locationProvider, $mdThemingProvider) {
+      // For any unmatched url, redirect to /state1
+      $urlRouterProvider.otherwise('/404');
+      // Now set up the states
+      $mdThemingProvider.theme('default')
+        .primaryPalette('blue')
+        .accentPalette('deep-orange')
+        .backgroundPalette('grey', {
+          'default': '200'
+        });
+      $stateProvider
+        .state('home', {
+          url: '/',
+          controller: 'HomeCtrl',
+          templateUrl: 'views/home.html'
+        })
+        .state('about', {
+          url: '/about',
+          controller: 'AboutCtrl',
+          templateUrl: 'views/about.html'
+        })
+        .state('events', {
+          url: '/events',
+          controller: 'EventCtrl',
+          templateUrl: 'views/events.html'
+        })
+        .state('profile', {
+          url: '/user/{id}/edit',
+          controller: 'ProfileCtrl',
+          templateUrl: 'views/edit-profile.html'
+        })
+        .state('addItem', {
+          url: '/items/create',
+          controller: 'ItemCtrl',
+          templateUrl: 'views/edit-item.html'
+        })
+        .state('editItem', {
+          url: '/items/{id}/edit',
+          controller: 'ItemCtrl',
+          templateUrl: 'views/edit-item.html'
+        })
+        .state('addEvent', {
+          url: '/events/create',
+          controller: 'EventCtrl',
+          templateUrl: 'views/add-event.html'
+        })
+        .state('editEvent', {
+          url: '/events/{id}/edit',
+          controller: 'EventCtrl',
+          templateUrl: 'views/edit-event.html'
+        })
+        .state('login', {
+          url: '/users/login',
+          controller: 'LoginCtrl',
+          templateUrl: 'views/login.html'
+        })
+        .state('welcome', {
+          url: '/welcome',
+          controller: 'WelcomeCtrl',
+          templateUrl: 'views/welcome.html'
+        })
+        .state('upload', {
+          url: '/upload',
+          controller: 'AboutCtrl',
+          templateUrl: 'views/upload.html'
+        })
+        .state('404', {
+          url: '/404',
+          templateUrl: 'views/404.html'
+        });
 
-    // Now set up the states
-    $mdThemingProvider.theme('default')
-      .primaryPalette('blue')
-      .accentPalette('deep-orange');
-
-    $stateProvider
-      .state('home', {
-        url: '/',
-        controller: 'HomeCtrl',
-        templateUrl: 'views/home.html'
-      })
-      .state('about', {
-        url: '/about',
-        controller: 'AboutCtrl',
-        templateUrl: 'views/about.html'
-      })
-      .state('events', {
-        url: '/events',
-        controller: 'EventsCtrl',
-        templateUrl: 'views/events.html'
-      })
-      .state('profile', {
-        url: '/user/{id}/edit',
-        controller: 'ProfileCtrl',
-        templateUrl: 'views/edit-profile.html'
-      })
-      .state('editItem', {
-        url: '/item/{id}/edit',
-        controller: 'ItemsImgCtrl',
-        templateUrl: 'views/edit-item.html'
-      })
-      .state('login', {
-        url: '/users/login',
-        controller: 'LoginCtrl',
-        templateUrl: 'views/login.html'
-      })
-      .state('welcome', {
-        url: '/welcome',
-        controller: 'WelcomeCtrl',
-        templateUrl: 'views/welcome.html'
-      })
-      .state('upload', {
-        url: '/upload',
-        controller: 'AboutCtrl',
-        templateUrl: 'views/upload.html'
-      })
-      .state('404', {
-        url: '/404',
-        templateUrl: 'views/404.html',
-        controller: function($scope) {}
-      })
-      .state('item', {
-        url: '/items',
-        controller: 'ItemsCtrl',
-        templateUrl: 'views/items.html'
-      });
-
-    $locationProvider.html5Mode(true);
-  }]);
+      $locationProvider.html5Mode(true);
+    }
+  ]);
 
 })();

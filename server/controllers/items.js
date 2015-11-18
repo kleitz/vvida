@@ -31,8 +31,15 @@
     },
 
     all: function(req, res) {
-      var Items = req.app.get('models').Items;
-      Items.findAll().then(function(item) {
+      var Items = req.app.get('models').Items,
+        Images = req.app.get('models').Images;
+      Items.findAll({
+        limit: 3,
+        order: [
+          ['id', 'DESC']
+        ],
+        include: [Images]
+      }).then(function(item) {
         res.json(item);
       }).catch(function(err) {
         res.status(500).send({
@@ -42,14 +49,16 @@
     },
 
     find: function(req, res) {
-      var Items = req.app.get('models').Items;
+      var Items = req.app.get('models').Items,
+        Images = req.app.get('models').Images;
       return Items.find({
         where: {
           id: req.params.id
-        }
-      }).then(function(item, err) {
-        if (err) {
-          return res.status(404).send({
+        },
+        include: [Images]
+      }).then(function(item) {
+        if (!item) {
+          res.status(404).send({
             message: 'Item not found'
           });
         }

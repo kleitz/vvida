@@ -6,9 +6,15 @@
       return queryInterface.createTable('ItemPromotions', {
           // e.g sponsored, shared, recommended
           group: {
-            type: Sequelize.ENUM,
-            values: ['sponsored', 'shared', 'recommended'],
+            type: Sequelize.STRING,
+            validate: {
+              isIn: {
+                args: [['sponsored', 'shared', 'recommended']],
+                msg: 'Must be either sponsored, shared or recommended.'
+              },
+            },
             allowNull: false,
+            defaultValue: 'recommended'
           }
         },
 
