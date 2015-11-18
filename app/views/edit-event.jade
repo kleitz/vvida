@@ -12,27 +12,36 @@ md-card.items(layout='column' flex='55')
         md-content.md-padding
           h4.md-display-9 Edit Item
           br
-          form(ng-submit="updateItem()")
-            form(method="post" enctype="multipart/data" ng-submit="addItems()")
-              md-input-container
-                i.fa.fa-list
-                  |   Categories
-                md-select(ng-model="item.catId" md-on-open="loadCategories()" class="select" aria-label="item.catId")
-                  md-option(ng-value="category.id" ng-repeat="category in categories")   {{category.type}}
-              md-input-container
-                i.fa.fa-coffee
-                  |   Product
-                input(ng-model="item.name" type="text" ng-required="true" aria-label="item.name" )
-              md-input-container
-                i.fa.fa-file-text
-                  |   Description
-                textarea(ng-model="item.description" ng-required="true" rows="5" aria-label="item.description")
+          form(method="post" enctype="multipart/data" ng-submit="updateEvent()")
+            md-input-container
+              i.fa.fa-glass
+                |   Event Name
+              input(type="text" ng-model="event.name" ng-required="true" aria-label="event.name")
+            md-input-container
+              i.fa.fa-file-text
+                |   Description
+              textarea(ng-model="event.description" rows="5" ng-required="true" aria-label="event.description")
+            md-input-container
+              i.fa.fa-map-marker
+                |   Location
+              input(ng-model="event.location" type="text" ng-required="true" aria-label="event.location")
+            md-input-container
+              i.fa.fa-university
+                |   Venue
+              input(ng-model="event.venue" type="text" ng-required="true" rows='2' aria-label="event.venue")
 
-              br
-              md-button.md-raised.md-warn(class="login-button" type="submit")
-                i(class="fa fa-edit")
-                | Update
+            i.fa.fa-university
+                |   Venue
+              md-datepicker(ng-model="event.time" md-placeholder="Enter start date" )
 
+            md-input-container
+              i.fa.fa-thumbs-o-up
+                |   Sponsor
+              input(ng-model="event.sponsor" type="text" ng-required="true" aria-label="event.sponsor")
+            br
+            md-button.md-raised.md-warn(class="login-button" type="submit")
+              i(class="fa fa-plus-circle")
+              | Add
 
       md-tab(label='Upload Images')
         md-content.md-padding
@@ -69,8 +78,8 @@ md-card.items(layout='column' flex='55')
 
       md-tab(label='gallarey')
         md-content(layout="row" layout-sm="column" layout-md="column")
-          md-subheader(ng-if="item.Images.length < 1")  No uploaded images, Please ensure you upload images in the upload image tab
-          md-card.ripple-container(md-ink-ripple flex ng-repeat="image in item.Images")
+          md-subheader(ng-if="event.Images.length < 1")  No uploaded images, Please ensure you upload images in the upload image tab
+          md-card.ripple-container(md-ink-ripple flex ng-repeat="image in event.Images")
             .card-images.md-card-image(style='background-image: url({{image.img_url}})')
 
 
