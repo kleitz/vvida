@@ -33,6 +33,7 @@ angular.module('vvida.controllers')
             password: $scope.user.passwordSignup
           };
           Users.save(user, function(res) {
+            Auth.setToken(res.token);
             $rootScope.currentUser = res;
             console.log('$rootScope.currentUser: ', $rootScope.currentUser);
             $state.go('profile', {
