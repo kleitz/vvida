@@ -9,7 +9,7 @@
             type: Sequelize.STRING,
             validate: {
               isIn: {
-                args: ['sponsored', 'shared', 'recommended'],
+                args: [['sponsored', 'shared', 'recommended']],
                 msg: 'Must be either sponsored, shared or recommended.'
               },
             },

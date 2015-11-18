@@ -3,13 +3,12 @@ module.exports = function(sequelize, DataType) {
       // username
       username: {
         type: DataType.STRING,
-        unique: true,
+        unique: false
       },
       // password
       password: {
         type: DataType.STRING,
-        unique: true,
-        allowNull: true,
+        allowNull: true
       },
       // firstname
       firstname: {
@@ -31,11 +30,11 @@ module.exports = function(sequelize, DataType) {
         type: DataType.STRING,
         validate: {
           isIn: {
-            args: ['male', 'female', 'hidden'],
+            args: [['male', 'female', 'hidden']],
             msg: 'Must be either male, female or hidden'
           }
         },
-        allowNull: false,
+        allowNull: true,
         defaultValue: 'hidden'
       },
       // date of birth
@@ -57,19 +56,19 @@ module.exports = function(sequelize, DataType) {
       // country
       country: {
         type: DataType.STRING,
-        allowNull: true,
+        allowNull: true
       },
       // city
       city: {
         type: DataType.STRING,
-        allowNull: true,
+        allowNull: true
       },
       // role
       role: {
         type: DataType.STRING,
         validate: {
           isIn: {
-            args: ['user', 'admin', 'super-admin'],
+            args: [['user', 'admin', 'super-admin']],
             msg: 'Must be either user, admin or super-admin.'
           }
         },
@@ -85,21 +84,21 @@ module.exports = function(sequelize, DataType) {
       // facebook and google IDs of the user
       facebook_auth_id: {
         type: DataType.STRING,
-        allowNull: true,
+        allowNull: true
       },
       // Access token for facebook
       facebook_auth_token: {
         type: DataType.STRING,
-        allowNull: true,
+        allowNull: true
       },
       google_auth_id: {
         type: DataType.STRING,
-        allowNull: true,
+        allowNull: true
       },
       // Access token for Google
       google_auth_token: {
         type: DataType.STRING,
-        allowNull: true,
+        allowNull: true
       },
       // Profile image
       picture_url: {
@@ -110,7 +109,7 @@ module.exports = function(sequelize, DataType) {
       // JWT token
       token: {
         type: DataType.STRING(1024),
-        allowNull: true,
+        allowNull: true
       },
       // enabled
       // gives options to enable or disable user
@@ -118,7 +117,7 @@ module.exports = function(sequelize, DataType) {
         type: DataType.STRING,
         validate: {
           isIn: {
-            args: ['yes', 'no'],
+            args: [['yes', 'no']],
             msg: 'Must be yes or no'
           }
         },
