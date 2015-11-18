@@ -12,13 +12,13 @@
           // username
           username: {
             type: Sequelize.STRING,
-            unique: true,
+            unique: true
           },
           // password
           password: {
             type: Sequelize.STRING,
             unique: true,
-            allowNull: true,
+            allowNull: true
           },
           // firstname
           firstname: {
@@ -71,7 +71,7 @@
           // city
           city: {
             type: Sequelize.STRING,
-            allowNull: true,
+            allowNull: true
           },
           // role
           role: {
@@ -100,24 +100,24 @@
           // facebook and google IDs of the user
           facebook_auth_id: {
             type: Sequelize.STRING,
-            allowNull: true,
+            allowNull: true
           },
 
           // Access token for facebook
           facebook_auth_token: {
             type: Sequelize.STRING,
-            allowNull: true,
+            allowNull: true
           },
 
           google_auth_id: {
             type: Sequelize.STRING,
-            allowNull: true,
+            allowNull: true
           },
 
           // Access token for Google
           google_auth_token: {
             type: Sequelize.STRING,
-            allowNull: true,
+            allowNull: true
           },
 
           picture_url: {
@@ -127,7 +127,7 @@
           },
           token: {
             type: Sequelize.STRING(1024),
-            allowNull: true,
+            allowNull: true
           },
           // enabled
           // gives options to enable or disable user
@@ -143,12 +143,11 @@
             defaultValue: 'yes'
           },
           created_at: {
-    type: Sequelize.DATE
-  },
-  updated_at: {
-    type: Sequelize.DATE
-  }
-
+            type: Sequelize.DATE
+          },
+          updated_at: {
+            type: Sequelize.DATE
+          }
         },
         // table configuration 
         {
