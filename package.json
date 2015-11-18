@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 0",
+    "test": "node index.js &\ngulp test",
     "build": "gulp heroku:production"
   },
   "repository": {
@@ -61,11 +61,12 @@
     "protractor": "^2.2.0",
     "selenium-server-standalone-jar": "2.44.0",
     "sequelize": "^3.8.0",
+    "sequelize-cli": "^2.1.0",
     "stringify": "^3.1.0",
     "superagent": "^1.4.0",
     "vinyl-source-stream": "^1.1.0"
   },
   "engines": {
-    "node": ">=0.12.5"
+    "node": ">=4.2.1"
   }
 }

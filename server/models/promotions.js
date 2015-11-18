@@ -2,9 +2,15 @@ module.exports = function(sequelize, DataType) {
   return sequelize.define('ItemPromotions', {
       // e.g sponsored, shared, recommended
       group: {
-        type: DataType.ENUM,
-        values: ['sponsored', 'shared', 'recommended'],
+        type: DataType.STRING,
+        validate: {
+          isIn: {
+            args: [['sponsored', 'shared', 'recommended']],
+            msg: 'Must be either sponsored, shared or recommended.'
+          },
+        },
         allowNull: false,
+        defaultValue: 'recommended'
       }
     },
 
