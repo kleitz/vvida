@@ -26,6 +26,7 @@
   require('./controllers/header');
   require('./controllers/items');
   require('./controllers/event');
+  require('./controllers/review');
 
   window.app = angular.module('vvida', [
     'vvida.controllers',
@@ -145,7 +146,6 @@
         controller: 'AboutCtrl',
         templateUrl: 'views/upload.html'
       })
-      .state('review')
       .state('404', {
         url: '/404',
         templateUrl: 'views/404.html',
