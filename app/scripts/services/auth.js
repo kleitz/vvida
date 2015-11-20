@@ -1,23 +1,18 @@
 angular.module('vvida.services')
-  .factory('Auth', ['Token', 'UserInfo', function(Token, UserInfo) {
+  .factory('Auth', ['Token', function(Token) {
     return {
       isLoggedIn: function() {
-        if (Token.get() && UserInfo.get()) {
+        if (Token.get()) {
           return true;
         } else {
           return false;
         }
       },
-      setToken: function(token, user) {
+      setToken: function(token) {
         Token.set(token);
-        UserInfo.set(user);
-      },
-      getUser: function() {
-        return UserInfo.get();
       },
       logout: function() {
         Token.remove();
-        UserInfo.remove();
       }
     };
   }])
@@ -45,21 +40,6 @@ angular.module('vvida.services')
 
       remove: function() {
         $window.localStorage.removeItem('token');
-      }
-    };
-  }])
-  .factory('UserInfo', ['$window', function($window) {
-    return {
-      set: function(token) {
-        $window.localStorage.setItem('user', token);
-      },
-
-      get: function() {
-        return $window.localStorage.getItem('user');
-      },
-
-      remove: function() {
-        $window.localStorage.removeItem('user');
       }
     };
   }]);
