@@ -9,7 +9,7 @@ module.exports = function(app, auth) {
     .get(auth.authenticate, Users.logout);
 
   app.route('/api/users/session')
-    .get(Users.session);
+    .get(auth.authenticate, Users.session);
 
   // users routes
   app.route('/api/users')
