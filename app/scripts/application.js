@@ -47,7 +47,11 @@
     function($rootScope, $location, $state, $mdSidenav, Users, Auth) {
       // Check if the user's session is still being persisted in the servers
       if (Auth.isLoggedIn()) {
-        $rootScope.currentUser = Auth.getUser();
+        Users.session(function(err, res) {
+          if (!err) {
+            $rootScope.currentUser = res;
+          }
+        });
       }
 
       $rootScope.login = function() {
@@ -141,7 +145,7 @@
         .state('addItem', {
           url: '/items/create',
           controller: 'ItemCtrl',
-          templateUrl: 'views/edit-item.html'
+          templateUrl: 'views/items.html'
         })
         .state('editItem', {
           url: '/items/{id}/edit',
