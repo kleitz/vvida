@@ -184,6 +184,10 @@
       .state('404', {
         url: '/404',
         templateUrl: 'views/404.html'
+      })
+      .state('picture', {
+        url: '/picture',
+        templateUrl: 'views/picture.html'
       });
     $locationProvider.html5Mode(true);
   }]);
