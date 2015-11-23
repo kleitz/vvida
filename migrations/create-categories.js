@@ -4,6 +4,11 @@
   module.exports = {
     up: function(queryInterface, Sequelize) {
       return queryInterface.createTable('Categories', {
+          // category id
+          id: {
+            type: Sequelize.INTEGER,
+            autoIncrement: true
+          },
           // Type of the category
           // e.g product, service, location
           type: {
@@ -13,10 +18,10 @@
         },
         // table configuration
         {
-          // prevent time stamps from using camelase
+          // prevent timestamps from using camelase
           // updatedAt to updated_at and createdAt to created-at
           underscored: true,
-          // prevent sequelize from transforming the user tables to prural
+          // prevent sequelize from transforming the user tables to plural
           freezetableName: true
         });
     },

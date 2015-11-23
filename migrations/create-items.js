@@ -26,7 +26,6 @@
           },
           // item description
           // gives a detailed description of what the item is all about
-
           description: {
             type: Sequelize.TEXT,
             allowNull: true

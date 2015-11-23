@@ -36,7 +36,7 @@
 
           // time
           time: {
-            type: Sequelize.DATE,
+            type: Sequelize.DATE
           },
 
           // event sponsors
