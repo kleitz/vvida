@@ -1,0 +1,31 @@
+md-content.md-padding
+  h4.md-display-9 Upload Images
+  br
+  form(ng-submit="upload()")
+    md-button.md-raised.md-no-ink.file-upload
+      i.fa.fa-picture-o
+      | select images
+      input.upload(type="file" nv-file-select="" uploader="uploader" multiple)
+    md-list.listdemoListControls(ng-cloak='')
+      md-subheader.md-no-sticky The queue. Length: {{ uploader.queue.length }}
+      md-list-item(ng-repeat='item in uploader.queue')
+        md-subheader {{ item.file.name }}
+          br
+        md-progress-linear.md-primary(md-mode='determinate', value='{{item.progress}}')
+        br
+
+      md-divider
+      br
+
+      md-progress-linear.md-primary(md-mode='determinate', value='{{uploader.progress}}')
+      br
+      div(ng-init="showToast() && uploader.clearQueue()" ng-if="uploader.progress === 100 && !uploader.isUploading")
+      md-button.md-raised.md-primary(ng-click='uploader.uploadAll()', ng-disabled='!uploader.getNotUploadedItems().length && uploader.isUploading')
+        i.fa.fa-cloud-upload
+        | upload
+      md-button.md-raised.md-warn(ng-click='uploader.cancelAll()', ng-disabled='!uploader.isUploading')
+        i.fa.fa-ban
+        | cancel
+      md-button.md-raised.md-warn(ng-click='uploader.clearQueue()', ng-disabled='!uploader.queue.length')
+        i.fa.fa-remove
+        | Remove
