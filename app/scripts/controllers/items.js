@@ -10,6 +10,7 @@
         };
 
         $scope.addItems = function() {
+          console.log($scope.item);
           Items.save($scope.item, function(item) {
             if (item) {
               $state.go('editItem', {
@@ -34,13 +35,15 @@
         };
 
         //load the item
-        Items.get({
-          id: itemId
-        }, function(item) {
-          $scope.images = item.Images;
-          console.log($scope.images);
-          $scope.item = item;
-        });
+        if (itemId) {
+          Items.get({
+            id: itemId
+          }, function(item) {
+            $scope.images = item.Images;
+            console.log($scope.images);
+            $scope.item = item;
+          });
+        }
 
         $scope.updateItem = function() {
           Items.update($scope.item, function(item) {

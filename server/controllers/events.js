@@ -36,7 +36,7 @@
       var Events = req.app.get('models').Events,
         Images = req.app.get('models').Images;
       return Events.findAll({
-        limit: 3,
+        limit: 4,
         order: [
           ['id', 'DESC']
         ],

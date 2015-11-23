@@ -7,9 +7,9 @@
     "dialect": "postgres"
   },
   "test": {
-    "username": "kn9ts",
-    "password": "root",
-    "database": "vvida",
+    "username": "ubuntu",
+    "password": "",
+    "database": "circle_test",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },

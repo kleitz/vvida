@@ -1,7 +1,6 @@
 (function() {
   'use strict';
-  var passport = require('passport'),
-    countryArray = require('./countries.js');
+  var passport = require('passport');
   module.exports = {
     // login middleware
     login: function(req, res, next) {
@@ -23,7 +22,6 @@
       })(req, res, next);
     },
 
-    // signup middleware
     signup: function(req, res, next) {
       passport.authenticate('signup', function(err, user) {
         // check for errors, if exist send a response with error
@@ -45,7 +43,7 @@
 
     session: function(req, res) {
       if (req.decoded) {
-        return res.status(200).json(req.decoded);
+        return res.json(req.session.user);
       } else {
         res.status(401).json({
           error: 'Unathorized Access'
@@ -56,15 +54,10 @@
     // Middleware to get all users
     all: function(req, res) {
       var Users = req.app.get('models').Users;
-      Users.findAll().then(function(users, err) {
+      Users.findAll().then(function(users) {
         if (!users) {
           res.status(404).json({
             error: 'User not found'
-          });
-        } else if (err) {
-          res.status(500).json({
-            message: 'Error retrieving users',
-            error: err
           });
         } else {
           users.map(function(user) {
@@ -72,6 +65,11 @@
           });
           res.json(users);
         }
+      }).catch(function(err) {
+        res.status(500).json({
+          message: 'Error retrieving user',
+          err: err
+        });
       });
     },
 
@@ -110,7 +108,6 @@
             error: err.message || err.errors[0].message
           });
         }
-
         res.json({
           message: 'Profile updated successfully.'
         });
@@ -150,8 +147,156 @@
       });
     },
 
-    countries: function(req, res) {
-      res.status(200).send(countryArray);
+    getItems: function(req, res) {
+      var Users = req.app.get('models').Users,
+        Items = req.app.get('models').Items,
+        Reviews = req.app.get('models').Reviews,
+        Categories = req.app.get('models').Categories;
+      Users.findOne({
+        where: {
+          id: req.params.id
+        },
+        include: [{
+          model: Items,
+          include: [Categories, Reviews]
+        }]
+      }).then(function(user) {
+        if (!user) {
+          res.status(404).send({
+            error: 'User not found'
+          });
+        } else {
+          user.password = null;
+          res.json(user);
+        }
+
+      }).catch(function(err) {
+        res.status(500).send({
+          error: err.message || err.errors[0].message
+        });
+      });
+    },
+
+    getEvents: function(req, res) {
+      var Users = req.app.get('models').Users,
+        Events = req.app.get('models').Events;
+      Users.findOne({
+        where: {
+          id: req.params.id
+        },
+        include: [Events]
+      }).then(function(user) {
+        if (!user) {
+          res.status(404).send({
+            error: 'User not found'
+          });
+        } else {
+          user.password = null;
+          res.json(user);
+        }
+
+      }).catch(function(err) {
+        res.status(500).send({
+          error: err.message || err.errors[0].message
+        });
+      });
+    },
+
+    getReviews: function(req, res) {
+      var Users = req.app.get('models').Users,
+        Reviews = req.app.get('models').Reviews,
+        Items = req.app.get('models').Items,
+        Categories = req.app.get('models').Categories;
+      Users.findOne({
+        where: {
+          id: req.params.id
+        },
+        include: [{
+          model: Reviews,
+          include: [{
+            model: Items,
+            include: [Categories]
+          }]
+        }]
+      }).then(function(user) {
+        if (!user) {
+          res.status(404).send({
+            error: 'User not found'
+          });
+        } else {
+          user.password = null;
+          res.json(user);
+        }
+
+      }).catch(function(err) {
+        res.status(500).send({
+          error: err.message || err.errors[0].message
+        });
+      });
+    },
+
+    getReviewsCount: function(req, res) {
+      var Reviews = req.app.get('models').Reviews;
+      Reviews.count({
+        where: {
+          user_id: req.params.id
+        }
+      }).then(function(results) {
+        if (!results) {
+          res.status(404).send({
+            error: 'User reviews not found'
+          });
+        } else {
+          res.json(results);
+        }
+
+      }).catch(function(err) {
+        res.status(500).send({
+          error: err.message || err.errors[0].message
+        });
+      });
+    },
+    getEventsCount: function(req, res) {
+      var Events = req.app.get('models').Events;
+      Events.count({
+        where: {
+          user_id: req.params.id
+        }
+      }).then(function(results) {
+        if (!results) {
+          res.status(404).send({
+            error: 'User events not found'
+          });
+        } else {
+          res.json(results);
+        }
+
+      }).catch(function(err) {
+        res.status(500).send({
+          error: err.message || err.errors[0].message
+        });
+      });
+    },
+    getItemsCount: function(req, res) {
+      var Items = req.app.get('models').Items;
+      Items.count({
+        where: {
+          user_id: req.params.id
+        }
+      }).then(function(results) {
+        if (!results) {
+          res.status(404).send({
+            error: 'User items not found'
+          });
+        } else {
+          res.json(results);
+        }
+
+      }).catch(function(err) {
+        res.status(500).send({
+          error: err.message || err.errors[0].message
+        });
+      });
     }
   };
 })();

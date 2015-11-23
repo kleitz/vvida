@@ -5,6 +5,7 @@ var passportConfig = require('./passport.config'),
     auth: passportConfig,
     strategy: Strategy,
     db: {
+      url: process.env.DATABASE_URL,
       name: process.env.DATABASE_NAME,
       dialect: process.env.DATABASE_DIALECT,
       host: process.env.DATABASE_HOST,
@@ -18,4 +19,5 @@ module.exports = {
   development: envVariables,
   staging: envVariables,
   production: envVariables,
+  test: envVariables
 };
