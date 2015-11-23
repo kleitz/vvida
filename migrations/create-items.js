@@ -16,7 +16,7 @@
           },
           category_id: {
             type: Sequelize.INTEGER,
-            autoIncrement: true
+            allowNull: false
           },
           // item name
           // hold the name of the items
@@ -28,7 +28,7 @@
           // gives a detailed description of what the item is all about
           description: {
             type: Sequelize.TEXT,
-            allowNull: true
+            allowNull: false
           },
           city: {
             type: Sequelize.STRING,

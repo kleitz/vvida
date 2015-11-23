@@ -8,12 +8,10 @@ module.exports = function(sequelize, DataType) {
       },
       // item description
       // gives a detailed description of what the item is all about
-
       description: {
         type: DataType.TEXT,
-        allowNull: true
+        allowNull: false
       },
-
       city: {
         type: DataType.STRING,
         allowNull: false
