@@ -35,7 +35,7 @@
       var Items = req.app.get('models').Items,
         Images = req.app.get('models').Images;
       Items.findAll({
-        limit: 3,
+        limit: 4,
         order: [
           ['id', 'DESC']
         ],

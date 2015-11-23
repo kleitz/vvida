@@ -94,7 +94,10 @@
       // Now set up the states
       $mdThemingProvider.theme('default')
         .primaryPalette('blue')
-        .accentPalette('deep-orange');
+        .accentPalette('deep-orange')
+        .backgroundPalette('grey', {
+          default: '200'
+        });
 
       $stateProvider
         .state('home', {
