@@ -26,6 +26,10 @@ md-card.items(layout='column' layout-md="column" layout-sm="column" flex='55')
           |   Product
         input(ng-model="item.name" type="text" ng-required="true" aria-label="item.name")
       md-input-container
+        i.fa.fa-globe
+          |   City
+        input(ng-model="item.city" type="text" ng-required="true" aria-label="item.city")
+      md-input-container
         i.fa.fa-file-text
           |   Description
         textarea(ng-model="item.description" type="text" ng-required="true" rows='5' aria-label="item.description")
