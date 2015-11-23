@@ -8,8 +8,7 @@
           // e.g product, service, location
           type: {
             type: Sequelize.STRING,
-            allowNull: false,
-            unique: true
+            allowNull: false
           }
         },
         // table configuration
