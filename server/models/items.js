@@ -18,7 +18,6 @@ module.exports = function(sequelize, DataType) {
         type: DataType.STRING,
         allowNull: false
       }
-
     },
     // table configuration
     {

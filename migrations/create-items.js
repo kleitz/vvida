@@ -31,6 +31,10 @@
             type: Sequelize.TEXT,
             allowNull: true
           },
+          city: {
+            type: Sequelize.STRING,
+            allowNull: false
+          },
           created_at: {
             type: Sequelize.DATE
           },
