@@ -4,17 +4,44 @@
   module.exports = {
     up: function(queryInterface, Sequelize) {
       return queryInterface.createTable('ItemPromotions', {
+          // id
+          id: {
+            type: Sequelize.INTEGER,
+            autoincrement: true
+          },
           // e.g sponsored, shared, recommended
           group: {
             type: Sequelize.STRING,
             validate: {
               isIn: {
-                args: [['sponsored', 'shared', 'recommended']],
+                args: [
+                  ['sponsored', 'shared', 'recommended']
+                ],
                 msg: 'Must be either sponsored, shared or recommended.'
               },
             },
             allowNull: false,
             defaultValue: 'recommended'
+          },
+          created_at: {
+            type: Sequelize.DATE
+          },
+          updated_at: {
+            type: Sequelize.DATE
+          },
+          item_id: {
+            type: Sequelize.INTEGER,
+            allowNull: false
+          },
+          user_id: {
+            type: Sequelize.INTEGER,
+            allowNull: false
+          },
+          created_by: {
+            type: Sequelize.DATE
+          },
+          created_for: {
+            type: Sequelize.DATE
           }
         },
 

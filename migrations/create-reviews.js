@@ -4,6 +4,11 @@
   module.exports = {
     up: function(queryInterface, Sequelize) {
       return queryInterface.createTable('Reviews', {
+          // id
+          id: {
+            type: Sequelize.INTEGER,
+            autoincrement: true
+          },
           review: {
             type: Sequelize.TEXT,
             allowNull: false
@@ -16,6 +21,20 @@
             type: Sequelize.INTEGER,
             allowNull: false,
             defaultValue: 0
+          },
+          item_id: {
+            type: Sequelize.INTEGER,
+            allowNull: false
+          },
+          user_id: {
+            type: Sequelize.INTEGER,
+            allowNull: false
+          },
+          created_at: {
+            type: Sequelize.DATE
+          },
+          updated_at: {
+            type: Sequelize.DATE
           }
         },
         // table configuration

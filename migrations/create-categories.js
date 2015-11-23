@@ -4,7 +4,7 @@
   module.exports = {
     up: function(queryInterface, Sequelize) {
       return queryInterface.createTable('Categories', {
-          // category id
+          // id
           id: {
             type: Sequelize.INTEGER,
             autoIncrement: true
@@ -14,6 +14,16 @@
           type: {
             type: Sequelize.STRING,
             allowNull: false
+          },
+          sub_cat_id: {
+            type: Sequelize.INTEGER,
+            allowNull: true
+          },
+          created_at: {
+            type: Sequelize.DATE
+          },
+          updated_at: {
+            type: Sequelize.DATE
           }
         },
         // table configuration
