@@ -15,7 +15,6 @@
   require('./services/reviews');
   require('./services/auth');
 
-
   // Require Controllers
   require('./controllers/footer');
   require('./controllers/home');
@@ -24,6 +23,11 @@
   require('./controllers/login');
   require('./controllers/welcome');
   require('./controllers/header');
+  require('./controllers/user-profile/index');
+  require('./controllers/user-profile/events');
+  require('./controllers/user-profile/items');
+  require('./controllers/user-profile/pictures');
+  require('./controllers/user-profile/reviews');
   require('./controllers/items');
   require('./controllers/event');
   require('./controllers/review');
@@ -55,6 +59,10 @@
         $state.go('home');
       }
 
+      $rootScope.login = function() {
+        $state.go('login');
+      };
+
       $rootScope.menu = [{
         name: 'Home',
         state: 'home'
@@ -64,6 +72,9 @@
       }, {
         name: 'Events',
         state: 'events'
+      }, {
+        name: 'Products',
+        state: 'item'
       }];
 
       $rootScope.openLeftMenu = function() {
@@ -76,9 +87,14 @@
     }
   ]);
 
-  window.app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$mdThemingProvider', function($stateProvider, $urlRouterProvider, $locationProvider, $mdThemingProvider) {
+  window.app.config(['$stateProvider', '$httpProvider', '$urlRouterProvider', '$locationProvider', '$mdThemingProvider',
+    function($stateProvider, $httpProvider, $urlRouterProvider, $locationProvider, $mdThemingProvider) {
+
+    $httpProvider.interceptors.push('TokenInjector');
+
     // For any unmatched url, redirect to /state1
     $urlRouterProvider.otherwise('/404');
+
 
     // Now set up the states
     $mdThemingProvider.theme('default')
@@ -98,13 +114,38 @@
       })
       .state('events', {
         url: '/events',
-        controller: 'EventCtrl',
+        controller: 'EventsCtrl',
         templateUrl: 'views/events.html'
       })
       .state('profile', {
         url: '/user/{id}/edit',
         controller: 'ProfileCtrl',
         templateUrl: 'views/edit-profile.html'
+      })
+      .state('userProfile', {
+        url: '/user/profile',
+        views: {
+          '': {
+            controller: 'UserProfileCtrl',
+            templateUrl: 'views/user-profile.html',
+          },
+          'Reviews@userProfile': {
+            controller: 'UserReviewsCtrl',
+            templateUrl: 'views/user-reviews.html',
+          },
+          'Events@userProfile': {
+            controller: 'UserEventsCtrl',
+            templateUrl: 'views/user-events.html',
+          },
+          'Products@userProfile': {
+            controller: 'UserProductsCtrl',
+            templateUrl: 'views/user-products.html',
+          },
+          'Pictures@userProfile': {
+            controller: 'UserPicturesCtrl',
+            templateUrl: 'views/user-pictures.html',
+          }
+        }
       })
       .state('addItem', {
         url: '/items/create',
@@ -148,10 +189,8 @@
       })
       .state('404', {
         url: '/404',
-        templateUrl: 'views/404.html',
-        controller: function($scope) {}
+        templateUrl: 'views/404.html'
       });
-
     $locationProvider.html5Mode(true);
   }]);
 

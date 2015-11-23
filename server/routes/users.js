@@ -21,4 +21,22 @@ module.exports = function(app, auth) {
     .get(Users.find)
     .put(auth.authenticate, Users.update)
     .delete(auth.authenticate, Users.delete);
+
+  app.route('/api/users/:id/items')
+    .get(Users.getItems);
+
+  app.route('/api/users/:id/items/no')
+    .get(Users.getItemsCount);
+
+  app.route('/api/users/:id/reviews')
+    .get(Users.getReviews);
+
+  app.route('/api/users/:id/reviews/no')
+    .get(Users.getReviewsCount);
+
+  app.route('/api/users/:id/events')
+    .get(Users.getEvents);
+
+  app.route('/api/users/:id/events/no')
+    .get(Users.getEventsCount);
 };

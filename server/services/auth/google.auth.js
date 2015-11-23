@@ -22,7 +22,7 @@ module.exports = function(app, passport, config) {
           .then(function(user) {
             // If the user does not exist create one
             if (!user) {
-              User.build({
+              Users.build({
                   email: profile.emails[0].value,
                   role: 'user',
                   username: profile.username,
