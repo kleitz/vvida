@@ -170,6 +170,11 @@
           controller: 'LoginCtrl',
           templateUrl: 'views/login.html'
         })
+        .state('review', {
+          url: '/review',
+          controller: 'ReviewCtrl',
+          templateUrl: 'views/review.html'
+        })
         .state('welcome', {
           url: '/welcome',
           controller: 'WelcomeCtrl',
