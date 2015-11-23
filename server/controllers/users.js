@@ -43,7 +43,7 @@
 
     session: function(req, res) {
       if (req.decoded) {
-        return res.status(200).json(req.decoded);
+        return res.json(req.session.user);
       } else {
         res.status(401).json({
           error: 'Unathorized Access'
