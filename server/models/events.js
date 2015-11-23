@@ -28,7 +28,7 @@ module.exports = function(sequelize, DataType) {
 
       // time
       time: {
-        type: DataType.DATE,
+        type: DataType.DATE
       },
 
       // event sponsors
