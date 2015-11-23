@@ -8,7 +8,7 @@
         Items.create({
             user_id: req.decoded.id,
             category_id: req.body.catId,
-            name: req.body.itemName,
+            name: req.body.name,
             city: req.body.city,
             description: req.body.description
           })
