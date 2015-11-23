@@ -40,6 +40,7 @@
         // table configuration
         {
           // prevent timestamps from using camelase
+          timestamps: true,
           // updatedAt to updated_at and createdAt to created-at
           underscored: true,
           // prevent sequelize from transforming the user tables to plural
