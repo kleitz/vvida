@@ -33,7 +33,7 @@
           });
         };
 
-        //load the item
+        // load the item
         Items.get({
           id: itemId
         }, function(item) {
