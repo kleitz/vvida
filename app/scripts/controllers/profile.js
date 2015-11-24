@@ -1,6 +1,28 @@
 angular.module('vvida.controllers')
-  .controller('ProfileCtrl', ['$rootScope', '$scope', '$state', 'Users', 'Countries',
-    function($rootScope, $scope, $state, Users, Countries) {
+  .controller('ProfileCtrl', ['$rootScope', '$scope', '$state', 'Users', 'Countries', 'FileUploader', 'Utils',
+    function($rootScope, $scope, $state, Users, Countries, FileUploader, Utils) {
+
+      var init = function() {
+        $scope.user = {
+          id: $rootScope.currentUser.id
+        };
+        $scope.uploader = new FileUploader({
+          url: '/api/image/user',
+          alias: 'photos',
+          formData: [$scope.user],
+        });
+      };
+
+      $scope.showToast = function() {
+        Utils.toast('Upload complete');
+      };
+
+      $scope.upload = function() {
+        $scope.uploader.uploadAll();
+      };
+
+      init();
+
       if ($rootScope.currentUser) {
         Countries.getCountries(function(err, res) {
           if (res) {
@@ -11,10 +33,11 @@ angular.module('vvida.controllers')
             }];
           }
         });
-        $scope.user = {};
+        $scope.user = $rootScope.currentUser;
         $scope.user.id = $rootScope.currentUser.id;
         $scope.user.country = $rootScope.currentUser.country || 'Kenya';
         $scope.user.email = $rootScope.currentUser.email;
+        $scope.user.gender = $rootScope.currentUser.gender;
 
         $scope.editProfile = function() {
           $scope.user.password = $rootScope.currentUser.password;

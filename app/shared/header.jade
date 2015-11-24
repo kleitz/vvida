@@ -11,7 +11,7 @@ md-toolbar.md-accent.md-whiteframe-z3.header-spacing(ng-controller='HeaderCtrl')
         md-button {{menuItem.name}}
     div(ng-if='currentUser' layout)
       md-button.md-fab(ui-sref='userProfile' aria-label='Comment' style='height: 48px; width: 48px; margin: 20px; padding: 0px;')
-        img(ng-src='{{currentUser.picture_url}}')
+        img(ng-src='{{currentUser.img_url}}')
       h5.user-name {{currentUser.firstname}}
       md-button(aria-label='Sign out' ng-click='logout()')
         span.fa.fa-sign-out.fa-2x
