@@ -15,31 +15,4 @@ angular.module('vvida.services')
         Token.remove();
       }
     };
-  }])
-  .factory('TokenInjector', ['Token', function(Token) {
-    var tokenInjector = {
-      request: function(config) {
-        var token = Token.get();
-        if (token) {
-          config.headers['x-access-token'] = token;
-        }
-        return config;
-      }
-    };
-    return tokenInjector;
-  }])
-  .factory('Token', ['$window', function($window) {
-    return {
-      set: function(token) {
-        $window.localStorage.setItem('token', token);
-      },
-
-      get: function() {
-        return $window.localStorage.getItem('token');
-      },
-
-      remove: function() {
-        $window.localStorage.removeItem('token');
-      }
-    };
   }]);
