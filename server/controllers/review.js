@@ -8,6 +8,7 @@
         user_id: req.body.id,
         item_id: req.body.itemId,
         review: req.body.review,
+        review_title: req.body.review_title,
         rating: req.body.rating
       }).then(function(review) {
         if (!review) {
