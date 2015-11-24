@@ -5,6 +5,7 @@
   angular.module('vvida.filters', []);
   angular.module('vvida.directives', []);
 
+
   //Require Services
   require('./services/utils');
   require('./services/users');
@@ -13,7 +14,9 @@
   require('./services/items');
   require('./services/events');
   require('./services/reviews');
+  require('./services/token');
   require('./services/auth');
+  require('./services/token-injector');
 
   // Require Controllers
   require('./controllers/footer');
@@ -30,6 +33,9 @@
   require('./controllers/user-profile/reviews');
   require('./controllers/items');
   require('./controllers/event');
+
+  // Require Directives
+  require('./directives/ng-thumb');
 
   window.app = angular.module('vvida', [
     'vvida.controllers',
@@ -145,7 +151,7 @@
       .state('addItem', {
         url: '/items/create',
         controller: 'ItemCtrl',
-        templateUrl: 'views/edit-item.html'
+        templateUrl: 'views/items.html'
       })
       .state('editItem', {
         url: '/items/{id}/edit',
@@ -180,10 +186,6 @@
       .state('404', {
         url: '/404',
         templateUrl: 'views/404.html'
-      })
-      .state('picture', {
-        url: '/picture',
-        templateUrl: 'views/picture.html'
       });
     $locationProvider.html5Mode(true);
   }]);
