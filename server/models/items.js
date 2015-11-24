@@ -14,7 +14,7 @@ module.exports = function(sequelize, DataType) {
       },
       city: {
         type: DataType.STRING,
-        allowNull: false
+        allowNull: true
       }
     },
     // table configuration

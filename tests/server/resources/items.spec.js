@@ -8,7 +8,7 @@ describe('Items resource API tests', function() {
   var generateFakeItem = function() {
       return {
         // catId: faker.random.number(),
-        itemName: faker.commerce.productName(),
+        name: faker.commerce.productName(),
         description: faker.lorem.sentence()
       };
     },
@@ -83,7 +83,7 @@ describe('Items resource API tests', function() {
         _expect(res.status).to.be(200);
 
         var newItem = res.body;
-        _expect(newItem.name).to.be(item.itemName);
+        _expect(newItem.name).to.be(item.name);
         _expect(newItem.id).to.be.a('number');
         id = newItem.id;
         done();
