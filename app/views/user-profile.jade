@@ -12,8 +12,7 @@ div(ng-if='currentUser')
       div(layout="row")
         div(flex="30")
           md-card.ripple-container.profile-pic(md-ink-ripple flex)
-            .card-images.md-card-image.bg-img-male(ng-if='currentUser.gender == "male"')
-            .card-images.md-card-image.bg-img-female(ng-if='currentUser.gender == "female"')
+            .card-images.md-card-image.bg-img-male(ng-if='currentUser.img_url' style="background-image: url({{currentUser.img_url}})")
         div(flex="70")
           p.md-display-3(class='packed-bottom') {{currentUser.firstname}} {{currentUser.lastname}}
           p.md-headline(class='packed-top') {{currentUser.city}}, {{currentUser.country}}
