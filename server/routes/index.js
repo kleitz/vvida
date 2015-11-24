@@ -10,6 +10,7 @@
     require('./countries')(app);
     require('./categories')(app, auth);
     require('./review')(app, auth);
+    require('./image')(app);
 
     /* GET home page. */
     app.get('/*', function(req, res) {
