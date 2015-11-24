@@ -78,25 +78,16 @@ app.use(function(req, res, next) {
 // will print stacktrace
 if (env === 'development') {
   app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
-    });
+    res.status(err.status || 500).send(err.message);
+    console.log("Error: ", err);
+    // res.render('error', {
+    //   message: err.message,
+    //   error: err
+    // });
     next();
   });
 }
 
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
-  next();
-});
 
 var server = app.listen(process.env.PORT || 3000, function() {
   console.log('Express server listening on %d, in %s' +
