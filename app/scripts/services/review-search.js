@@ -1,6 +1,6 @@
 angular.module('vvida.services')
   .factory('ReviewSearch', ['$http', function($resource) {
-    var obj = {};
-
+    var obj = $resource;
+    return obj;
 
   }]);

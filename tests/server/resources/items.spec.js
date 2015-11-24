@@ -81,7 +81,6 @@ describe('Items resource API tests', function() {
       .accept('application/json')
       .end(function(err, res) {
         _expect(res.status).to.be(200);
-
         var newItem = res.body;
         _expect(newItem.name).to.be(item.name);
         _expect(newItem.id).to.be.a('number');
