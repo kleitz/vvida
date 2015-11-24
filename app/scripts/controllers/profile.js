@@ -7,7 +7,7 @@ angular.module('vvida.controllers')
           id: $rootScope.currentUser.id
         };
         $scope.uploader = new FileUploader({
-          url: '/api/image/user',
+          url: '/api/users/image-upload',
           alias: 'photos',
           formData: [$scope.user],
         });
