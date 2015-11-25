@@ -57,7 +57,7 @@
         cloudinary.uploader.upload(path, function(result) {
           if (result && !result.error) {
             return Users.update({
-              public_id: result.public_id,
+              img_public_id: result.public_id,
               img_url: result.url
             }, {
               where: {
