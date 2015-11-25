@@ -51,7 +51,7 @@ angular.module('vvida.controllers')
         delete $scope.user.token;
         delete $scope.user.facebook_auth_id;
         delete $scope.user.facebook_auth_token;
-        delete $scope.user.public_id;
+        delete $scope.user.img_public_id;
         delete $scope.user.google_auth_id;
         delete $scope.user.google_auth_token;
         Users.update($scope.user, function() {
