@@ -26,12 +26,14 @@
       passport.authenticate('signup', function(err, user) {
         // check for errors, if exist send a response with error
         if (err) {
+          console.log(err);
           return res.status(500).json({
             error: err.message || err.errors[0].message || err
           });
         }
         // If passport doesn't return the user object,  signup failed
         if (!user) {
+          console.log('User not found');
           return res.status(500).json({
             error: 'Signup failed. User already exists.'
           });
