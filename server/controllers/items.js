@@ -14,14 +14,10 @@
             description: req.body.description
           })
           .then(function(item) {
-            if (!item) {
-              return res.status(500).send({
-                error: 'Failed to create item'
-              });
-            }
             res.json(item);
           })
           .catch(function(err) {
+            console.log(err);
             res.status(500).send({
               error: err.message || err.errors[0].message
             });
