@@ -30,12 +30,14 @@
         };
 
         //load the item
-        Events.get({
-          id: eventId
-        }, function(event) {
-          $scope.event = event;
-          $scope.event.time = null;
-        });
+        if (eventId) {
+          Events.get({
+            id: eventId
+          }, function(event) {
+            $scope.event = event;
+            $scope.event.time = null;
+          });
+        }
 
         $scope.updateEvent = function() {
           Events.update($scope.event, function(event) {
