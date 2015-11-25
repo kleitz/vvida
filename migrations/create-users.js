@@ -5,11 +5,6 @@
     up: function(queryInterface, Sequelize) {
       return queryInterface.createTable('Users', {
           // id
-          id: {
-            type: Sequelize.INTEGER,
-            autoIncrement: true
-          },
-          // username
           username: {
             type: Sequelize.STRING,
             unique: false
@@ -67,7 +62,7 @@
           // country
           country: {
             type: Sequelize.STRING,
-            allowNull: true,
+            allowNull: true
           },
           // city
           city: {
@@ -90,52 +85,42 @@
           },
           // status
           status: {
-            type: Sequelize.STRING,
-            validate: {
-              isIn: {
-                args: [
-                  ['active', 'inactive']
-                ],
-                msg: 'Must be either active or inactive'
-              }
-            },
+            type: Sequelize.ENUM,
+            values: ['active', 'innactive'],
             defaultValue: 'active'
           },
-
           // facebook and google IDs of the user
           facebook_auth_id: {
             type: Sequelize.STRING,
             allowNull: true
           },
-
           // Access token for facebook
           facebook_auth_token: {
             type: Sequelize.STRING,
             allowNull: true
           },
-
           google_auth_id: {
             type: Sequelize.STRING,
             allowNull: true
           },
-
           // Access token for Google
           google_auth_token: {
             type: Sequelize.STRING,
             allowNull: true
           },
-          public_id: {
-            type: DataType.STRING,
+          // Profile image
+          img_public_id: {
+            type: Sequelize.STRING,
             allowNull: true
           },
           img_url: {
-            type: DataType.STRING,
+            type: Sequelize.STRING,
             allowNull: true,
             defaultValue: 'images/user.png'
           },
           // JWT token
           token: {
-            type: DataType.STRING(1024),
+            type: Sequelize.STRING(1024),
             allowNull: true
           },
           // enabled
@@ -152,12 +137,6 @@
             },
             // to be clarified
             defaultValue: 'yes'
-          },
-          created_at: {
-            type: Sequelize.DATE
-          },
-          updated_at: {
-            type: Sequelize.DATE
           }
         },
         // table configuration
@@ -173,11 +152,9 @@
               return this;
             },
           },
-          // prevent time stamps from using camelcase
+          // prevent time stamps from using camelase
           // updatedAt to updated_at and createdAt to created-at
           underscored: true,
-          // dont forget to enable timestamps
-          timestamps: true,
           // prevent sequelize from transforming the user tables to prural
           freezetableName: true
         });
