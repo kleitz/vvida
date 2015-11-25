@@ -128,6 +128,13 @@
             type: Sequelize.STRING(1024),
             allowNull: true
           },
+          // created at and updated at
+          created_at: {
+            type: Sequelize.DATE
+          },
+          updated_at: {
+            type: Sequelize.DATE
+          },
           // enabled
           // gives options to enable or disable user
           enabled: {
