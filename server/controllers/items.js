@@ -5,6 +5,7 @@
       var Items = req.app.get('models').Items;
       console.log(req.body);
       if (req.body.hasOwnProperty('name') && req.body.hasOwnProperty('description')) {
+        console.log(req.decoded);
         Items.create({
             user_id: req.decoded.id,
             category_id: req.body.catId,

@@ -75,6 +75,7 @@ describe('Items resource API tests', function() {
 
   it('should store a newly created resource in storage.', function(done) {
     var item = generateFakeItem();
+    console.log(item);
     request
       .post(resourceApiUrl)
       .set('X-Access-Token', authToken)
