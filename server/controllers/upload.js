@@ -42,9 +42,7 @@
     },
 
     userImgUpload: function(req, res) {
-      console.log('Here!');
       if (req.files) {
-        console.log('Here-2!');
         var path = req.files[0].path;
         var cb = function(err, image) {
           if (image) {
@@ -57,7 +55,6 @@
         };
         var Users = req.app.get('models').Users;
         cloudinary.uploader.upload(path, function(result) {
-          console.log('Here-3!');
           if (result && !result.error) {
             return Users.update({
               public_id: result.public_id,
@@ -67,7 +64,7 @@
                 id: req.body.id
               }
             }).then(function(image) {
-              cb(null, image);
+              cb(null, result.url);
             }).catch(function(err) {
               cb(err, null);
             });
