@@ -32,7 +32,7 @@
           },
           city: {
             type: Sequelize.STRING,
-            allowNull: false
+            allowNull: true
           },
           created_at: {
             type: Sequelize.DATE
