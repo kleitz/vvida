@@ -3,9 +3,7 @@
   module.exports = {
     create: function(req, res) {
       var Items = req.app.get('models').Items;
-      console.log(req.body);
       if (req.body.hasOwnProperty('name') && req.body.hasOwnProperty('description')) {
-        console.log(req.decoded);
         Items.create({
             user_id: req.decoded.id,
             category_id: req.body.catId,
@@ -14,10 +12,14 @@
             description: req.body.description
           })
           .then(function(item) {
+            if (!item) {
+              return res.status(500).send({
+                error: 'Failed to create item'
+              });
+            }
             res.json(item);
           })
           .catch(function(err) {
-            console.log(err);
             res.status(500).send({
               error: err.message || err.errors[0].message
             });
@@ -81,7 +83,6 @@
             error: 'Update failed'
           });
         }
-
         res.json({
           message: 'Item has been updated.'
         });
