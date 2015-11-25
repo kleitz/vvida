@@ -9,7 +9,8 @@ describe('Items resource API tests', function() {
       return {
         // catId: faker.random.number(),
         name: faker.commerce.productName(),
-        description: faker.lorem.sentence()
+        description: faker.lorem.sentence(),
+        city: faker.address.city()
       };
     },
     generateFakeItemUpdate = function() {
