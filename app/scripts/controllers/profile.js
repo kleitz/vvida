@@ -1,5 +1,6 @@
 angular.module('vvida.controllers')
-  .controller('ProfileCtrl', ['$rootScope', '$scope', '$state', '$interval', 'Users', 'Countries', 'FileUploader', 'Utils',
+  .controller('ProfileCtrl',
+    ['$rootScope', '$scope', '$state', '$interval', 'Users', 'Countries', 'FileUploader', 'Utils',
     function($rootScope, $scope, $state, $interval, Users, Countries, FileUploader, Utils) {
       $scope.theDate = new Date();
       var init = function() {
