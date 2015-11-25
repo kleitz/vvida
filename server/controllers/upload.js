@@ -64,7 +64,9 @@
                 id: req.body.id
               }
             }).then(function(image) {
-              cb(null, result.url);
+              if (image) {
+                cb(null, result.url);
+              }
             }).catch(function(err) {
               cb(err, null);
             });
