@@ -10,6 +10,7 @@
         };
 
         $scope.addItems = function() {
+          console.log($scope.item);
           Items.save($scope.item, function(item) {
             if (item) {
               $state.go('editItem', {
@@ -32,16 +33,16 @@
             formData: [$scope.item],
           });
         };
-
-        // load the item
-        Items.get({
-          id: itemId
-        }, function(item) {
-          $scope.images = item.Images;
-          console.log($scope.images);
-          $scope.item = item;
-        });
-
+        //load the item
+        if (itemId) {
+          Items.get({
+            id: itemId
+          }, function(item) {
+            $scope.images = item.Images;
+            console.log($scope.images);
+            $scope.item = item;
+          });
+        }
         $scope.updateItem = function() {
           Items.update($scope.item, function(item) {
             Utils.toast(item.message);
