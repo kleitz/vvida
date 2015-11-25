@@ -4,7 +4,6 @@ md-toolbar.md-accent.md-whiteframe-z3.header-spacing(ng-controller='HeaderCtrl')
       i.fa.fa-bars.fa-2x
     a(ui-sref='home')
       img(src='images/logo.png' height='24' hide-sm)
-      span.text-color.white &nbsp;Vvida
     span(flex)
 
     a(ng-repeat='menuItem in menu' ui-sref='{{menuItem.state}}' hide-sm)
