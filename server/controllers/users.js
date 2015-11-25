@@ -7,7 +7,7 @@
       passport.authenticate('login', function(err, user) {
         if (err) {
           return res.status(500).json({
-            error: 'Something went wrong while logging you in'
+            error: 'Something went wrong while logging you in.'
           });
         }
         // Generate a JSON response reflecting authentication status
@@ -42,13 +42,23 @@
     },
 
     session: function(req, res) {
-      if (req.decoded) {
-        return res.json(req.session.user);
-      } else {
-        res.status(401).json({
-          error: 'Unathorized Access'
+      var Users = req.app.get('models').Users;
+      Users.findById(req.decoded.id).then(function(user) {
+        if (!user) {
+          res.status(404).json({
+            message: 'User not found'
+          });
+        } else {
+          user.password = null;
+          delete user.password;
+          res.json(user);
+        }
+      }).catch(function(err) {
+        res.status(500).json({
+          message: 'Error retrieving user',
+          err: err
         });
-      }
+      });
     },
 
     // Middleware to get all users
