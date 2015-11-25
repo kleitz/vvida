@@ -39,7 +39,9 @@
             type: Sequelize.STRING,
             validate: {
               isIn: {
-                args: [['male', 'female', 'hidden']],
+                args: [
+                  ['male', 'female', 'hidden']
+                ],
                 msg: 'Must be either male, female or hidden'
               }
             },
@@ -77,7 +79,9 @@
             type: Sequelize.STRING,
             validate: {
               isIn: {
-                args: [['user', 'admin', 'super-admin']],
+                args: [
+                  ['user', 'admin', 'super-admin']
+                ],
                 msg: 'Must be either user, admin or super-admin.'
               }
             },
@@ -89,7 +93,9 @@
             type: Sequelize.STRING,
             validate: {
               isIn: {
-                args: [['active', 'inactive']],
+                args: [
+                  ['active', 'inactive']
+                ],
                 msg: 'Must be either active or inactive'
               }
             },
@@ -118,14 +124,18 @@
             type: Sequelize.STRING,
             allowNull: true
           },
-
-          picture_url: {
-            type: Sequelize.STRING,
+          public_id: {
+            type: DataType.STRING,
+            allowNull: true
+          },
+          img_url: {
+            type: DataType.STRING,
             allowNull: true,
             defaultValue: 'images/user.png'
           },
+          // JWT token
           token: {
-            type: Sequelize.STRING(1024),
+            type: DataType.STRING(1024),
             allowNull: true
           },
           // enabled
@@ -134,7 +144,9 @@
             type: Sequelize.STRING,
             validate: {
               isIn: {
-                args: [['yes', 'no']],
+                args: [
+                  ['yes', 'no']
+                ],
                 msg: 'Must be yes or no'
               }
             },
@@ -148,7 +160,7 @@
             type: Sequelize.DATE
           }
         },
-        // table configuration 
+        // table configuration
         {
           instanceMethods: {
             getFullName: function() {
