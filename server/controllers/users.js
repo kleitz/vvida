@@ -6,15 +6,17 @@
     login: function(req, res, next) {
       passport.authenticate('login', function(err, user) {
         if (err) {
-          return res.status(500).json({
-            error: 'Something went wrong while logging you in.'
-          });
+          console.log('Login error: ',err);
+          // return res.status(500).json({
+          //   error: 'Something went wrong while logging you in.'
+          // });
         }
         // Generate a JSON response reflecting authentication status
         if (!user) {
-          return res.status(500).json({
-            error: 'Authentication failed.'
-          });
+          console.log('User not found!');
+          // return res.status(500).json({
+          //   error: 'Authentication failed.'
+          // });
         }
         user.password = null;
         req.session.user = user;
