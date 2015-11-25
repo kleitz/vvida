@@ -79,7 +79,7 @@ app.use(function(req, res, next) {
 if (env === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500).send(err.message);
-    console.log("Error: ", err);
+    console.log('Error: ', err);
     // res.render('error', {
     //   message: err.message,
     //   error: err
