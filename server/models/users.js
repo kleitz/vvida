@@ -101,7 +101,7 @@ module.exports = function(sequelize, DataType) {
         allowNull: true
       },
       // Profile image
-      public_id: {
+      img_public_id: {
         type: DataType.STRING,
         allowNull: true
       },
