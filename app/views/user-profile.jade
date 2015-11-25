@@ -1,39 +1,40 @@
-div.not-loggedin-div(ng-if='!currentUser')
-  md-card.profile-body.edit-profile(layout='column' layout-align='center center')
-    div.profile-pic
+div.not-loggedin-div(ng-if='!currentUser' layout='row' layout-align='center center')
+  md-card(layout='column' layout-align='center center' flex='90')
+    div.md-padding.md-margin.profile-pic
       img(src='images/lock.png')
-    p.md-headline.packed-bottom You are currently not logged in.
-    p.md-headline.packed-top Click below to login or signup  to continue using vvida.
+    p.md-padding.md-headline.packed-bottom You are currently not logged in.
+    p.md-padding.md-headline.packed-top Click below to login or signup  to continue using vvida.
     md-button.login-btn(class="md-raised md-primary" aria-label='Login/Signup' ng-click='login()') Go to Login/Signup Page
-div(ng-if='currentUser')
-  md-card.profile-body.edit-profile.profile-header(layout='column' flex='55')
-    br
-    md-card-content.content
-      div(layout="row")
-        div(flex="30")
-          md-card.ripple-container.profile-pic(md-ink-ripple flex)
-            .card-images.md-card-image.bg-img-male(ng-if='currentUser.img_url' style="background-image: url({{currentUser.img_url}})")
-        div(flex="70")
-          p.md-display-3(class='packed-bottom') {{currentUser.firstname}} {{currentUser.lastname}}
-          p.md-headline(class='packed-top') {{currentUser.city}}, {{currentUser.country}}
-          div.packed-top(layout="row")
-            md-button.no-space(class='md-padding space-right')
-              span.fa.fa-camera 150 Photos
-            md-button.no-space(class='md-padding space-right')
-              span.fa.fa-star {{reviewsCount}} Reviews
-            md-button.no-space(class='md-padding space-right')
-              span.fa.fa-th-large {{itemsCount}} Products
-            md-button.no-space.md-margin(class='md-padding')
-              span.fa.fa-calendar {{eventsCount}} Events
+div.profile-page(ng-if='currentUser' layout='row' layout-align='center center')
+  div(layout='column' flex='90')
+    md-card.md-margin.profile-header.packed-bottom(layout='column' flex)
+      br
+      md-card-content.content(layout='row' layout-align='center center')
+        div(layout="row" layout-sm='column' layout-md='column' layout-align-sm ='center center' layout-align-md='center center' flex='95')
+          div.right-margin
+            md-card.ripple-container.profile-pic(md-ink-ripple flex)
+              .card-images.md-card-image.bg-img-male(ng-if='currentUser.img_url' style="background-image: url({{currentUser.img_url}})")
+          div(flex layout='column' layout-align='center center' layout-align-gt-md='start start')
+            p.md-display-3.packed-bottom(flex) {{currentUser.firstname}} {{currentUser.lastname}}
+            p.md-headline.packed-top(flex) {{currentUser.city}}, {{currentUser.country}}
+            div.packed-top(layout="row" layout-sm='column' layout-align-sm='center center')
+              md-button.no-space(class='md-padding space-right')
+                span.fa.fa-camera 150 Photos
+              md-button.no-space(class='md-padding space-right')
+                span.fa.fa-star {{reviewsCount}} Reviews
+              md-button.no-space(class='md-padding space-right')
+                span.fa.fa-th-large {{itemsCount}} Products
+              md-button.no-space.md-margin(class='md-padding')
+                span.fa.fa-calendar {{eventsCount}} Events
 
-  md-card.profile-body.edit-profile.packed-top(layout='column' flex='55')
-    br
-    md-tabs(md-dynamic-height md-border-bottom)
-      md-tab(label='Reviews')
-        div(ui-view='Reviews')
-      md-tab(label='Events')
-        div(ui-view='Events')
-      md-tab(label='Items')
-        div(ui-view='Products')
-      md-tab(label='Photos')
-        div(ui-view='Pictures')
+    md-card.md-margin.md-padding.packed-top(layout='column' flex)
+      br
+      md-tabs(md-dynamic-height md-border-bottom)
+        md-tab(label='Reviews')
+          div(ui-view='Reviews')
+        md-tab(label='Events')
+          div(ui-view='Events')
+        md-tab(label='Items')
+          div(ui-view='Products')
+        md-tab(label='Photos')
+          div(ui-view='Pictures')
