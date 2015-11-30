@@ -1,6 +1,5 @@
 (function() {
   'use strict';
-  var jwt = require('jsonwebtoken');
   var passport = require('passport');
   module.exports = {
     // login middleware
@@ -14,8 +13,8 @@
         // Generate a JSON response reflecting authentication status
         if (!user) {
           return res.status(500).json({
-  error: 'Authentication failed.'
-});
+            error: 'Authentication failed.'
+          });
 
         }
         user.password = null;
