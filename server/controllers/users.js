@@ -1,22 +1,22 @@
 (function() {
   'use strict';
+  var jwt = require('jsonwebtoken');
   var passport = require('passport');
   module.exports = {
     // login middleware
     login: function(req, res, next) {
       passport.authenticate('login', function(err, user) {
         if (err) {
-          console.log('Login error: ',err);
-          // return res.status(500).json({
-          //   error: 'Something went wrong while logging you in.'
-          // });
+          return res.status(500).json({
+            error: 'Something went wrong while logging you in.'
+          });
         }
         // Generate a JSON response reflecting authentication status
         if (!user) {
-          console.log('User not found!');
-          // return res.status(500).json({
-          //   error: 'Authentication failed.'
-          // });
+          return res.status(500).json({
+  error: 'Authentication failed.'
+});
+
         }
         user.password = null;
         req.session.user = user;
