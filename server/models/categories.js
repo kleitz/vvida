@@ -4,6 +4,7 @@ module.exports = function(sequelize, DataType) {
       // e.g product, service, location
       type: {
         type: DataType.STRING,
+        unique: true,
         allowNull: false
       }
     },
