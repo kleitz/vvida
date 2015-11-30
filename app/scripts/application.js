@@ -145,6 +145,11 @@
             }
           }
         })
+        .state('viewItem', {
+          url: '/items/{id}/view',
+          controller: 'ItemCtrl',
+          templateUrl: 'views/view-item.html',
+        })
         .state('addItem', {
           url: '/items/create',
           controller: 'ItemCtrl',
