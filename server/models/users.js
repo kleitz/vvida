@@ -3,7 +3,7 @@ module.exports = function(sequelize, DataType) {
       // username
       username: {
         type: DataType.STRING,
-        unique: false
+        unique: true
       },
       // password
       password: {
