@@ -5,7 +5,7 @@ div.not-loggedin-div(ng-if='!currentUser' layout='row' layout-align='center cent
     p.md-padding.md-headline.packed-bottom You are currently not logged in.
     p.md-padding.md-headline.packed-top Click below to login or signup  to continue using vvida.
     md-button.login-btn(class="md-raised md-primary" aria-label='Login/Signup' ng-click='login()') Go to Login/Signup Page
-div( ng-if='currentUser' layout='row' layout-align='center center' )
+div(ng-if='currentUser' layout='row' layout-align='center center')
   md-card.md-margin(layout='column' flex='90')
     br
     .md-padding(layout='column' layout-align='center center')
@@ -21,7 +21,7 @@ div( ng-if='currentUser' layout='row' layout-align='center center' )
           h3.md-margin Your Profile Picture
           p.packed-bottom Pick your profile picture and click UPLOAD.
           p.packed-top Click REMOVE to cancel.
-          input.upload-btn(type="file" nv-file-select="" uploader="uploader" ng-click='uploader.clearQueue()' )
+          input.upload-btn(type="file" nv-file-select="" uploader="uploader" ng-click='uploader.clearQueue()')
           div(layout='column' layout-align='center center' ng-repeat='item in uploader.queue')
             div(ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 100 }")
             md-subheader {{ item.file.name }}
@@ -56,11 +56,11 @@ div( ng-if='currentUser' layout='row' layout-align='center center' )
             md-input-container(layout='row' layout-align='center center' flex)
               md-icon(class='fa fa-globe')
               md-select.md-padding.md-margin(placeholder='Country' ng-model='user.country' aria-label='Country' flex)
-                md-option(ng-repeat='country in countries' ng-value='country.name' ) {{country.name}}
+                md-option(ng-repeat='country in countries' ng-value='country.name') {{country.name}}
             md-input-container(layout='row' layout-align='center center' flex)
               md-icon(class='fa fa-venus-mars')
               md-select.md-padding.md-margin(placeholder='Gender' ng-model='user.gender' aria-label='Gender' flex)
-                md-option(ng-repeat='type in gender' ng-value='type.type' ) {{type.type}}
+                md-option(ng-repeat='type in gender' ng-value='type.type') {{type.type}}
           div(layout='row' layout-sm='column')
             md-input-container(flex)
               md-icon(class='fa fa-user')
