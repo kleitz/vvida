@@ -1,4 +1,4 @@
-.sign-up( layout='column', style='padding-bottom: 20px;')
+.sign-up.md-whiteframe-z3( layout='column', style='padding-bottom: 20px;')
   div(ng-cloak='')
     md-content.md-padding
       md-tabs.md-dynamic-height
@@ -21,7 +21,7 @@
                         | Login
                 br
                 br
-                section(layout='row', layout-sm='column', layout-align='center center', layout-wrap='')
+                section(layout='row', layout-sm='column', layout-align='center center', layout-wrap='' flex-sm="55")
                   md-button.md-raised.md-primary.md-hue-2(class='third-party-button', aria-label="Facebook", ng-click="facebook()")
                     i(class="fa fa-facebook")
                     | Login with Facebook
@@ -51,7 +51,7 @@
                         | Sign Up
                 br
                 br
-                section(layout='row', layout-sm='column', layout-align='center center', layout-wrap='')
+                section(layout='row', layout-sm='column', layout-align='center center', layout-wrap='' flex-sm="55")
                   md-button.md-raised.md-primary.md-hue-2(class='third-party-button',aria-label="FacebookSignUp", ng-click="facebook()")
                     i(class="fa fa-facebook")
                     | sign up with Facebook
