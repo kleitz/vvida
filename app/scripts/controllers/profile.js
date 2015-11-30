@@ -1,8 +1,6 @@
 angular.module('vvida.controllers')
-  .controller('ProfileCtrl',
-    ['$rootScope', '$scope', '$state', '$interval', 'Users', 'Countries', 'FileUploader', 'Utils',
+  .controller('ProfileCtrl', ['$rootScope', '$scope', '$state', '$interval', 'Users', 'Countries', 'FileUploader', 'Utils',
     function($rootScope, $scope, $state, $interval, Users, Countries, FileUploader, Utils) {
-      $scope.theDate = new Date();
       var init = function() {
         $scope.uploader = new FileUploader({
           url: '/api/users/image-upload',
@@ -13,15 +11,17 @@ angular.module('vvida.controllers')
       init();
       $scope.uploader.onCompleteItem = function(fileItem, response, status, headers) {
         $rootScope.currentUser.img_url = response;
-        console.log(fileItem, response, status, headers);
       };
 
       $interval(function() {
         if ($rootScope.currentUser) {
           $scope.user = $rootScope.currentUser;
-          $scope.theDate = new Date(Date.parse($scope.user.dob));
+          $scope.user.dob = new Date(Date.parse($scope.user.dob));
         }
-      }, 1000, 1);
+      }, 1000, 2);
+
+
+
       $scope.showToast = function() {
         Utils.toast('Upload complete');
       };
@@ -35,6 +35,7 @@ angular.module('vvida.controllers')
       }, {
         type: 'hidden'
       }];
+
       Countries.getCountries(function(err, res) {
         if (res) {
           $scope.countries = res;
@@ -46,8 +47,7 @@ angular.module('vvida.controllers')
       });
 
       $scope.editProfile = function() {
-        $scope.user.password = $rootScope.currentUser.password;
-        $scope.user.dob = new Date($scope.theDate);
+        $scope.user.dob = new Date($scope.user.dob);
         delete $scope.user.password;
         delete $scope.user.token;
         delete $scope.user.facebook_auth_id;
