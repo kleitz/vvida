@@ -91,12 +91,13 @@
       // For any unmatched url, redirect to /state1
       $urlRouterProvider.otherwise('/404');
 
-      // Now set up the states
-      // $mdThemingProvider.theme('default')
-  //   .primaryPalette('cyan')
-  //   .backgroundPalette('grey', {
-  //     default: '200'
-  //   });
+      //Now set up the states
+      $mdThemingProvider.theme('default')
+        .primaryPalette('cyan')
+        .backgroundPalette('grey', {
+          default: '200'
+        });
+
 
 
       $stateProvider
