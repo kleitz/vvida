@@ -1,7 +1,7 @@
 (function() {
   'use strict';
   module.exports = {
-    //Middleware to create an item
+
     create: function(req, res) {
       var Categories = req.app.get('models').Categories;
       return Categories.create({
@@ -22,7 +22,7 @@
       });
     },
 
-    // Middleware to get all items
+
     all: function(req, res) {
       var Categories = req.app.get('models').Categories;
       Categories.findAll().then(function(category) {
@@ -33,7 +33,8 @@
         });
       });
     },
-    // Middleware to delete an item
+
+
     delete: function(req, res) {
       var Categories = req.app.get('models').Categories;
       return Categories.destroy({
@@ -55,7 +56,30 @@
           error: err.message || err.errors[0].message
         });
       });
-    }
+    },
+
+
+    find: function(req, res) {
+      var Categories = req.app.get('models').Categories;
+      return Categories.find({
+        where: {
+          id: req.params.id,
+        }
+      }).then(function(category) {
+        if (!category) {
+          return res.status(404).send({
+            message: 'Category not found'
+          });
+        } else {
+          res.json(category);
+        }
+      }).catch(function(err) {
+        return res.status(500).send({
+          message: 'Error retrieving category',
+          error: err
+        });
+      });
+    },
   };
 
 })();
