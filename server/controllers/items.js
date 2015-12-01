@@ -3,7 +3,7 @@
   module.exports = {
     create: function(req, res) {
       var Items = req.app.get('models').Items;
-      if (req.body.hasOwnProperty('itemName') &&
+      if (req.body.hasOwnProperty('name') &&
         req.body.hasOwnProperty('description')) {
         Items.create({
             user_id: req.decoded.id,
