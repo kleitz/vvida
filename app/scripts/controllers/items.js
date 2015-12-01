@@ -33,7 +33,6 @@
             formData: [$scope.item],
           });
         };
-
         //load the item
         if (itemId) {
           Items.get({
@@ -44,7 +43,6 @@
             $scope.item = item;
           });
         }
-
         $scope.updateItem = function() {
           Items.update($scope.item, function(item) {
             Utils.toast(item.message);

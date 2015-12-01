@@ -1,50 +1,77 @@
-div.not-loggedin-div(ng-if='!currentUser')
-  md-card.profile-body.edit-profile(layout='column' layout-align='center center')
-    div.profile-pic
+div.not-loggedin-div(ng-if='!currentUser' layout='row' layout-align='center center')
+  md-card(layout='column' layout-align='center center' flex='90')
+    div.md-padding.md-margin.profile-pic
       img(src='images/lock.png')
-    p.md-headline.packed-bottom You are currently not logged in.
-    p.md-headline.packed-top Click below to login or signup  to continue using vvida.
+    p.md-padding.md-headline.packed-bottom You are currently not logged in.
+    p.md-padding.md-headline.packed-top Click below to login or signup  to continue using vvida.
     md-button.login-btn(class="md-raised md-primary" aria-label='Login/Signup' ng-click='login()') Go to Login/Signup Page
-md-card.profile-body.edit-profile(layout='column' flex='55' ng-if='currentUser')
-  br
-  md-card-content.content
-    form(method='post' ng-submit='editProfile()')
-      h1 Edit Profile
-      div(layout='row')
-        p
+div(ng-if='currentUser' layout='row' layout-align='center center')
+  md-card.md-margin(layout='column' flex='90')
+    br
+    .md-padding(layout='column' layout-align='center center')
+      P.md-display-2.packed EDIT PROFILE
+      div(layout='column' layout-align='center center')
+        p.packed
           | Welcome. The email address you have provided is
-          span.email {{currentUser.email}}.
-          | Please complete the following form with your details to complete your registration.
-      md-input-container
-        md-icon(class='fa fa-user-secret')
-        input(ng-model='user.username' type='text' placeholder='Username' ng-required='true')
-      md-input-container
-        md-icon(class='fa fa-building')
-        input(ng-model='user.city' type='text' placeholder='City' ng-required='true')
-      md-input-container
-        md-icon(class='fa fa-globe')
-        md-select.md-padding.md-margin(ng-model='user.country' aria-label='Country')
-          md-option(ng-repeat='country in countries' ng-value='country.name' ) {{country.name}}
-      div(layout='row')
-        md-input-container(flex='40')
-          md-icon(class='fa fa-user')
-          input(ng-model='user.firstname' type='text' placeholder='First Name' ng-required='true')
-        md-input-container(flex='40')
-          md-icon(class='fa fa-user')
-          input(ng-model='user.lastname' type='text' placeholder='Last Name' ng-required='true')
-        md-input-container.datepicker-cont(flex='20' aria-label='Date of Birth')
-          md-datepicker.datepicker(md-placeholder='Date of Birth' ng-model='theDate' aria-label='Date of Birth')
-      md-input-container.radio-cont
-        md-radio-group(layout='row' ng-model='user.gender' flex='grow')
-          md-radio-button.md-primary(value='female' flex='33')
-            md-icon(class='fa fa-venus' value='0') Female
-          md-radio-button(value='male' flex='33')
-            md-icon(class='fa fa-mars' ) Male
-          md-radio-button(value='hidden' flex='33')
-            md-icon(class='fa fa-transgender-alt' ) Other
-      p {{message}}
-      md-button.md-raised.md-warn.md-padding.md-margin.button
-        i(class='fa fa-send')
-        | Complete Signup
-br
-br
+          span.email{{currentUser.email}}.
+        p.packed Please complete the following form with your details to complete your registration.
+    md-card-content.md-margin.content(layout-gt-md='row' layout='column')
+      div(layout='column' flex)
+        md-card.md-padding.upload-div(layout='column' layout-align='start center' flex)
+          h3.md-margin Your Profile Picture
+          p.packed-bottom Pick your profile picture and click UPLOAD.
+          p.packed-top Click REMOVE to cancel.
+          input.upload-btn(type="file" nv-file-select="" uploader="uploader" ng-click='uploader.clearQueue()')
+          div(layout='column' layout-align='center center' ng-repeat='item in uploader.queue')
+            div(ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 100 }")
+            md-subheader {{ item.file.name }}
+          p.md-title Progress
+          md-progress-linear.md-primary(md-mode='determinate', value='{{uploader.progress}}')
+          br
+          div(ng-init="showToast() && uploader.clearQueue()" ng-if="uploader.progress === 100 && !uploader.isUploading")
+          .md-padding(layout='row' layout-align='center end' flex layout-sm='column')
+            md-button.md-raised.md-primary.md-padding(ng-click='uploader.uploadAll()', ng-disabled='!uploader.getNotUploadedItems().length && uploader.isUploading' flex)
+              i.fa.fa-cloud-upload
+              | upload
+            md-button.md-raised.md-warn.md-padding(ng-click='uploader.cancelAll()', ng-disabled='!uploader.isUploading' flex)
+              i.fa.fa-ban
+              | cancel
+            md-button.md-raised.md-warn.md-padding(ng-click='uploader.clearQueue()', ng-disabled='!uploader.queue.length' flex)
+              i.fa.fa-remove
+              | Remove
+      form(method='post' ng-submit='editProfile()' flex layout='column')
+        md-card.md-padding.md-padding(flex)
+          div(layout='row' layout-align='center center')
+            h3.md-margin Your Profile Details
+          md-input-container
+            md-icon(class='fa fa-user-secret')
+            input(ng-model='currentUser.username' type='text' placeholder='Username' ng-required='true')
+          div(layout='row' layout-sm='column')
+            md-input-container(flex)
+              md-icon(class='fa fa-building')
+              input(ng-model='currentUser.city' type='text' placeholder='City' ng-required='true')
+            md-input-container.datepicker-cont(aria-label='Date of Birth')
+              md-datepicker.datepicker(md-placeholder='Date of Birth' ng-model='currentUser.dob' aria-label='Date of Birth')
+          div(layout='row' style='margin-left: 10px' layout-sm='column')
+            md-input-container(layout='row' layout-align='center center' flex)
+              md-icon(class='fa fa-globe')
+              md-select.md-padding.md-margin(placeholder='Country' ng-model='currentUser.country' aria-label='Country' flex)
+                md-option(ng-repeat='country in countries' ng-value='country.name') {{country.name}}
+            md-input-container(layout='row' layout-align='center center' flex)
+              md-icon(class='fa fa-venus-mars')
+              md-select.md-padding.md-margin(placeholder='Gender' ng-model='currentUser.gender' aria-label='Gender' flex)
+                md-option(ng-repeat='type in gender' ng-value='type.type') {{type.type}}
+          div(layout='row' layout-sm='column')
+            md-input-container(flex)
+              md-icon(class='fa fa-user')
+              input(ng-model='currentUser.firstname' type='text' placeholder='First Name' ng-required='true')
+            md-input-container(flex)
+              md-icon(class='fa fa-user')
+              input(ng-model='currentUser.lastname' type='text' placeholder='Last Name' ng-required='true')
+          p{{message}}
+          div(layout='row' flex layout-align='center end')
+            md-button.md-raised.md-warn.md-padding.md-margin.button(flex='70')
+              md-icon(class='fa fa-send')
+              | Update Profile
+  br
+  br
