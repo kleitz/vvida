@@ -112,7 +112,11 @@ module.exports = function(sequelize, DataType) {
         allowNull: true
       },
       // Profile image
-      picture_url: {
+      img_public_id: {
+        type: DataType.STRING,
+        allowNull: true
+      },
+      img_url: {
         type: DataType.STRING,
         allowNull: true,
         defaultValue: 'images/user.png'

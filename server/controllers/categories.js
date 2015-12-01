@@ -5,8 +5,7 @@
     create: function(req, res) {
       var Categories = req.app.get('models').Categories;
       return Categories.create({
-        type: req.body.category,
-        is_sub_cat: req.body.subCat
+        type: req.body.category
       }).then(function(category) {
         if (!category) {
           res.status(500).send({
