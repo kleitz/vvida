@@ -55,15 +55,14 @@
               error: 'Session has expired or does not exist.'
             });
           } else {
-            req.decoded = decoded;
-            Users.findById(req.decoded.id).then(function(user) {
+            Users.findById(decoded.id).then(function(user) {
               if (!user) {
                 res.status(404).json({
                   message: 'User not found'
                 });
               } else {
-                user.password = null;
                 delete user.password;
+                req.decoded = user;
                 res.json(user);
               }
             }).catch(function(err) {
