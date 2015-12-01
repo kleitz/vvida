@@ -1,6 +1,7 @@
 (function() {
   'use strict';
   var passport = require('passport');
+  var jwt = require('jsonwebtoken');
   module.exports = {
     // login middleware
     login: function(req, res, next) {
@@ -45,23 +46,40 @@
     },
 
     session: function(req, res) {
+      var token = req.headers['x-access-token'] || req.params('token') || req.body.token;
       var Users = req.app.get('models').Users;
-      Users.findById(req.decoded.id).then(function(user) {
-        if (!user) {
-          res.status(404).json({
-            message: 'User not found'
-          });
-        } else {
-          user.password = null;
-          delete user.password;
-          res.json(user);
-        }
-      }).catch(function(err) {
-        res.status(500).json({
-          message: 'Error retrieving user',
-          err: err
+      if (token && token !== 'null') {
+        jwt.verify(token, req.app.get('superSecret'), function(err, decoded) {
+          if (err) {
+            res.status(403).json({
+              error: 'Session has expired or does not exist.'
+            });
+          } else {
+            req.decoded = decoded;
+            Users.findById(req.decoded.id).then(function(user) {
+              if (!user) {
+                res.status(404).json({
+                  message: 'User not found'
+                });
+              } else {
+                user.password = null;
+                delete user.password;
+                res.json(user);
+              }
+            }).catch(function(err) {
+              res.status(500).json({
+                message: 'Error retrieving user',
+                err: err
+              });
+            });
+          }
         });
-      });
+      } else {
+        res.status(401).json({
+          error: 'Session has expired or does not exist.'
+        });
+      }
+
     },
 
     // Middleware to get all users
