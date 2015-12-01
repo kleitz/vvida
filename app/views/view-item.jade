@@ -7,13 +7,7 @@
 
     .view-item-main
       md-grid-list(md-cols-sm='1', md-cols-md='4', md-cols-gt-md='4', md-row-height-gt-md='1:1', md-row-height='1:1', md-gutter='12px', md-gutter-gt-sm='8px')
-        md-grid-tile
-
-        md-grid-tile
-
-        md-grid-tile
-
-        md-grid-tile
+        md-grid-tile(ng-repeat="image in images" style="background-image: url('{{image.img_url}}'); background-repeat: no-repeat; background-size: 100% 100%;")
       md-button(class="md-raised md-warn" style="margin-top:20px") Write A Review
 
 
