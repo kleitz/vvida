@@ -4,6 +4,11 @@
   module.exports = {
     up: function(queryInterface, Sequelize) {
       return queryInterface.createTable('Reviews', {
+          // id
+          id: {
+            type: Sequelize.INTEGER,
+            autoincrement: true
+          },
           review: {
             type: Sequelize.TEXT,
             allowNull: false
@@ -16,12 +21,27 @@
             type: Sequelize.INTEGER,
             allowNull: false,
             defaultValue: 0
+          },
+          item_id: {
+            type: Sequelize.INTEGER,
+            allowNull: false
+          },
+          user_id: {
+            type: Sequelize.INTEGER,
+            allowNull: false
+          },
+          created_at: {
+            type: Sequelize.DATE
+          },
+          updated_at: {
+            type: Sequelize.DATE
           }
         },
         // table configuration
         {
           // prevent time stamps from using camelase
           // updatedAt to updated_at and createdAt to created-at
+          timestamps: true,
           underscored: true,
           // prevent sequelize from transforming the user tables to prural
           freezetableName: true

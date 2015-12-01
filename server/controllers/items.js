@@ -8,7 +8,8 @@
         Items.create({
             user_id: req.decoded.id,
             category_id: req.body.catId,
-            name: req.body.itemName,
+            name: req.body.name,
+            city: req.body.city,
             description: req.body.description
           })
           .then(function(item) {
@@ -35,7 +36,7 @@
       var Items = req.app.get('models').Items,
         Images = req.app.get('models').Images;
       Items.findAll({
-        limit: 3,
+        limit: 4,
         order: [
           ['id', 'DESC']
         ],
@@ -83,7 +84,6 @@
             error: 'Update failed'
           });
         }
-
         res.json({
           message: 'Item has been updated.'
         });

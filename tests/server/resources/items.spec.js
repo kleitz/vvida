@@ -8,8 +8,10 @@ describe('Items resource API tests', function() {
   var generateFakeItem = function() {
       return {
         // catId: faker.random.number(),
-        itemName: faker.commerce.productName(),
-        description: faker.lorem.sentence()
+        name: faker.commerce.productName(),
+        catId: faker.random.number(),
+        description: faker.lorem.sentence(),
+        city: faker.address.city()
       };
     },
     generateFakeItemUpdate = function() {
@@ -74,6 +76,7 @@ describe('Items resource API tests', function() {
 
   it('should store a newly created resource in storage.', function(done) {
     var item = generateFakeItem();
+
     request
       .post(resourceApiUrl)
       .set('X-Access-Token', authToken)
@@ -81,9 +84,8 @@ describe('Items resource API tests', function() {
       .accept('application/json')
       .end(function(err, res) {
         _expect(res.status).to.be(200);
-
         var newItem = res.body;
-        _expect(newItem.name).to.be(item.itemName);
+        _expect(newItem.name).to.be(item.name);
         _expect(newItem.id).to.be.a('number');
         id = newItem.id;
         done();

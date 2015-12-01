@@ -5,7 +5,7 @@
     create: function(req, res) {
       var Reviews = req.app.get('models').Reviews;
       return Reviews.create({
-        user_id: req.body.id,
+        user_id: req.decoded.id,
         item_id: req.body.itemId,
         review: req.body.review,
         rating: req.body.rating
