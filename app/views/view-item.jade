@@ -1,6 +1,7 @@
-md-card.md-padding
-  p {{ item.name }}
-md-card.md-padding
-  p {{ item.description }}
-md-card.md-padding
-  img(ng-src="{{item.Images[0].img_url}}")
+.view-item(layout="column")
+  md-card.md-padding(flex)
+    p {{ item.name }}
+  md-card.md-padding(flex)
+    p {{ item.description }}
+  md-card.md-padding(flex)
+    img(ng-src="{{item.Images[0].img_url}}")
