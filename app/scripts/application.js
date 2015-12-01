@@ -5,6 +5,7 @@
   angular.module('vvida.filters', []);
   angular.module('vvida.directives', []);
 
+
   //Require Services
   require('./services/utils');
   require('./services/users');
@@ -13,7 +14,9 @@
   require('./services/items');
   require('./services/events');
   require('./services/reviews');
+  require('./services/token');
   require('./services/auth');
+  require('./services/token-injector');
 
   // Require Controllers
   require('./controllers/footer');
@@ -30,6 +33,10 @@
   require('./controllers/user-profile/reviews');
   require('./controllers/items');
   require('./controllers/event');
+  require('./controllers/review');
+
+  // Require Directives
+  require('./directives/ng-thumb');
 
   window.app = angular.module('vvida', [
     'vvida.controllers',
@@ -50,12 +57,9 @@
         Users.session(function(err, res) {
           if (!err) {
             $rootScope.currentUser = res;
-          } else {
-            console.log('Error: ', err.error);
+            $rootScope.$broadcast('session_found', $rootScope.currentUser);
           }
         });
-      } else {
-        $state.go('home');
       }
 
       $rootScope.login = function() {
@@ -89,103 +93,111 @@
   window.app.config(['$stateProvider', '$httpProvider', '$urlRouterProvider', '$locationProvider', '$mdThemingProvider',
     function($stateProvider, $httpProvider, $urlRouterProvider, $locationProvider, $mdThemingProvider) {
 
-    $httpProvider.interceptors.push('TokenInjector');
+      $httpProvider.interceptors.push('TokenInjector');
 
-    // For any unmatched url, redirect to /state1
-    $urlRouterProvider.otherwise('/404');
+      // For any unmatched url, redirect to /state1
+      $urlRouterProvider.otherwise('/404');
 
+      // Now set up the states
+      $mdThemingProvider.theme('default')
+        .primaryPalette('blue')
+        .accentPalette('deep-orange')
+        .backgroundPalette('grey', {
+          default: '200'
+        });
 
-    // Now set up the states
-    $mdThemingProvider.theme('default')
-      .primaryPalette('blue')
-      .accentPalette('deep-orange');
-
-    $stateProvider
-      .state('home', {
-        url: '/',
-        controller: 'HomeCtrl',
-        templateUrl: 'views/home.html'
-      })
-      .state('about', {
-        url: '/about',
-        controller: 'AboutCtrl',
-        templateUrl: 'views/about.html'
-      })
-      .state('events', {
-        url: '/events',
-        controller: 'EventsCtrl',
-        templateUrl: 'views/events.html'
-      })
-      .state('profile', {
-        url: '/user/{id}/edit',
-        controller: 'ProfileCtrl',
-        templateUrl: 'views/edit-profile.html'
-      })
-      .state('userProfile', {
-        url: '/user/profile',
-        views: {
-          '': {
-            controller: 'UserProfileCtrl',
-            templateUrl: 'views/user-profile.html',
-          },
-          'Reviews@userProfile': {
-            controller: 'UserReviewsCtrl',
-            templateUrl: 'views/user-reviews.html',
-          },
-          'Events@userProfile': {
-            controller: 'UserEventsCtrl',
-            templateUrl: 'views/user-events.html',
-          },
-          'Products@userProfile': {
-            controller: 'UserProductsCtrl',
-            templateUrl: 'views/user-products.html',
-          },
-          'Pictures@userProfile': {
-            controller: 'UserPicturesCtrl',
-            templateUrl: 'views/user-pictures.html',
+      $stateProvider
+        .state('home', {
+          url: '/',
+          controller: 'HomeCtrl',
+          templateUrl: 'views/home.html'
+        })
+        .state('about', {
+          url: '/about',
+          controller: 'AboutCtrl',
+          templateUrl: 'views/about.html'
+        })
+        .state('events', {
+          url: '/events',
+          controller: 'EventsCtrl',
+          templateUrl: 'views/events.html'
+        })
+        .state('profile', {
+          url: '/user/{id}/edit',
+          controller: 'ProfileCtrl',
+          templateUrl: 'views/edit-profile.html'
+        })
+        .state('userProfile', {
+          url: '/user/profile',
+          views: {
+            '': {
+              controller: 'UserProfileCtrl',
+              templateUrl: 'views/user-profile.html',
+            },
+            'Reviews@userProfile': {
+              controller: 'UserReviewsCtrl',
+              templateUrl: 'views/user-reviews.html',
+            },
+            'Events@userProfile': {
+              controller: 'UserEventsCtrl',
+              templateUrl: 'views/user-events.html',
+            },
+            'Products@userProfile': {
+              controller: 'UserProductsCtrl',
+              templateUrl: 'views/user-products.html',
+            },
+            'Pictures@userProfile': {
+              controller: 'UserPicturesCtrl',
+              templateUrl: 'views/user-pictures.html',
+            }
           }
-        }
-      })
-      .state('addItem', {
-        url: '/items/create',
-        controller: 'ItemCtrl',
-        templateUrl: 'views/edit-item.html'
-      })
-      .state('editItem', {
-        url: '/items/{id}/edit',
-        controller: 'ItemCtrl',
-        templateUrl: 'views/edit-item.html'
-      })
-      .state('addEvent', {
-        url: '/events/create',
-        controller: 'EventCtrl',
-        templateUrl: 'views/add-event.html'
-      })
-      .state('editEvent', {
-        url: '/events/{id}/edit',
-        controller: 'EventCtrl',
-        templateUrl: 'views/edit-event.html'
-      })
-      .state('login', {
-        url: '/users/login',
-        controller: 'LoginCtrl',
-        templateUrl: 'views/login.html'
-      })
-      .state('welcome', {
-        url: '/welcome',
-        controller: 'WelcomeCtrl',
-        templateUrl: 'views/welcome.html'
-      })
-      .state('upload', {
-        url: '/upload',
-        controller: 'AboutCtrl',
-        templateUrl: 'views/upload.html'
-      })
-      .state('404', {
-        url: '/404',
-        templateUrl: 'views/404.html'
-      });
-    $locationProvider.html5Mode(true);
-  }]);
+        })
+        .state('addItem', {
+          url: '/items/create',
+          controller: 'ItemCtrl',
+          templateUrl: 'views/items.html'
+        })
+        .state('editItem', {
+          url: '/items/{id}/edit',
+          controller: 'ItemCtrl',
+          templateUrl: 'views/edit-item.html'
+        })
+        .state('addEvent', {
+          url: '/events/create',
+          controller: 'EventCtrl',
+          templateUrl: 'views/add-event.html'
+        })
+        .state('editEvent', {
+          url: '/events/{id}/edit',
+          controller: 'EventCtrl',
+          templateUrl: 'views/edit-event.html'
+        })
+        .state('login', {
+          url: '/users/login',
+          controller: 'LoginCtrl',
+          templateUrl: 'views/login.html'
+        })
+        .state('review', {
+          url: '/review',
+          controller: 'ReviewCtrl',
+          templateUrl: 'views/review.html'
+        })
+        .state('welcome', {
+          url: '/welcome',
+          controller: 'WelcomeCtrl',
+          templateUrl: 'views/welcome.html'
+        })
+        .state('upload', {
+          url: '/upload',
+          controller: 'AboutCtrl',
+          templateUrl: 'views/upload.html'
+        })
+        .state('404', {
+          url: '/404',
+          templateUrl: 'views/404.html'
+        });
+      $locationProvider.html5Mode(true);
+    }
+  ]);
 
 })();

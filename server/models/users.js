@@ -30,7 +30,9 @@ module.exports = function(sequelize, DataType) {
         type: DataType.STRING,
         validate: {
           isIn: {
-            args: [['male', 'female', 'hidden']],
+            args: [
+              ['male', 'female', 'hidden']
+            ],
             msg: 'Must be either male, female or hidden'
           }
         },
@@ -68,7 +70,9 @@ module.exports = function(sequelize, DataType) {
         type: DataType.STRING,
         validate: {
           isIn: {
-            args: [['user', 'admin', 'super-admin']],
+            args: [
+              ['user', 'admin', 'super-admin']
+            ],
             msg: 'Must be either user, admin or super-admin.'
           }
         },
@@ -77,8 +81,15 @@ module.exports = function(sequelize, DataType) {
       },
       // status
       status: {
-        type: DataType.ENUM,
-        values: ['active', 'innactive'],
+        type: DataType.STRING,
+        validate: {
+          isIn: {
+            args: [
+              ['active', 'innactive']
+            ],
+            msg: 'Must be either active or inactive'
+          }
+        },
         defaultValue: 'active'
       },
       // facebook and google IDs of the user
@@ -101,7 +112,11 @@ module.exports = function(sequelize, DataType) {
         allowNull: true
       },
       // Profile image
-      picture_url: {
+      img_public_id: {
+        type: DataType.STRING,
+        allowNull: true
+      },
+      img_url: {
         type: DataType.STRING,
         allowNull: true,
         defaultValue: 'images/user.png'
@@ -117,7 +132,9 @@ module.exports = function(sequelize, DataType) {
         type: DataType.STRING,
         validate: {
           isIn: {
-            args: [['yes', 'no']],
+            args: [
+              ['yes', 'no']
+            ],
             msg: 'Must be yes or no'
           }
         },
