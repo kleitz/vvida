@@ -7,9 +7,11 @@
     require('./auth/google.auth')(app, passport);
     require('./events')(app, auth);
     require('./items')(app, auth);
+    require('./image')(app);
     require('./countries')(app);
     require('./categories')(app, auth);
     require('./review')(app, auth);
+    require('./image')(app);
 
     /* GET home page. */
     app.get('/*', function(req, res) {

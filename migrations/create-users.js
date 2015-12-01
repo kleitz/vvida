@@ -9,7 +9,7 @@
             type: Sequelize.INTEGER,
             autoIncrement: true
           },
-          // username
+          //username
           username: {
             type: Sequelize.STRING,
             unique: false
@@ -39,7 +39,9 @@
             type: Sequelize.STRING,
             validate: {
               isIn: {
-                args: [['male', 'female', 'hidden']],
+                args: [
+                  ['male', 'female', 'hidden']
+                ],
                 msg: 'Must be either male, female or hidden'
               }
             },
@@ -65,7 +67,7 @@
           // country
           country: {
             type: Sequelize.STRING,
-            allowNull: true,
+            allowNull: true
           },
           // city
           city: {
@@ -77,7 +79,9 @@
             type: Sequelize.STRING,
             validate: {
               isIn: {
-                args: [['user', 'admin', 'super-admin']],
+                args: [
+                  ['user', 'admin', 'super-admin']
+                ],
                 msg: 'Must be either user, admin or super-admin.'
               }
             },
@@ -86,47 +90,50 @@
           },
           // status
           status: {
-            type: Sequelize.STRING,
-            validate: {
-              isIn: {
-                args: [['active', 'inactive']],
-                msg: 'Must be either active or inactive'
-              }
-            },
+            type: Sequelize.ENUM,
+            values: ['active', 'innactive'],
             defaultValue: 'active'
           },
-
           // facebook and google IDs of the user
           facebook_auth_id: {
             type: Sequelize.STRING,
             allowNull: true
           },
-
           // Access token for facebook
           facebook_auth_token: {
             type: Sequelize.STRING,
             allowNull: true
           },
-
           google_auth_id: {
             type: Sequelize.STRING,
             allowNull: true
           },
-
           // Access token for Google
           google_auth_token: {
             type: Sequelize.STRING,
             allowNull: true
           },
-
-          picture_url: {
+          // Profile image
+          img_public_id: {
+            type: Sequelize.STRING,
+            allowNull: true
+          },
+          img_url: {
             type: Sequelize.STRING,
             allowNull: true,
             defaultValue: 'images/user.png'
           },
+          // JWT token
           token: {
             type: Sequelize.STRING(1024),
             allowNull: true
+          },
+          // created at and updated at
+          created_at: {
+            type: Sequelize.DATE
+          },
+          updated_at: {
+            type: Sequelize.DATE
           },
           // enabled
           // gives options to enable or disable user
@@ -134,21 +141,17 @@
             type: Sequelize.STRING,
             validate: {
               isIn: {
-                args: [['yes', 'no']],
+                args: [
+                  ['yes', 'no']
+                ],
                 msg: 'Must be yes or no'
               }
             },
             // to be clarified
             defaultValue: 'yes'
-          },
-          created_at: {
-            type: Sequelize.DATE
-          },
-          updated_at: {
-            type: Sequelize.DATE
           }
         },
-        // table configuration 
+        // table configuration
         {
           instanceMethods: {
             getFullName: function() {
@@ -161,11 +164,9 @@
               return this;
             },
           },
-          // prevent time stamps from using camelcase
+          // prevent time stamps from using camelase
           // updatedAt to updated_at and createdAt to created-at
           underscored: true,
-          // dont forget to enable timestamps
-          timestamps: true,
           // prevent sequelize from transforming the user tables to prural
           freezetableName: true
         });

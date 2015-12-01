@@ -16,7 +16,7 @@
           },
           category_id: {
             type: Sequelize.INTEGER,
-            autoIncrement: true
+            allowNull: false
           },
           // item name
           // hold the name of the items
@@ -26,9 +26,12 @@
           },
           // item description
           // gives a detailed description of what the item is all about
-
           description: {
             type: Sequelize.TEXT,
+            allowNull: false
+          },
+          city: {
+            type: Sequelize.STRING,
             allowNull: true
           },
           created_at: {
@@ -43,6 +46,8 @@
           // prevent time stamps from using camelase
           // updatedAt to updated_at and createdAt to created-at
           underscored: true,
+          // enabling timestamps
+          timestamps: true,
           // prevent sequelize from transforming the user tables to prural
           freezetableName: true
         });

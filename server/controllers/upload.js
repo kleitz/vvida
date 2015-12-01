@@ -40,6 +40,44 @@
         });
       }
     },
+
+    userImgUpload: function(req, res) {
+      if (req.files) {
+        var path = req.files[0].path;
+        var cb = function(err, image) {
+          if (image) {
+            res.json(image);
+          } else {
+            res.status(400).send({
+              error: 'Upload'
+            });
+          }
+        };
+        var Users = req.app.get('models').Users;
+        cloudinary.uploader.upload(path, function(result) {
+          if (result && !result.error) {
+            return Users.update({
+              img_public_id: result.public_id,
+              img_url: result.url
+            }, {
+              where: {
+                id: req.body.id
+              }
+            }).then(function(image) {
+              if (image) {
+                cb(null, result.url);
+              }
+            }).catch(function(err) {
+              cb(err, null);
+            });
+          } else {
+            console.log('Here-4!');
+            cb(result.error, null);
+          }
+        });
+      }
+    },
+
     delete: function(req, res, next) {
       cloudinary.uploader.destroy(req.params.id, function(result) {
         if (result) {
@@ -53,6 +91,7 @@
         }
       });
     },
+
     deleteImage: function(req, res) {
       var Images = req.app.get('models').Images;
       return Images.destroy({
