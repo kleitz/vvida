@@ -1,0 +1,40 @@
+.welcome_body
+  .welcome(layout="row")
+    .welcome_main_content(flex='67').md-padding
+      .nextReview
+        h4 Your Next Review Awaits
+        img(src='/images/bot.png')
+        .bubble Have you reviewed anything yet? If not press this button
+
+      .recentReview
+        h4 Recent Activity
+        md-divider
+        md-list
+          md-list-item(ng-repeat="item in messages")
+            md-card(layout)
+              .md-padding(flex="10" layout layout-align="start start")
+                img(ng-src="{{item.face}}")
+              .md-padding
+                h4 {{item.who}} wrote a review for {{item.what}}
+                p {{item.notes}}
+
+
+
+
+
+
+
+
+
+    .sideNav(flex='33').md-padding
+      h4 Review of the Day
+      .review-of-the-day-class-main(layout)
+        .md-padding(flex="25" layout layout-align="start start")
+          img(ng-src="{{reviewOfTheDay.face}}")
+        .md-padding
+          h4 {{reviewOfTheDay.who}} reviewed {{reviewOfTheDay.what}}
+          p If you're a casual drinker, or one who never drink different types of alcohols, or one who knows...
+      md-divider
+
+
+

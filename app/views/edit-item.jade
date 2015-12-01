@@ -1,0 +1,84 @@
+div.not-loggedin-div(ng-if='!currentUser')
+  md-card.profile-body.edit-profile(layout='column' layout-align='center center')
+    div.profile-pic
+      img(src='images/lock.png')
+    p.md-headline.packed-bottom You are currently not logged in.
+    p.md-headline.packed-top Click below to login or signup  to continue using vvida.
+    md-button.login-btn(class="md-raised md-primary" aria-label='Login/Signup' ng-click='login()') Go to Login/Signup Page
+
+md-card.items(layout='column' layout-md="column" layout-sm="column" flex='55')
+  br
+  md-card-content.content
+
+md-card.items(layout='column' flex='55')
+  br
+  md-content
+    md-tabs(md-dynamic-height='', md-border-bottom='')
+      md-tab(label='Edit Item')
+        md-content.md-padding
+          h4.md-display-9 Edit Item
+          br
+          form(ng-submit="updateItem()")
+            form(method="post" enctype="multipart/data" ng-submit="addItems()")
+              md-input-container
+                i.fa.fa-list
+                  |   Categories
+                md-select(ng-model="item.catId" md-on-open="loadCategories()" class="select" aria-label="item.catId")
+                  md-option(ng-value="category.id" ng-repeat="category in categories")   {{category.type}}
+              md-input-container
+                i.fa.fa-coffee
+                  |   Product
+                input(ng-model="item.name" type="text" ng-required="true" aria-label="item.name" )
+              md-input-container
+                i.fa.fa-file-text
+                  |   Description
+                textarea(ng-model="item.description" ng-required="true" rows="5" aria-label="item.description")
+
+              br
+              md-button.md-raised.md-warn(class="login-button" type="submit")
+                i(class="fa fa-edit")
+                | Update
+
+
+      md-tab(label='Upload Images')
+        md-content.md-padding
+          h4.md-display-9 Upload Images
+          br
+          form(ng-submit="upload()")
+            md-button.md-raised.md-no-ink.file-upload
+              i.fa.fa-picture-o
+              | select images
+              input.upload(type="file" nv-file-select="" uploader="uploader" multiple)
+            md-list.listdemoListControls(ng-cloak='')
+              md-subheader.md-no-sticky The queue. Length: {{ uploader.queue.length }}
+              md-list-item(ng-repeat='item in uploader.queue')
+                md-subheader {{ item.file.name }}
+                  br
+                md-progress-linear.md-primary(md-mode='determinate', value='{{item.progress}}')
+                br
+
+              md-divider
+              br
+
+              md-progress-linear.md-primary(md-mode='determinate', value='{{uploader.progress}}')
+              br
+              div(ng-init="showToast() && uploader.clearQueue()" ng-if="uploader.progress === 100 && !uploader.isUploading")
+              md-button.md-raised.md-primary(ng-click='uploader.uploadAll()', ng-disabled='!uploader.getNotUploadedItems().length && uploader.isUploading')
+                  i.fa.fa-cloud-upload
+                  | upload
+                md-button.md-raised.md-warn(ng-click='uploader.cancelAll()', ng-disabled='!uploader.isUploading')
+                  i.fa.fa-ban
+                  | cancel
+                md-button.md-raised.md-warn(ng-click='uploader.clearQueue()', ng-disabled='!uploader.queue.length')
+                  i.fa.fa-remove
+                  | Remove
+
+      md-tab(label='gallarey')
+        md-content(layout="row" layout-sm="column" layout-md="column")
+          md-subheader(ng-if="item.Images.length < 1")  No uploaded images, Please ensure you upload images in the upload image tab
+          md-card.ripple-container(md-ink-ripple flex ng-repeat="image in item.Images")
+            .card-images.md-card-image(style='background-image: url({{image.img_url}})')
+
+
+
+

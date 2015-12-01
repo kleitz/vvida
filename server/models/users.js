@@ -1,22 +1,18 @@
-//var require the seqalize module
-var Seq = require('sequelize'),
-  db = require('../config/db-connect'),
-  users = db.define('users', {
-
+module.exports = function(sequelize, DataType) {
+  return sequelize.define('Users', {
       // username
       username: {
-        type: Seq.STRING,
-        unique: true,
+        type: DataType.STRING,
+        unique: false
       },
       // password
       password: {
-        type: Seq.STRING,
-        unique: true,
-        allowNull: true,
+        type: DataType.STRING,
+        allowNull: true
       },
       // firstname
       firstname: {
-        type: Seq.STRING,
+        type: DataType.STRING,
         allowNull: true,
         validate: {
           isAlpha: true
@@ -24,20 +20,28 @@ var Seq = require('sequelize'),
       },
       // lastname
       lastname: {
-        type: Seq.STRING,
+        type: DataType.STRING,
         allowNull: true,
         validate: {
           isAlpha: true
         }
       },
       gender: {
-        type: Seq.ENUM,
-        values: ['male', 'female', 'hidden'],
+        type: DataType.STRING,
+        validate: {
+          isIn: {
+            args: [
+              ['male', 'female', 'hidden']
+            ],
+            msg: 'Must be either male, female or hidden'
+          }
+        },
+        allowNull: true,
         defaultValue: 'hidden'
       },
       // date of birth
       dob: {
-        type: Seq.INTEGER,
+        type: DataType.DATE,
         allowNull: true,
         validate: {
           isDate: true
@@ -45,7 +49,7 @@ var Seq = require('sequelize'),
       },
       // email
       email: {
-        type: Seq.STRING,
+        type: DataType.STRING,
         unique: true,
         validate: {
           isEmail: true
@@ -53,60 +57,83 @@ var Seq = require('sequelize'),
       },
       // country
       country: {
-        type: Seq.STRING,
-        allowNull: true,
+        type: DataType.STRING,
+        allowNull: true
       },
       // city
       city: {
-        type: Seq.STRING,
-        allowNull: true,
+        type: DataType.STRING,
+        allowNull: true
       },
       // role
       role: {
-        type: Seq.ENUM,
-        values: ['user', 'admin', 'super-admin'],
+        type: DataType.STRING,
+        validate: {
+          isIn: {
+            args: [
+              ['user', 'admin', 'super-admin']
+            ],
+            msg: 'Must be either user, admin or super-admin.'
+          }
+        },
+        allowNull: false,
         defaultValue: 'user'
       },
       // status
       status: {
-        type: Seq.ENUM,
-        values: ['active', 'innactive'],
+        type: DataType.STRING,
+        validate: {
+          isIn: {
+            args: [
+              ['active', 'innactive']
+            ],
+            msg: 'Must be either active or inactive'
+          }
+        },
         defaultValue: 'active'
       },
-
       // facebook and google IDs of the user
       facebook_auth_id: {
-        type: Seq.STRING,
-        allowNull: true,
+        type: DataType.STRING,
+        allowNull: true
       },
-
       // Access token for facebook
       facebook_auth_token: {
-        type: Seq.STRING,
-        allowNull: true,
+        type: DataType.STRING,
+        allowNull: true
       },
-
       google_auth_id: {
-        type: Seq.STRING,
-        allowNull: true,
+        type: DataType.STRING,
+        allowNull: true
       },
-
       // Access token for Google
       google_auth_token: {
-        type: Seq.STRING,
-        allowNull: true,
+        type: DataType.STRING,
+        allowNull: true
       },
+      // Profile image
       picture_url: {
-        type: Seq.STRING,
+        type: DataType.STRING,
         allowNull: true,
+        defaultValue: 'images/user.png'
       },
-
+      // JWT token
+      token: {
+        type: DataType.STRING(1024),
+        allowNull: true
+      },
       // enabled
       // gives options to enable or disable user
-
       enabled: {
-        type: Seq.ENUM,
-        values: ['yes', 'no'],
+        type: DataType.STRING,
+        validate: {
+          isIn: {
+            args: [
+              ['yes', 'no']
+            ],
+            msg: 'Must be yes or no'
+          }
+        },
         // to be clarified
         defaultValue: 'yes'
       }
@@ -126,10 +153,9 @@ var Seq = require('sequelize'),
       },
       // prevent time stamps from using camelase
       // updatedAt to updated_at and createdAt to created-at
-      underscore: true,
+      underscored: true,
       // prevent sequelize from transforming the user tables to prural
       freezetableName: true
     }
   );
-
-module.exports = users;
+};

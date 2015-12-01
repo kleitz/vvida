@@ -1,6 +1,35 @@
-.md-padding
-  h1 About our application
-  div
-    md-button(ng-click="openToast()") Open a Toast!
-    md-button(ng-click="openDialog($event)") Open a Dialog!
-    md-button(ng-click="users()") Open a Dialog!
+.about( ng-cloak='')
+  md-grid-list(md-cols-sm='1', md-cols-md='3', md-cols-gt-md='6', md-row-height-gt-md='1:1', md-row-height='2:2', md-gutter='12px', md-gutter-gt-sm='8px')
+    md-grid-tile.gray(md-rowspan='3', md-colspan='3', md-colspan-sm='1')
+      md-card
+        md-card-content
+          h2.md-title About
+          | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin finibus imperdiet massa, in finibus justo faucibus vel. Nam vulputate erat et leo lacinia rhoncus. Sed maximus purus nec porta congue. Vivamus accumsan luctus dictum. Donec commodo vulputate velit eleifend mollis. Praesent sagittis neque nisl, ut mollis est lobortis vel. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Praesent eget suscipit nibh. Cras justo erat, ullamcorper porttitor quam sit amet, consectetur sodales enim. Duis vel tortor vitae est malesuada dignissim. Nulla facilisi. In id diam pretium, imperdiet diam eget, mollis metus. Quisque mollis purus justo, quis condimentum felis aliquet a. Maecenas viverra vehicula viverra.
+
+          | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin finibus imperdiet massa, in finibus justo faucibus vel. Nam vulputate erat et leo lacinia rhoncus. Sed maximus purus nec porta congue. Vivamus accumsan luctus dictum. Donec commodo vulputate velit eleifend mollis. Praesent sagittis neque nisl, ut mollis est lobortis vel. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Praesent eget suscipit nibh. Cras justo erat, ullamcorper porttitor quam sit amet, consectetur sodales enim. Duis vel tortor vitae est malesuada dignissim. Nulla facilisi. In id diam pretium, imperdiet diam eget, mollis metus. Quisque mollis purus justo, quis condimentum felis aliquet a. Maecenas viverra vehicula viverra.
+
+          br
+        md-card-content
+
+          h2.md-title Mission
+          | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin finibus imperdiet massa, in finibus justo faucibus vel. Nam vulputate erat et leo lacinia rhoncus. Sed maximus purus nec porta congue. Vivamus accumsan luctus dictum. Donec commodo vulputate velit eleifend mollis. Praesent sagittis neque nisl, ut mollis est lobortis vel. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Praesent eget suscipit nibh. Cras justo erat, ullamcorper porttitor quam sit amet, consectetur sodales enim. Duis vel tortor vitae est malesuada dignissim. Nulla facilisi. In id diam pretium, imperdiet diam eget, mollis metus. Quisque mollis purus justo, quis condimentum felis aliquet a. Maecenas viverra vehicula viverra.
+
+          | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin finibus imperdiet massa, in finibus justo faucibus vel. Nam vulputate erat et leo lacinia rhoncus. Sed maximus purus nec porta congue. Vivamus accumsan luctus dictum. Donec commodo vulputate velit eleifend mollis. Praesent sagittis neque nisl, ut mollis est lobortis vel. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Praesent eget suscipit nibh. Cras justo erat, ullamcorper porttitor quam sit amet, consectetur sodales enim. Duis vel tortor vitae est malesuada dignissim. Nulla facilisi. In id diam pretium, imperdiet diam eget, mollis metus. Quisque mollis purus justo, quis condimentum felis aliquet a. Maecenas viverra vehicula viverra.
+
+
+          br
+
+    md-grid-tile.green(ng-repeat="developer in developers" style="background-image: url('{{developer.img_url}}'); background-repeat: no-repeat; background-size: 100% 100%;" hide-sm hide-md)
+      md-grid-tile-footer
+        h4 {{developer.name}}
+        h3 {{developer.title}}
+
+    md-grid-tile.red(md-rowspan='1', md-colspan='3', md-colspan-sm='1' hide-sm hide-md)
+      | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin finibus imperdiet massa, in finibus justo faucibus vel. Nam vulputate erat et leo lacinia rhoncus. Sed maximus purus nec porta congue. Vivamus accumsan luctus dictum. Donec commodo vulputate velit eleifend mollis. Praesent sagittis neque nisl, ut mollis est lobortis vel. Cum sociis natoque
+      md-grid-tile-footer
+        h3 About our developers
+
+
+
+
+
