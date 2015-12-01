@@ -60,7 +60,8 @@ angular.module('vvida.controllers')
           var token = $rootScope.currentUser.token;
           $rootScope.currentUser.token = token;
           $scope.message =
-            'You have successfully updated your profile. Click on the home button to get to vvida homepage.';
+            'You have successfully updated your profile. ' +
+            'Click on the home button to get to vvida homepage.';
         }, function() {
           $scope.message =
             'There was a problem updating your profile.';
