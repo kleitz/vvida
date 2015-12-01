@@ -1,18 +1,18 @@
-var User = require('../../models/users');
 // Use the FacebookStrategy within Passport.
 // Strategies in Passport require a `verify` function, which accept
 // credentials (in this case, an accessToken, refreshToken,
 // and Facebook profile), and invoke a callback with a user object
-module.exports = function(passport, FacebookStrategy, config) {
+module.exports = function(app, passport, config) {
+  var FacebookStrategy = config.strategy.Facebook,
+    Users = app.get('models').Users;
 
   passport.use(new FacebookStrategy(config.auth.FACEBOOK,
     function(accessToken, refreshToken, profile, done) {
       // make the code asynchronous
       // User.findOne won't fire until we have all our data back from Facebook
       process.nextTick(function() {
-
         // check if the user exists in out database
-        User.findOne({
+        Users.findOne({
             where: {
               'facebook_auth_id': profile.id
             },
@@ -20,14 +20,14 @@ module.exports = function(passport, FacebookStrategy, config) {
           }).then(function(user) {
             // If the user does not exist create one
             if (!user) {
-              User.build({
+              Users.build({
                   email: profile.emails[0].value,
                   role: 'user',
                   username: profile.username,
                   facebook_auth_id: profile.id,
                   facebook_auth_token: accessToken,
-                  // provider: 'facebook',
-                  // facebook: profile._json
+                  gender: profile.gender
+                    // facebook: profile._json
                 })
                 .setFullName(profile.displayName)
                 .save()
@@ -52,7 +52,6 @@ module.exports = function(passport, FacebookStrategy, config) {
           });
 
       });
-
     }
   ));
 

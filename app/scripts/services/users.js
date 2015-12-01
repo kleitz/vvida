@@ -27,16 +27,56 @@ angular.module('vvida.services')
       });
     };
 
-    obj.signup = function(user, cb) {
-      $http.post('/api/users/signup', user).success(function(res) {
+    obj.logout = function(cb) {
+      $http.get('/api/users/logout').success(function(res) {
         cb(null, res);
       }).error(function(err) {
         cb(err);
       });
     };
 
-    obj.logout = function(user, cb) {
-      $http.get('/api/users/logout', user).success(function(res) {
+    obj.items = function(user, cb) {
+      $http.get('/api/users/' + user.id + '/items').success(function(res) {
+        cb(null, res);
+      }).error(function(err) {
+        cb(err);
+      });
+    };
+
+    obj.itemsCount = function(user, cb) {
+      $http.get('/api/users/' + user.id + '/items/no').success(function(res) {
+        cb(null, res);
+      }).error(function(err) {
+        cb(err);
+      });
+    };
+
+    obj.reviews = function(user, cb) {
+      $http.get('/api/users/' + user.id + '/reviews').success(function(res) {
+        cb(null, res);
+      }).error(function(err) {
+        cb(err);
+      });
+    };
+
+    obj.reviewsCount = function(user, cb) {
+      $http.get('/api/users/' + user.id + '/reviews/no').success(function(res) {
+        cb(null, res);
+      }).error(function(err) {
+        cb(err);
+      });
+    };
+
+    obj.events = function(user, cb) {
+      $http.get('/api/users/' + user.id + '/events').success(function(res) {
+        cb(null, res);
+      }).error(function(err) {
+        cb(err);
+      });
+    };
+
+    obj.eventsCount = function(user, cb) {
+      $http.get('/api/users/' + user.id + '/events/no').success(function(res) {
         cb(null, res);
       }).error(function(err) {
         cb(err);

@@ -1,4 +1,4 @@
-module.exports = function(app, config, passport) {
+module.exports = function(app, passport) {
 
   // Redirect the user to Facebook for authentication.  When complete,
   // Facebook will redirect the user back to the application at
