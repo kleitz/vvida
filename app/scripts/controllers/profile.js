@@ -10,7 +10,9 @@ angular.module('vvida.controllers')
       };
       init();
       $scope.uploader.onCompleteItem = function(fileItem, response, status, headers) {
-        $rootScope.currentUser.img_url = response;
+        if (fileItem && status == 200 && headers) {
+          $rootScope.currentUser.img_url = response;
+        }
       };
 
       $interval(function() {
