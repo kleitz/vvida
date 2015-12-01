@@ -8,8 +8,8 @@
       .get(Categories.all);
 
     app.route('/api/categories/:id')
-      // .get(Categories.find)
-      // .put(auth.authenticate, Categories.update)
+      .get(Categories.find)
       .delete(auth.authenticate, Categories.delete);
+    // .put(auth.authenticate, Categories.update)
   };
 })();
