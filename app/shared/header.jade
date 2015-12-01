@@ -4,21 +4,24 @@ md-toolbar.md-accent.md-whiteframe-z3.header-spacing(ng-controller='HeaderCtrl')
       i.fa.fa-bars.fa-2x
     a(ui-sref='home')
       img(src='images/logo.png' height='24' hide-sm)
-      span.text-color.white &nbsp;Vvida
     span(flex)
 
     a(ng-repeat='menuItem in menu' ui-sref='{{menuItem.state}}' hide-sm)
         md-button {{menuItem.name}}
-    div(ng-if='currentUser' layout)
+    a(ng-if='currentUser' hide-sm)
+        md-button
+          {{currentUser.firstname + ' ' + currentUser.lastname}}
+    a(ng-if='currentUser')
       md-button.md-icon-button(ui-sref='userProfile' aria-label='Comment' style='height: 48px; width: 48px; margin: 20px; padding: 0px;')
         img(ng-src='{{currentUser.picture_url}}')
-      h5.user-name {{currentUser.firstname}}
-      md-button(aria-label='Sign out' ng-click='logout()')
-        span.fa.fa-sign-out
-        md-tooltip Sign out
-    md-button(ng-if='!currentUser' ui-sref='login')
-      span.fa.fa-sign-in
-      md-tooltip Sign in
+    a(ng-if='currentUser')
+     md-button.md-icon-button(aria-label='Sign out' ng-click='logout()')
+      i.fa.fa-sign-out
+      md-tooltip Sign out
+    a(ng-if='!currentUser' ui-sref='login')
+      md-button.md-icon-button
+        span.fa.fa-sign-in
+        md-tooltip Sign in
 md-sidenav.md-sidenav-left(md-component-id='left' hide-gt-sm)
   md-toolbar.md-accent
     h1.md-toolbar-tools
