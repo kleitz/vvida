@@ -1,13 +1,13 @@
 angular.module('vvida.controllers')
-  .controller('LoginCtrl', ['$rootScope', '$scope', '$state', '$window', 'Users', 'Auth',
-    function($rootScope, $scope, $state, $window, Users, Auth) {
+  .controller('LoginCtrl', ['$rootScope', '$scope', '$state', '$window', '$http', 'Users', 'Auth',
+    function($rootScope, $scope, $state, $window, $http, Users, Auth) {
       // login
       $scope.login = function() {
         Users.login($scope.user, function(err, res) {
           if (!err) {
             Auth.setToken(res.token);
             $rootScope.currentUser = res;
-            $state.go('home');
+            $state.go('welcome');
           } else {
             $scope.messageLogin = err.error || err || err[0].message;
           }
@@ -50,7 +50,14 @@ angular.module('vvida.controllers')
       };
 
       $scope.facebook = function() {
-        $window.location.href = '/auth/facebook';
+        console.log("facebook");
+        $http.post('/auth/facebook')
+          .success(function(res) {
+            console.log(res);
+          })
+          .error(function(err) {
+            console.log(err);
+          });
       };
 
       $scope.google = function() {

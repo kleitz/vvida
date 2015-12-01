@@ -92,12 +92,12 @@
       $urlRouterProvider.otherwise('/404');
 
       // Now set up the states
-      $mdThemingProvider.theme('default')
-        .primaryPalette('blue')
-        .accentPalette('deep-orange')
-        .backgroundPalette('grey', {
-          default: '200'
-        });
+      // $mdThemingProvider.theme('default')
+  //   .primaryPalette('cyan')
+  //   .backgroundPalette('grey', {
+  //     default: '200'
+  //   });
+
 
       $stateProvider
         .state('home', {

@@ -20,7 +20,7 @@ img {
 }
 
 header {
-  height: 60px;
+  height: 50px;
   margin: 0 auto;
   overflow: auto;
   padding: 10px;
@@ -32,14 +32,14 @@ header {
     }
   }
   a {
-    font-size: 2rem;
+    font-size: 8px;
     color: white;
     margin-top: 10px;
   }
 }
 
 .footer {
-  background-color: rgb(57, 60, 61);
+  background-color: #707478;
   width: 100%;
   height: auto;
   padding-bottom: 30px;
@@ -89,6 +89,7 @@ button.md-button {
 }
 
 md-card.jumbotron.search-jumbotron {
+  margin-top: -47px;
   position: relative;
   width: 100%;
   left: 0;
@@ -178,7 +179,7 @@ md-toolbar.md-menu-toolbar {}
   background: url(../images/header-background.jpg) center center no-repeat;
   background-size: cover;
   padding-bottom: 0;
-  height: 600px;
+  height: 650px;
   width: 100%;
   .image-overlay {
     background: rgba(0, 0, 0, 0.2);
@@ -381,10 +382,7 @@ h3 {
   margin: 0 auto;
   margin-top: 50px;
   width: 700px;
-  border-style: solid;
-  border-width: 2px;
-  border-radius: 3px;
-  border-color: #A8A8A8;
+  margin-bottom: 10px;
   .third-party-button {
     width: 230px;
   }
@@ -392,10 +390,6 @@ h3 {
     margin: 0 auto;
     width: 600px;
     margin-bottom: 20px;
-    input {
-      //width: 600px;
-      margin-left: 25px;
-    }
   }
 }
 
@@ -447,15 +441,15 @@ md-sidenav.md-sidenav-left {
   background-color: white;
 }
 
-.welcome h4 {
-  color: rgb(255, 110, 64);
-  font-size: 1.2em;
+.welcome {
+  max-width: 1300px;
+  margin: 0 auto;
 }
 
-.welcome_main_content {
-  border-width: 0px 1px 0px 0px;
-  border-style: solid;
-  border-color: rgb(204, 204, 200);
+.welcome-header {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 .recentReview {
@@ -515,12 +509,15 @@ md-sidenav.md-sidenav-left {
 }
 
 .header-spacing {
-  height: 70px;
-  padding-top: 10px;
+  height: 50px;
+  padding: 5 5px;
+  font-size: 5px;
+  color: white;
+  opacity: 100%;
+  background-color: white;
 }
 
 .user-name {
-  text-transform: uppercase;
   color: white;
   padding-top: 35px;
 }
@@ -546,7 +543,6 @@ md-sidenav.md-sidenav-left {
 }
 
 // REVIEW STYLES
-
 .center-review-inputs {
   h3 {
     font-size: 2.3em;
@@ -634,27 +630,26 @@ md-sidenav.md-sidenav-left {
 }
 
 .about {
-  margin-top: 30px;
-  margin-bottom: 0px;
+  width: 1000PX;
+  margin: 0 auto;
   text-align: justify;
-  md-card {
-    margin-top: 2px;
-  }
   h3 {
     color: #fefefe
   }
+  p {
+    margin-left: 30px;
+    margin-right: 30px;
+  }
   md-grid-tile-footer {
-    background-color: #42424;
+    background-color: #616161;
     padding: 2.5em 0.2em;
     opacity: 0.8;
-  }
-  md-grid-tile {
-    height: 100px;
   }
   .teal {
     background-color: #f5f5f5;
   }
 }
+
 
 // STYLES FOR VIEW-ITEM
 
@@ -665,3 +660,18 @@ md-sidenav.md-sidenav-left {
     background: #84ffff;
   }
 }
+
+.search {
+  width: 500px;
+  margin: 0 auto;
+  margin-top: 40px;
+  input {
+    color: white;
+  }
+}
+
+md-toolbar:not(.md-menu-toolbar).md-accent {
+  background-color: grey;
+  text-color: black;
+}
+

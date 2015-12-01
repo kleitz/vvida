@@ -1,40 +1,39 @@
-.welcome_body
-  .welcome(layout="row")
-    .welcome_main_content(flex='67').md-padding
-      .nextReview
-        h4 Your Next Review Awaits
-        img(src='/images/bot.png')
-        .bubble Have you reviewed anything yet? If not press this button
+.welcome-header
+  md-card
+    md-card-content
+     h2.md-title Paracosm
+        p
+          | The titles of Washed Out's breakthrough song and the first single from Paracosm share the
+          | two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
 
-      .recentReview
-        h4 Recent Activity
-        md-divider
-        md-list
-          md-list-item(ng-repeat="item in messages")
-            md-card(layout)
-              .md-padding(flex="10" layout layout-align="start start")
-                img(ng-src="{{item.face}}")
-              .md-padding
-                h4 {{item.who}} wrote a review for {{item.what}}
-                p {{item.notes}}
-
-
-
-
-
-
-
-
-
-    .sideNav(flex='33').md-padding
-      h4 Review of the Day
-      .review-of-the-day-class-main(layout)
-        .md-padding(flex="25" layout layout-align="start start")
-          img(ng-src="{{reviewOfTheDay.face}}")
-        .md-padding
-          h4 {{reviewOfTheDay.who}} reviewed {{reviewOfTheDay.what}}
-          p If you're a casual drinker, or one who never drink different types of alcohols, or one who knows...
-      md-divider
-
-
-
+.welcome(layout='row')
+  div(flex='65')
+    md-card
+     h4 Your Next Review Awaits
+    md-card
+      img.md-card-image(ng-src='{{imagePath}}', alt='Washed Out')
+      md-card-content
+        h2.md-title Paracosm
+        p
+          | The titles of Washed Out's breakthrough song and the first single from Paracosm share the
+          | two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
+      .md-actions(layout='row', layout-align='end center')
+        md-button Action 1
+        md-button Action 2
+  div(flex='35', hide-sm='')
+    md-card
+      div(layout='column',ng-cloak='')
+        md-content(flex='')
+          md-list
+            md-list-item.md-2-line
+              .md-list-item-text
+                h3 Review of the day
+              md-divider
+            md-list-item.md-3-line(ng-repeat='item in todos')
+              img.md-avatar(ng-src='{{item.face}}', alt='{{item.who}}')
+              .md-list-item-text
+                h3 {{item.what}}
+                h4 {{item.who}}
+                p
+                  | {{item.notes}}
+              md-divider(inset='')
