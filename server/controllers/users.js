@@ -46,7 +46,7 @@
     },
 
     session: function(req, res) {
-      var token = req.headers['x-access-token'] || req.params('token') || req.body.token;
+      var token = req.headers['x-access-token'] || req.body.token;
       var Users = req.app.get('models').Users;
       if (token && token !== 'null') {
         jwt.verify(token, req.app.get('superSecret'), function(err, decoded) {
