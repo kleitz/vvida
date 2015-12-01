@@ -57,6 +57,7 @@
         Users.session(function(err, res) {
           if (!err) {
             $rootScope.currentUser = res;
+            $rootScope.$broadcast('session_found', $rootScope.currentUser);
           }
         });
       }
