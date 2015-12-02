@@ -74,11 +74,8 @@
           }
         });
       } else {
-        res.status(401).json({
-          error: 'Session has expired or does not exist.'
-        });
+        return res.json(req.session.user);
       }
-
     },
 
     // Middleware to get all users
