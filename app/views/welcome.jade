@@ -13,6 +13,7 @@
           md-list-item.md-3-line
             img.md-avatar(ng-src='{{item.face}}', alt='{{item.who}}')
             .md-list-item-text.animate
+              div
               p.md-title
                 | {{item.notes}}
               p
@@ -26,10 +27,10 @@
             h3 Popular events
         md-divider
         md-grid-list.md-padding(md-cols-sm='1', md-cols-md='2', md-cols-gt-md='3', md-row-height-gt-md='1:1', md-row-height='2:2', md-gutter='8px', md-gutter-gt-sm='8px')
-          md-grid-tile.green(md-ink-ripple flex ng-repeat="item in items"
-           style="background-image: url('{{item.face}}'); background-repeat: no-repeat; background-size: 100% 100%;")
+          md-grid-tile.green(md-ink-ripple flex ng-repeat="event in events | limitTo: 9"
+           style="background-image: url({{event.Images[0].img_url}}); background-repeat: no-repeat; background-size: 100% 100%;")
             md-grid-tile-footer
-              h3 {{item.title}}
+              h3 {{event.name}}
 
   div(flex='35', hide-sm='')
     md-card
@@ -56,13 +57,13 @@
               .md-list-item-text
                 h3 Recent activity
               md-divider
-            md-list-item.md-3-line(ng-repeat='item in todos')
-              img.md-avatar(ng-src='{{item.face}}', alt='{{item.who}}')
+            md-list-item.md-3-line(ng-repeat='event in events | limitTo: 3')
+              img.md-avatar(ng-src='http://lorempixel.com/100/100/people? + {{$index}}', alt='{{item.who}}')
               .md-list-item-text
-                h3 {{item.what}}
-                h4 {{item.who}}
+                h3 {{event.name}}
+                h4 {{event.location}}
                 p
-                  | {{item.notes}}
+                  | {{event.description | limitTo: 100}}
               md-divider(inset='')
     md-card
       div(layout='column',ng-cloak='')
@@ -72,11 +73,11 @@
               .md-list-item-text
                 h3 Popular Products
               md-divider
-            md-list-item.md-3-line(ng-repeat='item in todos')
-              img.md-avatar(ng-src='{{item.face}}', alt='{{item.who}}')
+            md-list-item.md-3-line(ng-repeat='item in items')
+              img.md-avatar(ng-src='http://lorempixel.com/100/100/people? + {{$index}}', alt='{{item.who}}')
               .md-list-item-text
-                h3 {{item.what}}
-                h4 {{item.who}}
+                h3 {{item.name}}
+                h4 {{item.city}}
                 p
-                  | {{item.notes}}
+                  | {{item.description | limitTo: 100}}
               md-divider(inset='')

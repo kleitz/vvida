@@ -7,19 +7,20 @@ md-toolbar.md-accent.md-whiteframe-z3.header-spacing(ng-controller='HeaderCtrl')
     span(flex)
 
     a(ng-repeat='menuItem in menu' ui-sref='{{menuItem.state}}' hide-sm)
-        md-button {{menuItem.name}}
+        md-button(style="color: white")
+          {{menuItem.name}}
     a(ng-if='currentUser' hide-sm)
-        md-button
+        md-button(style="color: white")
           {{currentUser.name}}
     a(ng-if='currentUser')
       md-button.md-icon-button(ui-sref='userProfile' aria-label='Comment' style='height: 48px; width: 48px; margin: 20px; padding: 0px;')
         img(ng-src='{{currentUser.picture_url}}')
     a(ng-if='currentUser')
-     md-button.md-icon-button(aria-label='Sign out' ng-click='logout()')
+     md-button.md-icon-button(style="color: white" aria-label='Sign out' ng-click='logout()')
       i.fa.fa-sign-out
       md-tooltip Sign out
     a(ng-if='!currentUser' ui-sref='login')
-      md-button.md-icon-button
+      md-button.md-icon-button(style="color: white")
         span.fa.fa-sign-in
         md-tooltip Sign in
 md-sidenav.md-sidenav-left(md-component-id='left' hide-gt-sm)

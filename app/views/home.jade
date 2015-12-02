@@ -16,7 +16,7 @@ md-card.jumbotron.search-jumbotron
     md-card.ripple-container(md-ink-ripple flex)
       md-card-content
         p No reviews have been made yet
-    md-card.ripple-container(md-ink-ripple flex ng-repeat="review in reviews")
+    md-card.ripple-container(md-ink-ripple flex ng-repeat="review in reviews | limitTo: 4")
       .card-images.md-card-image(style='background-image: url(images/reviews-photo1.jpg)')
       md-card-content
         p {{review.review}}
@@ -31,7 +31,7 @@ md-card.jumbotron.search-jumbotron
         p No Events available at the moment
 
   .content-events(layout="row" layout-sm="column" layout-md="column")
-    md-card.ripple-container(md-ink-ripple flex ng-repeat="event in events")
+    md-card.ripple-container(md-ink-ripple flex ng-repeat="event in events | limitTo: 4")
       .card-images.md-card-image(style='background-image: url({{event.Images[0].img_url}})')
       md-card-content
         h4.md-display-9 {{event.name}}
@@ -47,7 +47,7 @@ md-card.jumbotron.search-jumbotron
        p No products are available at the moment
 
   .content-products(layout="row" layout-sm="column" layout-md="column")
-    md-card.ripple-container(md-ink-ripple flex ng-repeat="item in items")
+    md-card.ripple-container(md-ink-ripple flex ng-repeat="item in items | limitTo: 4")
       .card-images.md-card-image(style='background-image: url({{item.Images[0].img_url}}); text-align=justify')
       md-card-content
         H4 {{item.name}}

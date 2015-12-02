@@ -48,15 +48,17 @@
     function($rootScope, $location, $state, $mdSidenav, Users) {
       // Check if the user's session is still being persisted in the servers
       Users.session(function(err, res) {
-        var user = {};
         if (!err) {
+          var user = {};
           if (res.name) {
             user.name = res.name;
             user.picture_url = res.picture.data.url;
-            $rootScope.currentUser = user;
           } else {
-            user.name = res.firstname + ' ' + res.lastname;
+            var fullName = res.firstname + ' ' + res.lastname;
+            user.name = fullName;
             user.picture_url = res.picture_url;
+          }
+          if (user.picture_url) {
             $rootScope.currentUser = user;
           }
         }
