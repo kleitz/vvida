@@ -17,6 +17,10 @@
   require('./services/token');
   require('./services/auth');
   require('./services/token-injector');
+  require('./services/reservations');
+  require('./services/notifications');
+  require('./services/promotions');
+  require('./services/messages');
 
   // Require Controllers
   require('./controllers/footer');
