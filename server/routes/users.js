@@ -16,7 +16,6 @@ module.exports = function(app, auth) {
     .get(Users.all)
     .post(Users.signup);
 
-  // user email update route
   app.route('/api/users/:id')
     .get(Users.find)
     .put(auth.authenticate, Users.update)

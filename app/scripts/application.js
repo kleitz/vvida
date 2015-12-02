@@ -5,6 +5,7 @@
   angular.module('vvida.filters', []);
   angular.module('vvida.directives', []);
 
+
   //Require Services
   require('./services/utils');
   require('./services/users');
@@ -13,7 +14,9 @@
   require('./services/items');
   require('./services/events');
   require('./services/reviews');
+  require('./services/token');
   require('./services/auth');
+  require('./services/token-injector');
 
   // Require Controllers
   require('./controllers/footer');
@@ -31,6 +34,9 @@
   require('./controllers/items');
   require('./controllers/event');
   require('./controllers/review');
+
+  // Require Directives
+  require('./directives/ng-thumb');
 
   window.app = angular.module('vvida', [
     'vvida.controllers',
