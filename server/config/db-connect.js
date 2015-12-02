@@ -1,6 +1,7 @@
 var Seq = require('sequelize'),
   env = process.env.NODE_ENV || 'development',
-  config = require('./index')[env];
+  config = require('./index')[env],
+  sequelize;
 
 if (env === 'development') {
   sequelize = new Seq(config.db.name, config.db.username, config.db.password, {
