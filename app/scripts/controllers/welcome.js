@@ -8,7 +8,8 @@ angular.module('vvida.controllers')
         face: 'http://lorempixel.com/50/50/people?' + 9,
         who: ' write something about this company, and live the life you want',
         what: 'And experince the magic of you opinion',
-        notes: 'Hey there ! , have you made any review yet? your next review awaits, '
+        notes: 'Hey there ! , have you made any review yet?' +
+          ' your next review awaits, '
       };
       for (var i = 0; i < 3; i++) {
         $scope.todos.push({
