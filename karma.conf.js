@@ -24,6 +24,7 @@ module.exports = function(config) {
       'public/lib/angular-mocks/angular-mocks.js',
       'public/lib/angular-material/angular-material.min.js',
       'public/lib/angular-resource/angular-resource.min.js',
+      'public/lib/angular-file-upload/dist/angular-file-upload.min.js',
       'public/js/application.js',
       'tests/unit/client/**/*.js'
     ],
