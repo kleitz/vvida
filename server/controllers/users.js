@@ -1,13 +1,14 @@
 (function() {
   'use strict';
   var passport = require('passport');
+  var jwt = require('jsonwebtoken');
   module.exports = {
     // login middleware
     login: function(req, res, next) {
       passport.authenticate('login', function(err, user) {
         if (err) {
           return res.status(500).json({
-            error: 'Something went wrong while logging you in'
+            error: 'Something went wrong while logging you in.'
           });
         }
         // Generate a JSON response reflecting authentication status
@@ -15,6 +16,7 @@
           return res.status(500).json({
             error: 'Authentication failed.'
           });
+
         }
         user.password = null;
         req.session.user = user;
@@ -26,12 +28,14 @@
       passport.authenticate('signup', function(err, user) {
         // check for errors, if exist send a response with error
         if (err) {
+          console.log(err);
           return res.status(500).json({
             error: err.message || err.errors[0].message || err
           });
         }
         // If passport doesn't return the user object,  signup failed
         if (!user) {
+          console.log('User not found');
           return res.status(500).json({
             error: 'Signup failed. User already exists.'
           });
@@ -42,13 +46,39 @@
     },
 
     session: function(req, res) {
-      if (req.decoded) {
-        return res.status(200).json(req.decoded);
+      var token = req.headers['x-access-token'] || req.body.token;
+      var Users = req.app.get('models').Users;
+      if (token && token !== 'null') {
+        jwt.verify(token, req.app.get('superSecret'), function(err, decoded) {
+          if (err) {
+            res.status(403).json({
+              error: 'Session has expired or does not exist.'
+            });
+          } else {
+            Users.findById(decoded.id).then(function(user) {
+              if (!user) {
+                res.status(404).json({
+                  message: 'User not found'
+                });
+              } else {
+                delete user.password;
+                req.decoded = user;
+                res.json(user);
+              }
+            }).catch(function(err) {
+              res.status(500).json({
+                message: 'Error retrieving user',
+                err: err
+              });
+            });
+          }
+        });
       } else {
         res.status(401).json({
-          error: 'Unathorized Access'
+          error: 'Session has expired or does not exist.'
         });
       }
+
     },
 
     // Middleware to get all users

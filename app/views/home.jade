@@ -38,7 +38,9 @@ md-card.jumbotron.search-jumbotron
       .card-images.md-card-image(style='background-image: url({{event.Images[0].img_url}})')
       md-card-content
         h4.md-display-9 {{event.name}}
-        p {{event.description}}
+        p {{event.description | limitTo: 200}}
+        md-button.md-raised.md-accent
+          | read more
 
 .products
   h4.md-margin PRODUCTS
@@ -47,5 +49,7 @@ md-card.jumbotron.search-jumbotron
       .card-images.md-card-image(style='background-image: url({{item.Images[0].img_url}}); text-align=justify')
       md-card-content
         H4 {{item.name}}
-        p {{item.description}}
+        p {{item.description | limitTo: 200}}
+        md-button.md-raised.md-accent
+          | read more
 
