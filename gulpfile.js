@@ -23,6 +23,7 @@ var gulp = require('gulp'),
       'app/**/*.*'
     ],
     unitTests: [],
+    serverTests: ['./tests/server/**/*.spec.js'],
     libTests: ['lib/tests/**/*.js'],
     styles: 'app/styles/*.+(less|css)'
   };
