@@ -6,7 +6,10 @@ angular.module('vvida.controllers')
         Users.login($scope.user, function(err, res) {
           if (!err) {
             Auth.setToken(res.token);
-            $rootScope.currentUser = res;
+            var user = {};
+            user.name = res.firstname + ' ' + res.lastname;
+            user.picture_url = res.picture_url;
+            $rootScope.currentUser = user;
             $state.go('welcome');
           } else {
             $scope.messageLogin = err.error || err || err[0].message;
@@ -50,14 +53,7 @@ angular.module('vvida.controllers')
       };
 
       $scope.facebook = function() {
-        console.log("facebook");
-        $http.post('/auth/facebook')
-          .success(function(res) {
-            console.log(res);
-          })
-          .error(function(err) {
-            console.log(err);
-          });
+        $window.location.href = '/auth/facebook';
       };
 
       $scope.google = function() {
