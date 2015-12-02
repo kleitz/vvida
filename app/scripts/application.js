@@ -58,14 +58,17 @@
           var user = {};
           if (res.name) {
             user.name = res.name;
-            user.picture_url = res.picture.data.url;
+            user.id = res.id;
+            user.img_url = res.picture.data.url;
           } else {
             var fullName = res.firstname + ' ' + res.lastname;
             user.name = fullName;
-            user.picture_url = res.img_url;
+            user.id = res.id;
+            user.img_url = res.img_url;
           }
-          if (user.picture_url) {
+          if (user.img_url) {
             $rootScope.currentUser = user;
+            console.log($rootScope.currentUser);
           }
         }
       });
