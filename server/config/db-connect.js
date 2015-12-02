@@ -1,6 +1,14 @@
 var Seq = require('sequelize'),
   env = process.env.NODE_ENV || 'development',
-  config = require('./index')[env],
+  config = require('./index')[env];
+
+if (env === 'development') {
+  sequelize = new Seq(config.db.name, config.db.username, config.db.password, {
+    host: config.db.host,
+    dialect: config.db.dialect,
+    port: config.db.port
+  });
+} else {
   sequelize = new Seq(config.db.url, {
     host: config.host,
     protocol: 'postgres',
@@ -11,6 +19,8 @@ var Seq = require('sequelize'),
       ssl: true
     }
   });
+}
+
 
 // log the progress/outcome of the connection
 sequelize.authenticate()
