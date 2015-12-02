@@ -62,7 +62,7 @@
           } else {
             var fullName = res.firstname + ' ' + res.lastname;
             user.name = fullName;
-            user.picture_url = res.picture_url;
+            user.picture_url = res.img_url;
           }
           if (user.picture_url) {
             $rootScope.currentUser = user;
