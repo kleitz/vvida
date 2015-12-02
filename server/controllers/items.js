@@ -30,7 +30,7 @@
             });
         } else {
           res.status(416).json({
-            error: 'All required values have not been provided to create the item.'
+            error: 'Not enough arguments/values to create item.'
           });
         }
       },
