@@ -5,7 +5,8 @@ module.exports = function(app, passport) {
   //     /auth/facebook/callback
   app.get('/auth/facebook', passport.authenticate('facebook', {
     scope: [
-      'email', 'user_about_me', 'user_photos', 'basic_info', 'user_birthday', 'user_hometown', 'user_location'
+      'email', 'user_about_me', 'user_photos', 'basic_info',
+      'user_birthday', 'user_hometown', 'user_location'
     ]
   }));
 
