@@ -1,6 +1,5 @@
-.footer(ng-controller="FooterCtrl")
+.footer.hide-sm(ng-controller="FooterCtrl")
   div.md-padding.md-margin(layout="row" layout-md="column" layout-sm="column" style="justify-content: center")
-
     .footer-item-group
       .md-title.text-white.footer-titles About
         div(ng-repeat="aboutItem in about" ui-sref="{{aboutItem.state}}", aria-label="aboutItem.name")
