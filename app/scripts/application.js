@@ -5,7 +5,6 @@
   angular.module('vvida.filters', []);
   angular.module('vvida.directives', []);
 
-
   //Require Services
   require('./services/utils');
   require('./services/users');
