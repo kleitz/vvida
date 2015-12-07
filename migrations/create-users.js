@@ -90,8 +90,8 @@
           },
           // status
           status: {
-            type: Sequelize.ENUM,
-            values: ['active', 'innactive'],
+            type: Sequelize.STRING,
+            values: ['active', 'inactive'],
             defaultValue: 'active'
           },
           // facebook and google IDs of the user
