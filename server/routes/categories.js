@@ -1,8 +1,8 @@
 (function() {
   'use strict';
-  var Categories = require('../controllers/categories');
 
   module.exports = function(app, auth) {
+    var Categories = require('../controllers/categories')(app);
     app.route('/api/categories')
       .post(auth.authenticate, Categories.create)
       .get(Categories.all);
@@ -12,4 +12,5 @@
       // .put(auth.authenticate, Categories.update)
       .delete(auth.authenticate, Categories.delete);
   };
+
 })();

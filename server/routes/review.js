@@ -1,5 +1,6 @@
-var Reviews = require('../controllers/review');
 module.exports = function(app, auth) {
+  var Reviews = require('../controllers/review')(app);
+
   app.route('/api/reviews')
     .post(auth.authenticate, Reviews.create)
     .get(Reviews.all);

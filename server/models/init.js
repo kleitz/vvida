@@ -9,9 +9,9 @@ var models = [
   'events',
   'images',
   'items',
-  'promotions',
   'messages',
   'notifications',
+  'promotions',
   'reviews',
   'rsvp',
   'users'
