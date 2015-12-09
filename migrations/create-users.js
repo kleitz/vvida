@@ -90,7 +90,7 @@
           },
           // status
           status: {
-            type: DataType.STRING,
+            type: Sequelize.STRING,
             validate: {
               isIn: {
                 args: [
