@@ -27,6 +27,7 @@
             });
 
           }
+
           user.password = null;
           req.session.user = user;
           return res.json(user);
@@ -86,7 +87,6 @@
             error: 'Session has expired or does not exist.'
           });
         }
-
       },
 
       // Middleware to get all users

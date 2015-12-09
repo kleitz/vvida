@@ -50,17 +50,28 @@
     'angularFileUpload'
   ]);
 
-  window.app.run(['$rootScope', '$location', '$state', '$mdSidenav', 'Users', 'Auth',
-    function($rootScope, $location, $state, $mdSidenav, Users, Auth) {
+  window.app.run(['$rootScope', '$location', '$state', '$mdSidenav', 'Users',
+    function($rootScope, $location, $state, $mdSidenav, Users) {
       // Check if the user's session is still being persisted in the servers
-      if (Auth.isLoggedIn()) {
-        Users.session(function(err, res) {
-          if (!err) {
-            $rootScope.currentUser = res;
-            $rootScope.$broadcast('session_found', $rootScope.currentUser);
+      Users.session(function(err, res) {
+        if (!err) {
+          var user = {};
+          if (res.name) {
+            user.name = res.name;
+            user.id = res.id;
+            user.img_url = res.picture.data.url;
+          } else {
+            var fullName = res.firstname + ' ' + res.lastname;
+            user.name = fullName;
+            user.id = res.id;
+            user.img_url = res.img_url;
           }
-        });
-      }
+          if (user.img_url) {
+            $rootScope.currentUser = user;
+            console.log($rootScope.currentUser);
+          }
+        }
+      });
 
       $rootScope.login = function() {
         $state.go('login');
@@ -98,13 +109,14 @@
       // For any unmatched url, redirect to /state1
       $urlRouterProvider.otherwise('/404');
 
-      // Now set up the states
+      //Now set up the states
       $mdThemingProvider.theme('default')
-        .primaryPalette('blue')
-        .accentPalette('deep-orange')
+        .primaryPalette('cyan')
         .backgroundPalette('grey', {
           default: '200'
         });
+
+
 
       $stateProvider
         .state('home', {

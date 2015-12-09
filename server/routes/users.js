@@ -7,7 +7,7 @@ module.exports = function(app, auth) {
 
   // logout route
   app.route('/api/users/logout')
-    .get(auth.authenticate, Users.logout);
+    .get(Users.logout);
 
   app.route('/api/users/session')
     .get(Users.session);

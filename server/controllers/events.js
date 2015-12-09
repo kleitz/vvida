@@ -32,10 +32,8 @@
       },
 
       // Middleware to get all the events
-
       all: function(req, res) {
         return Events.findAll({
-          limit: 4,
           order: [
             ['id', 'DESC']
           ],

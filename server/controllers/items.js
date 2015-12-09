@@ -37,7 +37,6 @@
 
       all: function(req, res) {
         Items.findAll({
-          limit: 4,
           order: [
             ['id', 'DESC']
           ],
