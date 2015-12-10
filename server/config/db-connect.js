@@ -6,7 +6,10 @@ var Seq = require('sequelize'),
     protocol: 'postgres',
     dialect: config.db.dialect,
     port: config.db.port,
-    logging: false
+    logging: false,
+    dialectOptions: {
+      ssl: /(production|staging)/.test(env) ? true : false
+    }
   });
 
 // log the progress/outcome of the connection
