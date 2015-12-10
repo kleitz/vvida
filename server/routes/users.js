@@ -1,6 +1,5 @@
+var Users = require('../controllers/users');
 module.exports = function(app, auth) {
-  var Users = require('../controllers/users')(app);
-
   // login with email
   app.route('/api/users/login')
     .post(Users.login);

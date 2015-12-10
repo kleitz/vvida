@@ -90,15 +90,8 @@
           },
           // status
           status: {
-            type: Sequelize.STRING,
-            validate: {
-              isIn: {
-                args: [
-                  ['active', 'innactive']
-                ],
-                msg: 'Must be either active or inactive'
-              }
-            },
+            type: Sequelize.ENUM,
+            values: ['active', 'innactive'],
             defaultValue: 'active'
           },
           // facebook and google IDs of the user

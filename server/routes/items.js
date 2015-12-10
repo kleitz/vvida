@@ -2,8 +2,8 @@
   'use strict';
   // Items api
   // this api will handle all the routes for items
+  var Items = require('../controllers/items');
   module.exports = function(app, auth) {
-    var Items = require('../controllers/items')(app);
 
     app.route('/api/items')
       // create item .
