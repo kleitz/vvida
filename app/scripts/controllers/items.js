@@ -40,9 +40,11 @@
             id: itemId
           }, function(item) {
             $scope.images = item.Images;
-            console.log($scope.images);
             $scope.item = item;
           });
+          Categories.get({
+            id: itemId
+          }, function(category));
         }
 
         $scope.updateItem = function() {
