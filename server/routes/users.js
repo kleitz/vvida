@@ -12,7 +12,7 @@ module.exports = function(app, auth) {
     .get(auth.authenticate, Users.session);
 
   // users routes
-  app.route('/users')
+  app.route('api/users')
     .get(Users.all)
     .post(Users.signup);
 
