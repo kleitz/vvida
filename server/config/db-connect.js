@@ -8,7 +8,7 @@ var Seq = require('sequelize'),
     port: config.db.port,
     logging: false,
     dialectOptions: {
-      ssl: /(production|staging)/.test(env) ? true : false
+      ssl: /(production|staging)/.test(env)
     }
   });
 
