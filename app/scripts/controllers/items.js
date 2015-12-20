@@ -9,6 +9,11 @@
           $scope.categories = Categories.query();
         };
 
+        $scope.items =Items.query(function()
+          {
+            console.log($scope.items);
+          });
+
         $scope.addItems = function() {
           console.log($scope.item);
           Items.save($scope.item, function(item) {
@@ -32,6 +37,8 @@
             alias: 'photos',
             formData: [$scope.item],
           });
+      
+
         };
         //load the item
         if (itemId) {

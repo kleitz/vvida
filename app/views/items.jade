@@ -5,34 +5,35 @@ div.not-loggedin-div(ng-if='!currentUser')
     p.md-headline.packed-bottom You are currently not logged in.
     p.md-headline.packed-top Click below to login or signup  to continue using vvida.
     md-button.login-btn(class="md-raised md-primary" aria-label='Login/Signup' ng-click='login()') Go to Login/Signup Page
-md-card.items(layout='column' layout-md="column" layout-sm="column" flex='55')
+md-card.items(layout='column' layout-md="column" layout-sm="column")
   br
   md-card-content.content
+    h4 Products
 
 
-md-card.items(layout='column' layout-md="column" layout-sm="column" flex='55')
-  md-card-content
-    h4.md-dispaly-4 Add Item
+
+md-card.items(layout='row' layout-md="column" layout-sm="column" flex='100')
+  md-card-content(flex='20' flex-sm='100')
+    span.md-padding(style='background:pink;text-align:center;border:1px;display:block') Categories
     br
-    form(method="post" enctype="multipart/data" ng-submit="addItems()")
-      md-input-container
-        i.fa.fa-list
-          |   Categories
-        md-select( ng-model="item.catId" md-on-open="loadCategories()" class="select" aria-label="item.catId")
-          md-option(ng-value="category.id" ng-repeat="category in categories") {{category.type}}
-      md-input-container
-        i.fa.fa-coffee
-          |   Product
-        input(ng-model="item.name" type="text" ng-required="true" aria-label="item.name")
-      md-input-container
-        i.fa.fa-globe
-          |   City
-        input(ng-model="item.city" type="text" ng-required="true" aria-label="item.city")
-      md-input-container
-        i.fa.fa-file-text
-          |   Description
-        textarea(ng-model="item.description" type="text" ng-required="true" rows='5' aria-label="item.description")
-      br
-      md-button.md-raised.md-warn(class="login-button" type="submit")
-        i(class="fa fa-plus-circle")
-        | Add
+    md-list
+      md-list-item(layout-align='center' style='border-width:1px 0 0 0;border-style:solid;border-color:#AAAAAA;' ng-repeat='category in categories')
+        span(style='font-size: 14px;font-family : Verdana,Arial; color: #CC0000;') Product
+ 
+
+      
+  div.items(layout='column' flex='80' flex-sm='100')
+    span.md-padding(style='display:block;text-align:center;border-width:1px;border-color:#AAAAAA;font-size: 20px;font-family:Verdana,Arial;') Recent Products 
+    md-content(class="md-padding" layout="row" layout-wrap layout-align="center start" layout-xs="column")
+    div(flex='50' flex-xs='100' layout='column' ng-repeat='item in items')
+      md-card('style:background:white')
+        img(ng-src='{{item.Images[0].img_url}}' class="md-card-image" alt="Item")
+        md-card-title
+          md-card-title-text 
+            span.md-headline {{item.name}}
+        md-card-content
+          p {{item.description}}    
+        md-card-actions(layout="row" layout-align="start center")
+          md-button Add Review
+          md-button Add Review
+        

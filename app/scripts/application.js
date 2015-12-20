@@ -88,7 +88,7 @@
         state: 'events'
       }, {
         name: 'Products',
-        state: 'item'
+        state: 'items'
       }];
 
       $rootScope.openLeftMenu = function() {
@@ -131,8 +131,14 @@
         })
         .state('events', {
           url: '/events',
-          controller: 'EventsCtrl',
+          controller: 'EventCtrl',
           templateUrl: 'views/events.html'
+        })
+
+        .state('items', {
+          url: '/items',
+          controller: 'ItemCtrl',
+          templateUrl: 'views/items.html'
         })
         .state('profile', {
           url: '/user/{id}/edit',
@@ -167,7 +173,7 @@
         .state('addItem', {
           url: '/items/create',
           controller: 'ItemCtrl',
-          templateUrl: 'views/items.html'
+          templateUrl: 'views/add-item.html'
         })
         .state('editItem', {
           url: '/items/{id}/edit',

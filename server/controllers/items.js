@@ -2,7 +2,8 @@
   'use strict';
   module.exports = function(app) {
     var Items = app.get('models').Items,
-      Images = app.get('models').Images;
+      Images = app.get('models').Images,
+      Reviews = app.get('models').Reviews;
 
     return {
       create: function(req, res) {
@@ -41,6 +42,21 @@
             ['id', 'DESC']
           ],
           include: [Images]
+        }).then(function(item) {
+          res.json(item);
+        }).catch(function(err) {
+          res.status(500).send({
+            error: err.message || err.errors[0].message
+          });
+        });
+      },
+
+      findTopItems: function(req, res) {
+        Items.findAll({
+          order: [
+            ['id', 'DESC']
+          ],
+          include: [Images,{model:Reviews,where:{rating : {$gt:3} }}] 
         }).then(function(item) {
           res.json(item);
         }).catch(function(err) {

@@ -1,6 +1,6 @@
 angular.module('vvida.services')
   .factory('Items', ['$resource', '$http', function($resource) {
-    return $resource('/api/items/:id', {
+    var obj = $resource('/api/items/:id', {
       id: '@id'
     }, {
       update: {
@@ -10,4 +10,15 @@ angular.module('vvida.services')
     }, {
       stripTrailingSlashes: false
     });
+
+   obj.topItems = function(user, cb) {
+      $http.get('/api/items/top').success(function(res) {
+        cb(null, res);
+      }).error(function(err) {
+        cb(err);
+      });
+    };
+
+    return obj;
+
   }]);
