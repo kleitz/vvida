@@ -135,7 +135,7 @@
           templateUrl: 'views/events.html'
         })
 
-        .state('items', {
+      .state('items', {
           url: '/items',
           controller: 'ItemCtrl',
           templateUrl: 'views/items.html'
@@ -179,6 +179,11 @@
           url: '/items/{id}/edit',
           controller: 'ItemCtrl',
           templateUrl: 'views/edit-item.html'
+        })
+        .state('viewItem', {
+          url: '/items/{id}/view',
+          controller: 'ItemCtrl',
+          templateUrl: 'views/view-item.html'
         })
         .state('addEvent', {
           url: '/events/create',

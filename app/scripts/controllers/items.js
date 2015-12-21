@@ -1,18 +1,44 @@
 (function() {
   'use strict';
   angular.module('vvida.controllers')
-    .controller('ItemCtrl', ['$scope', '$state', '$stateParams', 'Categories', 'FileUploader', 'Utils', 'Items',
-      function($scope, $state, $stateParams, Categories, FileUploader, Utils, Items) {
+    .controller('ItemCtrl', ['$scope', '$state', '$stateParams', '$log', '$mdSidenav', 'Categories', 'FileUploader', 'Utils', 'Items',
+      function($scope, $state, $stateParams, $mdSidenav, $log, Categories, FileUploader, Utils, Items) {
+
+
+        $scope.items = Items.query();
 
         // load categories
         $scope.loadCategories = function() {
-          $scope.categories = Categories.query();
+
         };
 
-        $scope.items =Items.query(function()
-          {
-            console.log($scope.items);
+        $scope.categories = Categories.query();
+
+        // Close Left Side Nav bar
+        $scope.close = function() {
+          $mdSidenav('left').close()
+            .then(function() {
+              $log.debug("close LEFT is done");
+            });
+        };
+
+        $scope.setCategory = function(category) {
+          $scope.category = category.id;
+          $scope.appendCat = " > " + category.type || "";
+        };
+
+        $scope.viewItem = function(item) {
+          $scope.appendSubCat = $scope.appendCat  + " > " + item.name;
+          $state.go('viewItem', {
+            id: item.id
           });
+        };
+
+        $scope.resetCat = function() {
+          $scope.category = undefined;
+          $scope.appendCat = "";
+          $state.go('items');
+        };
 
         $scope.addItems = function() {
           console.log($scope.item);
@@ -37,7 +63,7 @@
             alias: 'photos',
             formData: [$scope.item],
           });
-      
+
 
         };
         //load the item

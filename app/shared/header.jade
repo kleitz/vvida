@@ -7,11 +7,11 @@ md-toolbar.md-accent.md-whiteframe-z3.header-spacing(ng-controller='HeaderCtrl')
     span(flex)
 
     a(ng-repeat='menuItem in menu' ui-sref='{{menuItem.state}}' hide-sm)
-        md-button(style="color: white")
-          {{menuItem.name}}
+        md-button.btn-header(style="color: white")
+         | {{menuItem.name}}
     a(ng-if='currentUser' hide-sm)
-        md-button(style="color: white")
-          {{currentUser.name}}
+        md-button.btn-header.user-btn(style="color: white")
+         | {{currentUser.name}}
     a(ng-if='currentUser' ui-sref='userProfile' )
       md-button.md-icon-button(aria-label='Comment' style='height: 48px; width: 48px; margin: 20px; padding: 0px;')
         img(ng-src='{{currentUser.img_url}}')
