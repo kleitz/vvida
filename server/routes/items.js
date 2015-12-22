@@ -10,11 +10,6 @@
       .post(auth.authenticate, Items.create)
       .get(Items.all);
 
-
-    app.route('/api/items/top')
-      // Get top items
-      .get(Items.findTopItems);
-
     app.route('/api/items/:id')
       // read items
       .get(Items.find)
