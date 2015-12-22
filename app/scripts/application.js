@@ -109,15 +109,11 @@
       // For any unmatched url, redirect to /state1
       $urlRouterProvider.otherwise('/404');
 
-      //Now set up the states
+      // Set up theme the entire application
       $mdThemingProvider.theme('default')
-        .primaryPalette('cyan')
-        .backgroundPalette('grey', {
-          default: '200'
-        });
+        .primaryPalette('green');
 
-
-
+      // Set up states
       $stateProvider
         .state('home', {
           url: '/',
@@ -131,7 +127,7 @@
         })
         .state('events', {
           url: '/events',
-          controller: 'EventsCtrl',
+          controller: 'EventCtrl',
           templateUrl: 'views/events.html'
         })
         .state('profile', {
