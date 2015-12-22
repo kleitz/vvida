@@ -108,11 +108,13 @@
       // For any unmatched url, redirect to /state1
       $urlRouterProvider.otherwise('/404');
 
-      // Now set up the states
-      $mdThemingProvider.theme('default')
-        .primaryPalette('green')
-        .accentPalette('orange');
 
+      // Set up theme the entire application
+      $mdThemingProvider.theme('default')
+        .primaryPalette('teal')
+        .accentPalette('pink');
+
+      // Set up states
       $stateProvider
         .state('home', {
           url: '/',
