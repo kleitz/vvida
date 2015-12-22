@@ -1,10 +1,10 @@
 (function() {
   'use strict';
   angular.module('vvida.controllers')
-    .controller('ItemCtrl', ['$scope', '$state', '$stateParams', '$log', '$mdSidenav', 'Categories', 
-      'FileUploader', 'Utils', 'Items',
-      function($scope, $state, $stateParams, $mdSidenav, $log, Categories, FileUploader, Utils, Items) {
-
+    .controller('ItemCtrl', ['$scope', '$state', '$stateParams', '$mdSidenav',
+      'Categories', 'FileUploader', 'Utils', 'Items',
+      function($scope, $state, $stateParams, $mdSidenav,
+        Categories, FileUploader, Utils, Items) {
 
         $scope.items = Items.query();
         $scope.categories = Categories.query();
@@ -16,10 +16,7 @@
 
         // Close Left Side Nav bar
         $scope.close = function() {
-          $mdSidenav('left').close()
-            .then(function() {
-              $log.debug('close LEFT is done');
-            });
+          $mdSidenav('left').close();
         };
 
         $scope.setCategory = function(category) {
