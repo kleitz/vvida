@@ -1,7 +1,8 @@
 (function() {
   'use strict';
   angular.module('vvida.controllers')
-    .controller('ItemCtrl', ['$scope', '$state', '$stateParams', '$log', '$mdSidenav', 'Categories', 'FileUploader', 'Utils', 'Items',
+    .controller('ItemCtrl', ['$scope', '$state', '$stateParams', '$log', '$mdSidenav', 'Categories', 
+      'FileUploader', 'Utils', 'Items',
       function($scope, $state, $stateParams, $mdSidenav, $log, Categories, FileUploader, Utils, Items) {
 
 
@@ -17,13 +18,13 @@
         $scope.close = function() {
           $mdSidenav('left').close()
             .then(function() {
-              $log.debug("close LEFT is done");
+              $log.debug('close LEFT is done');
             });
         };
 
         $scope.setCategory = function(category) {
           $scope.category = category.id;
-          $scope.appendCat = " > " + category.type;
+          $scope.appendCat = ' > ' + category.type;
         };
 
         $scope.viewItem = function(item) {
@@ -34,7 +35,7 @@
 
         $scope.resetCat = function() {
           $scope.category = undefined;
-          $scope.appendCat = "";
+          $scope.appendCat = '';
           $state.go('items');
         };
 
