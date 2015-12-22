@@ -75,7 +75,7 @@
         };
 
         $scope.init = function() {
-          // get all categories          
+          // get all categories
           $scope.categories = Categories.query();
           // get Recent Items
           $scope.recentItems = Items.query();
