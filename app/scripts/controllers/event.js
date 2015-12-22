@@ -22,10 +22,15 @@
           $scope.event = {
             eventId: $stateParams.id
           };
+          
           $scope.uploader = new FileUploader({
             url: '/api/image/',
             alias: 'photos',
             formData: [$scope.event],
+          });
+
+          Events.query(function(events) {
+            $scope.loadEvents = events;
           });
         };
 
@@ -44,7 +49,6 @@
             Utils.toast(event.message);
           });
         };
-
 
         $scope.showToast = function() {
           Utils.toast('Upload complete');
