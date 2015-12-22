@@ -41,22 +41,7 @@
           order: [
             ['id', 'DESC']
           ],
-          include: [Images]
-        }).then(function(item) {
-          res.json(item);
-        }).catch(function(err) {
-          res.status(500).send({
-            error: err.message || err.errors[0].message
-          });
-        });
-      },
-
-      findTopItems: function(req, res) {
-        Items.findAll({
-          order: [
-            ['id', 'DESC']
-          ],
-          include: [Images,{model:Reviews,where:{rating : {$gt:3} }}] 
+          include: [Images, Reviews]
         }).then(function(item) {
           res.json(item);
         }).catch(function(err) {
@@ -71,7 +56,7 @@
           where: {
             id: req.params.id
           },
-          include: [Images]
+          include: [Images, Reviews]
         }).then(function(item) {
           if (!item) {
             res.status(404).send({

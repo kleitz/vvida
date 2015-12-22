@@ -109,13 +109,19 @@
       // For any unmatched url, redirect to /state1
       $urlRouterProvider.otherwise('/404');
 
-      //Now set up the states
-      $mdThemingProvider.theme('default')
-        .primaryPalette('cyan')
-        .backgroundPalette('grey', {
-          default: '200'
-        });
+      // Extend the red theme with a few different colors
+      var limeRedMap = $mdThemingProvider.extendPalette('red', {
+        '500': '8BC34A'
+      });
+      var orangeMap = $mdThemingProvider.extendPalette('orange', {
+        '500': 'FF9800'
+      });
+      $mdThemingProvider.definePalette('lime', limeRedMap);
+      $mdThemingProvider.definePalette('orange', orangeMap);
 
+      // Use that theme for the primary intentions
+      $mdThemingProvider.theme('default')
+        .primaryPalette('lime').accentPalette('orange');
 
 
       $stateProvider

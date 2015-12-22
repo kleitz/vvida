@@ -4,13 +4,13 @@ md-toolbar.md-accent.md-whiteframe-z3.header-spacing(ng-controller='HeaderCtrl')
       i.fa.fa-bars.fa-2x
     a(ui-sref='home')
       img(src='images/logo.png' height='24' hide-sm)
-    span(flex)
+    span.md-headline(flex style="margin-left:10px; color:#FF5722;") Vvida
 
     a(ng-repeat='menuItem in menu' ui-sref='{{menuItem.state}}' hide-sm)
         md-button.btn-header(style="color: white")
          | {{menuItem.name}}
     a(ng-if='currentUser' hide-sm)
-        md-button.btn-header.user-btn(style="color: white")
+        md-button.md-accent.btn-header
          | {{currentUser.name}}
     a(ng-if='currentUser' ui-sref='userProfile' )
       md-button.md-icon-button(aria-label='Comment' style='height: 48px; width: 48px; margin: 20px; padding: 0px;')

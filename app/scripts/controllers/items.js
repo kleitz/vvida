@@ -6,13 +6,12 @@
 
 
         $scope.items = Items.query();
+        $scope.categories = Categories.query();
 
         // load categories
         $scope.loadCategories = function() {
 
         };
-
-        $scope.categories = Categories.query();
 
         // Close Left Side Nav bar
         $scope.close = function() {
@@ -24,11 +23,10 @@
 
         $scope.setCategory = function(category) {
           $scope.category = category.id;
-          $scope.appendCat = " > " + category.type || "";
+          $scope.appendCat = " > " + category.type;
         };
 
         $scope.viewItem = function(item) {
-          $scope.appendSubCat = $scope.appendCat  + " > " + item.name;
           $state.go('viewItem', {
             id: item.id
           });
@@ -41,7 +39,6 @@
         };
 
         $scope.addItems = function() {
-          console.log($scope.item);
           Items.save($scope.item, function(item) {
             if (item) {
               $state.go('editItem', {
