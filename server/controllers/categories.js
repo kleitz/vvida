@@ -1,7 +1,13 @@
 (function() {
   'use strict';
   module.exports = function(app) {
-    var Categories = app.get('models').Categories;
+    var Categories = app.get('models').Categories,
+      Items = app.get('models').Items,
+      Images = app.get('models').Images,
+      Reviews = app.get('models').Reviews;
+
+
+
 
     return {
       //Middleware to create an item
@@ -33,7 +39,25 @@
           });
         });
       },
-      // Middleware to delete an item
+
+      find: function(req, res) {
+          Categories.find({
+            where: {
+              id: req.params.id
+            },
+            include: [{
+              model: Items,
+              include: [Images, Reviews]
+            }]
+          }).then(function(categoryItems) {
+            res.json(categoryItems);
+          }).catch(function(err) {
+            res.status(500).send({
+              error: err.message || err.errors[0].message
+            });
+          });
+        },
+        // Middleware to delete an item
       delete: function(req, res) {
         return Categories.destroy({
           where: {

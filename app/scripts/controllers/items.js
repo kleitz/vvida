@@ -1,24 +1,14 @@
 (function() {
   'use strict';
   angular.module('vvida.controllers')
-    .controller('ItemCtrl', ['$scope', '$state', '$stateParams', '$log', '$mdSidenav', 'Categories', 'FileUploader', 'Utils', 'Items',
-      function($scope, $state, $stateParams, $mdSidenav, $log, Categories, FileUploader, Utils, Items) {
-
-        $scope.recentItems = Items.query();
-        $scope.categories = Categories.query();
-
-        $scope.categoryId = $stateParams.catId;
-
-        $scope.categoryItems = Categories.get({
-          id: $stateParams.catId
-        }) || undefined;
-
+    .controller('ItemCtrl', ['$scope', '$state', '$stateParams', '$mdSidenav',
+      'Categories', 'FileUploader', 'Utils', 'Items',
+      function($scope, $state, $stateParams, $mdSidenav,
+        Categories, FileUploader, Utils, Items) {
         // Close Left Side Nav bar
         $scope.close = function() {
           $mdSidenav('left').close()
-            .then(function() {
-              $log.debug("close LEFT is done");
-            });
+            .then(function() {});
         };
 
         $scope.viewCategory = function(category) {
@@ -50,27 +40,45 @@
           });
         };
 
-        var itemId = $stateParams.id;
         var init = function() {
+          // get all categories          
+          $scope.categories = Categories.query();
+
+          // get Recent Items
+          $scope.recentItems = Items.query();
+          // get selected category id
+          $scope.categoryId = $stateParams.id;
+          // load the categoryItems
+          $scope.categoryItems = Categories.get({
+            id: $stateParams.id
+          });
+
+          // --- check necessity
           $scope.item = {
             id: $stateParams.id
           };
+
           $scope.uploader = new FileUploader({
             url: '/api/image/',
             alias: 'photos',
             formData: [$scope.item],
           });
+
+          // get selected item id
+          var itemId = $stateParams.id;
+
+          //load the item
+          if (itemId) {
+            Items.get({
+              id: itemId
+            }, function(item) {
+              $scope.images = item.Images;
+              $scope.category = item.Category.type;
+              $scope.item = item;
+            });
+          }
         };
-        //load the item
-        if (itemId) {
-          Items.get({
-            id: itemId
-          }, function(item) {
-            $scope.images = item.Images;
-            $scope.category = item.Category.type;
-            $scope.item = item;
-          });
-        }
+
         $scope.updateItem = function() {
           Items.update($scope.item, function(item) {
             Utils.toast(item.message);

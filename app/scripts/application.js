@@ -109,20 +109,14 @@
       // For any unmatched url, redirect to /state1
       $urlRouterProvider.otherwise('/404');
 
-      // Extend the red theme with a few different colors
-      var limeRedMap = $mdThemingProvider.extendPalette('red', {
-        '500': '8BC34A'
-      });
-      var orangeMap = $mdThemingProvider.extendPalette('orange', {
-        '500': 'FF9800'
-      });
-      $mdThemingProvider.definePalette('lime', limeRedMap);
-      $mdThemingProvider.definePalette('orange', orangeMap);
-
-      // Use that theme for the primary intentions
+      // Now set up the states
       $mdThemingProvider.theme('default')
-        .primaryPalette('lime').accentPalette('orange');
+        .primaryPalette('cyan')
+        .backgroundPalette('grey', {
+          default: '200'
+        });
 
+        
 
       $stateProvider
         .state('home', {
@@ -190,6 +184,11 @@
           url: '/items/{id}/view',
           controller: 'ItemCtrl',
           templateUrl: 'views/view-item.html'
+        })
+        .state('categoryItems', {
+          url: '/categories/{id}/view',
+          controller: 'ItemCtrl',
+          templateUrl: 'views/items.html'
         })
         .state('addEvent', {
           url: '/events/create',

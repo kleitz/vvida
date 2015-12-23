@@ -8,7 +8,7 @@
       .get(Categories.all);
 
     app.route('/api/categories/:id')
-      // .get(Categories.find)
+      .get(Categories.find)
       // .put(auth.authenticate, Categories.update)
       .delete(auth.authenticate, Categories.delete);
   };

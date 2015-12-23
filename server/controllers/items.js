@@ -3,6 +3,7 @@
   module.exports = function(app) {
     var Items = app.get('models').Items,
       Images = app.get('models').Images,
+      Categories = app.get('models').Categories,
       Reviews = app.get('models').Reviews;
 
     return {
@@ -41,7 +42,7 @@
           order: [
             ['id', 'DESC']
           ],
-          include: [Images, Reviews]
+          include: [Images, Reviews, Categories]
         }).then(function(item) {
           res.json(item);
         }).catch(function(err) {
@@ -56,7 +57,7 @@
           where: {
             id: req.params.id
           },
-          include: [Images, Reviews]
+          include: [Images, Reviews, Categories]
         }).then(function(item) {
           if (!item) {
             res.status(404).send({
