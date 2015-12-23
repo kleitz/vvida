@@ -65,6 +65,7 @@
             }],
           });
 
+<<<<<<< HEAD
           //load the item
           Items.get({
             id: $scope.itemId
