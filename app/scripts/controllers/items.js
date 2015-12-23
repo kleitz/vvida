@@ -32,16 +32,17 @@
             alias: 'photos',
             formData: [$scope.item],
           });
+
+          // Load the item
+          if (itemId) {
+            Items.get({
+              id: itemId
+            }, function(item) {
+              $scope.images = item.Images;
+              $scope.item = item;
+            });
+          }
         };
-        // Load the item
-        if (itemId) {
-          Items.get({
-            id: itemId
-          }, function(item) {
-            $scope.images = item.Images;
-            $scope.item = item;
-          });
-        }
 
         $scope.updateItem = function() {
           Items.update($scope.item, function(item) {
