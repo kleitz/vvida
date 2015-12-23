@@ -4,14 +4,14 @@
     .controller('ItemCtrl', ['$scope', '$state', '$stateParams', '$log', '$mdSidenav', 'Categories', 'FileUploader', 'Utils', 'Items',
       function($scope, $state, $stateParams, $mdSidenav, $log, Categories, FileUploader, Utils, Items) {
 
-
-        $scope.items = Items.query();
+        $scope.recentItems = Items.query();
         $scope.categories = Categories.query();
 
-        // load categories
-        $scope.loadCategories = function() {
+        $scope.categoryId = $stateParams.catId;
 
-        };
+        $scope.categoryItems = Categories.get({
+          id: $stateParams.catId
+        }) || undefined;
 
         // Close Left Side Nav bar
         $scope.close = function() {
@@ -21,9 +21,11 @@
             });
         };
 
-        $scope.setCategory = function(category) {
-          $scope.category = category.id;
-          $scope.appendCat = " > " + category.type;
+        $scope.viewCategory = function(category) {
+          $state.go('categoryItems', {
+            id: category.id
+          });
+
         };
 
         $scope.viewItem = function(item) {
@@ -33,8 +35,6 @@
         };
 
         $scope.resetCat = function() {
-          $scope.category = undefined;
-          $scope.appendCat = "";
           $state.go('items');
         };
 
@@ -60,8 +60,6 @@
             alias: 'photos',
             formData: [$scope.item],
           });
-
-
         };
         //load the item
         if (itemId) {
@@ -69,6 +67,7 @@
             id: itemId
           }, function(item) {
             $scope.images = item.Images;
+            $scope.category = item.Category.type;
             $scope.item = item;
           });
         }

@@ -6,23 +6,24 @@ div.not-loggedin-div(ng-if='!currentUser')
     p.md-headline.packed-top Click below to login or signup  to continue using vvida.
     md-button.login-btn(class="md-raised md-primary" aria-label='Login/Signup' ng-click='login()') Go to Login/Signup Page
 
-md-card.items(layout='column' layout-md="column" layout-sm="column")
-  md-card-content.content(style="padding:5px;")
-    h4  Products {{appendCat}}
+div.md-padding
+  h4.md-subheadline(ng-show="categoryId") Products > {{categoryItems.type}}
+  h4.md-subheadline(ng-show="!categoryId") Products 
 
 div(ng-if='currentUser' layout="row")
   div(layout="row")
     md-sidenav.md-sidenav-left.md-whiteframe-z2(md-component-id="left" md-is-locked-open="$mdMedia('gt-md')")
       md-toolbar
         h1.md-toolbar-tools(ng-click="resetCat()") All Categories
-      md-content(layout-padding layout="column" layout-align="start start")
+      md-content(layout="column" layout-align="start start")
         md-button.btn-style(hide-gt-md ng-click="close()") Close Navbar
-        md-button.btn-style(md-no-ink ng-repeat="category in categories" ng-click="setCategory(category)") {{category.type}}
+        md-button.btn-style( ng-repeat="category in categories" ng-click="viewCategory(category)")  
+          div {{category.type}}
         
-  div(flex layout-wrap="layout-wrap" ng-if="!category")
-    span.md-padding(flex="25" flex-sm="100" style="display:block;text-align:center; border:1px solid #212121; margin-left:25px; background-color:#8BC34A") Recent Products 
+  div(flex layout-wrap="layout-wrap" ng-if="!categoryId")
+    md-subheader Recent Products 
     md-content.md-padding(layout="row" layout-wrap layout-align="center start" layout-xs="column")
-      div(flex='50' flex-sm='100' layout='column' ng-repeat="item in items | limitTo : 4")
+      div(flex='50' flex-sm='100' layout='column' ng-repeat="item in recentItems | limitTo : 4")
         md-card(style="background:white;")
           img(ng-src='{{item.Images[0].img_url}}' class="md-card-image" alt="Image")
           md-card-title
@@ -33,10 +34,10 @@ div(ng-if='currentUser' layout="row")
           md-card-actions(layout="row" layout-align="start center")
             md-button.md-accent(ng-click="viewItem(item)" ng-if="currentUser") Add Review
 
-  div(layout="column" ng-if="category")
+  div(layout="column" ng-if="categoryId")
     md-content.md-padding(layout="column" layout-wrap="layout-wrap" layout-align="center start")
       md-list
-        md-list-item.md-3-line(ng-repeat="item in items | filter: {'category_id' : category}")
+        md-list-item.md-3-line(ng-repeat="item in categoryItems.Items")
           img.face(ng-src="{{item.Images[0].img_url}}")
           .md-list-item-text
             h3(ng-click="viewItem(item)") {{item.name}} 
