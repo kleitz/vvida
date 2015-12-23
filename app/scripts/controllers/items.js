@@ -15,7 +15,6 @@
           $state.go('categoryItems', {
             id: category.id
           });
-
         };
 
         $scope.viewItem = function(item) {
