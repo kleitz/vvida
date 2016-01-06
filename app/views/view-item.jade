@@ -1,14 +1,14 @@
-div.md-padding
-  h4.md-subheadline Products > {{category}} > {{item.name}}
+div.md-padding(layout='row')
+  a.md-subheadline(href='items') Products
+  a.md-subheadline(href='categories/{{item.category_id}}/view') &nbsp;> {{item.Category.type}}
+  a.md-subheadline &nbsp; > {{item.name}}
 
-.view-item(layout='column')
-  md-card.md-padding(flex)
-    .view-item-header
-      h3(style='margin-bottom: 10px') {{item.name}}
-      p(style='margin=0px') {{item.city}}
+.view-item(layout='row' layout-align='start center')
+  h3.md-padding {{item.name}} -
+  p {{item.city}}
 
 div(layout='row')
-  div.view-item-main(flex='60' style='border:1px solid #FF9800;margin-left:10px;')
+  div.view-item-main(flex='60' style='border:1px solid #FF9800;margin-left:10px;' layout-align='start center')
     md-grid-list(md-cols-sm='1', md-cols-md='3', md-cols-gt-md='3', md-row-height-gt-md='1:1', md-row-height='1:1', md-gutter='12px', md-gutter-gt-sm='8px')
       md-grid-tile(ng-repeat='image in images' style='background-image: url(\'{{image.img_url}}\'); background-repeat: no-repeat; background-size: 100% 100%;')
 
@@ -19,18 +19,19 @@ div(layout='row')
           h4 {{review.review}} 
           h4 {{review.review_title}}
           p {{review.rating}}
-    div(style='margin:10px;')
-      md-input-container
-        label Review
-        input(required name='Review')
-      md-input-container
-        label Title
-        input(required name='Title')
-      md-input-container
-        label Rating
-        input(required name='Rating 1 - 5')
-      md-button.md-raised.md-accent(ng-disabled= '{{!currentUser? \'true\' : \'false\'}}') Submit Review
-      md-button.md-raised.md-warn(ng-if='!currentUser') LogIn/Signup
+    div
+      form(method="post" enctype="multipart/data" ng-submit="addItemReview()")
+        md-input-container
+          label Review
+          input(required ng-model='itemReview.review')
+        md-input-container
+          label Title
+          input(required ng-model='itemReview.review_title')
+        md-input-container
+          label Rating
+          input(required ng-model='itemReview.rating')
+        md-button.md-raised.md-accent(type='submit' ng-disabled= '{{!currentUser? \'true\' : \'false\'}}') Submit Review
+        md-button.md-raised.md-warn(ng-if='!currentUser') LogIn/Signup
 
         
 
