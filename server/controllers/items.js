@@ -4,7 +4,8 @@
     var Items = app.get('models').Items,
       Images = app.get('models').Images,
       Categories = app.get('models').Categories,
-      Reviews = app.get('models').Reviews;
+      Reviews = app.get('models').Reviews,
+      Users = app.get('models').Users;
 
     return {
       create: function(req, res) {
@@ -42,7 +43,14 @@
           order: [
             ['id', 'DESC']
           ],
-          include: [Images, Reviews, Categories]
+          include: [{
+            model: Images
+          }, {
+            model: Reviews,
+            include: [Users]
+          }, {
+            model: Categories
+          }]
         }).then(function(item) {
           res.json(item);
         }).catch(function(err) {

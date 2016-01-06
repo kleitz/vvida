@@ -1,5 +1,5 @@
 body {
-  font-family: "Verdana", "Open Sans", "Arial", "Roboto", "Montserrat", sans-serif;
+  font-family: "Roboto", "Open Sans", "Arial", "Verdana", "Montserrat", sans-serif;
   font-size: 1em;
   width: 100%;
 }
@@ -10,6 +10,9 @@ h3,
 h4,
 h5 {
   margin: 0 0 5px 0;
+  &.md-padding {
+    margin: 0;
+  }
 }
 
 img {
@@ -38,7 +41,7 @@ header {
 }
 
 .footer {
-  background-color: #707478;
+  background-color: #389F38;
   width: 100%;
   height: auto;
   padding-bottom: 30px;
@@ -705,8 +708,9 @@ md-sidenav.md-sidenav-left {
 }
 
 md-toolbar:not(.md-menu-toolbar).md-accent {
-  background-color: grey;
-  text-color: black;
+  background-color: #389F38;
+  color: black;
+  text-transform: none;
 }
 
 .popular-events {
@@ -749,4 +753,18 @@ md-toolbar:not(.md-menu-toolbar).md-accent {
 
 .md-padding {
   padding: 15px;
+}
+
+.view-item {
+  margin: 0;
+}
+
+blockquote {
+  margin: auto;
+  padding-left: 5px;
+  border-left: 1px solid #000;
+}
+
+a {
+  text-decoration: none;
 }

@@ -111,12 +111,8 @@
 
       // Now set up the states
       $mdThemingProvider.theme('default')
-        .primaryPalette('cyan')
-        .backgroundPalette('grey', {
-          default: '200'
-        });
-
-        
+        .primaryPalette('green')
+        .accentPalette('orange');
 
       $stateProvider
         .state('home', {
@@ -186,7 +182,7 @@
           templateUrl: 'views/view-item.html'
         })
         .state('categoryItems', {
-          url: '/categories/{id}/view',
+          url: '/categories/{catid}/view',
           controller: 'ItemCtrl',
           templateUrl: 'views/items.html'
         })
