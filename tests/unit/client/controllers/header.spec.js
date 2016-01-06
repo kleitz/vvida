@@ -13,8 +13,8 @@ describe('HeaderCtrl tests', function() {
     });
     Users = $injector.get('Users');
     Auth = $injector.get('Auth');
-    spyOn(scope, 'logout').and.callThrough();
-    spyOn(Users, 'logout').and.callThrough();
+    spyOn(scope, 'logout').andCallThrough();
+    spyOn(Users, 'logout').andCallThrough();
     scope.logout();
   }));
 

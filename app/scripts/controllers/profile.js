@@ -4,14 +4,14 @@ angular.module('vvida.controllers')
     'FileUploader', 'Utils',
     function($rootScope, $scope, $state, Users, Countries,
       FileUploader, Utils) {
-      var init = function() {
+      $scope.init = function() {
         $scope.uploader = new FileUploader({
           url: '/api/users/image-upload',
           alias: 'photos',
           formData: [$rootScope.currentUser]
         });
       };
-      init();
+      $scope.init();
       $scope.uploader.onCompleteItem =
         function(fileItem, response, status, headers) {
           if (fileItem && status == 200 && headers) {

@@ -1,6 +1,17 @@
 describe('EventCtrl tests', function() {
+  'use strict';
   var scope,
-    controller, Utils, Events, state;
+    controller,
+    Utils,
+    Events = {
+      save: function(evt, cb) {
+        evt ? cb(evt) : cb(false);
+      },
+      update: function(evt, cb) {
+        evt ? cb(evt) : cb(false);
+      },
+    },
+    state;
   beforeEach(function() {
     module('vvida');
   });
@@ -9,19 +20,30 @@ describe('EventCtrl tests', function() {
     var $controller = $injector.get('$controller');
     scope = $injector.get('$rootScope');
     controller = $controller('EventCtrl', {
-      $scope: scope
+      $scope: scope,
+      Events:Events
     });
     state = $injector.get('$state');
-    Events = $injector.get('Events');
     Utils = $injector.get('Utils');
-    spyOn(scope, 'addEvent').and.callThrough();
-    spyOn(scope, 'updateEvent').and.callThrough();
-    spyOn(scope, 'showToast').and.callThrough();
-    spyOn(scope, 'upload').and.callThrough();
-    spyOn(Events, 'save').and.callThrough();
-    spyOn(Events, 'update').and.callThrough();
-    spyOn(Utils, 'toast').and.callThrough();
-    spyOn(state, 'go').and.callThrough();
+
+
+  }));
+  it('should init the controller', function() {
+    scope.init();
+    expect(scope.uploader).toBeDefined();
+  });
+
+  it('should define an event and fail', function() {
+    scope.event = false;
+    spyOn(Events, 'save').andCallThrough();
+    spyOn(Utils, 'toast').andCallThrough();
+    scope.addEvent();
+    expect(Events.save).toHaveBeenCalled();
+    expect(Utils.toast).toHaveBeenCalledWith('Event not created');
+  });
+
+
+  it('should define and add an event', function() {
     scope.event = {
       user_id: 1,
       name: 'Sample Event',
@@ -32,50 +54,36 @@ describe('EventCtrl tests', function() {
       sponsor: 'Sample Event Sponsor',
       message: 'Sample Event Message'
     };
+    spyOn(Events, 'save').andCallThrough();
+    spyOn(Utils, 'toast').andCallThrough();
     scope.addEvent();
-    scope.updateEvent();
-    scope.showToast();
-    scope.upload();
-  }));
-
-  it('should define and call scope.addEvent', function() {
-    expect(scope.addEvent).toBeDefined();
-    expect(scope.addEvent).toHaveBeenCalled();
-  });
-
-  it('should define and call scope.updateEvent', function() {
-    expect(scope.updateEvent).toBeDefined();
-    expect(scope.updateEvent).toHaveBeenCalled();
-  });
-
-  it('should define and call scope.showToast', function() {
-    expect(scope.showToast).toBeDefined();
-    expect(scope.showToast).toHaveBeenCalled();
-  });
-
-  it('should define scope.event', function() {
-    expect(scope.event).toBeDefined();
-  });
-
-  it('should report that Events.save was called', function() {
-    expect(Events.save).toBeDefined();
     expect(Events.save).toHaveBeenCalled();
+    expect(Utils.toast).not.toHaveBeenCalled();
   });
 
-  it('should report that Events.update was called', function() {
-    expect(Events.update).toBeDefined();
+  it('should define and update an event', function() {
+     scope.event = {
+      message: 'Sample Event Message'
+    };
+    spyOn(Events, 'update').andCallThrough();
+    spyOn(Utils, 'toast').andCallThrough();
+    scope.updateEvent();
     expect(Events.update).toHaveBeenCalled();
+    expect(Utils.toast).toHaveBeenCalledWith('Sample Event Message');
   });
 
-  it('should report that Utils.toast was called', function() {
-    expect(Utils.toast).toBeDefined();
-    expect(Utils.toast).toHaveBeenCalled();
+  it('should call Utils.toast', function() {
+    spyOn(Utils, 'toast');
+    scope.showToast();
+    expect(Utils.toast).toHaveBeenCalledWith('Upload complete');
   });
 
-  it('should report that $scope.upload was called', function() {
-    expect(scope.upload).toBeDefined();
-    expect(scope.upload).toHaveBeenCalled();
+  it('should call uploader.uploadAll', function() {
+    scope.init();
+    expect(scope.uploader.uploadAll).toBeDefined();
+    spyOn(scope.uploader, 'uploadAll');
+    scope.upload();
+    expect(scope.uploader.uploadAll).toHaveBeenCalled();
   });
-
 
 });

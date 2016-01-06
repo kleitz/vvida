@@ -10,7 +10,6 @@
         };
 
         $scope.addItems = function() {
-          console.log($scope.item);
           Items.save($scope.item, function(item) {
             if (item) {
               $state.go('editItem', {
@@ -23,7 +22,7 @@
         };
 
         var itemId = $stateParams.id;
-        var init = function() {
+        $scope.init = function() {
           $scope.item = {
             id: $stateParams.id
           };
@@ -57,7 +56,7 @@
           $scope.uploader.uploadAll();
         };
 
-        init();
+        $scope.init();
       }
     ]);
 })();

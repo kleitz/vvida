@@ -19,7 +19,7 @@
 
         //Get the eventId
         var eventId = $stateParams.id;
-        var init = function() {
+        $scope.init = function() {
           $scope.event = {
             eventId: $stateParams.id
           };
@@ -55,7 +55,7 @@
           $scope.uploader.uploadAll();
         };
 
-        init();
+        $scope.init();
       }
     ]);
 })();

@@ -7,67 +7,63 @@ describe('LoginCtrl tests', function() {
     module('vvida');
   });
 
-  beforeEach(module(function($provide) {
-    scope = {
-      user: {
-        passwordSignup: 'Password12#',
-        confirmPassword: 'Password12#'
-      },
-      messageSignup: 'message'
-    };
-    $provide.value('$scope', scope);
-  }));
 
   beforeEach(inject(function($injector) {
     $controller = $injector.get('$controller');
+    scope = $injector.get('$rootScope');
+    controller = $controller('LoginCtrl', {
+      $scope: scope
+    });
     Users = $injector.get('Users');
-    controller = $controller('LoginCtrl');
-    spyOn(Users, 'login').and.callThrough();
-    spyOn(Users, 'save').and.callThrough();
-    spyOn(scope, 'signup').and.callThrough();
-    spyOn(scope, 'login').and.callThrough();
-    spyOn(scope, 'facebook');
-    spyOn(scope, 'google');
-    scope.signup();
-    scope.login();
-    scope.google();
-    scope.facebook();
+
   }));
 
-  it('should define and call $scope.login', function() {
-    expect(scope.login).toBeDefined();
-    expect(scope.login).toHaveBeenCalled();
-  });
-
-  it('should define and call $scope.signup', function() {
-    expect(scope.signup).toBeDefined();
-    expect(scope.signup).toHaveBeenCalled();
-  });
-
-  it('should define and call $scope.google', function() {
-    expect(scope.google).toBeDefined();
-    expect(scope.google).toHaveBeenCalled();
-  });
-
-  it('should define and call $scope.facebook', function() {
-    expect(scope.facebook).toBeDefined();
-    expect(scope.facebook).toHaveBeenCalled();
-  });
-
   it('should call the login function in the Users service', function() {
+    spyOn(Users, 'login');
+    scope.login();
     expect(Users.login).toBeDefined();
     expect(Users.login).toHaveBeenCalled();
   });
 
   it('should call the save function in the Users service', function() {
-    expect(Users.save).toBeDefined();
+    spyOn(Users, 'save');
+    scope.user = {
+      passwordSignup: 'Password1234',
+      confirmPassword: 'Password1234'
+    }
+    scope.signup();
     expect(Users.save).toHaveBeenCalled();
   });
 
-  it('should define scope.messageSignup', function() {
+  it('should reject short passwords', function() {
+    scope.user = {
+      passwordSignup: 'Pass',
+      confirmPassword: 'Pass'
+    }
+    scope.signup();
     expect(scope.messageSignup).toBeDefined();
+    expect(scope.messageSignup).toEqual('Your password needs to have a length greater than 8 characters');
     expect(typeof scope.messageSignup).toBe('string');
-    expect(scope.messageSignup).toBe('message');
+  });
+
+  it('should ensure password is alphanumeric', function() {
+    scope.user = {
+      passwordSignup: 'Passworder',
+      confirmPassword: 'Passworder'
+    }
+    scope.signup();
+    expect(scope.messageSignup).toBeDefined();
+    expect(scope.messageSignup).toEqual('Your password need to contain both numbers and non-word characters');
+  });
+
+  it('should ensure password as both case characters', function() {
+    scope.user = {
+      passwordSignup: 'password1234',
+      confirmPassword: 'password1234'
+    }
+    scope.signup();
+    expect(scope.messageSignup).toBeDefined();
+    expect(scope.messageSignup).toEqual('Your password need to contain both uppercase and lower characters');
   });
 
 });

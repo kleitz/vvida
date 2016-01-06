@@ -44,53 +44,43 @@ describe('ProfileCtrl tests', function() {
       Utils = $injector.get('Utils');
       Users = $injector.get('Users');
       Countries = $injector.get('Countries');
-      spyOn(scope, 'editProfile').and.callThrough();
-      spyOn(scope, 'showToast').and.callThrough();
-      spyOn(scope, 'upload');
-      spyOn(Countries, 'getCountries');
-      spyOn(Users, 'update');
-      scope.showToast();
-      scope.upload();
-      scope.editProfile();
     });
     inject(function(_$rootScope_) {
       $rootScope = _$rootScope_;
     });
+
   });
 
-  beforeEach(module(function($provide) {
-    $provide.value('$rootScope.currentUser', currentUser);
-  }));
 
-  it('should define and call scope.editProfile', function() {
-    expect(scope.editProfile).toBeDefined();
-    expect(scope.editProfile).toHaveBeenCalled();
+  it('should init the controller', function() {
+    scope.init();
+    expect(scope.uploader).toBeDefined();
   });
 
-  it('should define and call scope.showToast', function() {
-    expect(scope.showToast).toBeDefined();
-    expect(scope.showToast).toHaveBeenCalled();
-  });
-
-  it('should define and call scope.upload', function() {
-    expect(scope.upload).toBeDefined();
-    expect(scope.upload).toHaveBeenCalled();
-  });
-
-  // it('should define and call scope.uploader.onCompleteItem', function() {
-  //   expect(scope.scope.uploader.onCompleteItem).toBeDefined();
-  //   expect(scope.scope.uploader.onCompleteItem).toHaveBeenCalled();
-  // });
-
-  it('should call Countries.getCountries', function() {
-    expect(Countries.getCountries).toBeDefined();
-    expect(Countries.getCountries).toHaveBeenCalled();
-  });
-
-  it('should call Users.update', function() {
-    expect(Users.update).toBeDefined();
+  it('should update user Profile', function() {
+    spyOn(Users, 'update');
+    scope.editProfile();
     expect(Users.update).toHaveBeenCalled();
   });
 
+  it('should call Utils.toast', function() {
+    spyOn(Utils, 'toast');
+    scope.showToast();
+    expect(Utils.toast).toHaveBeenCalledWith('Upload complete');
+  });
+
+  it('should call uploader.uploadAll', function() {
+    scope.init();
+    expect(scope.uploader.uploadAll).toBeDefined();
+    spyOn(scope.uploader, 'uploadAll');
+    scope.upload();
+    expect(scope.uploader.uploadAll).toHaveBeenCalled();
+    expect(scope.uploader.onCompleteItem).toBeDefined();
+
+  });
+
+  it('should Countries.getCountries should be defined', function() {
+    expect(Countries.getCountries).toBeDefined();
+  });
 
 });

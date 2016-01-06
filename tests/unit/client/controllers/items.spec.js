@@ -1,6 +1,16 @@
 describe('ItemCtrl tests', function() {
   var scope,
-    controller, Utils, Items;
+    controller,
+    Utils,
+    Items = {
+      save: function(item, cb) {
+        item ? cb(item) : cb(false);
+      },
+      update: function(item, cb) {
+        item ? cb(item) : cb(false);
+      },
+    },
+    Categories;
   beforeEach(function() {
     module('vvida');
   });
@@ -9,45 +19,65 @@ describe('ItemCtrl tests', function() {
     $controller = $injector.get('$controller');
     scope = $injector.get('$rootScope');
     controller = $controller('ItemCtrl', {
-      $scope: scope
+      $scope: scope,
+      Items: Items
     });
     Utils = $injector.get('Utils');
-    Items = $injector.get('Items');
-    spyOn(scope, 'loadCategories').and.callThrough();
-    spyOn(scope, 'addItems').and.callThrough();
-    spyOn(scope, 'updateItem').and.callThrough();
-    spyOn(scope, 'showToast').and.callThrough();
-    spyOn(scope, 'upload').and.callThrough();
-    scope.loadCategories();
-    scope.addItems();
-    scope.updateItem();
-    scope.showToast();
-    scope.upload();
+    Categories = $injector.get('Categories');
   }));
 
-  it('should define and call scope.loadCategories', function() {
-    expect(scope.loadCategories).toBeDefined();
-    expect(scope.loadCategories).toHaveBeenCalled();
+  it('should init the controller', function() {
+    scope.init();
+    expect(scope.uploader).toBeDefined();
   });
 
-  it('should define and call scope.addItems', function() {
-    expect(scope.addItems).toBeDefined();
-    expect(scope.addItems).toHaveBeenCalled();
+  it('should call Items.update', function() {
+    scope.item = {
+      message: 'I am groot'
+    };
+    spyOn(Items, 'update').andCallThrough();
+    spyOn(Utils, 'toast').andCallThrough();
+    scope.updateItem();
+    expect(Items.update).toHaveBeenCalled();
+    expect(Utils.toast).toHaveBeenCalledWith('I am groot');
   });
 
-  it('should define and call scope.updateItem', function() {
-    expect(scope.updateItem).toBeDefined();
-    expect(scope.updateItem).toHaveBeenCalled();
+  it('should call Items.save and fail', function() {
+    spyOn(Items, 'save').andCallThrough();
+    spyOn(Utils, 'toast').andCallThrough();
+    scope.item = false;
+    scope.addItems();
+    expect(Items.save).toHaveBeenCalled();
+    expect(Utils.toast).toHaveBeenCalledWith('Item not created');
   });
 
-  it('should define and call scope.upload', function() {
-    expect(scope.upload).toBeDefined();
-    expect(scope.upload).toHaveBeenCalled();
+  it('should call Items.save', function() {
+    spyOn(Items, 'save').andCallThrough();
+    spyOn(Utils, 'toast').andCallThrough();
+    scope.item = true;
+    scope.addItems();
+    expect(Items.save).toHaveBeenCalled();
+    expect(Utils.toast).not.toHaveBeenCalled();
   });
 
-  it('should define and call scope.showToast', function() {
-    expect(scope.showToast).toBeDefined();
-    expect(scope.showToast).toHaveBeenCalled();
+  it('should call Categories.query', function() {
+    spyOn(Categories, 'query');
+    scope.loadCategories();
+    expect(Categories.query).toHaveBeenCalled();
+  });
+
+  it('should call Utils.toast', function() {
+    spyOn(Utils, 'toast');
+    scope.showToast();
+    expect(Utils.toast).toHaveBeenCalledWith('Upload complete');
+  });
+
+  it('should call uploader.uploadAll', function() {
+    scope.init();
+    expect(scope.uploader.uploadAll).toBeDefined();
+    spyOn(scope.uploader, 'uploadAll');
+    scope.upload();
+    expect(scope.uploader.uploadAll).toHaveBeenCalled();
   });
 
 });
