@@ -5,8 +5,8 @@ module.exports = function(app, passport) {
   //     /auth/facebook/callback
   app.get('/auth/facebook', passport.authenticate('facebook', {
     scope: [
-      'email', 'user_about_me'
-      // 'basic_info', 'user_birthday', 'user_hometown', 'user_location'
+      'email', 'user_about_me', 'user_photos', 'basic_info',
+      'user_birthday', 'user_hometown', 'user_location'
     ]
   }));
 
@@ -15,9 +15,12 @@ module.exports = function(app, passport) {
   // If access was granted, the user will be logged in.
   // Otherwise, authentication has failed.
   app.get('/auth/facebook/callback', passport.authenticate('facebook', {
-    failureRedirect: '/sign-up',
-    successRedirect: '/#'
-      // session: false
-  }));
+    failureRedirect: '/sign-up'
+  }), function(req, res) {
+    // Successful authentication, redirect home.
+    console.log(req.user);
+    req.session.user = req.user._json;
+    res.redirect('/#');
+  });
 
 };

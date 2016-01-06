@@ -6,8 +6,11 @@ angular.module('vvida.controllers')
         Users.login($scope.user, function(err, res) {
           if (!err) {
             Auth.setToken(res.token);
-            $rootScope.currentUser = res;
-            $state.go('home');
+            var user = {};
+            user.name = res.firstname + ' ' + res.lastname;
+            user.picture_url = res.picture_url;
+            $rootScope.currentUser = user;
+            $state.go('welcome');
           } else {
             $scope.messageLogin = err.error || err || err[0].message;
           }

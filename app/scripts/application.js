@@ -50,17 +50,28 @@
     'angularFileUpload'
   ]);
 
-  window.app.run(['$rootScope', '$location', '$state', '$mdSidenav', 'Users', 'Auth',
-    function($rootScope, $location, $state, $mdSidenav, Users, Auth) {
+  window.app.run(['$rootScope', '$location', '$state', '$mdSidenav', 'Users',
+    function($rootScope, $location, $state, $mdSidenav, Users) {
       // Check if the user's session is still being persisted in the servers
-      if (Auth.isLoggedIn()) {
-        Users.session(function(err, res) {
-          if (!err) {
-            $rootScope.currentUser = res;
-            $rootScope.$broadcast('session_found', $rootScope.currentUser);
+      Users.session(function(err, res) {
+        if (!err) {
+          var user = {};
+          if (res.name) {
+            user.name = res.name;
+            user.id = res.id;
+            user.img_url = res.picture.data.url;
+          } else {
+            var fullName = res.firstname + ' ' + res.lastname;
+            user.name = fullName;
+            user.id = res.id;
+            user.img_url = res.img_url;
           }
-        });
-      }
+          if (user.img_url) {
+            $rootScope.currentUser = user;
+            console.log($rootScope.currentUser);
+          }
+        }
+      });
 
       $rootScope.login = function() {
         $state.go('login');
@@ -77,7 +88,7 @@
         state: 'events'
       }, {
         name: 'Products',
-        state: 'item'
+        state: 'items'
       }];
 
       $rootScope.openLeftMenu = function() {
@@ -100,11 +111,12 @@
 
       // Now set up the states
       $mdThemingProvider.theme('default')
-        .primaryPalette('blue')
-        .accentPalette('deep-orange')
+        .primaryPalette('cyan')
         .backgroundPalette('grey', {
           default: '200'
         });
+
+        
 
       $stateProvider
         .state('home', {
@@ -119,8 +131,14 @@
         })
         .state('events', {
           url: '/events',
-          controller: 'EventsCtrl',
+          controller: 'EventCtrl',
           templateUrl: 'views/events.html'
+        })
+
+      .state('items', {
+          url: '/items',
+          controller: 'ItemCtrl',
+          templateUrl: 'views/items.html'
         })
         .state('profile', {
           url: '/user/{id}/edit',
@@ -155,12 +173,22 @@
         .state('addItem', {
           url: '/items/create',
           controller: 'ItemCtrl',
-          templateUrl: 'views/items.html'
+          templateUrl: 'views/add-item.html'
         })
         .state('editItem', {
           url: '/items/{id}/edit',
           controller: 'ItemCtrl',
           templateUrl: 'views/edit-item.html'
+        })
+        .state('viewItem', {
+          url: '/items/{id}/view',
+          controller: 'ItemCtrl',
+          templateUrl: 'views/view-item.html'
+        })
+        .state('categoryItems', {
+          url: '/categories/{id}/view',
+          controller: 'ItemCtrl',
+          templateUrl: 'views/items.html'
         })
         .state('addEvent', {
           url: '/events/create',
