@@ -182,7 +182,7 @@
           templateUrl: 'views/view-item.html'
         })
         .state('categoryItems', {
-          url: '/categories/{catid}/view',
+          url: '/categories/{catId}/view',
           controller: 'ItemCtrl',
           templateUrl: 'views/items.html'
         })

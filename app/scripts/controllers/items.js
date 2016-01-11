@@ -27,7 +27,14 @@
 
         $scope.viewCategory = function(category) {
           $state.go('categoryItems', {
-            catid: category.id
+            catId: category.id
+          });
+        };
+
+        $scope.getCategory = function() {
+          // load the categoryItems
+          $scope.categoryItems = Categories.get({
+            id: $scope.categoryId
           });
         };
 
@@ -64,6 +71,26 @@
           });
         };
 
+        $scope.getItem = function() {
+          // get selected item id
+          $scope.itemId = $stateParams.id;
+
+          $scope.uploader = new FileUploader({
+            url: '/api/image/',
+            alias: 'photos',
+            formData: [{
+              id: $scope.itemId
+            }],
+          });
+
+          //load the item
+          Items.get({
+            id: $scope.itemId
+          }, function(item) {
+            $scope.images = item.Images;
+            $scope.item = item;
+          });
+        };
 
         $scope.init = function() {
           // get all categories          
@@ -71,35 +98,7 @@
           // get Recent Items
           $scope.recentItems = Items.query();
           // get selected category id
-          $scope.categoryId = $stateParams.catid;
-          // load the categoryItems
-          $scope.categoryItems = Categories.get({
-            id: $stateParams.catid
-          });
-
-          // --- check necessity
-          $scope.item = {
-            id: $stateParams.id
-          };
-
-          $scope.uploader = new FileUploader({
-            url: '/api/image/',
-            alias: 'photos',
-            formData: [$scope.item],
-          });
-
-          // get selected item id
-          var itemId = $stateParams.id;
-
-          //load the item
-          if (itemId) {
-            Items.get({
-              id: itemId
-            }, function(item) {
-              $scope.images = item.Images;
-              $scope.item = item;
-            });
-          }
+          $scope.categoryId = $stateParams.catId;
         };
 
         $scope.updateItem = function() {
@@ -107,7 +106,6 @@
             Utils.toast(item.message);
           });
         };
-
 
         $scope.showToast = function() {
           Utils.toast('Upload complete');

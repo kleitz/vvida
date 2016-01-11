@@ -1,4 +1,4 @@
-div.md-padding(layout='row')
+div.md-padding(layout='row' ng-init='getItem()')
   a.md-subheadline(href='items') Products
   a.md-subheadline(href='categories/{{item.category_id}}/view') &nbsp;> {{item.Category.type}}
   a.md-subheadline &nbsp; > {{item.name}}
@@ -31,7 +31,7 @@ div(layout='row')
           label Rating
           input(required ng-model='itemReview.rating')
         md-button.md-raised.md-accent(type='submit' ng-disabled= '{{!currentUser? \'true\' : \'false\'}}') Submit Review
-        md-button.md-raised.md-warn(ng-if='!currentUser') LogIn/Signup
+        md-button.login-btn(class="md-raised md-primary" aria-label='Login/Signup' ng-click='login()') Go to Login/Signup Page
 
         
 
