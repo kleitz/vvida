@@ -38,6 +38,21 @@ describe('Utils Service Test', function() {
     it('$mdDialog and its method show should both be defined', function() {
       expect($mdDialog.show).toBeDefined();
       expect(typeof $mdDialog.show).toBe('function');
+      $mdDialog.show = sinon.stub().returns($mdDialog);
+      $mdDialog.then = sinon.stub();
+      var cb = sinon.spy();
+      Utils.dialog('title', 'message', {
+        event: 'event'
+      }, cb);
+      expect($mdDialog.show.called).toBe(true);
+      expect(typeof $mdDialog.show.args[0][0]).toBe('object');
+      expect($mdDialog.then.called).toBe(true);
+      expect($mdDialog.then.args[0].length).toBe(2);
+      $mdDialog.then.args[0][0]();
+      $mdDialog.then.args[0][1]();
+      expect(typeof $mdDialog.then.args[0][0]).toBe('function');
+      expect(typeof $mdDialog.then.args[0][1]).toBe('function');
+      expect(cb.called).toBe(true);
     });
   });
 });
