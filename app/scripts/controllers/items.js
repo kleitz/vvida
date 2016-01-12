@@ -1,6 +1,7 @@
 (function() {
   'use strict';
   angular.module('vvida.controllers')
+    .constant('_', window._)
     .controller('ItemCtrl', ['$scope', '$state', '$stateParams', '$mdSidenav',
       'Categories', 'FileUploader', 'Utils', 'Items', 'Reviews',
       function($scope, $state, $stateParams, $mdSidenav,
@@ -81,7 +82,7 @@
           $scope.recentItems = Items.query();
           // get selected category id
           $scope.categoryId = $stateParams.catId;
-          // initialize scope.item
+          // initialize scope.item for model
           $scope.item = {};
         };
 
