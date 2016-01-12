@@ -113,7 +113,7 @@ gulp.task('test:fend', ['browserify', 'bower'], function() {
     });
 });
 
-gulp.task('test:bend', function() {
+gulp.task('test:bend', ['test:fend'], function() {
   return gulp.src(paths.serverTests)
     .pipe(mocha({
       reporter: 'spec'
