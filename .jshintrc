@@ -30,7 +30,8 @@
     "browser",
     "element",
     "by",
-    "exports"
+    "exports",
+    "sinon"
   ],
   "quotmark": true,
   "trailing": true,
