@@ -11,7 +11,7 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine'],
+    frameworks: ['jasmine', 'sinon'],
 
 
     // list of files / patterns to load in the browser
@@ -79,7 +79,7 @@ module.exports = function(config) {
     // - Safari
     // - PhantomJS
     // - IE
-    browsers: ['Chrome'], // 'Firefox', 'Safari'],
+    browsers: ['PhantomJS'],//'Chrome'], // 'Firefox', 'Safari'],
 
     // https://www.youtube.com/watch?v=FQwZrOAmMAc
     // To turn off chrome's security limitations that do
