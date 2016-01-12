@@ -120,9 +120,6 @@ gulp.task('test:bend', ['test:fend'], function() {
     }))
     .once('error', function() {
       process.exit(1);
-    })
-    .once('end', function() {
-      process.exit();
     });
 });
 
