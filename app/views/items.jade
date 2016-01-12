@@ -19,9 +19,9 @@ div(layout="row")
 
   div(flex layout-wrap="layout-wrap" ng-if="!categoryId")
     md-subheader Recent Products 
-    md-content
-      div(layout-xs="column" layout="row" flex)
-        md-card(flex="33" flex-sm="50" flex-md="50" ng-repeat="item in recentItems | limitTo : 6")
+    md-content(layout-wrap layout="row" flex layout-xs="column")
+      div( flex="33" flex-sm="100" flex-md="50" ng-repeat="item in recentItems | limitTo : 6")
+        md-card
           img.card-images(ng-src="{{item.Images[0].img_url}}" alt="Image")
           md-card-title
             md-card-title-text 

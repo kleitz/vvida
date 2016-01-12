@@ -41,7 +41,7 @@ header {
 }
 
 .footer {
-  background-color: #389F38;
+  background-color: #222;
   width: 100%;
   height: auto;
   padding-bottom: 30px;
@@ -707,10 +707,12 @@ md-sidenav.md-sidenav-left {
   }
 }
 
-md-toolbar:not(.md-menu-toolbar).md-accent {
-  background-color: #389F38;
-  color: black;
+md-toolbar.navbar {
+  background-color: rgba(255, 255, 255, 0.3);
   text-transform: none;
+  & .md-button {
+    color: black;
+  }
 }
 
 .popular-events {
