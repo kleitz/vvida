@@ -1,3 +1,7 @@
+var ENV = process.env.NODE_ENV || 'development';
+if (ENV === 'development') {
+  require('dotenv').load();
+}
 var gulp = require('gulp'),
   less = require('gulp-less'),
   jade = require('gulp-jade'),
@@ -6,6 +10,7 @@ var gulp = require('gulp'),
   jshint = require('jshint'),
   browserify = require('browserify'),
   path = require('path'),
+  reporter = require('gulp-codeclimate-reporter'),
   source = require('vinyl-source-stream'),
   imagemin = require('gulp-imagemin'),
   nodemon = require('gulp-nodemon'),
@@ -133,6 +138,16 @@ gulp.task('test:e2e', function(cb) {
     .on('end', cb);
 });
 
+gulp.task('codeclimate-reporter', ['test:fend', 'test:bend'], function() {
+  return gulp.src(['coverage/report-lcov/lcov.info'], {
+      read: false
+    })
+    .pipe(reporter({
+      token: process.env.CODECLIMATE_REPO_TOKEN,
+      verbose: true
+    }));
+});
+
 gulp.task('watch', function() {
   // livereload.listen({ port: 35729 });
   gulp.watch(paths.jade, ['jade']);
@@ -147,5 +162,5 @@ gulp.task('build', ['jade', 'less', 'static-files',
 gulp.task('heroku:production', ['build']);
 gulp.task('heroku:staging', ['build']);
 gulp.task('production', ['nodemon', 'build']);
-gulp.task('test', ['test:fend', 'test:bend']);
+gulp.task('test', ['test:fend', 'test:bend', 'codeclimate-reporter']);
 gulp.task('default', ['nodemon', 'watch', 'build']);
