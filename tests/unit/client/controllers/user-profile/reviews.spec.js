@@ -58,7 +58,7 @@ describe('UserReviewsCtrl tests', function() {
 
   it('should call get Users reviews and set message', function() {
     scope.currentUser = false;
-    spyOn(Users, 'reviews').andCallThrough();
+    spyOn(Users, 'reviews').and.callThrough();
     scope.init();
     expect(Users.reviews).toHaveBeenCalled();
     expect(scope.message).toBe('Could not get reviews.');
@@ -66,7 +66,7 @@ describe('UserReviewsCtrl tests', function() {
 
   it('should call get Users reviews and set reviews', function() {
     scope.currentUser = currentUser;
-    spyOn(Users, 'reviews').andCallThrough();
+    spyOn(Users, 'reviews').and.callThrough();
     scope.init();
     expect(scope.rateThis).toBeDefined();
     expect(Users.reviews).toHaveBeenCalled();

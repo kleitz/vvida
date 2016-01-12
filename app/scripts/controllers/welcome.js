@@ -1,6 +1,7 @@
 angular.module('vvida.controllers')
   .controller('WelcomeCtrl', ['$scope', '$rootScope', 'Events', 'Items',
     function($scope, $rootScope, Events, Items) {
+      $scope.init = function() {
         $scope.todos = [];
         $scope.events = Events.query();
         $scope.items = Items.query();
@@ -19,6 +20,7 @@ angular.module('vvida.controllers')
             notes: 'I\'ll be in your neighborhood doing errands.'
           });
         }
-   
+      }
+      $scope.init();
     }
   ]);

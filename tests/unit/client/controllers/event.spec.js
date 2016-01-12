@@ -35,8 +35,8 @@ describe('EventCtrl tests', function() {
 
   it('should define an event and fail', function() {
     scope.event = false;
-    spyOn(Events, 'save').andCallThrough();
-    spyOn(Utils, 'toast').andCallThrough();
+    spyOn(Events, 'save').and.callThrough();
+    spyOn(Utils, 'toast').and.callThrough();
     scope.addEvent();
     expect(Events.save).toHaveBeenCalled();
     expect(Utils.toast).toHaveBeenCalledWith('Event not created');
@@ -54,8 +54,8 @@ describe('EventCtrl tests', function() {
       sponsor: 'Sample Event Sponsor',
       message: 'Sample Event Message'
     };
-    spyOn(Events, 'save').andCallThrough();
-    spyOn(Utils, 'toast').andCallThrough();
+    spyOn(Events, 'save').and.callThrough();
+    spyOn(Utils, 'toast').and.callThrough();
     scope.addEvent();
     expect(Events.save).toHaveBeenCalled();
     expect(Utils.toast).not.toHaveBeenCalled();
@@ -65,8 +65,8 @@ describe('EventCtrl tests', function() {
      scope.event = {
       message: 'Sample Event Message'
     };
-    spyOn(Events, 'update').andCallThrough();
-    spyOn(Utils, 'toast').andCallThrough();
+    spyOn(Events, 'update').and.callThrough();
+    spyOn(Utils, 'toast').and.callThrough();
     scope.updateEvent();
     expect(Events.update).toHaveBeenCalled();
     expect(Utils.toast).toHaveBeenCalledWith('Sample Event Message');

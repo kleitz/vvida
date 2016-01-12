@@ -70,9 +70,9 @@ describe('UserProfileCtrl tests', function() {
 
   it('should fail to initialize controller', function() {
     scope.currentUser = false;
-    spyOn(Users, 'eventsCount').andCallThrough();
-    spyOn(Users, 'reviewsCount').andCallThrough();
-    spyOn(Users, 'itemsCount').andCallThrough();
+    spyOn(Users, 'eventsCount').and.callThrough();
+    spyOn(Users, 'reviewsCount').and.callThrough();
+    spyOn(Users, 'itemsCount').and.callThrough();
     scope.init();
     expect(Users.eventsCount).toHaveBeenCalled();
     expect(Users.reviewsCount).toHaveBeenCalled();
@@ -84,9 +84,9 @@ describe('UserProfileCtrl tests', function() {
 
   it('should initialize contoller', function() {
     scope.currentUser = currentUser;
-    spyOn(Users, 'eventsCount').andCallThrough();
-    spyOn(Users, 'reviewsCount').andCallThrough();
-    spyOn(Users, 'itemsCount').andCallThrough();
+    spyOn(Users, 'eventsCount').and.callThrough();
+    spyOn(Users, 'reviewsCount').and.callThrough();
+    spyOn(Users, 'itemsCount').and.callThrough();
     scope.init();
     expect(Users.eventsCount).toHaveBeenCalled();
     expect(Users.reviewsCount).toHaveBeenCalled();

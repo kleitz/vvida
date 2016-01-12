@@ -58,7 +58,7 @@ describe('UserEventsCtrl tests', function() {
 
   it('should call get Users events and set message', function() {
     scope.currentUser = false;
-    spyOn(Users, 'events').andCallThrough();
+    spyOn(Users, 'events').and.callThrough();
     scope.init();
     expect(Users.events).toHaveBeenCalled();
     expect(scope.message).toBe('Could not get events.');
@@ -66,7 +66,7 @@ describe('UserEventsCtrl tests', function() {
 
   it('should call get Users events and set events', function() {
     scope.currentUser = currentUser;
-    spyOn(Users, 'events').andCallThrough();
+    spyOn(Users, 'events').and.callThrough();
     scope.init();
     expect(Users.events).toHaveBeenCalled();
     expect(scope.message).not.toBeTruthy();

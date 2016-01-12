@@ -58,7 +58,7 @@ describe('UserProductsCtrl tests', function() {
 
   it('should call get Users items and set message', function() {
     scope.currentUser = false;
-    spyOn(Users, 'items').andCallThrough();
+    spyOn(Users, 'items').and.callThrough();
     scope.init();
     expect(Users.items).toHaveBeenCalled();
     expect(scope.message).toBe('Could not get products.');
@@ -66,7 +66,7 @@ describe('UserProductsCtrl tests', function() {
 
   it('should call get Users items and set items', function() {
     scope.currentUser = currentUser;
-    spyOn(Users, 'items').andCallThrough();
+    spyOn(Users, 'items').and.callThrough();
     scope.init();
     expect(Users.items).toHaveBeenCalled();
     expect(scope.message).not.toBeTruthy();

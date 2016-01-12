@@ -2,7 +2,7 @@ describe('WelcomeCtrl tests', function() {
   var scope,
     controller,
     Utils,
-    Items, 
+    Items,
     Events,
     Categories;
   beforeEach(function() {
@@ -18,19 +18,16 @@ describe('WelcomeCtrl tests', function() {
     });
     Items = $injector.get('Items');
     Events = $injector.get('Events');
+    scope.init();
   }));
 
 
 
   it('should set some variables', function() {
-    spyOn(Items,'query');
-    spyOn(Events,'query');
     expect(scope.todos).toBeTruthy();
     expect(scope.events).toBeTruthy();
     expect(scope.items).toBeTruthy();
     expect(scope.item).toBeTruthy();
-    expect(Items.query).toHaveBeenCalled();
-    expect(Events.query).toHaveBeenCalled();
   });
 
 });

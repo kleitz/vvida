@@ -35,16 +35,16 @@ describe('ItemCtrl tests', function() {
     scope.item = {
       message: 'I am groot'
     };
-    spyOn(Items, 'update').andCallThrough();
-    spyOn(Utils, 'toast').andCallThrough();
+    spyOn(Items, 'update').and.callThrough();
+    spyOn(Utils, 'toast').and.callThrough();
     scope.updateItem();
     expect(Items.update).toHaveBeenCalled();
     expect(Utils.toast).toHaveBeenCalledWith('I am groot');
   });
 
   it('should call Items.save and fail', function() {
-    spyOn(Items, 'save').andCallThrough();
-    spyOn(Utils, 'toast').andCallThrough();
+    spyOn(Items, 'save').and.callThrough();
+    spyOn(Utils, 'toast').and.callThrough();
     scope.item = false;
     scope.addItems();
     expect(Items.save).toHaveBeenCalled();
@@ -52,8 +52,8 @@ describe('ItemCtrl tests', function() {
   });
 
   it('should call Items.save', function() {
-    spyOn(Items, 'save').andCallThrough();
-    spyOn(Utils, 'toast').andCallThrough();
+    spyOn(Items, 'save').and.callThrough();
+    spyOn(Utils, 'toast').and.callThrough();
     scope.item = true;
     scope.addItems();
     expect(Items.save).toHaveBeenCalled();
