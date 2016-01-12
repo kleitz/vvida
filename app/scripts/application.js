@@ -33,7 +33,6 @@
   require('./controllers/user-profile/reviews');
   require('./controllers/items');
   require('./controllers/event');
-  require('./controllers/review');
 
   // Require Directives
   require('./directives/ng-thumb');
@@ -177,12 +176,12 @@
           templateUrl: 'views/edit-item.html'
         })
         .state('viewItem', {
-          url: '/items/{id}/view',
+          url: '/items/{id}',
           controller: 'ItemCtrl',
           templateUrl: 'views/view-item.html'
         })
         .state('categoryItems', {
-          url: '/categories/{catid}/view',
+          url: '/categories/{catId}',
           controller: 'ItemCtrl',
           templateUrl: 'views/items.html'
         })
@@ -200,11 +199,6 @@
           url: '/users/login',
           controller: 'LoginCtrl',
           templateUrl: 'views/login.html'
-        })
-        .state('review', {
-          url: '/review',
-          controller: 'ReviewCtrl',
-          templateUrl: 'views/review.html'
         })
         .state('welcome', {
           url: '/welcome',
