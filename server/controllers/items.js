@@ -2,7 +2,10 @@
   'use strict';
   module.exports = function(app) {
     var Items = app.get('models').Items,
-      Images = app.get('models').Images;
+      Images = app.get('models').Images,
+      Categories = app.get('models').Categories,
+      Reviews = app.get('models').Reviews,
+      Users = app.get('models').Users;
 
     return {
       create: function(req, res) {
@@ -40,7 +43,14 @@
           order: [
             ['id', 'DESC']
           ],
-          include: [Images]
+          include: [{
+            model: Images
+          }, {
+            model: Reviews,
+            include: [Users]
+          }, {
+            model: Categories
+          }]
         }).then(function(item) {
           res.json(item);
         }).catch(function(err) {
@@ -55,7 +65,7 @@
           where: {
             id: req.params.id
           },
-          include: [Images]
+          include: [Images, Reviews, Categories]
         }).then(function(item) {
           if (!item) {
             res.status(404).send({

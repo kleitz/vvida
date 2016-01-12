@@ -33,7 +33,6 @@
   require('./controllers/user-profile/reviews');
   require('./controllers/items');
   require('./controllers/event');
-  require('./controllers/review');
 
   // Require Directives
   require('./directives/ng-thumb');
@@ -88,7 +87,7 @@
         state: 'events'
       }, {
         name: 'Products',
-        state: 'item'
+        state: 'items'
       }];
 
       $rootScope.openLeftMenu = function() {
@@ -109,14 +108,10 @@
       // For any unmatched url, redirect to /state1
       $urlRouterProvider.otherwise('/404');
 
-      //Now set up the states
+      // Now set up the states
       $mdThemingProvider.theme('default')
-        .primaryPalette('cyan')
-        .backgroundPalette('grey', {
-          default: '200'
-        });
-
-
+        .primaryPalette('green')
+        .accentPalette('orange');
 
       $stateProvider
         .state('home', {
@@ -131,8 +126,14 @@
         })
         .state('events', {
           url: '/events',
-          controller: 'EventsCtrl',
+          controller: 'EventCtrl',
           templateUrl: 'views/events.html'
+        })
+
+      .state('items', {
+          url: '/items',
+          controller: 'ItemCtrl',
+          templateUrl: 'views/items.html'
         })
         .state('profile', {
           url: '/user/{id}/edit',
@@ -167,12 +168,22 @@
         .state('addItem', {
           url: '/items/create',
           controller: 'ItemCtrl',
-          templateUrl: 'views/items.html'
+          templateUrl: 'views/add-item.html'
         })
         .state('editItem', {
           url: '/items/{id}/edit',
           controller: 'ItemCtrl',
           templateUrl: 'views/edit-item.html'
+        })
+        .state('viewItem', {
+          url: '/items/{id}',
+          controller: 'ItemCtrl',
+          templateUrl: 'views/view-item.html'
+        })
+        .state('categoryItems', {
+          url: '/categories/{catId}',
+          controller: 'ItemCtrl',
+          templateUrl: 'views/items.html'
         })
         .state('addEvent', {
           url: '/events/create',
@@ -188,11 +199,6 @@
           url: '/users/login',
           controller: 'LoginCtrl',
           templateUrl: 'views/login.html'
-        })
-        .state('review', {
-          url: '/review',
-          controller: 'ReviewCtrl',
-          templateUrl: 'views/review.html'
         })
         .state('welcome', {
           url: '/welcome',
