@@ -20,7 +20,7 @@ md-card.items(layout="column" flex="55" ng-if="currentUser" ng-init="getItem()")
               md-input-container
                 i.fa.fa-list
                   |   Categories
-                md-select(ng-model="item.category_id" md-on-open="loadCategories()" class="select" aria-label="item.category_id")
+                md-select(ng-model="item.Category.type" class="select" aria-label="item.Category.type")
                   md-option(ng-value="category.id" ng-repeat="category in categories")   {{category.type}}
               md-input-container
                 i.fa.fa-coffee

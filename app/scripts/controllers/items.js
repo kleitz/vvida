@@ -1,6 +1,5 @@
 (function() {
   'use strict';
-  var _ = require('lodash');
   angular.module('vvida.controllers')
     .controller('ItemCtrl', ['$scope', '$state', '$stateParams', '$mdSidenav',
       'Categories', 'FileUploader', 'Utils', 'Items', 'Reviews',
@@ -82,6 +81,8 @@
           $scope.recentItems = Items.query();
           // get selected category id
           $scope.categoryId = $stateParams.catId;
+          // initialize scope.item
+          $scope.item = {};
         };
 
         $scope.updateItem = function() {
