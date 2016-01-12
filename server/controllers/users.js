@@ -6,7 +6,7 @@
     var jwt = require('jsonwebtoken');
 
     var Users = app.get('models').Users,
-      Items = app.get('models').Users,
+      Items = app.get('models').Items,
       Categories = app.get('models').Categories,
       Events = app.get('models').Events,
       Reviews = app.get('models').Reviews;
@@ -25,9 +25,7 @@
             return res.status(500).json({
               error: 'Authentication failed.'
             });
-
           }
-
           user.password = null;
           req.session.user = user;
           return res.json(user);
@@ -160,7 +158,6 @@
               error: err.message || err.errors[0].message
             });
           }
-
           res.json({
             message: 'User deleted successfully'
           });
@@ -199,7 +196,6 @@
             user.password = null;
             res.json(user);
           }
-
         }).catch(function(err) {
           res.status(500).send({
             error: err.message || err.errors[0].message
@@ -222,7 +218,6 @@
             user.password = null;
             res.json(user);
           }
-
         }).catch(function(err) {
           res.status(500).send({
             error: err.message || err.errors[0].message
@@ -251,7 +246,6 @@
             user.password = null;
             res.json(user);
           }
-
         }).catch(function(err) {
           res.status(500).send({
             error: err.message || err.errors[0].message
@@ -272,13 +266,13 @@
           } else {
             res.json(results);
           }
-
         }).catch(function(err) {
           res.status(500).send({
             error: err.message || err.errors[0].message
           });
         });
       },
+
       getEventsCount: function(req, res) {
         Events.count({
           where: {
@@ -292,13 +286,13 @@
           } else {
             res.json(results);
           }
-
         }).catch(function(err) {
           res.status(500).send({
             error: err.message || err.errors[0].message
           });
         });
       },
+
       getItemsCount: function(req, res) {
         Items.count({
           where: {
@@ -312,7 +306,6 @@
           } else {
             res.json(results);
           }
-
         }).catch(function(err) {
           res.status(500).send({
             error: err.message || err.errors[0].message

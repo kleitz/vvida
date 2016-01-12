@@ -25,27 +25,11 @@
           });
         };
 
-        $scope.viewCategory = function(category) {
-          $state.go('categoryItems', {
-            catId: category.id
-          });
-        };
-
         $scope.getCategory = function() {
           // load the categoryItems
           $scope.categoryItems = Categories.get({
             id: $scope.categoryId
           });
-        };
-
-        $scope.viewItem = function(item) {
-          $state.go('viewItem', {
-            id: item.id
-          });
-        };
-
-        $scope.resetCat = function() {
-          $state.go('items');
         };
 
         $scope.addItems = function() {
@@ -64,9 +48,8 @@
           $scope.itemReview.itemId = $stateParams.id;
           Reviews.save($scope.itemReview, function(review) {
             if (review) {
-              $state.go($state.current, {}, {
-                reload: true
-              });
+              $scope.item.Reviews.push(review);
+              $scope.itemReview = {};
             }
           });
         };
