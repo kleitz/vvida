@@ -1,7 +1,6 @@
 (function() {
   'use strict';
   angular.module('vvida.controllers')
-    .constant('_', window._)
     .controller('ItemCtrl', ['$scope', '$state', '$stateParams', '$mdSidenav',
       'Categories', 'FileUploader', 'Utils', 'Items', 'Reviews',
       function($scope, $state, $stateParams, $mdSidenav,
@@ -20,7 +19,7 @@
         };
 
         $scope.maxReview = function(itemReviews) {
-          return _.max(itemReviews, function(review) {
+          return window._.max(itemReviews, function(review) {
             return review.rating;
           });
         };
