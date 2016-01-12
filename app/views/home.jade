@@ -40,7 +40,7 @@ md-card.jumbotron.search-jumbotron
           | read more
 
 .products
-  h4.md-margin PRODUCTS
+  h4.md-margin(ui-sref="items") PRODUCTS
   .content-products(layout="row" layout-sm="column" layout-md="column" ng-if="items.length < 1")
     md-card.ripple-container(md-ink-ripple flex)
       md-card-content
@@ -50,8 +50,8 @@ md-card.jumbotron.search-jumbotron
     md-card.ripple-container(md-ink-ripple flex ng-repeat="item in items | limitTo: 4")
       .card-images.md-card-image(style='background-image: url({{item.Images[0].img_url}}); text-align=justify')
       md-card-content
-        H4 {{item.name}}
+        h4 {{item.name}}
         p {{item.description | limitTo: 200}}
-        md-button.md-raised.md-accent
+        md-button.md-raised.md-accent(ui-sref="viewItem({id:item.id})")
           | read more
 

@@ -1,11 +1,3 @@
-div.md-padding
-  div(ng-show="categoryId" layout="row")
-    a.md-subheadline(ui-sref="items") Products
-    a(ui-sref="categoryItems({catId: categoryId})") &nbsp;> {{categoryItems.type}}
-  div(layout="row" layout-align="start center" ng-show="!categoryId")
-    md-button(ng-click="toggleSidenav()" hide-gt-md aria-label="Menu")
-      i.fa.fa-bars.fa-2x
-    h4.md-subheadline Product Categories
 
 div(layout="row")
   div(layout="row")
@@ -17,37 +9,47 @@ div(layout="row")
         md-divider
         md-button.btn-style(md-ink-ripple hide-gt-md ng-click="close()") Close Navbar
 
-  div(flex layout-wrap="layout-wrap" ng-if="!categoryId")
-    md-subheader Recent Products 
-    md-content(layout-wrap layout="row" flex layout-xs="column")
-      div( flex="33" flex-sm="100" flex-md="50" ng-repeat="item in recentItems | limitTo : 6")
-        md-card
-          img.card-images(ng-src="{{item.Images[0].img_url}}" alt="Image")
-          md-card-title
-            md-card-title-text 
-              span.md-headline.md-padding(ui-sref="viewItem({id:item.id})") {{item.name}}
-          md-card-content
-            div(layout="row" layout-align="start center")
-              i.fa.fa-star-o(ng-repeat="i in range(maxReview(item.Reviews).rating) track by $index")
-              h4.md-subheader &nbsp;&nbsp;{{item.Reviews.length}} reviews
-            blockquote(layout-wrap)
-              p {{maxReview(item.Reviews).review}}   
-              span - {{maxReview(item.Reviews).User.username}}
-          md-card-actions(layout="row" layout-align="start center")
-            md-button.md-accent(ui-sref="viewItem({id:item.id})") Add Review
+  div(layout='column')
+    div(layout="row" layout-wrap)
+      div.md-padding(ng-show="categoryId" layout="row")
+        a.md-subheadline(ui-sref="items") Products
+        a(ui-sref="categoryItems({catId: categoryId})") &nbsp;> {{categoryItems.type}}
+      div.md-padding(layout="row" layout-align="start center" ng-show="!categoryId" hide-gt-md)
+        md-button.md-icon-button(ng-click="toggleSidenav()" aria-label="Menu")
+          i.fa.fa-bars
+        h4.md-subheader Product Categories
 
-  md-content(ng-if="categoryId" ng-init="getCategory()")
-    md-list
-      md-list-item.md-3-line(ng-repeat="item in categoryItems.Items")
-        img.face(ng-src="{{item.Images[0].img_url}}")
-        .md-list-item-text
-          div(layout="row" layout-margin)
-            div.md-padding
-              h3(ui-sref="viewItem({id:item.id})") {{$index + 1}}. {{item.name}} 
-              div(layout="row" layout-align="start center" layout-padding)
+    div(flex ng-if="!categoryId")
+      md-subheader Recent Products 
+      md-content(layout-wrap layout="row" flex layout-xs="column")
+        div( flex="33" flex-sm="100" flex-md="50" ng-repeat="item in recentItems | limitTo : 6")
+          md-card
+            .card-images(style="background-image: url('{{item.Images[0].img_url}}');")
+            md-card-title
+              md-card-title-text 
+                span.md-headline.md-padding(ui-sref="viewItem({id:item.id})") {{item.name}}
+            md-card-content
+              div(layout="row" layout-align="start center")
                 i.fa.fa-star-o(ng-repeat="i in range(maxReview(item.Reviews).rating) track by $index")
                 h4.md-subheader &nbsp;&nbsp;{{item.Reviews.length}} reviews
-              h3(ui-sref="viewItem({id:item.id})") Add Review
-            div.md-padding(layout-align="start center" layout-margin)
-              h4 {{item.city}}
-          md-divider(md-inset ng-if="!$last")
+              div(layout="column" layout-wrap)
+                p {{maxReview(item.Reviews).review}}   
+                span - {{maxReview(item.Reviews).User.username}}
+            md-card-actions(layout="row" layout-align="start center")
+              md-button.md-accent(ui-sref="viewItem({id:item.id})") Add Review
+
+    md-content(ng-if="categoryId" ng-init="getCategory()")
+      md-list
+        md-list-item.md-3-line(ng-repeat="item in categoryItems.Items")
+          img.face(ng-src="{{item.Images[0].img_url}}")
+          .md-list-item-text
+            div(layout="row" layout-margin)
+              div.md-padding
+                h3(ui-sref="viewItem({id:item.id})") {{$index + 1}}. {{item.name}} 
+                div(layout="row" layout-align="start center" layout-padding)
+                  i.fa.fa-star-o(ng-repeat="i in range(maxReview(item.Reviews).rating) track by $index")
+                  h4.md-subheader &nbsp;&nbsp;{{item.Reviews.length}} reviews
+                h3(ui-sref="viewItem({id:item.id})") Add Review
+              div.md-padding(layout-align="start center" layout-margin)
+                h4 {{item.city}}
+            md-divider(md-inset ng-if="!$last")
