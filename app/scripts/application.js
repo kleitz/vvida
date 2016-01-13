@@ -17,6 +17,7 @@
   require('./services/token');
   require('./services/auth');
   require('./services/token-injector');
+  require('./services/modal');
 
   // Require Controllers
   require('./controllers/footer');
@@ -46,7 +47,7 @@
     'ui.router',
     'ngResource',
     'ngMaterial',
-    'angularFileUpload'
+    'angularFileUpload',
   ]);
 
   window.app.run(['$rootScope', '$location', '$state', '$mdSidenav', 'Users',
@@ -59,11 +60,13 @@
             user.name = res.name;
             user.id = res.id;
             user.img_url = res.picture.data.url;
+            user.email = res.email;
           } else {
             var fullName = res.firstname + ' ' + res.lastname;
             user.name = fullName;
             user.id = res.id;
             user.img_url = res.img_url;
+            user.email = res.email;
           }
           if (user.img_url) {
             $rootScope.currentUser = user;
@@ -131,6 +134,7 @@
           controller: 'EventCtrl',
           templateUrl: 'views/events.html'
         })
+<<<<<<< HEAD
 
       .state('items', {
           url: '/items',
@@ -142,28 +146,37 @@
           controller: 'ProfileCtrl',
           templateUrl: 'views/edit-profile.html'
         })
+=======
+>>>>>>> [#111585766] setup user profile and events page
         .state('userProfile', {
           url: '/user/profile',
+          controller: 'UserProfileCtrl',
+          templateUrl: 'views/user-profile.html'
+        })
+        .state('userProfile.edit', {
+          url: '/{id}/edit',
           views: {
-            '': {
-              controller: 'UserProfileCtrl',
-              templateUrl: 'views/user-profile.html',
+            'inner-view@userProfile': {
+              controller: 'ProfileCtrl',
+              templateUrl: 'views/edit-profile.html'
             },
-            'Reviews@userProfile': {
-              controller: 'UserReviewsCtrl',
-              templateUrl: 'views/user-reviews.html',
-            },
-            'Events@userProfile': {
-              controller: 'UserEventsCtrl',
-              templateUrl: 'views/user-events.html',
-            },
-            'Products@userProfile': {
+          }
+        })
+        .state('userProfile.products', {
+          url: '/products',
+          views: {
+            'inner-view@userProfile': {
               controller: 'UserProductsCtrl',
-              templateUrl: 'views/user-products.html',
-            },
-            'Pictures@userProfile': {
-              controller: 'UserPicturesCtrl',
-              templateUrl: 'views/user-pictures.html',
+              templateUrl: 'views/user-products.html'
+            }
+          }
+        })
+        .state('userProfile.events', {
+          url: '/events',
+          views: {
+            'inner-view@userProfile': {
+              controller: 'UserEventsCtrl',
+              templateUrl: 'views/user-events.html'
             }
           }
         })
@@ -177,6 +190,7 @@
           controller: 'ItemCtrl',
           templateUrl: 'views/edit-item.html'
         })
+<<<<<<< HEAD
         .state('viewItem', {
           url: '/items/{id}',
           controller: 'ItemCtrl',
@@ -192,6 +206,8 @@
           controller: 'EventCtrl',
           templateUrl: 'views/add-event.html'
         })
+=======
+>>>>>>> [#111585766] setup user profile and events page
         .state('editEvent', {
           url: '/events/{id}/edit',
           controller: 'EventCtrl',
