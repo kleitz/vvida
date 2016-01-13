@@ -1,0 +1,10 @@
+md-dialog(aria-label='{{modalTitle}}', ng-cloak='')
+	md-toolbar
+		.md-toolbar-tools
+			h3 {{modalTitle}}
+			span(flex='')
+			span(class='fa fa-times' ng-click='cancel()' aria-label='Close dialog' style='cursor: pointer;')
+	md-dialog-content(ng-if='modalContent == \'event\'')
+		include add-event
+	md-dialog-content(ng-if='modalContent == \'item\'')
+		include add-item
