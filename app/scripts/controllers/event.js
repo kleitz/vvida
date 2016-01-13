@@ -22,7 +22,11 @@
           $scope.event = {
             eventId: $stateParams.id
           };
-          
+
+          $scope.readonly = false;
+          // Initilize sponsors' list
+          $scope.event.sponsors = [];
+          $scope.date = new Date();
           $scope.uploader = new FileUploader({
             url: '/api/image/',
             alias: 'photos',

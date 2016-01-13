@@ -7,12 +7,11 @@ md-toolbar.md-accent.md-whiteframe-z3.header-spacing(ng-controller='HeaderCtrl')
 		span(flex)
 
 		a(ng-repeat='menuItem in menu' ui-sref='{{menuItem.state}}' hide-sm)
-			md-button(style="color: white")
-				{{menuItem.name}}
-		a(ng-if='currentUser' ui-sref='userProfile' )
+			md-button(style="color: white") {{menuItem.name}}
+		a(ng-if='currentUser' ui-sref='userProfile')
 			md-button.md-icon-button(aria-label='Comment' style='height: 48px; width: 48px; margin: 20px; padding: 0px;')
 				img(ng-src='{{currentUser.img_url}}')
-				md-tooltip {{currentUser.name}}
+				md-tooltip {{currentUser.name}} 
 		a(ng-if='currentUser')
 			md-button.md-icon-button(style="color: white" aria-label='Sign out' ng-click='logout()')
 				i.fa.fa-sign-out

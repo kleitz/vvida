@@ -1,20 +1,3 @@
-.event-jumbotron(layout = "row" layout-sm = "column")
-  img.event-img-jt.md-margin(flex src = "images/vvidaStockPhoto_2.jpg")
-  div.event-text-jt.md-margin(flex)
-    md-divider.text-divider
-    h1.title Event Name
-    md-divider.text-divider
-    p.md-padding.text
-      | "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-.event-info(layout = "row")
-  .info-cat.md-padding(flex)
-    .divider
-      h1.to-uppercase WHEN
-      P 7th October 2015
-  .info-cat.md-padding(flex)
-    .divider
-      h1.to-uppercase WHERE
-      P Kindaruma Campus
-  .info-cat.md-padding(flex)
-    h1.to-uppercase TIME
-    P 8.00 TO 12.OO PM
+div(ng-controller='EventCtrl')
+  span(ng-show='loadEvents.length === 0' class="no_events_msg") There are currently no events.
+  div(ng-show='loadEvents.length !== 0', ng-repeat='event in loadEvents')

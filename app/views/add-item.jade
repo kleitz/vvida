@@ -1,23 +1,39 @@
 md-content(layout='column' layout-md="column" layout-sm="column" flex='100')
 	form(method="post" enctype="multipart/data" ng-submit="addItems()")
-		md-input-container
-			label
-				i.fa.fa-list &nbsp;&nbsp;&nbsp; Category
-			md-select(ng-model="item.catId" md-on-open="loadCategories()" class="select" aria-label="item.catId")
+		md-input-container(flex-gt-sm)
+			label Category
+			md-select( ng-model="item.category_id" class="select" aria-label="item.category_id")
 				md-option(ng-value="category.id" ng-repeat="category in categories") {{category.type}}
-		md-input-container
-			label
+		md-input-container(flex-gt-sm)
+			label 
 				i.fa.fa-coffee &nbsp;&nbsp;&nbsp; Product
 			input(ng-model="item.name" type="text" ng-required="true" aria-label="item.name")
-		md-input-container
-			label
-				i.fa.fa-globe &nbsp;&nbsp;&nbsp; City
-			input(ng-model="item.city" type="text" ng-required="true" aria-label="item.city")
+		div(layout="column")
+		h3.md-subheader Address
+		div(layout="row" layout-padding)
+			md-input-container(flex-gt-sm)
+				label
+					i.fa.fa-street-view &nbsp;&nbsp;&nbsp; Street
+				input(ng-model="item.street" type="text" ng-required="true" aria-label="item.street")
+			md-input-container(flex-gt-sm)
+				label
+					i.fa.fa-globe &nbsp;&nbsp;&nbsp; City
+				input(ng-model="item.city" type="text" ng-required="true" aria-label="item.city")
+		h3.md-subheader Contact
+		div(layout="row" layout-padding)
+			md-input-container(flex-gt-sm)
+				label
+					i.fa.fa-mobile &nbsp;&nbsp;&nbsp; Phone
+				input(ng-model="item.phone" type="text" ng-required="true" aria-label="item.phone")
+			md-input-container(flex-gt-sm)
+				label
+					i.fa.fa-envelope &nbsp;&nbsp;&nbsp; Email
+				input(ng-model="item.email" type="text" ng-required="true" aria-label="item.email")
 		md-input-container
 			label
 				i.fa.fa-file-text &nbsp;&nbsp;&nbsp; Description
-			textarea(ng-model="item.description" type="text" ng-required="true" rows='5' aria-label="item.description")
+			textarea(ng-model="item.description" type="text" ng-required="true" rows="3" aria-label="item.description")
 		br
-		md-button.md-raised.md-warn(class="login-button" type="submit")
+		md-button.md-raised.md-accent(class="login-button" type="submit")
 			i(class="fa fa-plus-circle")
 			| Add
