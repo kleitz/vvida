@@ -1,6 +1,12 @@
 angular.module('vvida.controllers')
-  .controller('ProfileCtrl', ['$rootScope', '$scope', '$state', 'Users', 'Countries',
-    'FileUploader', 'Utils',
+  .controller('ProfileCtrl', [
+    '$rootScope',
+    '$scope',
+    '$state',
+    'Users',
+    'Countries',
+    'FileUploader',
+    'Utils',
     function($rootScope, $scope, $state, Users, Countries,
       FileUploader, Utils) {
       var init = function() {

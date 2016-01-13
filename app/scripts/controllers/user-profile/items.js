@@ -1,5 +1,9 @@
 angular.module('vvida.controllers')
-  .controller('UserProductsCtrl', ['$scope', '$rootScope', 'Users', 'modalService', function($scope, $rootScope, Users, modalService) {
+  .controller('UserProductsCtrl', ['$scope',
+  '$rootScope',
+  'Users',
+  'modalService', 
+  function($scope, $rootScope, Users, modalService) {
     if ($rootScope.currentUser) {
       Users.items($rootScope.currentUser, function(err, res) {
         if (err) {
