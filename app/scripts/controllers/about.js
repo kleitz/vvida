@@ -24,6 +24,26 @@ angular.module('vvida.controllers')
       name: 'Nate Martins Mwangi',
       title: 'Dev Ops',
       img_url: 'https://avatars1.githubusercontent.com/u/12892047?v=3&s=460'
+    }, {
+      name: 'Owoade Dotun',
+      title: 'Dev Ops',
+      img_url: 'https://avatars0.githubusercontent.com/u/16131424?v=3&s=400'
+    }, {
+      name: 'Maryam Babalola',
+      title: 'Back-End Engineer',
+      img_url: 'https://avatars2.githubusercontent.com/u/15085733?v=3&s=400'
+    }, {
+      name: 'Lawrence Olaiya',
+      title: 'UI/UX Designer',
+      img_url: 'https://avatars1.githubusercontent.com/u/15085695?v=3&s=400'
+    }, {
+      name: 'Emmanuel Akinyele',
+      title: 'Front-End Engineer',
+      img_url: 'https://avatars0.githubusercontent.com/u/15085757?v=3&s=400'
+    }, {
+      name: 'Rowland Ekemezie',
+      title: 'Staff Developer Advocate',
+      img_url: 'https://avatars1.githubusercontent.com/u/15085641?v=3&s=400'
     }];
 
     $scope.about = {
