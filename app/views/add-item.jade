@@ -1,13 +1,14 @@
-md-content(layout='column' layout-md="column" layout-sm="column" flex='100')
+md-content(layout="column" layout-md="column" layout-sm="column" flex="100")
 	form(method="post" enctype="multipart/data" ng-submit="addItems()")
-		md-input-container(flex-gt-sm)
-			label Category
-			md-select( ng-model="item.category_id" class="select" aria-label="item.category_id")
-				md-option(ng-value="category.id" ng-repeat="category in categories") {{category.type}}
-		md-input-container(flex-gt-sm)
-			label 
-				i.fa.fa-coffee &nbsp;&nbsp;&nbsp; Product
-			input(ng-model="item.name" type="text" ng-required="true" aria-label="item.name")
+		div(layout="row")
+			md-input-container(flex-gt-sm)
+				label Category
+				md-select( ng-model="item.category_id" class="select" aria-label="item.category_id")
+					md-option(ng-value="category.id" ng-repeat="category in categories") {{category.type}}
+			md-input-container(flex-gt-sm)
+				label 
+					i.fa.fa-coffee &nbsp;&nbsp;&nbsp; Product
+				input(ng-model="item.name" type="text" ng-required="true" aria-label="item.name")
 		div(layout="column")
 		h3.md-subheader Address
 		div(layout="row" layout-padding)

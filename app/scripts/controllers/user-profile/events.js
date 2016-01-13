@@ -25,7 +25,7 @@ angular.module('vvida.controllers')
       }
 
       $scope.addEventModal = function(ev) {
-        modalService(ev, 'events', 'Create an Event');
+        modalService(ev, 'event', 'Create an Event');
       };
     }
   ]);

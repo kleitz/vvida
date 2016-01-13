@@ -134,8 +134,6 @@
           controller: 'EventCtrl',
           templateUrl: 'views/events.html'
         })
-<<<<<<< HEAD
-
       .state('items', {
           url: '/items',
           controller: 'ItemCtrl',
@@ -146,8 +144,6 @@
           controller: 'ProfileCtrl',
           templateUrl: 'views/edit-profile.html'
         })
-=======
->>>>>>> [#111585766] setup user profile and events page
         .state('userProfile', {
           url: '/user/profile',
           controller: 'UserProfileCtrl',
@@ -190,7 +186,6 @@
           controller: 'ItemCtrl',
           templateUrl: 'views/edit-item.html'
         })
-<<<<<<< HEAD
         .state('viewItem', {
           url: '/items/{id}',
           controller: 'ItemCtrl',
@@ -206,8 +201,6 @@
           controller: 'EventCtrl',
           templateUrl: 'views/add-event.html'
         })
-=======
->>>>>>> [#111585766] setup user profile and events page
         .state('editEvent', {
           url: '/events/{id}/edit',
           controller: 'EventCtrl',
