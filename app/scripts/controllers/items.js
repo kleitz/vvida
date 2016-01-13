@@ -1,6 +1,5 @@
 (function() {
   'use strict';
-  var _ = require('lodash');
   angular.module('vvida.controllers')
     .controller('ItemCtrl', ['$scope', '$state', '$stateParams', '$mdSidenav',
       'Categories', 'FileUploader', 'Utils', 'Items', 'Reviews',
@@ -20,7 +19,7 @@
         };
 
         $scope.maxReview = function(itemReviews) {
-          return _.max(itemReviews, function(review) {
+          return window._.max(itemReviews, function(review) {
             return review.rating;
           });
         };
@@ -30,6 +29,11 @@
           $scope.categoryItems = Categories.get({
             id: $scope.categoryId
           });
+        };
+
+        $scope.setImage = function(image) {
+          $scope.selectedImage = image;
+          console.log(image.img_url);
         };
 
         $scope.addItems = function() {
@@ -82,6 +86,8 @@
           $scope.recentItems = Items.query();
           // get selected category id
           $scope.categoryId = $stateParams.catId;
+          // initialize scope.item for model
+          $scope.item = {};
         };
 
         $scope.updateItem = function() {

@@ -3,36 +3,32 @@ div.md-padding(layout="row" ng-init="getItem()")
   a.md-subheadline(ui-sref="categoryItems({catId: item.category_id})") &nbsp;> {{item.Category.type}}
   a.md-subheadline &nbsp; > {{item.name}}
 
-.view-item(layout="row" layout-align="start center")
-  h3.md-padding {{item.name}} -
-  p {{item.city}}
+div(layout="row" layout-align="start start" flex)
+  div(layout="column" flex="50")
+    h3.md-subheader.md-padding Gallery Images - {{item.name}}
+    div(layout="row" layout-margin)
+      div.thumbs(layout="column" layout-align="start start")
+        img.face(ng-click="setImage(image)" ng-repeat="image in images" ng-src="{{image.img_url}}")
+      div(style="background: url('{{selectedImage.img_url || images[0].img_url}}') no-repeat center center;")
+    md-divider
+    div(layout="column" layout-margin layout-padding)
+      h4 {{item.name}} 
+      span {{item.street}} | {{item.city}}
+      span {{item.phone}}
+      span {{item.description}}
+    md-divider
 
-div(layout="row")
-  div.view-item-main(flex="60" style="border:1px solid #FF9800;margin-left:10px;" layout-align="start center")
-    md-grid-list(md-cols-sm="1", md-cols-md="3", md-cols-gt-md="3", md-row-height-gt-md="1:1", md-row-height="1:1", md-gutter="12px", md-gutter-gt-sm="8px")
-      md-grid-tile(ng-repeat="image in images" style="background-image: url(\"{{image.img_url}}\"); background-repeat: no-repeat; background-size: 100% 100%;")
-
-  md-content(flex="35" layout-padding style="border:1px solid #FF9800;margin-left:5px;")
-    md-list
-      md-list-item.md-3-line(ng-repeat="review in item.Reviews")
-        .md-list-item-text
-          h4 {{review.review}} 
-          h4 {{review.review_title}}
-          p {{review.rating}}
-    div
-      form(method="post" enctype="multipart/data" ng-submit="addItemReview()")
-        md-input-container
-          label Review
-          input(required ng-model="itemReview.review")
-        md-input-container
-          label Title
-          input(required ng-model="itemReview.review_title")
-        md-input-container
-          label Rating
-          input(required ng-model="itemReview.rating")
-        md-button.md-raised.md-accent(type="submit" ng-disabled= "{{!currentUser? \"true\" : \"false\"}}") Submit Review
-        md-button.login-btn(class="md-raised md-primary" aria-label="Login/Signup" ng-show="!currentUser" ui-sref="login") Go to Login/Signup Page
-
+  div.left-border(flex="49" layout-margin layout-padding)
+    md-content
+      md-list
+        h3.md-subheader(layout layout-padding) Reviews for {{item.name}} {{item.city}}
+        md-divider
+        md-list-item.md-3-line(ng-repeat="review in item.Reviews")
+          .md-list-item-text
+            h4 {{review.review}} 
+            h4 {{review.review_title}}
+            p {{review.rating}}
+          md-divider
         
 
 

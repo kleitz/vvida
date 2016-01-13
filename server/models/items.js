@@ -15,6 +15,18 @@ module.exports = function(sequelize, DataType) {
       city: {
         type: DataType.STRING,
         allowNull: true
+      },
+      street: {
+        type: DataType.STRING,
+        allowNull: true
+      },
+      phone: {
+        type: DataType.STRING,
+        allowNull: true
+      },
+      email: {
+        type: DataType.STRING,
+        allowNull: true
       }
     },
     // table configuration
