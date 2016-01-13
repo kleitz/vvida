@@ -1,0 +1,23 @@
+md-content(layout='column' layout-md="column" layout-sm="column" flex='100')
+	form(method="post" enctype="multipart/data" ng-submit="addItems()")
+		md-input-container
+			label
+				i.fa.fa-list &nbsp;&nbsp;&nbsp; Category
+			md-select(ng-model="item.catId" md-on-open="loadCategories()" class="select" aria-label="item.catId")
+				md-option(ng-value="category.id" ng-repeat="category in categories") {{category.type}}
+		md-input-container
+			label
+				i.fa.fa-coffee &nbsp;&nbsp;&nbsp; Product
+			input(ng-model="item.name" type="text" ng-required="true" aria-label="item.name")
+		md-input-container
+			label
+				i.fa.fa-globe &nbsp;&nbsp;&nbsp; City
+			input(ng-model="item.city" type="text" ng-required="true" aria-label="item.city")
+		md-input-container
+			label
+				i.fa.fa-file-text &nbsp;&nbsp;&nbsp; Description
+			textarea(ng-model="item.description" type="text" ng-required="true" rows='5' aria-label="item.description")
+		br
+		md-button.md-raised.md-warn(class="login-button" type="submit")
+			i(class="fa fa-plus-circle")
+			| Add
