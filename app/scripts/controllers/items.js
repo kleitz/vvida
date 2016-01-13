@@ -33,14 +33,16 @@
           });
         };
         //load the item
-        if (itemId) {
+        $scope.getItem = function() {
           Items.get({
             id: itemId
           }, function(item) {
             $scope.images = item.Images;
             $scope.item = item;
           });
-        }
+        };
+
+
         $scope.updateItem = function() {
           Items.update($scope.item, function(item) {
             Utils.toast(item.message);

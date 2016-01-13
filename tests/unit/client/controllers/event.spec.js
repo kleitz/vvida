@@ -10,6 +10,12 @@ describe('EventCtrl tests', function() {
       update: function(evt, cb) {
         evt ? cb(evt) : cb(false);
       },
+      get: function(id, cb) {
+        cb({
+          message: 'Sample Event Message'
+        })
+      },
+
     },
     state;
   beforeEach(function() {
@@ -21,7 +27,7 @@ describe('EventCtrl tests', function() {
     scope = $injector.get('$rootScope');
     controller = $controller('EventCtrl', {
       $scope: scope,
-      Events:Events
+      Events: Events
     });
     state = $injector.get('$state');
     Utils = $injector.get('Utils');
@@ -62,7 +68,7 @@ describe('EventCtrl tests', function() {
   });
 
   it('should define and update an event', function() {
-     scope.event = {
+    scope.event = {
       message: 'Sample Event Message'
     };
     spyOn(Events, 'update').and.callThrough();
@@ -70,6 +76,16 @@ describe('EventCtrl tests', function() {
     scope.updateEvent();
     expect(Events.update).toHaveBeenCalled();
     expect(Utils.toast).toHaveBeenCalledWith('Sample Event Message');
+  });
+
+  it('should get an event', function() {
+    spyOn(Events, 'get').and.callThrough();
+    scope.getEvent();
+    expect(Events.get).toHaveBeenCalled();
+    expect(scope.event).toEqual({
+      message: 'Sample Event Message',
+      time: null
+    });
   });
 
   it('should call Utils.toast', function() {

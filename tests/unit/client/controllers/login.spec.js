@@ -1,6 +1,23 @@
 describe('LoginCtrl tests', function() {
   var scope,
-    Users,
+    Users = {
+      login: function(user, cb) {
+        cb(!user, {
+          firstname: 3,
+          lastname: 5,
+          picture_url: 8
+        });
+      },
+      save: function(user, cb, cbb) {
+        cb(user);
+        cbb({
+          data: {
+            error: 'this is bad'
+          }
+        });
+      }
+    },
+    state,
     controller;
 
   beforeEach(function() {
@@ -12,27 +29,53 @@ describe('LoginCtrl tests', function() {
     $controller = $injector.get('$controller');
     scope = $injector.get('$rootScope');
     controller = $controller('LoginCtrl', {
-      $scope: scope
+      $scope: scope,
+      Users: Users
     });
-    Users = $injector.get('Users');
-
+    Auth = $injector.get('Auth');
+    state = $injector.get('$state');
   }));
 
   it('should call the login function in the Users service', function() {
-    spyOn(Users, 'login');
+    spyOn(Users, 'login').and.callThrough();
+    spyOn(Auth, 'setToken');
+    spyOn(state, 'go');
+    scope.user = true;
     scope.login();
     expect(Users.login).toBeDefined();
     expect(Users.login).toHaveBeenCalled();
+    expect(Auth.setToken).toHaveBeenCalled();
+    expect(state.go).toHaveBeenCalled();
+    expect(scope.currentUser).toBeDefined();
+  });
+
+  it('should call the login function in the Users service with error', function() {
+    spyOn(Users, 'login').and.callThrough();
+    spyOn(Auth, 'setToken');
+    spyOn(state, 'go');
+    scope.user = null;
+    scope.login();
+    expect(Users.login).toBeDefined();
+    expect(Users.login).toHaveBeenCalled();
+    expect(Auth.setToken).not.toHaveBeenCalled();
+    expect(state.go).not.toHaveBeenCalled();
+    expect(scope.currentUser).not.toBeDefined();
+    expect(scope.messageLogin).toBeDefined();
   });
 
   it('should call the save function in the Users service', function() {
-    spyOn(Users, 'save');
+    spyOn(Users, 'save').and.callThrough();
+    spyOn(Auth, 'setToken');
+    spyOn(state, 'go');
     scope.user = {
       passwordSignup: 'Password1234',
       confirmPassword: 'Password1234'
     }
     scope.signup();
     expect(Users.save).toHaveBeenCalled();
+    expect(Auth.setToken).toHaveBeenCalled();
+    expect(state.go).toHaveBeenCalled();
+    expect(scope.currentUser).toBeDefined();
   });
 
   it('should reject short passwords', function() {
@@ -65,5 +108,6 @@ describe('LoginCtrl tests', function() {
     expect(scope.messageSignup).toBeDefined();
     expect(scope.messageSignup).toEqual('Your password need to contain both uppercase and lower characters');
   });
+
 
 });

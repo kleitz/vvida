@@ -31,7 +31,7 @@
         };
 
         //load the item
-        if (eventId) {
+        $scope.getEvent=function(){
           Events.get({
             id: eventId
           }, function(event) {
@@ -39,6 +39,8 @@
             $scope.event.time = null;
           });
         }
+ 
+        
 
         $scope.updateEvent = function() {
           Events.update($scope.event, function(event) {

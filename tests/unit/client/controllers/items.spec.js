@@ -9,6 +9,12 @@ describe('ItemCtrl tests', function() {
       update: function(item, cb) {
         item ? cb(item) : cb(false);
       },
+      get: function(id, cb) {
+        cb({
+          message: 'I am groot',
+          Images : [1, 3, 4]
+        });
+      }
     },
     Categories;
   beforeEach(function() {
@@ -51,6 +57,7 @@ describe('ItemCtrl tests', function() {
     expect(Utils.toast).toHaveBeenCalledWith('Item not created');
   });
 
+
   it('should call Items.save', function() {
     spyOn(Items, 'save').and.callThrough();
     spyOn(Utils, 'toast').and.callThrough();
@@ -58,6 +65,18 @@ describe('ItemCtrl tests', function() {
     scope.addItems();
     expect(Items.save).toHaveBeenCalled();
     expect(Utils.toast).not.toHaveBeenCalled();
+  });
+
+
+  it('should call Items.get', function() {
+    spyOn(Items, 'get').and.callThrough();
+    scope.getItem();
+    expect(Items.get).toHaveBeenCalled();
+    expect(scope.item).toEqual({
+      message: 'I am groot',
+      Images : [1, 3, 4]
+    });
+    expect(scope.images).toEqual([1,3,4]);
   });
 
   it('should call Categories.query', function() {

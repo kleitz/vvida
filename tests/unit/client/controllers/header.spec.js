@@ -1,6 +1,17 @@
 describe('HeaderCtrl tests', function() {
   var scope,
-    controller, Users, Auth;
+    controller,
+    Users = {
+      logout: function(cb) {
+        if (scope.currentUser) {
+          cb(null, true);
+        } else {
+          cb(true, null);
+        }
+      }
+    },
+    state,
+    Auth;
   beforeEach(function() {
     module('vvida');
   });
@@ -9,23 +20,35 @@ describe('HeaderCtrl tests', function() {
     $controller = $injector.get('$controller');
     scope = $injector.get('$rootScope');
     controller = $controller('HeaderCtrl', {
-      $scope: scope
+      $scope: scope,
+      Users: Users
     });
-    Users = $injector.get('Users');
     Auth = $injector.get('Auth');
-    spyOn(scope, 'logout').and.callThrough();
-    spyOn(Users, 'logout').and.callThrough();
-    scope.logout();
+    state = $injector.get('$state');
   }));
 
-  it('should define and call scope.logout', function() {
-    expect(scope.logout).toBeDefined();
-    expect(scope.logout).toHaveBeenCalled();
+  it('should define and call Users.logout', function() {
+    scope.currentUser = 1;
+    spyOn(Users, 'logout').and.callThrough();
+    spyOn(Auth, 'logout').and.callThrough();
+    spyOn(state, 'go').and.callThrough();
+    scope.logout();
+    expect(Users.logout).toHaveBeenCalled();
+    expect(Auth.logout).toHaveBeenCalled();
+    expect(state.go).toHaveBeenCalled();
   });
 
   it('should define and call Users.logout', function() {
-    expect(Users.logout).toBeDefined();
+    scope.currentUser = null;
+    spyOn(Users, 'logout').and.callThrough();
+    spyOn(Auth, 'logout').and.callThrough();
+    spyOn(state, 'go').and.callThrough();
+    spyOn(console, 'log').and.callThrough();
+    scope.logout();
     expect(Users.logout).toHaveBeenCalled();
+    expect(Auth.logout).not.toHaveBeenCalled();
+    expect(state.go).not.toHaveBeenCalled();
+    expect(console.log).toHaveBeenCalled();
   });
 
 });
