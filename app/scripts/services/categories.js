@@ -1,5 +1,5 @@
 angular.module('vvida.services')
-  .factory('Categories', ['$resource', '$http', function($resource) {
+  .factory('Categories', ['$resource', function($resource) {
     return $resource('/api/categories/:id', {
       id: '@id'
     }, {
