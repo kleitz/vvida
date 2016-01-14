@@ -8,9 +8,9 @@ md-card-content.content(ng-if="currentUser" ng-init="init()")
           md-card.ripple-container.prof-child-img(md-ink-ripple flex)
             .card-images.md-card-image.bg-img-product
         div.md-padding(flex layout='column' layout-align-gt-sm='start start' layout-align='start center')
-          p.md-headline.packed-bottom.bold-title{{x.Item.name}}
+          p.md-headline.packed-bottom.bold-title {{x.Item.name}}
           p.packed
-            span.fa.fa-comment-o   Review Title
+            span.fa.fa-comment-o  {{x.review_title}}
               md-tooltip Review Title
           p.packed
             span.fa.fa-list   {{x.Item.Category.type}}

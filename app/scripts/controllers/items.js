@@ -1,12 +1,34 @@
 (function() {
   'use strict';
   angular.module('vvida.controllers')
-    .controller('ItemCtrl', ['$scope', '$state', '$stateParams', 'Categories', 'FileUploader', 'Utils', 'Items',
-      function($scope, $state, $stateParams, Categories, FileUploader, Utils, Items) {
+    .controller('ItemCtrl', ['$scope', '$state', '$stateParams', '$mdSidenav',
+      'Categories', 'FileUploader', 'Utils', 'Items', 'Reviews',
+      function($scope, $state, $stateParams, $mdSidenav,
+        Categories, FileUploader, Utils, Items, Reviews) {
+        // Close Left Side Nav bar
+        $scope.close = function() {
+          $mdSidenav('catNav').close();
+        };
 
-        // load categories
-        $scope.loadCategories = function() {
-          $scope.categories = Categories.query();
+        $scope.toggleSidenav = function() {
+          $mdSidenav('catNav').toggle();
+        };
+
+        $scope.range = function(n) {
+          return new Array(n);
+        };
+
+        $scope.maxReview = function(itemReviews) {
+          return window._.max(itemReviews, function(review) {
+            return review.rating;
+          });
+        };
+
+        $scope.getCategory = function() {
+          // load the categoryItems
+          $scope.categoryItems = Categories.get({
+            id: $scope.categoryId
+          });
         };
 
         $scope.addItems = function() {
@@ -21,34 +43,53 @@
           });
         };
 
-        var itemId = $stateParams.id;
-        $scope.init = function() {
-          $scope.item = {
-            id: $stateParams.id
-          };
+        $scope.addItemReview = function() {
+          $scope.itemReview.itemId = $stateParams.id;
+          Reviews.save($scope.itemReview, function(review) {
+            if (review) {
+              $scope.item.Reviews.push(review);
+              $scope.itemReview = {};
+            }
+          });
+        };
+
+        $scope.getItem = function() {
+          // get selected item id
+          $scope.itemId = $stateParams.id;
+
           $scope.uploader = new FileUploader({
             url: '/api/image/',
             alias: 'photos',
-            formData: [$scope.item],
+            formData: [{
+              id: $scope.itemId
+            }],
           });
-        };
-        //load the item
-        $scope.getItem = function() {
+
+          //load the item
           Items.get({
-            id: itemId
+            id: $scope.itemId
           }, function(item) {
             $scope.images = item.Images;
             $scope.item = item;
           });
         };
 
+        $scope.init = function() {
+          // get all categories
+          $scope.categories = Categories.query();
+          // get Recent Items
+          $scope.recentItems = Items.query();
+          // get selected category id
+          $scope.categoryId = $stateParams.catId;
+          // initialize scope.item for model
+          $scope.item = {};
+        };
 
         $scope.updateItem = function() {
           Items.update($scope.item, function(item) {
             Utils.toast(item.message);
           });
         };
-
 
         $scope.showToast = function() {
           Utils.toast('Upload complete');

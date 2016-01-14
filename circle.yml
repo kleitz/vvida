@@ -19,7 +19,6 @@ machine:
     CIRCLE_ENV: test
     DATABASE_USERNAME: ubuntu
     DATABASE_PASSWORD:
-    DATABASE_URL: localhost
     DATABASE_NAME: circle_test
     DATABASE_DIALECT: postgres
     DATABASE_PORT: 5432

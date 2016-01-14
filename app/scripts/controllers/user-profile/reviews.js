@@ -11,6 +11,7 @@ angular.module('vvida.controllers')
           }
         }
       });
+
       $scope.rateThis = function(num) {
         var array = new Array(num);
         for (var x = 0; x < array.length; x++) {

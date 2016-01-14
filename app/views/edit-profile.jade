@@ -13,7 +13,7 @@ div(ng-if='currentUser' layout='row' layout-align='center center')
       div(layout='column' layout-align='center center')
         p.packed
           | Welcome. The email address you have provided is
-          span.email{{currentUser.email}}.
+          span.email {{currentUser.email}}.
         p.packed Please complete the following form with your details to complete your registration.
     md-card-content.md-margin.content(layout-gt-md='row' layout='column')
       div(layout='column' flex)
@@ -68,7 +68,7 @@ div(ng-if='currentUser' layout='row' layout-align='center center')
             md-input-container(flex)
               md-icon(class='fa fa-user')
               input(ng-model='currentUser.lastname' type='text' placeholder='Last Name' ng-required='true')
-          p{{message}}
+          p {{message}}
           div(layout='row' flex layout-align='center end')
             md-button.md-raised.md-warn.md-padding.md-margin.button(flex='70')
               md-icon(class='fa fa-send')

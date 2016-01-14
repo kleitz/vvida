@@ -1,8 +1,7 @@
 body {
-  font-family: "Roboto", "Open Sans", "Arial", "Verdana", sans-serif;
+  font-family: "Roboto", "Open Sans", "Arial", "Verdana", "Montserrat", sans-serif;
   font-size: 1em;
   width: 100%;
-  font-family: 'Montserrat', sans-serif;
 }
 
 h1,
@@ -11,6 +10,9 @@ h3,
 h4,
 h5 {
   margin: 0 0 5px 0;
+  &.md-padding {
+    margin: 0;
+  }
 }
 
 img {
@@ -39,7 +41,7 @@ header {
 }
 
 .footer {
-  background-color: #707478;
+  background-color: #389F38;
   width: 100%;
   height: auto;
   padding-bottom: 30px;
@@ -164,8 +166,8 @@ md-toolbar.md-menu-toolbar {}
 }
 
 .jumbotron {
-  padding: 0px;
-  margin: 0px;
+  padding: 0;
+  margin: 0;
 }
 
 .card-images {
@@ -194,12 +196,12 @@ md-toolbar.md-menu-toolbar {}
       color: white;
       text-shadow: 0 0 4px #333;
       display: inline-block;
-      margin-bottom: 0px;
+      margin-bottom: 0;
     }
     .jumbotron-middle-small-text {
       font-size: 1.7em;
       display: block;
-      margin-top: 0px;
+      margin-top: 0;
     }
     .jumbotron-footer {
       background: red;
@@ -336,8 +338,8 @@ h3 {
 
 .event-info {
   background-color: #f1f1f1;
-  margin-bottom: 0px;
-  padding-bottom: 0px;
+  margin-bottom: 0;
+  padding-bottom: 0;
   .info-cat {
     color: rgb(255, 110, 64);
     text-align: center;
@@ -410,11 +412,12 @@ md-sidenav.md-sidenav-left {
   margin: 0 auto;
   margin-bottom: 20px;
   margin-top: 20px;
+  background-color: #FF9800;
   .file-upload {
     position: relative;
     overflow: hidden;
     width: 200px;
-    margin: 0px;
+    margin: 0;
     display: block;
   }
   .file-upload input.upload {
@@ -503,11 +506,11 @@ md-sidenav.md-sidenav-left {
 }
 
 .recentReview md-card {
-  margin: 0px;
+  margin: 0;
 }
 
 .recentReview md-list-item {
-  padding: 0px;
+  padding: 0;
 }
 
 .nextReview img {
@@ -570,11 +573,11 @@ md-sidenav.md-sidenav-left {
 .edit-profile {
   margin-top: 30px;
   .content {
-    padding-top: 0px;
+    padding-top: 0;
   }
   .datepicker-cont {
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
     .datepicker {
       width: 200px;
     }
@@ -609,8 +612,8 @@ md-sidenav.md-sidenav-left {
 }
 
 .packed-bottom {
-  margin-bottom: 0px;
-  padding-bottom: 0px;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
 .profile-header {
@@ -631,8 +634,8 @@ md-sidenav.md-sidenav-left {
 }
 
 .packed-top {
-  margin-top: 0px;
-  padding-top: 0px;
+  margin-top: 0;
+  padding-top: 0;
 }
 
 .prof-child-img {
@@ -648,7 +651,7 @@ md-sidenav.md-sidenav-left {
   height: 48px;
   width: 48px;
   margin: 20px;
-  padding: 0px;
+  padding: 0;
 }
 
 .not-loggedin-div {
@@ -705,8 +708,9 @@ md-sidenav.md-sidenav-left {
 }
 
 md-toolbar:not(.md-menu-toolbar).md-accent {
-  background-color: grey;
-  text-color: black;
+  background-color: #389F38;
+  color: black;
+  text-transform: none;
 }
 
 .popular-events {
@@ -728,4 +732,35 @@ md-toolbar:not(.md-menu-toolbar).md-accent {
   .right-margin {
     margin-right: 30px;
   }
+}
+
+.face {
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  width: 100px;
+  height: 100px;
+  margin: 10px;
+}
+
+.btn-style {
+  margin: 0;
+  font-size: 16px;
+  text-align: left;
+  width: 100%;
+  padding: 10px 0 10px 15px;
+  text-transform: none;
+}
+
+.md-padding {
+  padding: 15px;
+}
+
+blockquote {
+  margin: auto;
+  padding-left: 5px;
+  border-left: 1px solid #000;
+}
+
+a {
+  text-decoration: none;
 }
