@@ -21,6 +21,6 @@ sequelize.authenticate()
   });
 
 sequelize.sync({
-  // force: false
+  // force: true
 });
 module.exports = sequelize;
