@@ -31,6 +31,10 @@
           });
         };
 
+        $scope.setImage = function(image) {
+          $scope.selectedImage = image;
+        };
+
         $scope.addItems = function() {
           Items.save($scope.item, function(item) {
             if (item) {
