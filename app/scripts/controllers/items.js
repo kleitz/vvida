@@ -33,7 +33,6 @@
 
         $scope.setImage = function(image) {
           $scope.selectedImage = image;
-          console.log(image.img_url);
         };
 
         $scope.addItems = function() {
