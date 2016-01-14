@@ -14,7 +14,7 @@
             type: Sequelize.INTEGER,
             allowNull: false
           },
-          category_id: {
+          catId: {
             type: Sequelize.INTEGER,
             allowNull: false
           },
