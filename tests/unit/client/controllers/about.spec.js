@@ -16,14 +16,14 @@ describe('AboutCtrl tests', function() {
   it('should define developers array', function() {
     expect(scope.developers).toBeDefined();
     expect(typeof scope.developers).toBe('object');
-    expect(scope.developers.length).toBe(6);
+    expect(scope.developers.length).toBe(11);
     expect(scope.developers instanceof Array).toBe(true);
   });
 
   it('should define about object', function() {
     expect(scope.about).toBeDefined();
     expect(typeof scope.about).toBe('object');
-    expect(scope.developers.length).toBe(6);
+    expect(scope.developers.length).toBe(11);
   });
 
 });
