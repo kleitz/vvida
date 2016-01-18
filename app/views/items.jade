@@ -41,14 +41,14 @@ div(layout="row")
 
     md-content(ng-if="categoryId" ng-init="getCategory()")
       h2.md-padding(ng-if="categoryItems.Items.length === 0") No Available Items in this Category
-      div
+      div(layout)
         md-list
           md-list-item.md-3-line(ng-repeat="item in categoryItems.Items")
             img.face(ng-src="{{item.Images[0].img_url}}")
             .md-list-item-text
               div(layout="row" layout-margin)
                 div
-                  h3(ui-sref="viewItem({id:item.id})") {{$index + 1}}. {{item.name}} 
+                  h3(layout layout-padding ui-sref="viewItem({id:item.id})") {{$index + 1}}. {{item.name}} 
                   div(layout="row" layout-align="start center" layout-padding)
                     i.fa.fa-star(ng-if="maxReview(item.Reviews).rating > 0" ng-repeat="i in range(maxReview(item.Reviews).rating) track by $index")
                     i.fa.fa-star-o(ng-repeat="i in range(5 - maxReview(item.Reviews).rating) track by $index")

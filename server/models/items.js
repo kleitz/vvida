@@ -31,7 +31,7 @@ module.exports = function(sequelize, DataType) {
     },
     // table configuration
     {
-      constaints: false,
+      constraints: false,
       // prevent time stamps from using camelase
       // updatedAt to updated_at and createdAt to created-at
       underscored: true,

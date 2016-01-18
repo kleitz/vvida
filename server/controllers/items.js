@@ -13,7 +13,7 @@
           req.body.hasOwnProperty('description')) {
           Items.create({
               user_id: req.decoded.id,
-              category_id: req.body.category_id,
+              category_id: req.body.catId,
               name: req.body.name,
               city: req.body.city,
               description: req.body.description,
