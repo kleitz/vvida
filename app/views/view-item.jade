@@ -29,7 +29,22 @@ div(layout="row" layout-align="start start" flex)
             h4 {{review.review_title}}
             p {{review.rating}}
           md-divider
+      
+div.md-padding(flex)
+  form
+    div(layout="row")
+      md-input-container.md-block
+        label Title
+        input(ng-model="itemReview.review_title")
+      md-input-container.md-block
+        div.rating(ng-init="itemReview.rating=0")
+          span(ng-repeat="i in range(5-itemReview.rating) track by $index" ng-click="rate(5-$index)") ☆   
+          span.stared(ng-repeat="i in range(itemReview.rating) track by $index" ng-click="rate(itemReview.rating-$index)") ☆   
+    md-input-container.md-block
+      label Review
+      textarea(ng-model="itemReview.review" columns="1" md-maxlength="150" rows="5")
+    md-input-container.md-block
+      md-button.md-accent(ng-click="addItemReview()") Post
+
         
-
-
 

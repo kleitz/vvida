@@ -18,6 +18,11 @@
           return new Array(n);
         };
 
+        $scope.rate = function(n) {
+          console.log(n);
+          $scope.itemReview.rating=n;
+        };
+
         $scope.maxReview = function(itemReviews) {
           return window._.max(itemReviews, function(review) {
             return review.rating;
