@@ -28,5 +28,4 @@ describe('WelcomeCtrl tests', function() {
     expect(scope.items).toBeTruthy();
     expect(scope.item).toBeTruthy();
   });
-
 });

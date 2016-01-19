@@ -7,7 +7,8 @@ angular.module('vvida.controllers')
         $scope.items = Items.query();
         $scope.item = {
           face: 'http://lorempixel.com/50/50/people?' + 9,
-          who: ' write something about this company, and live the life you want',
+          who
+          : ' write something about this company, and live the life you want',
           what: 'And experince the magic of you opinion',
           notes: 'Hey there ! , have you made any review yet?' +
             ' your next review awaits, '
@@ -20,7 +21,7 @@ angular.module('vvida.controllers')
             notes: 'I\'ll be in your neighborhood doing errands.'
           });
         }
-      }
+      };
       $scope.init();
     }
   ]);
