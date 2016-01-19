@@ -1,5 +1,5 @@
 describe('Events Service Test', function() {
-
+'use strict';
   beforeEach(function() {
     module('vvida');
   });
@@ -11,7 +11,7 @@ describe('Events Service Test', function() {
     Events = $injector.get('Events');
     $resource = $injector.get('$resource');
     $http = $injector.get('$http');
-    spyOn(Events, "update").and.returnValue();
+    spyOn(Events, 'update').and.returnValue();
     Events.update();
   }));
 

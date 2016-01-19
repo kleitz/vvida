@@ -1,16 +1,15 @@
 describe('WelcomeCtrl tests', function() {
+  'use strict';
   var scope,
     controller,
-    Utils,
     Items,
-    Events,
-    Categories;
+    Events;
   beforeEach(function() {
     module('vvida');
   });
 
   beforeEach(inject(function($injector) {
-    $controller = $injector.get('$controller');
+    var $controller = $injector.get('$controller');
     scope = $injector.get('$rootScope');
     controller = $controller('WelcomeCtrl', {
       $scope: scope

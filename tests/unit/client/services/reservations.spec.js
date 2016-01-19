@@ -1,17 +1,17 @@
 describe('Reservations Service Test', function() {
-
+  'use strict';
   beforeEach(function() {
     module('vvida');
   });
 
   var Reservations,
-  $http,
-  $resource;
+    $http,
+    $resource;
   beforeEach(inject(function($injector) {
     Reservations = $injector.get('Reservations');
     $resource = $injector.get('$resource');
     $http = $injector.get('$http');
-    spyOn(Reservations, "update").and.returnValue();
+    spyOn(Reservations, 'update').and.returnValue();
     Reservations.update();
   }));
 

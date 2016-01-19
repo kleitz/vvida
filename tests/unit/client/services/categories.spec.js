@@ -1,17 +1,17 @@
 describe('Categories Service Test', function() {
-
+  'use strict';
   beforeEach(function() {
     module('vvida');
   });
 
   var Categories,
-  $resource,
-  $http;
+    $resource,
+    $http;
   beforeEach(inject(function($injector) {
     Categories = $injector.get('Categories');
     $resource = $injector.get('$resource');
     $http = $injector.get('$http');
-    spyOn(Categories, "update").and.returnValue(745);
+    spyOn(Categories, 'update').and.returnValue(745);
     Categories.update();
   }));
 

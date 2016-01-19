@@ -1,4 +1,5 @@
 describe('LoginCtrl tests', function() {
+  'use strict';
   var scope,
     Users = {
       login: function(user, cb) {
@@ -18,6 +19,7 @@ describe('LoginCtrl tests', function() {
       }
     },
     state,
+    Auth,
     controller;
 
   beforeEach(function() {
@@ -26,7 +28,7 @@ describe('LoginCtrl tests', function() {
 
 
   beforeEach(inject(function($injector) {
-    $controller = $injector.get('$controller');
+    var $controller = $injector.get('$controller');
     scope = $injector.get('$rootScope');
     controller = $controller('LoginCtrl', {
       $scope: scope,
@@ -49,7 +51,7 @@ describe('LoginCtrl tests', function() {
     expect(scope.currentUser).toBeDefined();
   });
 
-  it('should call the login function in the Users service with error', function() {
+  it('should call the login and fail', function() {
     spyOn(Users, 'login').and.callThrough();
     spyOn(Auth, 'setToken');
     spyOn(state, 'go');
@@ -70,7 +72,7 @@ describe('LoginCtrl tests', function() {
     scope.user = {
       passwordSignup: 'Password1234',
       confirmPassword: 'Password1234'
-    }
+    };
     scope.signup();
     expect(Users.save).toHaveBeenCalled();
     expect(Auth.setToken).toHaveBeenCalled();
@@ -82,10 +84,11 @@ describe('LoginCtrl tests', function() {
     scope.user = {
       passwordSignup: 'Pass',
       confirmPassword: 'Pass'
-    }
+    };
     scope.signup();
     expect(scope.messageSignup).toBeDefined();
-    expect(scope.messageSignup).toEqual('Your password needs to have a length greater than 8 characters');
+    expect(scope.messageSignup).
+    toEqual('Your password needs to have a length greater than 8 characters');
     expect(typeof scope.messageSignup).toBe('string');
   });
 
@@ -93,20 +96,23 @@ describe('LoginCtrl tests', function() {
     scope.user = {
       passwordSignup: 'Passworder',
       confirmPassword: 'Passworder'
-    }
+    };
     scope.signup();
     expect(scope.messageSignup).toBeDefined();
-    expect(scope.messageSignup).toEqual('Your password need to contain both numbers and non-word characters');
+    expect(scope.messageSignup).
+    toEqual
+    ('Your password need to contain both numbers and non-word characters');
   });
 
   it('should ensure password as both case characters', function() {
     scope.user = {
       passwordSignup: 'password1234',
       confirmPassword: 'password1234'
-    }
+    };
     scope.signup();
     expect(scope.messageSignup).toBeDefined();
-    expect(scope.messageSignup).toEqual('Your password need to contain both uppercase and lower characters');
+    expect(scope.messageSignup).toEqual
+    ('Your password need to contain both uppercase and lower characters');
   });
 
 

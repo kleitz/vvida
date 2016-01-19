@@ -1,15 +1,15 @@
 describe('Notifications Service Test', function() {
-
+  'use strict';
   beforeEach(function() {
     module('vvida');
   });
 
   var Notifications,
-  $resource;
+    $resource;
   beforeEach(inject(function($injector) {
     Notifications = $injector.get('Notifications');
     $resource = $injector.get('$resource');
-    spyOn(Notifications, "update").and.returnValue();
+    spyOn(Notifications, 'update').and.returnValue();
     Notifications.update();
   }));
 

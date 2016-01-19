@@ -13,7 +13,7 @@ describe('EventCtrl tests', function() {
       get: function(id, cb) {
         cb({
           message: 'Sample Event Message'
-        })
+        });
       },
 
     },

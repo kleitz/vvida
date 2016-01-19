@@ -1,4 +1,5 @@
 describe('EventCtrl tests', function() {
+  'use strict';
   var scope, controller;
   beforeEach(function() {
     module('vvida');

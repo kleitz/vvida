@@ -1,15 +1,15 @@
 describe('Messages Service Test', function() {
-
+  'use strict';
   beforeEach(function() {
     module('vvida');
   });
 
   var Messages,
-  $resource;
+    $resource;
   beforeEach(inject(function($injector) {
     Messages = $injector.get('Messages');
     $resource = $injector.get('$resource');
-    spyOn(Messages, "update").and.returnValue();
+    spyOn(Messages, 'update').and.returnValue();
     Messages.update();
   }));
 

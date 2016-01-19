@@ -1,5 +1,5 @@
 describe('Users Service Test', function() {
-
+  'use strict';
   beforeEach(function() {
     module('vvida');
   });

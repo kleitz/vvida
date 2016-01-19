@@ -1,15 +1,15 @@
 describe('Promotions Service Test', function() {
-
+  'use strict';
   beforeEach(function() {
     module('vvida');
   });
 
   var Promotions,
-  $resource;
+    $resource;
   beforeEach(inject(function($injector) {
     Promotions = $injector.get('Promotions');
     $resource = $injector.get('$resource');
-    spyOn(Promotions, "update").and.returnValue();
+    spyOn(Promotions, 'update').and.returnValue();
     Promotions.update();
   }));
 

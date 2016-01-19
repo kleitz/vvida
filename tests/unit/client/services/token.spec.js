@@ -1,5 +1,5 @@
 describe('Token Service Test', function() {
-
+  'use strict';
   beforeEach(function() {
     module('vvida');
   });
@@ -18,7 +18,7 @@ describe('Token Service Test', function() {
       expect(typeof Token.set).toBe('function');
     });
 
-     it('set should call $window.localStorage.setItem', function() {
+    it('set should call $window.localStorage.setItem', function() {
       localStorage.setItem = sinon.stub();
       Token.set('vvida');
       expect(localStorage.setItem.called).toBe(true);

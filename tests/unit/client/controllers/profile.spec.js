@@ -1,4 +1,5 @@
 describe('ProfileCtrl tests', function() {
+  'use strict';
   var scope,
     controller, Utils, Users, Countries, $rootScope;
   var currentUser = {
@@ -34,7 +35,7 @@ describe('ProfileCtrl tests', function() {
 
   beforeEach(function() {
     inject(function($injector) {
-      $controller = $injector.get('$controller');
+      var $controller = $injector.get('$controller');
       scope = $injector.get('$rootScope');
       $rootScope = $injector.get('$rootScope');
       $rootScope.currentUser = currentUser;

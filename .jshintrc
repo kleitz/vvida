@@ -31,10 +31,12 @@
     "element",
     "by",
     "exports",
-    "sinon"
+    "sinon",
+    "spyOn"
   ],
   "quotmark": true,
   "trailing": true,
   "undef": true,
+  "expr": true,
   "unused": true
 }

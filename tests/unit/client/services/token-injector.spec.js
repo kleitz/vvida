@@ -1,5 +1,5 @@
 describe('Token Service Test', function() {
-
+  'use strict';
   beforeEach(function() {
     module('vvida');
   });

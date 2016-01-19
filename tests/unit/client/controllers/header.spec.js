@@ -1,4 +1,5 @@
 describe('HeaderCtrl tests', function() {
+  'use strict';
   var scope,
     controller,
     Users = {
@@ -17,7 +18,7 @@ describe('HeaderCtrl tests', function() {
   });
 
   beforeEach(inject(function($injector) {
-    $controller = $injector.get('$controller');
+    var $controller = $injector.get('$controller');
     scope = $injector.get('$rootScope');
     controller = $controller('HeaderCtrl', {
       $scope: scope,

@@ -6,7 +6,7 @@ describe('UserProfileCtrl tests', function() {
       eventsCount: function(currentUser, cb) {
         var res = 0;
         if (currentUser) {
-          res = 3
+          res = 3;
         }
         cb(!currentUser, res);
       },

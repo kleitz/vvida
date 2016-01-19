@@ -1,4 +1,5 @@
 describe('HomeCtrl tests', function() {
+  'use strict';
   var scope,
     controller;
   beforeEach(function() {
@@ -6,7 +7,7 @@ describe('HomeCtrl tests', function() {
   });
 
   beforeEach(inject(function($injector) {
-    $controller = $injector.get('$controller');
+    var $controller = $injector.get('$controller');
     scope = $injector.get('$rootScope');
     controller = $controller('HomeCtrl', {
       $scope: scope
