@@ -1,8 +1,9 @@
 (function() {
   'use strict';
   angular.module('vvida.controllers')
-    .controller('EventCtrl', ['$scope', '$state', '$stateParams', 'FileUploader', 'Utils', 'Events',
-      function($scope, $state, $stateParams, FileUploader, Utils, Events) {
+    .controller('EventCtrl', ['$scope', '$state', '$stateParams', '$filter',
+      'FileUploader', 'Utils', 'Events',
+      function($scope, $state, $stateParams, $filter, FileUploader, Utils, Events) {
         // create event
         $scope.addEvent = function() {
           Events.save($scope.event, function(event) {
@@ -17,36 +18,45 @@
         };
 
         //Get the eventId
-        var eventId = $stateParams.id;
-        var init = function() {
+        $scope.init = function() {
           $scope.event = {
             eventId: $stateParams.id
           };
 
-          $scope.readonly = false;
-          // Initilize sponsors' list
-          $scope.event.sponsors = [];
-          $scope.date = new Date();
+          $scope.loadEvents = Events.query();
+
+          $scope.lists = [{
+            name: 'Popular Events'
+          }, {
+            name: 'Concerts'
+          }, {
+            name: 'Exhibitions and Showcases'
+          }, {
+            name: 'Business and Economics'
+          }];
+        };
+
+        $scope.parseTime = function(eventTime) {
+          return $filter('date')(eventTime, 'EEEE dd MMM yyyy hh:mm a');
+        };
+
+        $scope.getEvent = function() {
+          $scope.eventId = $stateParams.id;
+
           $scope.uploader = new FileUploader({
             url: '/api/image/',
             alias: 'photos',
             formData: [$scope.event],
           });
 
-          Events.query(function(events) {
-            $scope.loadEvents = events;
-          });
-        };
-
-        //load the item
-        if (eventId) {
+          //load the item
           Events.get({
-            id: eventId
+            id: $stateParams.id
           }, function(event) {
             $scope.event = event;
             $scope.event.time = null;
           });
-        }
+        };
 
         $scope.updateEvent = function() {
           Events.update($scope.event, function(event) {
@@ -62,7 +72,7 @@
           $scope.uploader.uploadAll();
         };
 
-        init();
+        $scope.init();
       }
     ]);
 })();

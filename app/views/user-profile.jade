@@ -26,7 +26,7 @@
 								| {{item.title}}
 				md-divider
 				md-subheader Management
-				a(class='remove-link-deco' ng-repeat='item in admin' ui-sref='{{item.link}}')
+				a(class='remove-link-deco' ng-repeat='item in ownerMenu' ui-sref='{{item.link}}({id: currentUser.id})')
 					md-list-item(md-ink-ripple)
 						md-item-content(layout='row' layout-align='start center')
 							.inset

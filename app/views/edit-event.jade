@@ -4,7 +4,7 @@ md-card.items(layout='column' flex='55')
     md-subheader.md-no-sticky  Below is you product information, read through carefully to ensure your product information is accurate, edit when necceasry. Ensure you upload images for your product.
 
 
-md-card.items(layout='column' flex='55')
+md-card.items(layout='column' flex='55' ng-init="getEvent()")
   br
   md-content
     md-tabs(md-dynamic-height='', md-border-bottom='')
@@ -76,7 +76,7 @@ md-card.items(layout='column' flex='55')
                   i.fa.fa-remove
                   | Remove
 
-      md-tab(label='gallarey')
+      md-tab(label='gallery')
         md-content(layout="row" layout-sm="column" layout-md="column")
           md-subheader(ng-if="event.Images.length < 1")  No uploaded images, Please ensure you upload images in the upload image tab
           md-card.ripple-container(md-ink-ripple flex ng-repeat="image in event.Images")
