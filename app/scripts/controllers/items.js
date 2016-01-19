@@ -19,7 +19,6 @@
         };
 
         $scope.rate = function(n) {
-          console.log(n);
           $scope.itemReview.rating=n;
         };
 

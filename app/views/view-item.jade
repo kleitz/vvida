@@ -4,7 +4,7 @@ div.md-padding(layout="row" ng-init="getItem()")
   a.md-subheadline &nbsp; > {{item.name}}
 
 div(layout="row" layout-align="start start" flex)
-  div(layout="column" flex="50")
+  div(layout="column" flex="60")
     h3.md-subheader.md-padding Gallery Images - {{item.name}}
     div(layout="row" layout-margin)
       div.thumbs(layout="column" layout-align="start start")
@@ -18,7 +18,7 @@ div(layout="row" layout-align="start start" flex)
       span {{item.description}}
     md-divider
 
-  div.left-border(flex="49" layout-margin layout-padding)
+  div.left-border(flex="40" layout-margin layout-padding)
     md-content
       md-list
         h3.md-subheader(layout layout-padding) Reviews for {{item.name}} {{item.city}}
@@ -30,7 +30,7 @@ div(layout="row" layout-align="start start" flex)
             p {{review.rating}}
           md-divider
       
-div.md-padding(flex)
+div.md-padding(flex="50" flex-sm="100")
   form
     div(layout="row")
       md-input-container.md-block
@@ -44,7 +44,7 @@ div.md-padding(flex)
       label Review
       textarea(ng-model="itemReview.review" columns="1" md-maxlength="150" rows="5")
     md-input-container.md-block
-      md-button.md-accent(ng-click="addItemReview()") Post
+      md-button.review-button(ng-click="addItemReview()") Post
 
         
 
