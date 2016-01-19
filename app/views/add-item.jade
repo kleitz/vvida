@@ -9,27 +9,45 @@ div.not-loggedin-div(ng-if="!currentUser")
 md-card.items(layout="column" layout-md="column" ng-if="currentUser" layout-sm="column" flex="55")
   md-card-content.content
   md-card-content
-    h4.md-dispaly-4 Add Item
+    h4.md-header Flll Item Details
     br
     form(method="post" enctype="multipart/data" ng-submit="addItems()")
-      md-input-container
-        i.fa.fa-list
-          |   Categories
-        md-select( ng-model="item.Category.type" class="select" aria-label="item.Category.type")
-          md-option(ng-value="category.id" ng-repeat="category in categories") {{category.type}}
-      md-input-container
-        i.fa.fa-coffee
-          |   Product
-        input(ng-model="item.name" type="text" ng-required="true" aria-label="item.name")
-      md-input-container
-        i.fa.fa-globe
-          |   City
-        input(ng-model="item.city" type="text" ng-required="true" aria-label="item.city")
+      div(layout="row" layout-padding)
+        md-input-container(flex-gt-sm)
+          i.fa.fa-list
+          label Categories
+          md-select( ng-model="item.catId" class="select" aria-label="item.catId")
+            md-option(ng-value="category.id" ng-repeat="category in categories") {{category.type}}
+        md-input-container(flex-gt-sm)
+          i.fa.fa-coffee
+          label Product
+          input(ng-model="item.name" type="text" ng-required="true" aria-label="item.name")
+      div(layout="column")
+      h3.md-subheader Address
+      div(layout="row" layout-padding)
+        md-input-container(flex-gt-sm)
+          i.fa.fa-street-view
+          label Street
+          input(ng-model="item.street" type="text" ng-required="true" aria-label="item.street")
+        md-input-container(flex-gt-sm)
+          i.fa.fa-globe
+          label  City
+          input(ng-model="item.city" type="text" ng-required="true" aria-label="item.city")
+      h3.md-subheader Contact
+      div(layout="row" layout-padding)
+        md-input-container(flex-gt-sm)
+          i.fa.fa-mobile
+          label Phone
+          input(ng-model="item.phone" type="text" ng-required="true" aria-label="item.phone")
+        md-input-container(flex-gt-sm)
+          i.fa.fa-envelope
+          label Email
+          input(ng-model="item.email" type="text" ng-required="true" aria-label="item.email")
       md-input-container
         i.fa.fa-file-text
-          |   Description
+        label Description
         textarea(ng-model="item.description" type="text" ng-required="true" rows="5" aria-label="item.description")
       br
-      md-button.md-raised.md-warn(class="login-button" type="submit")
+      md-button.md-raised.md-accent(class="login-button" type="submit")
         i(class="fa fa-plus-circle")
         | Add

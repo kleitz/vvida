@@ -16,7 +16,10 @@
               category_id: req.body.catId,
               name: req.body.name,
               city: req.body.city,
-              description: req.body.description
+              description: req.body.description,
+              street: req.body.street,
+              phone: req.body.phone,
+              email: req.body.email
             })
             .then(function(item) {
               if (!item) {
@@ -27,6 +30,7 @@
               res.json(item);
             })
             .catch(function(err) {
+              console.log(err);
               res.status(500).send({
                 error: err.message || err.errors[0].message
               });

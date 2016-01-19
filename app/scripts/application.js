@@ -113,8 +113,8 @@
 
       // Now set up the states
       $mdThemingProvider.theme('default')
-        .primaryPalette('green')
-        .accentPalette('orange');
+        .primaryPalette('teal')
+        .accentPalette('pink');
 
       $stateProvider
         .state('home', {

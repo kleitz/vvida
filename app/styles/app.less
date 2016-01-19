@@ -1,7 +1,8 @@
 body {
-  font-family: "Roboto", "Open Sans", "Arial", "Verdana", "Montserrat", sans-serif;
+  font-family: "Roboto", "Open Sans", "Arial", "Verdana", sans-serif;
   font-size: 1em;
   width: 100%;
+  text-transform: none;
 }
 
 h1,
@@ -41,7 +42,7 @@ header {
 }
 
 .footer {
-  background-color: #389F38;
+  background-color: #222;
   width: 100%;
   height: auto;
   padding-bottom: 30px;
@@ -412,7 +413,6 @@ md-sidenav.md-sidenav-left {
   margin: 0 auto;
   margin-bottom: 20px;
   margin-top: 20px;
-  background-color: #FF9800;
   .file-upload {
     position: relative;
     overflow: hidden;
@@ -707,10 +707,12 @@ md-sidenav.md-sidenav-left {
   }
 }
 
-md-toolbar:not(.md-menu-toolbar).md-accent {
-  background-color: #389F38;
-  color: black;
-  text-transform: none;
+md-toolbar.navbar {
+  background-color: rgba(255, 255, 255, 0.3);
+  & .md-button {
+    color: #ff4081;
+    font-weight: normal;
+  }
 }
 
 .popular-events {
@@ -755,12 +757,46 @@ md-toolbar:not(.md-menu-toolbar).md-accent {
   padding: 15px;
 }
 
-blockquote {
-  margin: auto;
-  padding-left: 5px;
-  border-left: 1px solid #000;
-}
-
 a {
   text-decoration: none;
+  color: #ff4081;
+  &:visited {
+    color: #009090;
+  }
+}
+
+.truncate {
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-style: italic;
+  height: 20px;
+}
+
+.md-button {
+  text-transform: none;
+}
+
+.fa {
+  color: #009090;
+  font-size: 1.2em;
+}
+
+.itemreviews {
+  border: 1px solid #009090;
+  border-radius: 2px;
+}
+
+.categorylist {
+  max-width: 50px;
+  padding: 5px;
+}
+
+.left-border {
+  border-left: 1px solid #777;
+  &.itemcity {
+    width: 200px;
+    color: #555;
+  }
 }
