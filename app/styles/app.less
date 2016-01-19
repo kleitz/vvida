@@ -1,7 +1,8 @@
 body {
-  font-family: "Roboto", "Open Sans", "Arial", "Verdana", "Montserrat", sans-serif;
+  font-family: "Roboto", "Open Sans", "Arial", "Verdana", sans-serif;
   font-size: 1em;
   width: 100%;
+  text-transform: none;
 }
 h1,
 h2,
@@ -43,7 +44,7 @@ header {
   }
 }
 .footer {
-  background-color: #389F38;
+  background-color: #222;
   width: 100%;
   height: auto;
   padding-bottom: 30px;
@@ -378,7 +379,6 @@ md-sidenav.md-sidenav-left {
   margin: 0 auto;
   margin-bottom: 20px;
   margin-top: 20px;
-  background-color: #FF9800;
   .file-upload {
     position: relative;
     overflow: hidden;
@@ -649,49 +649,12 @@ md-sidenav.md-sidenav-left {
     color: white;
   }
 }
-md-item-content {
-  width: 100%;
-}
-md-content.md-default-theme {
-  background-color: #eee;
-}
-md-card {
-  background-color: #fff;
-  h2:first-of-type {
-    margin-top: 0;
+md-toolbar.navbar {
+  background-color: rgba(255, 255, 255, 0.3);
+  & .md-button {
+    color: #ff4081;
+    font-weight: normal;
   }
-}
-md-toolbar {
-  .md-button.md-default-theme {
-    border-radius: 99%; // round toolbar buttons
-  }
-}
-h2 {
-  font-weight: 400;
-}
-.md-toolbar-tools-bottom {
-  font-size: small;
-  & :last-child {
-    opacity: 0.8;
-  }
-}
-md-toolbar:not(.md-hue-1),
-.md-fab {
-  fill: #fff;
-}
-md-sidenav {
-  fill: #737373;
-  ng-md-icon {
-    position: relative;
-    top: 5px; // adjust for svg viewbox
-  }
-}
-.user-avatar {
-  border-radius: 99%;
-}
-md-toolbar:not(.md-menu-toolbar).md-accent {
-  background-color: #689F38;
-  color: black;
 }
 .popular-events {
   md-grid-tile-footer {
@@ -744,14 +707,48 @@ md-toolbar:not(.md-menu-toolbar).md-accent {
   padding: 15px;
 }
 
-blockquote {
-  margin: auto;
-  padding-left: 5px;
-  border-left: 1px solid #000;
-}
-
 a {
   text-decoration: none;
+  color: #ff4081;
+  &:visited {
+    color: #009090;
+  }
+}
+
+.truncate {
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-style: italic;
+  height: 20px;
+}
+
+.md-button {
+  text-transform: none;
+}
+
+.fa {
+  color: #009090;
+  font-size: 1.2em;
+}
+
+.itemreviews {
+  border: 1px solid #009090;
+  border-radius: 2px;
+}
+
+.categorylist {
+  max-width: 50px;
+  padding: 5px;
+}
+
+.left-border {
+  border-left: 1px solid #777;
+  &.itemcity {
+    width: 200px;
+    color: #555;
+  }
 }
 
 .remove-link-deco {
