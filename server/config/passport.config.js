@@ -8,11 +8,11 @@ module.exports = {
   },
   'GOOGLE': {
     clientID: process.env.GOOGLE_ID ||
-      '893360311572-s0cnhs0ffojknftltkmm9cbj1p078d7o.apps.googleusercontent.com',
-    clientSecret: process.env.GOOGLE_SECRET || 'jDV73toE_qjEkjg32p8dNwZ7',
-    callbackURL: process.env.GOOGLE_CALLBACK_URL || 'http://localhost:3000/auth/google/callback'
-      // returnURL: 'http://localhost:3000/auth/google/callback',
-      // realm: 'http://localhost:3000/',
-      // passReqToCallback: true
+      '916695311856-7ilao3fc6r9pjii54rbifp7suqbrmnsr.apps.googleusercontent.com',
+    clientSecret: process.env.GOOGLE_SECRET || 'YDNPeixo_lcotLvFqgMPk4es',
+    callbackURL: process.env.GOOGLE_CALLBACK_URL || 'http://127.0.0.1:3000/auth/google/callback'
+    // returnURL: 'http://localhost:3000/auth/google/callback',
+    // realm: 'http://localhost:3000/',
+    // passReqToCallback: true
   }
 };
