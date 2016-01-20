@@ -1,5 +1,5 @@
 angular.module('vvida.services')
-  .service('modalService', ['$mdDialog', function($mdDialog) {
+  .service('ModalService', ['$mdDialog', function($mdDialog) {
     return function(ev, title, content) {
       $mdDialog.show({
         controller: DialogController,
