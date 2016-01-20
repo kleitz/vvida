@@ -72,7 +72,6 @@
                 cb(err, null);
               });
             } else {
-              console.log('Here-4!');
               cb(result.error, null);
             }
           });
@@ -103,7 +102,6 @@
             req.info.db = {
               error: 'Delete failed'
             };
-
             res.status(500).send(req.info);
           } else {
             req.info.db = {
