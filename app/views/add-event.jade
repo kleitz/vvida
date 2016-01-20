@@ -1,33 +1,33 @@
 md-content(ng-controller='EventCtrl' layout='column', layout-md='column', layout-sm='column', flex='100')
-	form(method='post', enctype='multipart/data', ng-submit='addEvent()')
-		md-input-container
-			label
-				i.fa.fa-glass &nbsp;&nbsp;&nbsp;Event Name
-			input(type='text', ng-model='event.name', ng-required='true', aria-label='event.name')
-		md-input-container
-			label
-				i.fa.fa-file-text &nbsp;&nbsp;&nbsp;Description
-			textarea(ng-model='event.description', rows='3', ng-required='true', aria-label='event.description')
-		md-input-container
-			label
-				i.fa.fa-map-marker &nbsp;&nbsp;&nbsp;Location
-			input(ng-model='event.location', type='text', ng-required='true', aria-label='event.location')
-		md-input-container
-			label
-				i.fa.fa-university &nbsp;&nbsp;&nbsp;Venue
-			input(ng-model='event.venue', type='text', ng-required='true', rows='2', aria-label='event.venue')
-		time-date-picker(ng-model="date")
-		md-datepicker(ng-model='event.time', md-placeholder='Start date')
-		md-datepicker(ng-model='event.time', md-placeholder='End date')
-		br
-		br
-		label
-			i.fa.fa-thumbs-o-up &nbsp;&nbsp;&nbsp; Sponsors
-		md-chips(ng-model="event.sponsors" readonly="readonly")
-			md-chip-template
-				strong {{$chip}}
-				em (Sponsor)
-		br
-		md-button.md-raised.md-warn.login-button(type='submit')
-			i.fa.fa-plus-circle
-			| Add
+  form(method='post', enctype='multipart/data', ng-submit='addEvent()')
+    md-input-container
+      label
+        i.fa.fa-glass &nbsp;&nbsp;&nbsp;Event Name
+      input(type='text', ng-model='event.name', ng-required='true', aria-label='event.name')
+    md-input-container
+      label
+        i.fa.fa-file-text &nbsp;&nbsp;&nbsp;Description
+      textarea(ng-model='event.description', rows='3', ng-required='true', aria-label='event.description')
+    md-input-container
+      label
+        i.fa.fa-map-marker &nbsp;&nbsp;&nbsp;Location
+      input(ng-model='event.location', type='text', ng-required='true', aria-label='event.location')
+    md-input-container
+      label
+        i.fa.fa-university &nbsp;&nbsp;&nbsp;Venue
+      input(ng-model='event.venue', type='text', ng-required='true', rows='2', aria-label='event.venue')
+    time-date-picker(ng-model="date")
+    md-datepicker(ng-model='event.time', md-placeholder='Start date')
+    md-datepicker(ng-model='event.time', md-placeholder='End date')
+    br
+    br
+    label
+      i.fa.fa-thumbs-o-up &nbsp;&nbsp;&nbsp; Sponsors
+    md-chips(ng-model="event.sponsors" readonly="readonly")
+      md-chip-template
+        strong {{$chip}}
+        em (Sponsor)
+    br
+    md-button.md-raised.md-warn.login-button(type='submit')
+      i.fa.fa-plus-circle
+      | Add
