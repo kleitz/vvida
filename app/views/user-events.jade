@@ -1,25 +1,25 @@
 md-card-content.content
-	p.md-headline.user-events-msg {{message}}
-	div(ng-repeat='x in events.Events')
-		div
-			div(layout-gt-sm="row" layout='column' layout-align-gt-sm='start start' layout-align='start center')
-				.md-padding
-					md-card.ripple-container.prof-child-img(md-ink-ripple flex)
-						.card-images.md-card-image.bg-img-event
-				.md-padding(flex layout='column' layout-align-gt-sm='start start' layout-align='start center')
-					p.md-headline.packed-bottom.bold-title {{x.name}}
-					p.md-subhead.packed
-						span.fa.fa-clock-o   {{parseDate(x.time)}}
-							md-tooltip Date and Time
-					p.md-subhead.packed
-						span.fa.fa-building-o   {{x.venue}}, {{x.location}}
-							md-tooltip Venue and Location
-					p.packed
-						span.fa.fa-users   {{x.sponsor}}
-							md-tooltip Sponsor
-			p {{x.description}}
-				md-tooltip Event Description
-		md-divider.prof-divider
-	md-button.md-fab.add-event-btn(ng-click="addEventModal($event)")
-		span.fa.fa-plus
-		md-tooltip(md-direction='left') Add a new event
+  p.md-headline.user-events-msg {{message}}
+  div(ng-repeat='x in events.Events')
+    div
+      div(layout-gt-sm="row" layout='column' layout-align-gt-sm='start start' layout-align='start center')
+        .md-padding
+          md-card.ripple-container.prof-child-img(md-ink-ripple flex)
+            .card-images.md-card-image.bg-img-event
+        .md-padding(flex layout='column' layout-align-gt-sm='start start' layout-align='start center')
+          p.md-headline.packed-bottom.bold-title {{x.name}}
+          p.md-subhead.packed
+            span.fa.fa-clock-o   {{parseDate(x.time)}}
+              md-tooltip Date and Time
+          p.md-subhead.packed
+            span.fa.fa-building-o   {{x.venue}}, {{x.location}}
+              md-tooltip Venue and Location
+          p.packed
+            span.fa.fa-users   {{x.sponsor}}
+              md-tooltip Sponsor
+      p {{x.description}}
+        md-tooltip Event Description
+    md-divider.prof-divider
+  md-button.md-fab.add-event-btn(ng-click="addEventModal($event)")
+    span.fa.fa-plus
+    md-tooltip(md-direction='left') Add a new event

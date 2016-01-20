@@ -3,6 +3,7 @@ angular.module('vvida.services', [])
     this.toast = function(msg) {
       $mdToast.show($mdToast.simple().content(msg));
     };
+
     this.dialog = function(title, message, event, callback) {
       $mdDialog.show(
           $mdDialog.confirm()
@@ -18,5 +19,30 @@ angular.module('vvida.services', [])
         .then(function() {
           callback();
         }, function() {});
+    };
+
+    this.modal = function(ev, title, content) {
+      $mdDialog.show({
+        controller: DialogController,
+        templateUrl: 'views/modal.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        clickOutsideToClose: true,
+        fullscreen: true
+      });
+
+      function DialogController($scope, $mdDialog) {
+
+        $scope.modalContent = title;
+        $scope.modalTitle = content;
+
+        $scope.hide = function() {
+          $mdDialog.hide();
+        };
+
+        $scope.cancel = function() {
+          $mdDialog.cancel();
+        };
+      }
     };
   });

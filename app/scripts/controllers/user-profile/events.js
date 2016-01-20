@@ -4,8 +4,8 @@ angular.module('vvida.controllers')
     '$rootScope',
     '$state',
     'Users',
-    'modalService',
-    function($scope, $rootScope, $state, Users, modalService) {
+    'Utils',
+    function($scope, $rootScope, $state, Users, Utils) {
 
       if ($rootScope.currentUser) {
         Users.events($rootScope.currentUser, function(err, res) {
@@ -25,7 +25,7 @@ angular.module('vvida.controllers')
       }
 
       $scope.addEventModal = function(ev) {
-        modalService(ev, 'event', 'Create an Event');
+        Utils.modal(ev, 'event', 'Create an Event');
       };
     }
   ]);

@@ -1,6 +1,6 @@
-div.not-loggedin-div(ng-if="!currentUser")
+.not-loggedin-div(ng-if="!currentUser")
   md-card.profile-body.edit-profile(layout="column" layout-align="center center")
-    div.profile-pic
+    .profile-pic
       img(src="images/lock.png")
     p.md-headline.packed-bottom You are currently not logged in.
     p.md-headline.packed-top Click below to login or signup  to continue using vvida.
@@ -61,8 +61,8 @@ md-card.items(layout="column" flex="55" ng-if="currentUser" ng-init="getItem()")
               br
               div(ng-init="showToast() && uploader.clearQueue()" ng-if="uploader.progress === 100 && !uploader.isUploading")
               md-button.md-raised.md-primary(ng-click="uploader.uploadAll()", ng-disabled="!uploader.getNotUploadedItems().length && uploader.isUploading")
-                  i.fa.fa-cloud-upload
-                  | upload
+                i.fa.fa-cloud-upload
+                | upload
                 md-button.md-raised.md-warn(ng-click="uploader.cancelAll()", ng-disabled="!uploader.isUploading")
                   i.fa.fa-ban
                   | cancel

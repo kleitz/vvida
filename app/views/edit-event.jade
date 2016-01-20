@@ -3,7 +3,6 @@ md-card.items(layout='column' flex='55')
   md-card-content
     md-subheader.md-no-sticky  Below is you product information, read through carefully to ensure your product information is accurate, edit when necceasry. Ensure you upload images for your product.
 
-
 md-card.items(layout='column' flex='55' ng-init="getEvent()")
   br
   md-content
@@ -31,7 +30,7 @@ md-card.items(layout='column' flex='55' ng-init="getEvent()")
               input(ng-model="event.venue" type="text" ng-required="true" rows='2' aria-label="event.venue")
 
             i.fa.fa-university
-                |   Venue
+              |   Venue
               md-datepicker(ng-model="event.time" md-placeholder="Enter start date" )
 
             md-input-container
@@ -59,16 +58,14 @@ md-card.items(layout='column' flex='55' ng-init="getEvent()")
                   br
                 md-progress-linear.md-primary(md-mode='determinate', value='{{item.progress}}')
                 br
-
               md-divider
               br
-
               md-progress-linear.md-primary(md-mode='determinate', value='{{uploader.progress}}')
               br
               div(ng-init="showToast() && uploader.clearQueue()" ng-if="uploader.progress === 100 && !uploader.isUploading")
               md-button.md-raised.md-primary(ng-click='uploader.uploadAll()', ng-disabled='!uploader.getNotUploadedItems().length && uploader.isUploading')
-                  i.fa.fa-cloud-upload
-                  | upload
+                i.fa.fa-cloud-upload
+                | upload
                 md-button.md-raised.md-warn(ng-click='uploader.cancelAll()', ng-disabled='!uploader.isUploading')
                   i.fa.fa-ban
                   | cancel
@@ -81,7 +78,3 @@ md-card.items(layout='column' flex='55' ng-init="getEvent()")
           md-subheader(ng-if="event.Images.length < 1")  No uploaded images, Please ensure you upload images in the upload image tab
           md-card.ripple-container(md-ink-ripple flex ng-repeat="image in event.Images")
             .card-images.md-card-image(style='background-image: url({{image.img_url}})')
-
-
-
-

@@ -17,8 +17,7 @@
   require('./services/token');
   require('./services/auth');
   require('./services/token-injector');
-  require('./services/modal');
-
+  
   // Require Controllers
   require('./controllers/footer');
   require('./controllers/home');
@@ -47,7 +46,7 @@
     'ui.router',
     'ngResource',
     'ngMaterial',
-    'angularFileUpload',
+    'angularFileUpload'
   ]);
 
   window.app.run(['$rootScope', '$location', '$state', '$mdSidenav', 'Users',

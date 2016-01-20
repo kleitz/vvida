@@ -1,4 +1,4 @@
-div.md-padding(layout="row" ng-init="getItem()")
+.md-padding(layout="row" ng-init="getItem()")
   a.md-subheadline(ui-sref="items") Products
   a.md-subheadline(ui-sref="categoryItems({catId: item.category_id})") &nbsp;> {{item.Category.type}}
   a.md-subheadline &nbsp; > {{item.name}}
@@ -7,7 +7,7 @@ div(layout="row" layout-align="start start" flex)
   div(layout="column" flex="50")
     h3.md-subheader.md-padding Gallery Images - {{item.name}}
     div(layout="row" layout-margin)
-      div.thumbs(layout="column" layout-align="start start")
+      .thumbs(layout="column" layout-align="start start")
         img.face(ng-click="setImage(image)" ng-repeat="image in images" ng-src="{{image.img_url}}")
       div(style="background: url('{{selectedImage.img_url || images[0].img_url}}') no-repeat center center;")
     md-divider
@@ -18,7 +18,7 @@ div(layout="row" layout-align="start start" flex)
       span {{item.description}}
     md-divider
 
-  div.left-border(flex="49" layout-margin layout-padding)
+  .left-border(flex="49" layout-margin layout-padding)
     md-content
       md-list
         h3.md-subheader(layout layout-padding) Reviews for {{item.name}} {{item.city}}
@@ -29,7 +29,3 @@ div(layout="row" layout-align="start start" flex)
             h4 {{review.review_title}}
             p {{review.rating}}
           md-divider
-        
-
-
-
