@@ -3,7 +3,7 @@ angular.module('vvida.controllers')
   '$rootScope',
   'Users',
   'ModalService',
-  function($scope, $rootScope, Users, modalService) {
+  function($scope, $rootScope, Users, ModalService) {
     if ($rootScope.currentUser) {
       Users.items($rootScope.currentUser, function(err, res) {
         if (err) {
