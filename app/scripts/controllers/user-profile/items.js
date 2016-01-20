@@ -2,8 +2,8 @@ angular.module('vvida.controllers')
   .controller('UserProductsCtrl', ['$scope',
   '$rootScope',
   'Users',
-  'ModalService',
-  function($scope, $rootScope, Users, ModalService) {
+  'Utils',
+  function($scope, $rootScope, Users, Utils) {
     if ($rootScope.currentUser) {
       Users.items($rootScope.currentUser, function(err, res) {
         if (err) {
@@ -18,7 +18,7 @@ angular.module('vvida.controllers')
     }
 
     $scope.addItemModal = function(ev) {
-      ModalService(ev, 'item', 'Create an Item');
+      Utils.modal(ev, 'item', 'Create an Item');
     };
 
   }]);
