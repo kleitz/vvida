@@ -2,8 +2,9 @@
   'use strict';
   angular.module('vvida.controllers')
     .controller('EventCtrl', ['$scope', '$state', '$stateParams', '$filter',
-      'FileUploader', 'Utils', 'Events',
-      function($scope, $state, $stateParams, $filter, FileUploader, Utils, Events) {
+      '$mdSidenav', 'FileUploader', 'Utils', 'Events',
+      function($scope, $state, $stateParams, $filter, $mdSidenav,
+        FileUploader, Utils, Events) {
         // create event
         $scope.addEvent = function() {
           Events.save($scope.event, function(event) {
@@ -17,14 +18,33 @@
           });
         };
 
+        // Sidebar Navigation control
+        $scope.close = function() {
+          $mdSidenav('eventNav').close();
+        };
+
+        $scope.toggleSidenav = function() {
+          $mdSidenav('eventNav').toggle();
+        };
+
+        // Set filter for event list
+        // event model to be updated for list filter
+        $scope.setCat = function(listName) {
+          $scope.eventCat = listName;
+          $scope.close();
+        };
+
         //Get the eventId
         $scope.init = function() {
           $scope.event = {
             eventId: $stateParams.id
           };
 
+          $scope.eventCat = 'Popular Events';
+
           $scope.loadEvents = Events.query();
 
+          // Data for event type lists
           $scope.lists = [{
             name: 'Popular Events'
           }, {
@@ -36,6 +56,7 @@
           }];
         };
 
+        // format date data
         $scope.parseTime = function(eventTime) {
           return $filter('date')(eventTime, 'EEEE dd MMM yyyy hh:mm a');
         };

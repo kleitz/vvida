@@ -1,32 +1,38 @@
-div
-  span(ng-show='loadEvents.length === 0' class="no_events_msg") There are currently no events.
+span(ng-show="loadEvents.length === 0" class="no_events_msg") There are currently no events.
 
-  div(ng-show='loadEvents.length !== 0')
+div(layout="row" ng-show="loadEvents.length !== 0")
+  md-sidenav.md-sidenav-left.md-whiteframe-z2(md-component-id="eventNav" md-is-locked-open="$mdMedia(\"gt-md\")")
+    md-toolbar
+      h1.md-toolbar-tools(ui-sref="events") Browse by
+    md-content
+      md-button.btn-style(ng-click="setCat(list.name)" md-ink-ripple ng-repeat="list in lists" )  {{list.name}}
+      md-divider
+      md-button.btn-style(md-ink-ripple hide-gt-md ng-click="close()") Close
 
-    div(layout="row" layout-align="center start" layout-align-gt-sm="start start" layout-fill)
-      md-sidenav.md-sidenav-left.md-whiteframe-z2(md-component-id="eventNav" md-is-locked-open="$mdMedia(\"gt-md\")")
-        md-toolbar
-          h1.md-toolbar-tools(ui-sref="events") Browse by
-        md-content
-          md-button.btn-style(md-ink-ripple ng-repeat="list in lists" )  {{list.name}}
-          md-divider
-      div(layout="column" layout-gt-sm="row" layout-align="center center" layout-wrap flex)
-        div.eventList(ng-repeat="event in loadEvents" layout="column" layout-margin layout-align="center center" flex-sm-xs="50" flex-gt-md="25")
-          .card-images(style="background-image:url('{{event.Images[0].img_url}}');")
-          h3.md-padding {{event.name}}
-          md-grid-tile-footer
-            md-list
-              md-list-item
-                div.md-padding(style="width:260px;") 
-                  h4 {{event.description}}
-              md-list-item
-                span.fa.fa-map-marker &nbsp;&nbsp; {{event.location}}
-              md-list-item
-                span.fa.fa-hand-o-right &nbsp;&nbsp; {{event.venue}}
-              md-list-item
-                span.fa.fa-calendar &nbsp;&nbsp; {{parseTime(event.time)}}
-              md-list-item
-                div
-                  i(ng-src="")
-                  h4 {{event.sponsor}}
+  
+  div(layout="column")
+    div.events.md-padding(layout="row" layout-align="start center")
+      md-button.md-icon-button(ng-click="toggleSidenav()" aria-label="Events Menu")
+        i.fa.fa-bars(hide-gt-md)
+      h3.md-subheadline {{eventCat || "Recent Events"}}
+
+    md-content(layout-wrap layout="row" flex layout-xs="column" layout-align="center" )
+      div.eventList(flex-gt-sm="33" flex-sm="90" ng-repeat="event in loadEvents" )             
+        .eventImages(style="background-image: url('{{event.Images[0].img_url}}');")
+        h3 {{event.name}}
+        md-list
+          md-list-item
+            h4.md-padding {{event.description}}
+            md-divider
+          md-list-item
+            span.fa.fa-map-marker &nbsp;&nbsp; {{event.location}}
+          md-list-item
+            span.fa.fa-hand-o-right &nbsp;&nbsp; {{event.venue}}
+          md-list-item
+            span.fa.fa-calendar &nbsp;&nbsp; {{parseTime(event.time)}}
+          md-list-item
+            div(layout="row")
+              i.fa.fa-thumb-tack
+              h4 &nbsp;&nbsp;{{event.sponsor}}
+
 

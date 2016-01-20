@@ -182,11 +182,44 @@ md-toolbar,
   width: 100%;
 }
 
+.eventImages {
+  background: center center no-repeat;
+  background-size: cover;
+  height: 250px;
+}
+
+.events {
+  border: 1px solid teal;
+  & h3 {
+    margin: 0px;
+    color: red;
+    padding: 5px;
+  }
+}
+
 .eventList {
-  width: 300px;
-  height: 400px;
+  > h3 {
+    background-color: #82b4b7;
+    text-align: center;
+    padding: 5px;
+    margin-top: 10px;
+    border-radius: 10px;
+  }
+  margin: 1px;
   border-radius: 10px;
-  border: 2px solid #efedef;
+  border: 2px solid #009090;
+  >md-list {
+    >md-list-item {
+      text-align: left;
+      > h4 {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-style: italic;
+        height: 20px;
+      }
+    }
+  }
 }
 
 .jumbotron-image {

@@ -134,7 +134,7 @@
           controller: 'EventCtrl',
           templateUrl: 'views/events.html'
         })
-      .state('items', {
+        .state('items', {
           url: '/items',
           controller: 'ItemCtrl',
           templateUrl: 'views/items.html'
