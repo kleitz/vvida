@@ -19,7 +19,7 @@
         };
 
         $scope.rate = function(n) {
-          $scope.itemReview.rating=n;
+          $scope.itemReview.rating = n;
         };
 
         $scope.maxReview = function(itemReviews) {
@@ -27,6 +27,20 @@
             return review.rating;
           });
         };
+
+        $scope.averageReview = function(itemReviews) {
+          if (itemReviews) {
+            var sum = 0;
+            var count = 0;
+            itemReviews.forEach(function(review) {
+              sum += review.rating;
+              count += 1;
+            });
+            return sum / count;
+          }
+        };
+
+
 
         $scope.getCategory = function() {
           // load the categoryItems
@@ -91,6 +105,8 @@
           $scope.categoryId = $stateParams.catId;
           // initialize scope.item for model
           $scope.item = {};
+
+
         };
 
         $scope.updateItem = function() {
@@ -107,7 +123,6 @@
           $scope.uploader.uploadAll();
         };
 
-        $scope.init();
       }
     ]);
 })();

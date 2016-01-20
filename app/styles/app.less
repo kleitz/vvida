@@ -744,6 +744,14 @@ md-toolbar.navbar {
   margin: 10px;
 }
 
+.thumbs {
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  width: 300px;
+  height: 100px;
+  margin: 10px;
+}
+
 .btn-style {
   margin: 0;
   font-size: 16px;
@@ -778,8 +786,13 @@ a {
   text-transform: none;
 }
 
-.fa {
+.colorteal {
   color: #009090;
+  font-size: 1.2em;
+}
+
+.colorpink {
+  color: #ff4081;
   font-size: 1.2em;
 }
 
@@ -801,43 +814,72 @@ a {
   }
 }
 
+.item-padding {
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
 .rating {
-  unicode-bidi: bidi-override;
-  direction: rtl;
-  text-align: center;
-  font-size: 30px;
-}
+  unicode-bidi:bidi-override;
+  direction:rtl;
+  text-align:center;
+  font-size:30px;
 
-.rating > span {
-  display: inline-block;
-  position: relative;
-  width: 1.1em;
-}
+  > span:hover:before, > span:hover ~ span:before {
+    content:"\2605";
+    position:absolute;
+    left:0;
+    color:#ff4081;
+  }
 
-.rating > span:hover,
-.rating > span:hover ~ span {
-  color: transparent;
-}
-
-.rating > span:hover:before,
-.rating > span:hover ~ span:before {
-   content: "\2605";
-   position: absolute;
-   left: 0; 
-   color: #ff4081;
+  > span {
+    display:inline-block;
+    position:relative;
+    width:1.1em;
+  }
+  
+  > span:hover {
+     ~ span {
+      color:transparent;
+    }
+  }
 }
 
 .stared {
-   content: "\2605";
-   position: absolute;
-   left: 0; 
-   color: #ff4081;
+  content: "\2605";
+  position: absolute;
+  left: 0; 
+  color: #ff4081;
 }
 
-.review-button{
-  background:#009090;
-  }
+.item-title {
+  padding-left: 15px; 
+  color: #666;
+}
 
+.rating-box{
+  margin-left:180px;
+}
+
+.average-rating{
+  width:80px;
+  height: 80px;
+  line-height: 80px;
+  background: #009090;
+  > h3 {
+    display:block;
+    margin: 0 auto;
+    color: #666;
+  }
+}
+
+.average-stars{
+  margin: 0 0 0 1px; 
+}
+
+.small{
+  font-size: 12px;
+}
 
 
 
