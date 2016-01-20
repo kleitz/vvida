@@ -17,8 +17,7 @@
   require('./services/token');
   require('./services/auth');
   require('./services/token-injector');
-  require('./services/modal');
-
+  
   // Require Controllers
   require('./controllers/footer');
   require('./controllers/home');
