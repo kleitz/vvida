@@ -47,7 +47,7 @@
     'ui.router',
     'ngResource',
     'ngMaterial',
-    'angularFileUpload',
+    'angularFileUpload'
   ]);
 
   window.app.run(['$rootScope', '$location', '$state', '$mdSidenav', 'Users',
