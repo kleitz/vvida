@@ -3,28 +3,20 @@ md-card.jumbotron.search-jumbotron
     .image-overlay
       p WELCOME HOME
       p.jumbotron-middle-small-text Create, Review, Rate
-  .search-div
-    .search-bar(layout layout-sm="column")
-      .search-section(layout flex)
-        md-input-container(flex)
-          label Product
-          md-icon(class="fa fa-2x fa-puzzle-piece")
+      .search
+        md-input-container.white(flex)
           input(ng-model="search.searchItem")
-      .search-section(layout flex)
-        md-input-container(flex)
-          label Location
-          md-icon(class="fa fa-2x fa-map-marker")
-          input(ng-model="search.location")
-      .search-section(layout)
-        md-input-container.search-button
-          md-button(class="md-warn md-raised")
-            i(class="fa fa-search")
-            | Search
+        md-button.md-raised.md-accent
+          i.fa.fa-search
+          | search
 
 .top-reviews
   h4.md-margin TOP REVIEWS
-  .content-top-reviews(layout="row" layout-sm="column" layout-md="column")
-    md-card.ripple-container(md-ink-ripple flex ng-repeat="review in reviews")
+  .content-top-reviews(layout="row" layout-sm="column" layout-md="column" ng-if="reviews.length < 1")
+    md-card.ripple-container(md-ink-ripple flex)
+      md-card-content
+        p No reviews have been made yet
+    md-card.ripple-container(md-ink-ripple flex ng-repeat="review in reviews | limitTo: 4")
       .card-images.md-card-image(style='background-image: url(images/reviews-photo1.jpg)')
       md-card-content
         p {{review.review}}
@@ -33,8 +25,13 @@ md-card.jumbotron.search-jumbotron
 
 .events
   h4.md-margin EVENTS
+  .content-events(layout="row" layout-sm="column" layout-md="column" ng-if="events.length < 1")
+    md-card.ripple-container(md-ink-ripple flex)
+      md-card-content
+        p No Events available at the moment
+
   .content-events(layout="row" layout-sm="column" layout-md="column")
-    md-card.ripple-container(md-ink-ripple flex ng-repeat="event in events")
+    md-card.ripple-container(md-ink-ripple flex ng-repeat="event in events | limitTo: 4")
       .card-images.md-card-image(style='background-image: url({{event.Images[0].img_url}})')
       md-card-content
         h4.md-display-9 {{event.name}}
@@ -43,13 +40,18 @@ md-card.jumbotron.search-jumbotron
           | read more
 
 .products
-  h4.md-margin PRODUCTS
+  h4.md-margin(ui-sref="items") PRODUCTS
+  .content-products(layout="row" layout-sm="column" layout-md="column" ng-if="items.length < 1")
+    md-card.ripple-container(md-ink-ripple flex)
+      md-card-content
+       p No products are available at the moment
+
   .content-products(layout="row" layout-sm="column" layout-md="column")
-    md-card.ripple-container(md-ink-ripple flex ng-repeat="item in items")
+    md-card.ripple-container(md-ink-ripple flex ng-repeat="item in items | limitTo: 4")
       .card-images.md-card-image(style='background-image: url({{item.Images[0].img_url}}); text-align=justify')
       md-card-content
-        H4 {{item.name}}
+        h4 {{item.name}}
         p {{item.description | limitTo: 200}}
-        md-button.md-raised.md-accent
+        md-button.md-raised.md-accent(ui-sref="viewItem({id:item.id})")
           | read more
 

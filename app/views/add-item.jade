@@ -1,0 +1,53 @@
+div.not-loggedin-div(ng-if="!currentUser")
+  md-card.profile-body.edit-profile(layout="column" layout-align="center center")
+    div.profile-pic
+      img(src="images/lock.png")
+    p.md-headline.packed-bottom You are currently not logged in.
+    p.md-headline.packed-top Click below to login or signup  to continue using vvida.
+    md-button.login-btn(class="md-raised md-primary" aria-label="Login/Signup" ng-click="login()") Go to Login/Signup Page
+
+md-card.items(layout="column" layout-md="column" ng-if="currentUser" layout-sm="column" flex="55")
+  md-card-content.content
+  md-card-content
+    h4.md-header Flll Item Details
+    br
+    form(method="post" enctype="multipart/data" ng-submit="addItems()")
+      div(layout="row" layout-padding)
+        md-input-container(flex-gt-sm)
+          i.fa.fa-list
+          label Categories
+          md-select( ng-model="item.catId" class="select" aria-label="item.catId")
+            md-option(ng-value="category.id" ng-repeat="category in categories") {{category.type}}
+        md-input-container(flex-gt-sm)
+          i.fa.fa-coffee
+          label Product
+          input(ng-model="item.name" type="text" ng-required="true" aria-label="item.name")
+      div(layout="column")
+      h3.md-subheader Address
+      div(layout="row" layout-padding)
+        md-input-container(flex-gt-sm)
+          i.fa.fa-street-view
+          label Street
+          input(ng-model="item.street" type="text" ng-required="true" aria-label="item.street")
+        md-input-container(flex-gt-sm)
+          i.fa.fa-globe
+          label  City
+          input(ng-model="item.city" type="text" ng-required="true" aria-label="item.city")
+      h3.md-subheader Contact
+      div(layout="row" layout-padding)
+        md-input-container(flex-gt-sm)
+          i.fa.fa-mobile
+          label Phone
+          input(ng-model="item.phone" type="text" ng-required="true" aria-label="item.phone")
+        md-input-container(flex-gt-sm)
+          i.fa.fa-envelope
+          label Email
+          input(ng-model="item.email" type="text" ng-required="true" aria-label="item.email")
+      md-input-container
+        i.fa.fa-file-text
+        label Description
+        textarea(ng-model="item.description" type="text" ng-required="true" rows="5" aria-label="item.description")
+      br
+      md-button.md-raised.md-accent(class="login-button" type="submit")
+        i(class="fa fa-plus-circle")
+        | Add
