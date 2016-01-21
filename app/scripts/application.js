@@ -17,7 +17,7 @@
   require('./services/token');
   require('./services/auth');
   require('./services/token-injector');
-  
+
   // Require Controllers
   require('./controllers/footer');
   require('./controllers/home');
@@ -133,7 +133,12 @@
           controller: 'EventCtrl',
           templateUrl: 'views/events.html'
         })
-      .state('items', {
+        .state('viewEvent', {
+          url: '/events/{id}',
+          controller: 'EventCtrl',
+          templateUrl:'views/view-event.html'
+        })
+        .state('items', {
           url: '/items',
           controller: 'ItemCtrl',
           templateUrl: 'views/items.html'
@@ -175,6 +180,13 @@
             }
           }
         })
+        .state('userProfile.editEvent', {
+          url: '/events/{id}/edit',
+          views: {
+            controller: 'EventCtrl',
+            templateUrl: 'views/edit-event.html'
+          }
+        })
         .state('addItem', {
           url: '/items/create',
           controller: 'ItemCtrl',
@@ -194,16 +206,6 @@
           url: '/categories/{catId}',
           controller: 'ItemCtrl',
           templateUrl: 'views/items.html'
-        })
-        .state('addEvent', {
-          url: '/events/create',
-          controller: 'EventCtrl',
-          templateUrl: 'views/add-event.html'
-        })
-        .state('editEvent', {
-          url: '/events/{id}/edit',
-          controller: 'EventCtrl',
-          templateUrl: 'views/edit-event.html'
         })
         .state('login', {
           url: '/users/login',

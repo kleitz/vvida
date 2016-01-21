@@ -17,7 +17,6 @@
         };
 
         //Get the eventId
-        var eventId = $stateParams.id;
         var init = function() {
           $scope.event = {
             eventId: $stateParams.id
@@ -38,15 +37,19 @@
           });
         };
 
-        //load the item
-        if (eventId) {
+        //view an event
+        $scope.getEvent = function () {
           Events.get({
-            id: eventId
+            id: $stateParams.id
           }, function(event) {
             $scope.event = event;
             $scope.event.time = null;
           });
-        }
+        };
+
+        $scope.setImage = function(image) {
+          $scope.selectedImage = image;
+        };
 
         $scope.updateEvent = function() {
           Events.update($scope.event, function(event) {
