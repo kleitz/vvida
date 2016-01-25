@@ -43,7 +43,7 @@ angular.module('vvida.controllers')
               id: $rootScope.currentUser.id
             });
           }, function(err) {
-            console.log(err);
+          //  console.log(err);
             $scope.messageSignup = err.data.error[0].message;
           });
         } else {

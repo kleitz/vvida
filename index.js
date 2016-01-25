@@ -6,7 +6,6 @@ if (env === 'development') {
 var config = require('./server/config')[env],
   express = require('express'),
   path = require('path'),
-  config = require('./server/config')[env],
   multer = require('multer'),
   logger = require('morgan'),
   cookieParser = require('cookie-parser'),
