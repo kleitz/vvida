@@ -1,8 +1,10 @@
 (function() {
   'use strict';
   angular.module('vvida.controllers')
-    .controller('EventCtrl', ['$scope', '$state', '$stateParams', 'FileUploader', 'Utils', 'Events',
-      function($scope, $state, $stateParams, FileUploader, Utils, Events) {
+    .controller('EventCtrl', ['$scope', '$state', '$stateParams', '$filter',
+      '$mdSidenav', 'FileUploader', 'Utils', 'Events',
+      function($scope, $state, $stateParams, $filter, $mdSidenav,
+        FileUploader, Utils, Events) {
         // create event
         $scope.addEvent = function() {
           Events.save($scope.event, function(event) {
@@ -16,29 +18,58 @@
           });
         };
 
-        //Get the eventId
-        var init = function() {
+        // Sidebar Navigation control
+        $scope.close = function() {
+          $mdSidenav('eventNav').close();
+        };
+
+        $scope.toggleSidenav = function() {
+          $mdSidenav('eventNav').toggle();
+        };
+
+        // Set filter for event list
+        // event model to be updated for list filter
+        $scope.setCat = function(listName) {
+          $scope.eventCat = listName;
+          $scope.close();
+        };
+
+        $scope.init = function() {
+          //Get the eventId
           $scope.event = {
             eventId: $stateParams.id
           };
 
-          $scope.readonly = false;
-          // Initilize sponsors' list
-          $scope.event.sponsors = [];
-          $scope.date = new Date();
+          $scope.eventCat = 'Popular Events';
+
+          $scope.loadEvents = Events.query();
+
+          // Data for event type lists
+          $scope.lists = [{
+            name: 'Popular Events'
+          }, {
+            name: 'Concerts'
+          }, {
+            name: 'Exhibitions and Showcases'
+          }, {
+            name: 'Business and Economics'
+          }];
+        };
+
+        // format date data
+        $scope.parseTime = function(eventTime) {
+          return $filter('date')(eventTime, 'EEEE dd MMM yyyy hh:mm a');
+        };
+
+        $scope.getEvent = function() {
+          $scope.eventId = $stateParams.id;
+
           $scope.uploader = new FileUploader({
             url: '/api/image/',
             alias: 'photos',
             formData: [$scope.event],
           });
 
-          Events.query(function(events) {
-            $scope.loadEvents = events;
-          });
-        };
-
-        //view an event
-        $scope.getEvent = function () {
           Events.get({
             id: $stateParams.id
           }, function(event) {
@@ -65,7 +96,7 @@
           $scope.uploader.uploadAll();
         };
 
-        init();
+        $scope.init();
       }
     ]);
 })();

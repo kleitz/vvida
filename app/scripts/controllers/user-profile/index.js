@@ -2,7 +2,7 @@ angular.module('vvida.controllers')
   .controller('UserProfileCtrl', ['$scope', '$rootScope', '$state', 'Users',
     function($scope, $rootScope, $state, Users) {
 
-      $scope.init = function () {
+      $scope.init = function() {
         $scope.menu = [{
           link: 'userProfile.events',
           title: 'Events',
@@ -13,7 +13,7 @@ angular.module('vvida.controllers')
           icon: 'fa fa-th-list'
         }];
 
-        $scope.admin = [{
+        $scope.ownerMenu = [{
           link: 'userProfile.edit',
           title: 'Edit Your Profile',
           icon: 'fa fa-pencil'
@@ -21,6 +21,8 @@ angular.module('vvida.controllers')
 
         // Route to defualt view
         $state.go('userProfile.events');
+
+
 
         Users.eventsCount($rootScope.currentUser, function(err, res) {
           if (err) {
