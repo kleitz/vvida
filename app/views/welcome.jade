@@ -1,7 +1,7 @@
 .welcome-header
   md-card
     md-card-content
-     md-divider
+      md-divider
 .welcome(layout='row')
   div(flex='65')
     md-card
@@ -26,9 +26,9 @@
         md-divider
         md-grid-list.md-padding(md-cols-sm='1', md-cols-md='2', md-cols-gt-md='3', md-row-height-gt-md='1:1', md-row-height='2:2', md-gutter='8px', md-gutter-gt-sm='8px')
           md-grid-tile.green(md-ink-ripple flex ng-repeat="event in events | limitTo: 9"
-           style="background-image: url({{event.Images[0].img_url}}); background-repeat: no-repeat; background-size: 100% 100%;")
-            md-grid-tile-footer
-              h3 {{event.name}}
+            style="background-image: url({{event.Images[0].img_url}}); background-repeat: no-repeat; background-size: 100% 100%;")
+              md-grid-tile-footer
+                h3 {{event.name}}
 
   div(flex='35', hide-sm='')
     md-card

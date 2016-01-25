@@ -1,7 +1,23 @@
 describe('ProfileCtrl tests', function() {
   'use strict';
   var scope,
-    controller, Utils, Users, Countries, $rootScope;
+    testVariables={
+      countries:false
+    },
+    controller,
+    Utils,
+    Users,
+    Countries={
+      all:function(cb){
+        if(testVariables.countries){
+          cb(null,[1,2]);
+        }
+        else{
+          cb(true,null);
+        }
+      }
+    },
+    $rootScope;
   var currentUser = {
     city: 'Nairobi',
     country: 'Kenya',
@@ -40,11 +56,11 @@ describe('ProfileCtrl tests', function() {
       $rootScope = $injector.get('$rootScope');
       $rootScope.currentUser = currentUser;
       controller = $controller('ProfileCtrl', {
-        $scope: scope
+        $scope: scope,
+        Countries: Countries
       });
       Utils = $injector.get('Utils');
       Users = $injector.get('Users');
-      Countries = $injector.get('Countries');
     });
     inject(function(_$rootScope_) {
       $rootScope = _$rootScope_;
@@ -54,8 +70,11 @@ describe('ProfileCtrl tests', function() {
 
 
   it('should init the controller', function() {
+    spyOn(Countries, 'all').and.callThrough();
     scope.init();
     expect(scope.uploader).toBeDefined();
+    expect(scope.gender).toBeTruthy();
+    expect(Countries.all).toHaveBeenCalled();
   });
 
   it('should update user Profile', function() {
@@ -70,6 +89,19 @@ describe('ProfileCtrl tests', function() {
     expect(Utils.toast).toHaveBeenCalledWith('Upload complete');
   });
 
+  it('should call Countries.all and return message', function() {
+    scope.init();
+    expect(scope.countries).toEqual([{
+      name: 'No countries available.'
+    }]);
+  });
+
+  it('should call Countries.all', function() {
+    testVariables.countries=true;
+    scope.init();
+    expect(scope.countries).toEqual([1,2]);
+  });
+
   it('should call uploader.uploadAll', function() {
     scope.init();
     expect(scope.uploader.uploadAll).toBeDefined();
@@ -77,11 +109,5 @@ describe('ProfileCtrl tests', function() {
     scope.upload();
     expect(scope.uploader.uploadAll).toHaveBeenCalled();
     expect(scope.uploader.onCompleteItem).toBeDefined();
-
   });
-
-  it('should Countries.getCountries should be defined', function() {
-    expect(Countries.getCountries).toBeDefined();
-  });
-
 });

@@ -22,6 +22,14 @@ img {
   border-radius: 4px;
 }
 
+input {
+  width: 100%!important;
+}
+
+.text-center {
+  text-align: center;
+}
+
 header {
   height: 50px;
   margin: 0 auto;
@@ -158,10 +166,6 @@ md-toolbar,
   .toolbar-fix;
 }
 
-md-toolbar.md-menu-toolbar {}
-
-.menu-button {}
-
 .ripple-container {
   position: relative;
 }
@@ -176,6 +180,46 @@ md-toolbar.md-menu-toolbar {}
   background-size: cover;
   height: 260px;
   width: 100%;
+}
+
+.eventImages {
+  background: center center no-repeat;
+  background-size: cover;
+  height: 250px;
+}
+
+.events {
+  border: 1px solid teal;
+  & h3 {
+    margin: 0px;
+    color: red;
+    padding: 5px;
+  }
+}
+
+.eventList {
+  > h3 {
+    background-color: #82b4b7;
+    text-align: center;
+    padding: 5px;
+    margin-top: 10px;
+    border-radius: 10px;
+  }
+  margin: 1px;
+  border-radius: 10px;
+  border: 2px solid #009090;
+  >md-list {
+    >md-list-item {
+      text-align: left;
+      > h4 {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-style: italic;
+        height: 20px;
+      }
+    }
+  }
 }
 
 .jumbotron-image {
@@ -214,7 +258,7 @@ nav {
   float: right;
   p {
     color: white;
-    font-size: .9rem;
+    font-size: 0.9rem;
     width: 85px;
     height: 60px;
     text-align: center;
@@ -333,7 +377,7 @@ h3 {
   }
   .text {
     color: white;
-    font-size: x-large
+    font-size: x-large;
   }
 }
 
@@ -381,13 +425,25 @@ h3 {
   }
 }
 
+md-tabs {
+  > md-tabs-wrapper {
+    > md-tabs-canvas {
+      > md-pagination-wrapper {
+        > md-tab-item:not([disabled]).md-active {
+          color: #009090;
+        }
+      }
+    }
+  }
+}
+
 .sign-up {
   margin: 0 auto;
   margin-top: 50px;
   width: 700px;
   margin-bottom: 10px;
   .third-party-button {
-    width: 230px;
+    width: 150px;
   }
   .custom-signup {
     margin: 0 auto;
@@ -434,7 +490,7 @@ md-sidenav.md-sidenav-left {
 }
 
 .profile-body {
-  border-width: 0px 1px 1px 1px;
+  border-width: 0 1px 1px 1px;
   border-style: solid;
   border-color: rgb(204, 204, 200);
   width: 1200px;
@@ -486,7 +542,7 @@ md-sidenav.md-sidenav-left {
     }
     @keyframes blink {
       to {
-        opacity: .0;
+        opacity: 0.0;
       }
     }
     ::selection {
@@ -586,11 +642,13 @@ md-sidenav.md-sidenav-left {
     margin-left: 80px;
   }
   .button {
-    width: 250px
+    width: 200px;
   }
 }
 
-// REVIEW STYLES
+
+/*REVIEW STYLES*/
+
 .center-review-inputs {
   h3 {
     font-size: 2.3em;
@@ -625,8 +683,11 @@ md-sidenav.md-sidenav-left {
 }
 
 .profile-pic {
-  width: 215px;
-  height: 215px;
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+  margin: 0 110px;
+  padding: 0;
 }
 
 .bold-title {
@@ -661,28 +722,35 @@ md-sidenav.md-sidenav-left {
   }
 }
 
+.no_events_msg {
+  margin: 4.5% 40%;
+  display: block;
+  position: relative;
+  font-variant: small-caps;
+  font-stretch: ultra-expanded;
+}
+
 .bg-img-male {
-  background-image: url('../images/male.png')
+  background-image: url(../images/male.png);
 }
 
 .bg-img-female {
-  background-image: url('../images/female.png')
+  background-image: url(../images/female.png);
 }
 
 .bg-img-product {
-  background-image: url('../images/product.png')
+  background-image: url(../images/product.png);
 }
 
 .bg-img-event {
-  background-image: url('../images/event.png')
+  background-image: url(../images/event.png);
 }
 
 .about {
-  width: 1000PX;
   margin: 0 auto;
   text-align: justify;
   h3 {
-    color: #fefefe
+    color: #fefefe;
   }
   p {
     margin-left: 30px;
@@ -720,6 +788,19 @@ md-toolbar.navbar {
     background-color: white;
     opacity: 0.8;
   }
+}
+
+.user-events-msg {
+  margin: 10% 35%;
+  font-weight: bolder;
+  color: rgba(10, 60, 50, 0.6);
+  text-shadow: 1px 3px 5px #eee inset;
+}
+
+.add-event-btn {
+  position: fixed;
+  right: 0;
+  margin-bottom: 40%;
 }
 
 .upload-div {
@@ -893,4 +974,20 @@ a {
 
 .small{
   font-size: 12px;
+}
+
+.remove-link-deco {
+  color: black;
+  text-decoration: none;
+}
+
+md-dialog {
+  min-width: 50%!important;
+  md-dialog-content {
+    padding: 5%;
+    overflow: auto;
+    md-content {
+      overflow-x: hidden;
+    }
+  }
 }

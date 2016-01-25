@@ -15,7 +15,9 @@ describe('EventCtrl tests', function() {
           message: 'Sample Event Message'
         });
       },
-
+      query: function(){
+        return [1,2,3];
+      }
     },
     state;
   beforeEach(function() {
@@ -35,8 +37,18 @@ describe('EventCtrl tests', function() {
 
   }));
   it('should init the controller', function() {
+    spyOn(Events, 'query').and.callThrough();
     scope.init();
-    expect(scope.uploader).toBeDefined();
+    expect(scope.lists).toBeTruthy();
+    expect(scope.eventCat).toEqual('Popular Events');
+    expect(scope.loadEvents).toBeDefined();
+  });
+
+  it('should set eventCat', function() {
+    spyOn(scope, 'close').and.callThrough();
+    scope.setCat(2);
+    expect(scope.eventCat).toBe(2);
+    expect(scope.close).toHaveBeenCalled();
   });
 
   it('should define an event and fail', function() {
@@ -95,8 +107,7 @@ describe('EventCtrl tests', function() {
   });
 
   it('should call uploader.uploadAll', function() {
-    scope.init();
-    expect(scope.uploader.uploadAll).toBeDefined();
+    scope.getEvent();
     spyOn(scope.uploader, 'uploadAll');
     scope.upload();
     expect(scope.uploader.uploadAll).toHaveBeenCalled();

@@ -1,16 +1,14 @@
-.about.md-padding( ng-cloak='')
+.about.md-padding
   md-grid-list.md-whiteframe-9dp(md-cols-sm='1', md-cols-md='3', md-cols-gt-md='3', md-row-height-gt-md='1:1', md-row-height='2:2', md-gutter='12px', md-gutter-gt-sm='8px')
-    md-grid-tile.green(ng-repeat="developer in developers" style="background-image: url('{{developer.img_url}}'); background-repeat: no-repeat; background-size: 100% 100%;" hide-sm hide-md)
+    md-grid-tile.green(ng-repeat="developer in developers" style="background: url('{{developer.img_url}}') no-repeat; background-size: 100% 100%;")
       md-grid-tile-footer
         h4 {{developer.name}}
         h3 {{developer.title}}
 
-    md-grid-tile.red(md-rowspan='1', md-colspan='3', md-colspan-sm='1' hide-sm hide-md)
-      p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin finibus imperdiet massa, in finibus justo faucibus vel. Nam vulputate erat et leo lacinia rhoncus. Sed maximus purus nec porta congue. Vivamus accumsan luctus dictum. Donec commodo vulputate velit eleifend mollis. Praesent sagittis neque nisl, ut mollis est lobortis vel. Cum sociis natoque Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin finibus imperdiet massa, in finibus justo faucibus vel. Nam vulputate erat et leo lacinia rhoncus. Sed maximus purus nec porta congue. Vivamus accumsan luctus dictum. Donec commodo vulputate velit eleifend mollis. Praesent sagittis neque nisl, ut mollis est lobortis vel. Cum sociis natoque
+    md-grid-tile.red(md-rowspan='1', md-colspan='3', md-colspan-sm='1')
+      p 
+        | Vvida&nbsp;
+        b live the life
+        | &nbsp;let's you review events. products and other fun ammenities categorized for your perusal. 
       md-grid-tile-footer
         h3 About our developers
-
-
-
-
-

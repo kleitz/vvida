@@ -1,4 +1,3 @@
-
 div(layout="row")
   div(layout="row")
     md-sidenav.md-sidenav-left.md-whiteframe-z2(md-component-id="catNav" md-is-locked-open="$mdMedia(\"gt-md\")")
@@ -11,10 +10,10 @@ div(layout="row")
 
   div(layout="column")
     div(layout="row" layout-wrap)
-      div.md-padding(ng-show="categoryId" layout="row")
+      .md-padding(ng-show="categoryId" layout="row")
         a.md-subheadline(ui-sref="items") Products
         a(ui-sref="categoryItems({catId: categoryId})") &nbsp;> {{categoryItems.type}}
-      div.md-padding(layout="row" layout-align="start center" ng-show="!categoryId" hide-gt-md)
+      .md-padding(layout="row" layout-align="start center" ng-show="!categoryId" hide-gt-md)
         md-button.md-icon-button(ng-click="toggleSidenav()" aria-label="Menu")
           i.fa.fa-bars
         h4.md-subheader Product Categories

@@ -61,7 +61,7 @@ describe('UserProductsCtrl tests', function() {
     spyOn(Users, 'items').and.callThrough();
     scope.init();
     expect(Users.items).toHaveBeenCalled();
-    expect(scope.message).toBe('Could not get products.');
+    expect(scope.message).toBe('Your products goes here.');
   });
 
   it('should call get Users items and set items', function() {
