@@ -1,7 +1,7 @@
 angular.module('vvida.controllers')
   .controller('UserProfileCtrl', ['$scope', '$rootScope', '$state', 'Users',
     function($scope, $rootScope, $state, Users) {
-      if ($rootScope.currentUser) {
+    $scope.init = function() {
         Users.eventsCount($rootScope.currentUser, function(err, res) {
           if (err) {
             $scope.eventsCount = 0;
