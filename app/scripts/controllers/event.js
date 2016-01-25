@@ -58,7 +58,10 @@
 
         // format date data
         $scope.parseTime = function(eventTime) {
-          return $filter('date')(eventTime, 'EEEE dd MMM yyyy hh:mm a');
+          return {
+            day: $filter('date')(eventTime, 'EEEE dd MMM yyyy'),
+            time: $filter('date')(eventTime, 'hh:mm a')
+          };
         };
 
         $scope.getEvent = function() {
