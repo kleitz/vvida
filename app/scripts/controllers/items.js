@@ -36,11 +36,9 @@
               sum += review.rating;
               count += 1;
             });
-            return sum / count;
+            return Math.round(sum / count) || 0;
           }
         };
-
-
 
         $scope.getCategory = function() {
           // load the categoryItems
@@ -78,7 +76,6 @@
         $scope.getItem = function() {
           // get selected item id
           $scope.itemId = $stateParams.id;
-
           $scope.uploader = new FileUploader({
             url: '/api/image/',
             alias: 'photos',
@@ -86,7 +83,6 @@
               id: $scope.itemId
             }],
           });
-
           //load the item
           Items.get({
             id: $scope.itemId
@@ -97,7 +93,7 @@
         };
 
         $scope.init = function() {
-          // get all categories          
+          // get all categories
           $scope.categories = Categories.query();
           // get Recent Items
           $scope.recentItems = Items.query();
@@ -105,8 +101,6 @@
           $scope.categoryId = $stateParams.catId;
           // initialize scope.item for model
           $scope.item = {};
-
-
         };
 
         $scope.updateItem = function() {
@@ -122,7 +116,7 @@
         $scope.upload = function() {
           $scope.uploader.uploadAll();
         };
-
+        $scope.init();
       }
     ]);
 })();

@@ -747,7 +747,7 @@ md-toolbar.navbar {
 .thumbs {
   border-radius: 5px;
   border: 1px solid #ddd;
-  width: 300px;
+  width: 350px;
   height: 100px;
   margin: 10px;
 }
@@ -815,50 +815,64 @@ a {
 }
 
 .item-padding {
-  padding-left: 50px;
-  padding-right: 50px;
+  padding-left: 60px;
+  padding-right: 60px;
+}
+
+.fa-style {
+  padding: 8px;
+  color: #009090
 }
 
 .rating {
-  unicode-bidi:bidi-override;
-  direction:rtl;
-  text-align:center;
-  font-size:30px;
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  text-align: center;
+  font-size: 24px;
+}
 
-  > span:hover:before, > span:hover ~ span:before {
-    content:"\2605";
-    position:absolute;
-    left:0;
-    color:#ff4081;
-  }
+.container-height {
+  height: 300px;
+}
 
-  > span {
-    display:inline-block;
-    position:relative;
-    width:1.1em;
-  }
-  
-  > span:hover {
-     ~ span {
-      color:transparent;
-    }
-  }
+.rating > span {
+  display: inline-block;
+  position: relative;
+  width: 1.1em;
+}
+
+.rating > span:hover,
+.rating > span:hover ~ span {
+  color: transparent;
+}
+
+.rating > span:hover:before,
+.rating > span:hover ~ span:before {
+   content: "\2605";
+   position: absolute;
+   left: 0;
+   color: #ff4081;
 }
 
 .stared {
-  content: "\2605";
-  position: absolute;
-  left: 0; 
   color: #ff4081;
 }
 
 .item-title {
-  padding-left: 15px; 
+  padding-left: 15px;
   color: #666;
 }
 
+.title-color {
+  color: #666;
+}
+
+.no-padding {
+  padding: 0
+}
+
 .rating-box{
-  margin-left:180px;
+  margin-left:140px;
 }
 
 .average-rating{
@@ -874,12 +888,9 @@ a {
 }
 
 .average-stars{
-  margin: 0 0 0 1px; 
+  margin: 0 0 0 1px;
 }
 
 .small{
   font-size: 12px;
 }
-
-
-

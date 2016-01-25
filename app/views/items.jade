@@ -1,5 +1,5 @@
 
-div(layout="row" ng-init)
+div(layout="row")
   div(layout="row")
     md-sidenav.md-sidenav-left.md-whiteframe-z2(md-component-id="catNav" md-is-locked-open="$mdMedia(\"gt-md\")")
       md-toolbar
@@ -9,7 +9,7 @@ div(layout="row" ng-init)
         md-divider
         md-button.btn-style(md-ink-ripple hide-gt-md ng-click="close()") Close Navbar
 
-  div(layout='column')
+  div(layout="column")
     div(layout="row" layout-wrap)
       div.md-padding(ng-show="categoryId" layout="row")
         a.md-subheadline(ui-sref="items") Products
@@ -22,9 +22,9 @@ div(layout="row" ng-init)
     div(flex ng-if="!categoryId")
       md-subheader Recent Products 
       md-content(layout-wrap layout="row" flex layout-xs="column")
-        div(flex="33" flex-sm="100" flex-md="50" ng-repeat="item in recentItems | limitTo : 6")
+        div(flex="100" flex-sm="100" flex-md="50" ng-repeat="item in recentItems | limitTo : 6")
           md-card
-            img(ng-src='{{item.Images[0].img_url}}')
+            img(ng-src="{{item.Images[0].img_url}}")
             md-card-title
               md-card-title-text 
                 span.md-headline(layout layout-padding layout-align="center center" ui-sref="viewItem({id:item.id})") {{item.name}}
