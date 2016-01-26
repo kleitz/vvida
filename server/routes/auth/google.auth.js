@@ -1,5 +1,8 @@
 module.exports = function(app, passport) {
 
+
+
+
   // Redirect the user to Google for authentication.
   // When complete, Google will redirect the user back to the application at
   //     /auth/google/callback
@@ -17,8 +20,8 @@ module.exports = function(app, passport) {
   // Otherwise, authentication has failed.
   app.get('/auth/google/callback', passport.authenticate('google', {
     failureRedirect: '/sign-up',
-    successRedirect: '/'
-      // session: false
+    successRedirect: '/items/profile',
+    session: true
   }));
 
 };

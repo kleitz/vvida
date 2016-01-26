@@ -11,20 +11,9 @@ module.exports = function(sequelize, DataType) {
         allowNull: true
       },
       // firstname
-      firstname: {
+      name: {
         type: DataType.STRING,
-        allowNull: true,
-        validate: {
-          isAlpha: true
-        }
-      },
-      // lastname
-      lastname: {
-        type: DataType.STRING,
-        allowNull: true,
-        validate: {
-          isAlpha: true
-        }
+        allowNull: true
       },
       gender: {
         type: DataType.STRING,

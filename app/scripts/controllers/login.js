@@ -1,6 +1,6 @@
 angular.module('vvida.controllers')
-  .controller('LoginCtrl', ['$rootScope', '$scope', '$state', '$window', 'Users', 'Auth',
-    function($rootScope, $scope, $state, $window, Users, Auth) {
+  .controller('LoginCtrl', ['$rootScope', '$scope', '$state', '$window', 'Users', 'Auth', '$http',
+    function($rootScope, $scope, $state, $window, Users, Auth, $http) {
       // login
       $scope.login = function() {
         Users.login($scope.user, function(err, res) {
@@ -10,7 +10,8 @@ angular.module('vvida.controllers')
             user.name = res.firstname + ' ' + res.lastname;
             user.picture_url = res.picture_url;
             $rootScope.currentUser = user;
-            $state.go('welcome');
+            var goTo = $rootScope.intendedState || 'welcome';
+            $state.go(goTo);
           } else {
             $scope.messageLogin = err.error || err || err[0].message;
           }
@@ -53,10 +54,16 @@ angular.module('vvida.controllers')
       };
 
       $scope.facebook = function() {
+        // $http.get('/auth/facebook').success(function(result){
+        //   console.log(result);
+        // });
         $window.location.href = '/auth/facebook';
       };
 
       $scope.google = function() {
+        // $http.get('/auth/google').success(function(result){
+        //   console.log(result);
+        // });
         $window.location.href = '/auth/google';
       };
     }

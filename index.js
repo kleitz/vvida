@@ -23,6 +23,17 @@ var config = require('./server/config')[env],
 app.set('models', models);
 app.set('superSecret', process.env.WEB_TOKEN_SECRET);
 
+ app.use('/auth/google', function(req, res, next) {
+     res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With, Access-Control-Allow-Origin');
+    res.header("Access-Control-Max-Age", "86400"); // 24 hours
+
+
+    next();
+  });
+
+
 // load env variables from .env file in development environment
 // view engine setup
 app.set('views', path.join(__dirname, 'server/views'));
@@ -51,7 +62,7 @@ passport.deserializeUser(function(user, done) {
 
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, './public')));
-app.use(passport.initialize());
+
 
 app.use(session({
   secret: config.expressSessionKey,
@@ -60,6 +71,8 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }));
+
+app.use(passport.initialize());
 
 app.use(passport.session());
 routes(app, config, passport);
