@@ -2,58 +2,50 @@
   'use strict';
   angular.module('vvida.controllers')
     .controller('EventCtrl', ['$scope', '$state', '$stateParams', '$filter',
-      '$mdSidenav', 'FileUploader', 'Utils', 'Events',
-      function($scope, $state, $stateParams, $filter, $mdSidenav,
-        FileUploader, Utils, Events) {
-        // create event
-        $scope.addEvent = function() {
-          Events.save($scope.event, function(event) {
-            if (event) {
-              $state.go('editEvent', {
-                id: event.id
-              });
-            } else {
-              Utils.toast('Event not created');
-            }
+      'Utils', 'Events',
+      function($scope, $state, $stateParams, $filter,
+        Utils, Events) {
+
+
+        // redirect to pages
+        $scope.prevEvents = function() {
+          var page = parseInt($scope.page) - 1;
+          $state.go('events.all', {
+            page: page
           });
         };
 
-        // Sidebar Navigation control
-        $scope.close = function() {
-          $mdSidenav('eventNav').close();
+        $scope.nextEvents = function() {
+          var page = parseInt($scope.page) + 1;
+          $state.go('events.all', {
+            page: page
+          });
         };
 
-        $scope.toggleSidenav = function() {
-          $mdSidenav('eventNav').toggle();
+        // event list to be updated for pagination
+        $scope.viewEvents = function() {
+
+          var pageNum = parseInt($state.params.page);
+          pageNum = (pageNum <= 0) ? 1 : pageNum;
+          $scope.limit = 3;
+
+          Events.query({
+            limit: $scope.limit,
+            page: pageNum - 1
+          }, function(events) {
+            $scope.loadEvents = events;
+          });
+
         };
 
-        // Set filter for event list
-        // event model to be updated for list filter
-        $scope.setCat = function(listName) {
-          $scope.eventCat = listName;
-          $scope.close();
-        };
-
-        //Get the eventId
+        // initialize state data
         $scope.init = function() {
-          $scope.event = {
-            eventId: $stateParams.id
-          };
-
-          $scope.eventCat = 'Popular Events';
-
+          $scope.page = $state.params.page || 0;
           $scope.loadEvents = Events.query();
+          if (!$stateParams.page) {
+            $scope.nextE = false;
+          }
 
-          // Data for event type lists
-          $scope.lists = [{
-            name: 'Popular Events'
-          }, {
-            name: 'Concerts'
-          }, {
-            name: 'Exhibitions and Showcases'
-          }, {
-            name: 'Business and Economics'
-          }];
         };
 
         // format date data
@@ -62,38 +54,6 @@
             day: $filter('date')(eventTime, 'EEEE dd MMM yyyy'),
             time: $filter('date')(eventTime, 'hh:mm a')
           };
-        };
-
-        $scope.getEvent = function() {
-          $scope.eventId = $stateParams.id;
-
-          $scope.uploader = new FileUploader({
-            url: '/api/image/',
-            alias: 'photos',
-            formData: [$scope.event],
-          });
-
-          //load the item
-          Events.get({
-            id: $stateParams.id
-          }, function(event) {
-            $scope.event = event;
-            $scope.event.time = null;
-          });
-        };
-
-        $scope.updateEvent = function() {
-          Events.update($scope.event, function(event) {
-            Utils.toast(event.message);
-          });
-        };
-
-        $scope.showToast = function() {
-          Utils.toast('Upload complete');
-        };
-
-        $scope.upload = function() {
-          $scope.uploader.uploadAll();
         };
 
         $scope.init();

@@ -17,7 +17,7 @@
   require('./services/token');
   require('./services/auth');
   require('./services/token-injector');
-  
+
   // Require Controllers
   require('./controllers/footer');
   require('./controllers/home');
@@ -132,6 +132,15 @@
           url: '/events',
           controller: 'EventCtrl',
           templateUrl: 'views/events.html'
+        })
+        .state('events.all', {
+          url: '/?{page}',
+          views: {
+            'inner@events': {
+              controller: 'EventCtrl',
+              templateUrl: 'views/all-events.html'
+            }
+          }
         })
         .state('items', {
           url: '/items',

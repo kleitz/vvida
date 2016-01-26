@@ -33,10 +33,15 @@
 
       // Middleware to get all the events
       all: function(req, res) {
+        var offset = req.query.limit * req.query.page || 0;
+        var limit = req.query.limit || 4;
+
         return Events.findAll({
           order: [
             ['id', 'DESC']
           ],
+          offset: offset,
+          limit: limit,
           include: [Images]
         }).then(function(event) {
           if (event) {

@@ -20,13 +20,10 @@ md-content(ng-controller='EventCtrl' layout='column', layout-md='column', layout
     md-datepicker(ng-model='event.time', md-placeholder='Start date')
     md-datepicker(ng-model='event.time', md-placeholder='End date')
     br
-    br
-    label
-      i.fa.fa-thumbs-o-up &nbsp;&nbsp;&nbsp; Sponsors
-    md-chips(ng-model="event.sponsors" readonly="readonly")
-      md-chip-template
-        strong {{$chip}}
-        em (Sponsor)
+    md-input-container
+     label
+       i.fa.fa-map-marker &nbsp;&nbsp;&nbsp; Sponsor
+     input(ng-model='event.sponsor', type='text', ng-required='true', aria-label='event.sponsor')
     br
     md-button.md-raised.md-warn.login-button(type='submit')
       i.fa.fa-plus-circle
