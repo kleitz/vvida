@@ -6,7 +6,6 @@
       function($scope, $state, $stateParams, $filter,
         Utils, Events) {
 
-
         // redirect to pages
         $scope.prevEvents = function() {
           var page = parseInt($scope.page) - 1;
@@ -45,7 +44,6 @@
           if (!$stateParams.page) {
             $scope.nextE = false;
           }
-
         };
 
         // format date data
@@ -54,6 +52,22 @@
             day: $filter('date')(eventTime, 'EEEE dd MMM yyyy'),
             time: $filter('date')(eventTime, 'hh:mm a')
           };
+        };
+
+        $scope.averageReview = function(itemReviews) {
+          if (itemReviews) {
+            var sum = 0,
+              count = 0;
+            itemReviews.forEach(function(review) {
+              sum += review.rating;
+              count += 1;
+            });
+            return Math.round(sum / count) || 0;
+          }
+        };
+
+        $scope.setImage = function(image) {
+          $scope.selectedImage = image;
         };
 
         $scope.init();

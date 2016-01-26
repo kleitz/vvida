@@ -129,7 +129,7 @@
           templateUrl: 'views/about.html'
         })
         .state('events', {
-          url: '/events',
+          url: '/events/',
           controller: 'EventCtrl',
           templateUrl: 'views/events.html'
         })
@@ -141,6 +141,11 @@
               templateUrl: 'views/all-events.html'
             }
           }
+        })
+        .state('viewEvent', {
+          url: '/events/{id}',
+          controller: 'EventCtrl',
+          templateUrl: 'views/view-event.html'
         })
         .state('items', {
           url: '/items',
@@ -184,6 +189,15 @@
             }
           }
         })
+        .state('userProfile.editEvent', {
+          url: '/events/{id}/edit',
+          views: {
+            'inner-view@userProfile': {
+              controller: 'UserEventsCtrl',
+              templateUrl: 'views/edit-event.html'
+            }
+          }
+        })
         .state('addItem', {
           url: '/items/create',
           controller: 'ItemCtrl',
@@ -203,16 +217,6 @@
           url: '/categories/{catId}',
           controller: 'ItemCtrl',
           templateUrl: 'views/items.html'
-        })
-        .state('addEvent', {
-          url: '/events/create',
-          controller: 'EventCtrl',
-          templateUrl: 'views/add-event.html'
-        })
-        .state('editEvent', {
-          url: '/events/{id}/edit',
-          controller: 'EventCtrl',
-          templateUrl: 'views/edit-event.html'
         })
         .state('login', {
           url: '/users/login',

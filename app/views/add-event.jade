@@ -1,4 +1,4 @@
-md-content(ng-controller='EventCtrl' layout='column', layout-md='column', layout-sm='column', flex='100')
+md-content(ng-controller="UserEventsCtrl" layout='column', layout-md='column', layout-sm='column', flex='100')
   form(method='post', enctype='multipart/data', ng-submit='addEvent()')
     md-input-container
       label
@@ -21,9 +21,9 @@ md-content(ng-controller='EventCtrl' layout='column', layout-md='column', layout
     md-datepicker(ng-model='event.time', md-placeholder='End date')
     br
     md-input-container
-     label
-       i.fa.fa-map-marker &nbsp;&nbsp;&nbsp; Sponsor
-     input(ng-model='event.sponsor', type='text', ng-required='true', aria-label='event.sponsor')
+      label
+        i.fa.fa-map-marker &nbsp;&nbsp;&nbsp; Sponsor
+      input(ng-model='event.sponsor', type='text', ng-required='true', aria-label='event.sponsor')
     br
     md-button.md-raised.md-warn.login-button(type='submit')
       i.fa.fa-plus-circle
