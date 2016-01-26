@@ -129,14 +129,14 @@
           templateUrl: 'views/about.html'
         })
         .state('events', {
-          url: '/events',
+          url: '/events/',
           controller: 'EventCtrl',
           templateUrl: 'views/events.html'
         })
         .state('viewEvent', {
           url: '/events/{id}',
           controller: 'EventCtrl',
-          templateUrl:'views/view-event.html'
+          templateUrl: 'views/view-event.html'
         })
         .state('items', {
           url: '/items',
@@ -183,8 +183,10 @@
         .state('userProfile.editEvent', {
           url: '/events/{id}/edit',
           views: {
-            controller: 'EventCtrl',
-            templateUrl: 'views/edit-event.html'
+            'inner-view@userProfile': {
+              controller: 'EventCtrl',
+              templateUrl: 'views/edit-event.html'
+            }
           }
         })
         .state('addItem', {

@@ -5,18 +5,6 @@
       '$mdSidenav', 'FileUploader', 'Utils', 'Events',
       function($scope, $state, $stateParams, $filter, $mdSidenav,
         FileUploader, Utils, Events) {
-        // create event
-        $scope.addEvent = function() {
-          Events.save($scope.event, function(event) {
-            if (event) {
-              $state.go('editEvent', {
-                id: event.id
-              });
-            } else {
-              Utils.toast('Event not created');
-            }
-          });
-        };
 
         // Sidebar Navigation control
         $scope.close = function() {

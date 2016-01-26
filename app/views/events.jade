@@ -16,7 +16,7 @@ div(layout="row" ng-show="loadEvents.length !== 0")
       h3.md-subheadline {{eventCat || "Recent Events"}}
 
     md-content(layout-wrap layout="row" flex layout-xs="column" layout-align="center" )
-      .eventList(flex-gt-sm="33" flex-sm="90" ng-repeat="event in loadEvents" )             
+      .eventList(flex-gt-sm="33" flex-sm="90" ng-repeat="event in loadEvents" ui-sref="viewEvent({id: event.id})")             
         .eventImages(style="background-image: url('{{event.Images[0].img_url}}');")
         h3 {{event.name}}
         md-list

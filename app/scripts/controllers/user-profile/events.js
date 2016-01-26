@@ -5,9 +5,12 @@ angular.module('vvida.controllers')
     '$state',
     'Users',
     'Utils',
-    function($scope, $rootScope, $state, Users, Utils) {
+    'Events',
+    function($scope, $rootScope, $state, Users, Utils, Events) {
 
-      if ($rootScope.currentUser) {
+      $scope.init = function() {
+        $scope.event = {};
+        // Lists of fruit names and Vegetable objects
         Users.events($rootScope.currentUser, function(err, res) {
           if (err) {
             $scope.message = 'Your events goes here.';
@@ -18,11 +21,24 @@ angular.module('vvida.controllers')
             }
           }
         });
+      };
 
-        $scope.parseDate = function(date) {
-          return new Date(Date.parse(date)).toUTCString();
-        };
-      }
+      // create event
+      $scope.addEvent = function() {
+        Events.save($scope.event, function(event) {
+          if (event) {
+            $state.go('userProfile.editEvent', {
+              id: event.id
+            });
+          } else {
+            Utils.toast('Event not created');
+          }
+        });
+      };
+
+      $scope.parseDate = function(date) {
+        return new Date(Date.parse(date)).toUTCString();
+      };
 
       $scope.addEventModal = function(ev) {
         Utils.modal(ev, 'event', 'Create an Event');

@@ -1,32 +1,30 @@
-md-content(layout="row")
-  h4.md-subheader {{event.name}}
-md-content(layout='row' layout-padding layout-margin layout-align="center center" flex)
-  div(layout="colomn" flex="60" layout-margin)
-    h3.md-subheader.md-padding Event Images
-    .thumbs(layout="column" layout-align="start start")
-      img.face(ng-click="setImage(image)" ng-repeat="image in images" ng-src="{{image.img_url}}")
-    div(style="background: url('{{selectedImage.img_url || images[0].img_url}}') no-repeat center center;")
-  md-divider
-  md-content(layout="column" flex="30" layout-margin layout-padding)
-    md-content(layout-padding)
-      h3.md-subheader(layout) Description
-      br
-      span {{event.description}}
-      br
-      span.emphasis {{event.venue}}
-        span.md-subheader at
-          span.emphasis {{event.location}}
-      span {{event.time}}
-    md-divider
-    md-content
-      md-list
-        h3.md-subheader(layout layout-padding) Reviews for
-          span.emphasis {{event.name}}
-            span at
-              span.emphasis {{event.venue}}
-        md-divider
-        md-list-item.md-3-line(ng-repeat="review in event.reviews")
-          .md-list-item-text
-            h4 {{review.review}}
-            h4 {{review.review_title}}
-            p {{review.rating}}
+md-content(layout='row' layout-margin layout-align="center start" flex="100" ng-init="getEvent()")
+  md-content(layout="column" layout-margin flex="60")
+    h4.md-headline {{event.name}}
+    h5 Gallery Images
+    .event-main-img(style="background: url('{{selectedImage.img_url || images[0].img_url}}') no-repeat center center;")
+    div(layout="row")
+      .thumbs(layout-align="start start")
+        img.face(ng-click="setImage(image)" ng-repeat="image in images" ng-src="{{image.img_url}}")
+      .div(layout="row")
+        .rating-box
+    h5 Description
+    span {{event.description}}
+    h5 Details
+    span.emphasis {{event.venue}}
+      span.md-subheader at
+        span.emphasis {{event.location}}
+    span {{event.time}}
+
+  md-content(ayout="colomn" flex="30")
+    md-list
+      h3.md-subheader(layout="column") Reviews for
+        span.emphasis {{event.name}}
+          span at
+            span.emphasis {{event.venue}}
+      md-divider
+      md-list-item.md-3-line(ng-repeat="review in event.reviews")
+        .md-list-item-text
+          h4 {{review.review}}
+          h4 {{review.review_title}}
+          p {{review.rating}}

@@ -22,8 +22,6 @@ angular.module('vvida.controllers')
         // Route to defualt view
         $state.go('userProfile.events');
 
-
-
         Users.eventsCount($rootScope.currentUser, function(err, res) {
           if (err) {
             $scope.eventsCount = 0;

@@ -7,8 +7,8 @@
     md-button.login-btn.md-raised.md-primary(aria-label='Login/Signup', ng-click='login()') Go to Login/Signup Page
 
 .profile-page(ng-if='currentUser' layout ng-init="init()")
-  .row(flex="22")
-    md-sidenav.md-sidenav-left.md-whiteframe-z2(layout='column', md-component-id='left', md-is-locked-open="$mdMedia('gt-md')")
+  .md-content(layout="row")
+    md-sidenav.md-sidenav-left.md-whiteframe-z2(layout="column", md-component-id='left', md-is-locked-open="$mdMedia('gt-md')")
       md-toolbar.md-tall.md-hue-2.toolbar-header
         span(flex='')
         .md-toolbar-tools-bottom.inset(layout='column')
@@ -26,7 +26,7 @@
                 | {{item.title}}
         md-divider
         md-subheader Management
-        a(class='remove-link-deco' ng-repeat='item in admin' ui-sref='{{item.link}}')
+        a(class='remove-link-deco' ng-repeat='item in ownerMenu' ui-sref='{{item.link}}')
           md-list-item(md-ink-ripple)
             md-item-content(layout='row' layout-align='start center')
               .inset
