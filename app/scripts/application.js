@@ -51,6 +51,19 @@
 
   window.app.run(['$rootScope', '$location', '$state', '$mdSidenav', 'Users',
     function($rootScope, $location, $state, $mdSidenav, Users) {
+      $rootScope.$on('$stateChangeSuccess', fireAuth);
+
+      function fireAuth(ev, toState, toParams, fromState, fromParams) {
+        ev.preventDefault();
+        if (toState.authenticate && $rootScope.currentUser) {
+          $state.go(toState);
+        } else if (toState.authenticate === undefined) {
+          $state.go(toState);
+        } else {
+          $rootScope.intendedState = toState;
+          $state.go('login');
+        }
+      }
       // Check if the user's session is still being persisted in the servers
       Users.session(function(err, res) {
         if (!err) {
@@ -58,16 +71,16 @@
           if (res.name) {
             user.name = res.name;
             user.id = res.id;
-            user.img_url = res.picture.data.url;
+            user.img_url = res.img_url;
+            user.username = res.username;
           } else {
-            var fullName = res.firstname + ' ' + res.lastname;
-            user.name = fullName;
+            user.name = res.name;
             user.id = res.id;
             user.img_url = res.img_url;
+            user.username = res.username;
           }
           if (user.img_url) {
             $rootScope.currentUser = user;
-            console.log($rootScope.currentUser);
           }
         }
       });
@@ -100,9 +113,12 @@
     }
   ]);
 
-  window.app.config(['$stateProvider', '$httpProvider', '$urlRouterProvider', '$locationProvider', '$mdThemingProvider',
-    function($stateProvider, $httpProvider, $urlRouterProvider, $locationProvider, $mdThemingProvider) {
+  window.app.config(['$stateProvider', '$httpProvider',
+    '$urlRouterProvider', '$locationProvider', '$mdThemingProvider',
+    function($stateProvider, $httpProvider,
+      $urlRouterProvider, $locationProvider, $mdThemingProvider) {
 
+      // For injecting tokens into request headers
       $httpProvider.interceptors.push('TokenInjector');
 
       // For any unmatched url, redirect to /state1
@@ -131,10 +147,10 @@
         })
 
       .state('items', {
-          url: '/items',
-          controller: 'ItemCtrl',
-          templateUrl: 'views/items.html'
-        })
+        url: '/items',
+        controller: 'ItemCtrl',
+        templateUrl: 'views/items.html'
+      })
         .state('profile', {
           url: '/user/{id}/edit',
           controller: 'ProfileCtrl',
@@ -168,7 +184,8 @@
         .state('addItem', {
           url: '/items/create',
           controller: 'ItemCtrl',
-          templateUrl: 'views/add-item.html'
+          templateUrl: 'views/add-item.html',
+          authenticate: true
         })
         .state('editItem', {
           url: '/items/{id}/edit',

@@ -15,8 +15,8 @@ div.profile-page(ng-if='currentUser' layout='row' layout-align='center center')
             md-card.ripple-container.profile-pic(md-ink-ripple flex)
               .card-images.md-card-image.bg-img-male(ng-if='currentUser.img_url' style="background-image: url({{currentUser.img_url}})")
           div(flex layout='column' layout-align='center center' layout-align-gt-md='start start')
-            p.md-display-3.packed-bottom(flex) {{currentUser.name}}
-            p.md-headline.packed-top(flex) {{currentUser.city}}, {{currentUser.country}}
+            p.md-display-3.packed-bottom(flex) {{currentUser.name || currentUser.username}}
+            p.md-headline.packed-top(flex) {{currentUser.city}} &nbsp; {{currentUser.country}}
             div.packed-top(layout="row" layout-sm='column' layout-align-sm='center center')
               md-button.no-space(class='md-padding space-right')
                 span.fa.fa-camera 150 Photos

@@ -12,8 +12,8 @@ div(ng-if='currentUser' layout='row' layout-align='center center')
       P.md-display-2.packed EDIT PROFILE
       div(layout='column' layout-align='center center')
         p.packed
-          | Welcome. The email address you have provided is
-          span.email {{currentUser.email}}.
+          | Welcome to Vvida
+          span.display-name {{currentUser.name || currentUser.username}}
         p.packed Please complete the following form with your details to complete your registration.
     md-card-content.md-margin.content(layout-gt-md='row' layout='column')
       div(layout='column' flex)
@@ -61,13 +61,6 @@ div(ng-if='currentUser' layout='row' layout-align='center center')
               md-icon(class='fa fa-venus-mars')
               md-select.md-padding.md-margin(placeholder='Gender' ng-model='currentUser.gender' aria-label='Gender' flex)
                 md-option(ng-repeat='type in gender' ng-value='type.type') {{type.type}}
-          div(layout='row' layout-sm='column')
-            md-input-container(flex)
-              md-icon(class='fa fa-user')
-              input(ng-model='currentUser.firstname' type='text' placeholder='First Name' ng-required='true')
-            md-input-container(flex)
-              md-icon(class='fa fa-user')
-              input(ng-model='currentUser.lastname' type='text' placeholder='Last Name' ng-required='true')
           p {{message}}
           div(layout='row' flex layout-align='center end')
             md-button.md-raised.md-warn.md-padding.md-margin.button(flex='70')

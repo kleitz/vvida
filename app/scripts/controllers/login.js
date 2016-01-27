@@ -7,8 +7,8 @@ angular.module('vvida.controllers')
           if (!err) {
             Auth.setToken(res.token);
             var user = {};
-            user.name = res.firstname + ' ' + res.lastname;
-            user.picture_url = res.picture_url;
+            user.name = res.name;
+            user.img_url = res.img_url;
             $rootScope.currentUser = user;
             var goTo = $rootScope.intendedState || 'welcome';
             $state.go(goTo);

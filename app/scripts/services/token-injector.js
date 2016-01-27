@@ -6,6 +6,7 @@ angular.module('vvida.services')
         if (token) {
           config.headers['x-access-token'] = token;
         }
+        config.headers['Access-Control-Allow-Origin'] = '*';
         return config;
       }
     };

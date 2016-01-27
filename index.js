@@ -7,6 +7,7 @@ var config = require('./server/config')[env],
   express = require('express'),
   path = require('path'),
   multer = require('multer'),
+  methodOverride = require('method-override'),
   logger = require('morgan'),
   cookieParser = require('cookie-parser'),
   bodyParser = require('body-parser'),
@@ -23,15 +24,6 @@ var config = require('./server/config')[env],
 app.set('models', models);
 app.set('superSecret', process.env.WEB_TOKEN_SECRET);
 
- app.use('/auth/google', function(req, res, next) {
-     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With, Access-Control-Allow-Origin');
-    res.header("Access-Control-Max-Age", "86400"); // 24 hours
-
-
-    next();
-  });
 
 
 // load env variables from .env file in development environment
@@ -42,6 +34,7 @@ app.set('view engine', 'jade');
 // uncomment after placing your favicon in /public
 app.use(logger('dev'));
 app.use(bodyParser.json());
+app.use(methodOverride());
 app.use(bodyParser.urlencoded({
   extended: false
 }));

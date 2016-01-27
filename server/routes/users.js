@@ -1,6 +1,5 @@
 module.exports = function(app, auth) {
   var Users = require('../controllers/users')(app);
-  jwt = require('jsonwebtoken'),
 
   //logout route
   app.route('/api/users/logout')
@@ -9,22 +8,9 @@ module.exports = function(app, auth) {
   app.route('/api/users/session')
     .get(Users.session);
 
-  function userMiddleware(req, res, next){
-  req.user.token = jwt.sign(req.user, app.get('superSecret'), {
-        expireIn: 180
-      });
-  req.session.user = req.user;
-  console.log(req.session, "session");
-  next();
-}
-   // login with email
+  // login with email
   app.route('/api/users/login')
     .post(Users.login);
-
-  app.get('/items/profile', userMiddleware, function(req, res, next) {
-    console.log(req.user);
-    next();
-  })
 
   // users routes
   app.route('/api/users')
