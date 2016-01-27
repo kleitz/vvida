@@ -2,9 +2,9 @@
   'use strict';
   angular.module('vvida.controllers')
     .controller('EventCtrl', ['$scope', '$state', '$stateParams', '$filter',
-      'Utils', 'Events', '$timeout',
+      'Utils', 'Events',
       function($scope, $state, $stateParams, $filter,
-        Utils, Events, $timeout) {
+        Utils, Events) {
 
         $scope.setViewType = function(type) {
           $scope.viewType = type;
