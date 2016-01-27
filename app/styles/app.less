@@ -33,6 +33,10 @@ input {
   text-align: center;
 }
 
+.small-font {
+  font-size: 0.8em;
+}
+
 header {
   overflow: auto;
 
@@ -222,6 +226,7 @@ md-toolbar,
 .event-main-img {
   width: inherit;
   height: 300px;
+  background-size: cover;;
 }
 
 .eventList {
@@ -505,6 +510,11 @@ md-tabs {
   }
 }
 
+.emphasis {
+  font-size: 0.8em;
+  font-weight: bold;
+}
+
 .sign-up {
   width: 700px;
   margin: 0 auto;
@@ -642,12 +652,28 @@ md-sidenav.md-sidenav-left {
   padding: 5px;
 }
 
-.average-rating-display {
-  width: 100px;
-  height: 100px;
-  background-color: #009090;
+.rating {
+  unicode-bidi: bidi-override;
+  direction: rtl;
   text-align: center;
-  vertical-align: middle;
+  font-size: 24px;
+}
+
+.rating-box{
+  margin-left:140px;
+}
+
+.average-rating{
+  width:80px;
+  height: 80px;
+  line-height: 80px;
+  background: #009090;
+  text-align: center;
+  > h3 {
+    display:block;
+    margin: 0 auto;
+    color: #666;
+  }
 }
 
 .recentReview {
@@ -934,12 +960,17 @@ md-toolbar.navbar {
 }
 
 .face {
+  border-radius: 5px;
   width: 100px;
   height: 100px;
   margin: 10px;
+}
 
-  border: 1px solid #ddd;
+.thumbs {
   border-radius: 5px;
+  width: 350px;
+  height: 110px;
+  margin: 10px 0;
 }
 
 .btn-style {

@@ -6,7 +6,6 @@
       cloudinary = require('cloudinary'),
       cloudinaryUpload = function(req, path, cb) {
         cloudinary.uploader.upload(path, function(result) {
-          console.log(req.body.id, result.public_id);
           if (result && !result.error) {
             return Images.create({
               item_id: req.body.id,
@@ -27,7 +26,6 @@
 
     return {
       image: function(req, res) {
-        console.log(req.files, req.body);
         if (req.files) {
           var path = req.files[0].path;
           cloudinaryUpload(req, path, function(err, image) {

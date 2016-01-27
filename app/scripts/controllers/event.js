@@ -62,26 +62,22 @@
             id: $stateParams.id
           }, function(event) {
             $scope.event = event;
-            $scope.event.time = null;
           });
+        };
+
+        $scope.averageReview = function(itemReviews) {
+          if (itemReviews) {
+            var sum = 0, count = 0;
+            itemReviews.forEach(function(review) {
+              sum += review.rating;
+              count += 1;
+            });
+            return Math.round(sum / count) || 0;
+          }
         };
 
         $scope.setImage = function(image) {
           $scope.selectedImage = image;
-        };
-
-        $scope.updateEvent = function() {
-          Events.update($scope.event, function(event) {
-            Utils.toast(event.message);
-          });
-        };
-
-        $scope.showToast = function() {
-          Utils.toast('Upload complete');
-        };
-
-        $scope.upload = function() {
-          $scope.uploader.uploadAll();
         };
 
         $scope.init();

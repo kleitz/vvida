@@ -184,7 +184,7 @@
           url: '/events/{id}/edit',
           views: {
             'inner-view@userProfile': {
-              controller: 'EventCtrl',
+              controller: 'UserEventsCtrl',
               templateUrl: 'views/edit-event.html'
             }
           }

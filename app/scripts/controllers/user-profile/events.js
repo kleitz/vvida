@@ -3,13 +3,14 @@ angular.module('vvida.controllers')
     '$scope',
     '$rootScope',
     '$state',
+    '$stateParams',
     'Users',
     'Utils',
     'Events',
-    function($scope, $rootScope, $state, Users, Utils, Events) {
+    'FileUploader',
+    function($scope, $rootScope, $state, $stateParams, Users, Utils, Events, FileUploader) {
 
       $scope.init = function() {
-        $scope.event = {};
         // Lists of fruit names and Vegetable objects
         Users.events($rootScope.currentUser, function(err, res) {
           if (err) {
@@ -34,6 +35,35 @@ angular.module('vvida.controllers')
             Utils.toast('Event not created');
           }
         });
+      };
+
+      $scope.getEvent = function() {
+        $scope.eventId = $stateParams.id;
+        $scope.uploader = new FileUploader({
+          url: '/api/image/',
+          alias: 'photos',
+          formData: [{eventId: $scope.eventId}],
+        });
+        Events.get({
+          id: $stateParams.id
+        }, function(event) {
+          console.log(event);
+          $scope.event = event;
+        });
+      };
+
+      $scope.updateEvent = function() {
+        Events.update($scope.event, function(event) {
+          Utils.toast(event.message);
+        });
+      };
+
+      $scope.showToast = function() {
+        Utils.toast('Upload complete');
+      };
+
+      $scope.upload = function() {
+        $scope.uploader.uploadAll();
       };
 
       $scope.parseDate = function(date) {
