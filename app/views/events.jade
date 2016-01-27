@@ -1,41 +1,6 @@
-div.events(layout="column" layout-padding)
-  
+.events(layout="column" layout-padding)
   div(layout-padding layout="column")
     span(ng-show="loadEvents.length === 0" class="no_events_msg") There are currently no events.
   
     div(ui-view="inner")
-
-    div(layout="column" layout-padding ng-if="!nextE && loadEvents.length > 0")
-      div.md-padding(layout="row" layout-align="start center")
-        h3.md-subheader Recent Events
-      md-divider(md-inset)
-      div.md-padding
-        md-grid-list(md-cols-xs='1' md-cols-sm='1' md-cols-md='2' md-cols-gt-md='4' md-row-height-gt-md='1:1' md-row-height='2:2' md-gutter='12px' md-gutter-gt-sm='8px')
-          md-grid-tile(ng-repeat="event in loadEvents | orderBy: day" style="background: url('{{event.Images[0].img_url}}') no-repeat; background-size: 100% 100%;")
-            md-grid-tile-header
-              h3 {{event.name}}
-            md-grid-tile-footer
-              div(flex layout="column" layout-padding)
-                span.md-subheadline {{event.venue}}
-                span {{parseTime(event.time).day}} 
-                span {{parseTime(event.time).time}}
-      div(layout= "row")
-        span(flex)
-        md-button(ng-click="nextEvents()") See More
-
-      div.md-padding(layout="row" layout-align="start center")
-        h3.md-subheader Popular Events
-      md-divider(md-inset)
-      div.md-padding
-        md-grid-list(md-cols-xs='1' md-cols-sm='1' md-cols-md='2' md-cols-gt-md='4' md-row-height-gt-md='1:1' md-row-height='2:2' md-gutter='12px' md-gutter-gt-sm='8px')
-          md-grid-tile(ng-repeat="event in loadEvents | orderBy: Reviews.length" style="background: url('{{event.Images[0].img_url}}') no-repeat; background-size: 100% 100%;")
-            md-grid-tile-header
-              h3 {{event.name}}
-            md-grid-tile-footer
-              div(flex layout="column" layout-padding)
-                span.md-subheadline {{event.venue}}
-                span {{parseTime(event.time).day}} 
-                span {{parseTime(event.time).time}}
-      div(layout= "row")
-        span(flex)
-        md-button(ng-click="nextEvents()") See More
+  

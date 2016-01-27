@@ -186,11 +186,23 @@ md-toolbar,
   background-size: cover;
 }
 
+.eventGridList {
+  min-width: 400px;
+}
+
 .events {
   padding-left: 30px;
   padding-right: 30px;
   & .md-button {
     font-size: 1.1em;
+    &.md-icon-button {
+      width: 80px;
+      border: 1px solid teal;
+    }
+  }
+  .small {
+    color: white;
+    font-style: italic;
   }
   & h3 {
     font-size: 1.4em;
@@ -201,8 +213,15 @@ md-toolbar,
   }
   md-grid-tile-footer {
     height: 90px;
-    background-color: #616161;
+    background-color: #009090;
     opacity: 0.9;
+  }
+  div md-list {
+    width: 100%;
+    md-list-item {
+      min-width: 600px;
+      width: inherit;
+    }
   }
 }
 
@@ -900,7 +919,7 @@ a {
   text-transform: none;
 }
 
-.itemreviews {
+.reviews {
   border: 1px solid #009090;
   border-radius: 2px;
 }

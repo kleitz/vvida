@@ -2,48 +2,76 @@
   'use strict';
   angular.module('vvida.controllers')
     .controller('EventCtrl', ['$scope', '$state', '$stateParams', '$filter',
-      'Utils', 'Events',
+      'Utils', 'Events', '$timeout',
       function($scope, $state, $stateParams, $filter,
-        Utils, Events) {
+        Utils, Events, $timeout) {
 
+        $scope.setViewType = function(type) {
+          $scope.viewType = type;
+          $scope.updateStateParams();
+        };
+
+        $scope.updateStateParams = function() {
+          $state.go('events.all', {
+            page: $scope.page,
+            view: $scope.viewType
+          });
+        };
         // redirect to pages
         $scope.prevEvents = function() {
-          var page = parseInt($scope.page) - 1;
-          $state.go('events.all', {
-            page: page
-          });
+          $scope.page = parseInt($state.params.page) - 1;
+          $scope.viewEvents($scope.page);
+          $scope.updateStateParams();
         };
 
         $scope.nextEvents = function() {
-          var page = parseInt($scope.page) + 1;
-          $state.go('events.all', {
-            page: page
-          });
+          $scope.page = parseInt($state.params.page) + 1;
+          $scope.viewEvents($scope.page);
+          $scope.updateStateParams();
         };
 
         // event list to be updated for pagination
-        $scope.viewEvents = function() {
-
-          var pageNum = parseInt($state.params.page);
+        $scope.viewEvents = function(page) {
+          var pageNum = parseInt(page);
           pageNum = (pageNum <= 0) ? 1 : pageNum;
           $scope.limit = 3;
 
-          Events.query({
+          $scope.loadEvents = Events.query({
             limit: $scope.limit,
             page: pageNum - 1
-          }, function(events) {
-            $scope.loadEvents = events;
           });
-
         };
 
         // initialize state data
         $scope.init = function() {
-          $scope.page = $state.params.page || 0;
-          $scope.loadEvents = Events.query();
-          if (!$stateParams.page) {
-            $scope.nextE = false;
+          // view all events
+          if ($stateParams.view) {
+            $scope.page = parseInt($stateParams.page) || 0;
+            $scope.viewEvents($scope.page);
+            $scope.viewType = $stateParams.view || 'grid';
           }
+          // view an event details
+          else if ($stateParams.id) {
+            $state.go('viewEvent', {
+              id: $stateParams.id
+            });
+          }
+          // view the main page
+          else {
+            Events.query(function(result) {
+              $scope.loadEvents = result;
+              $state.go('events.page');
+            });
+          }
+        };
+
+        $scope.getEvent = function() {
+          $scope.eventId = $stateParams.id;
+          Events.get({
+            id: $stateParams.id
+          }, function(event) {
+            $scope.event = event;
+          });
         };
 
         // format date data
@@ -54,11 +82,11 @@
           };
         };
 
-        $scope.averageReview = function(itemReviews) {
-          if (itemReviews) {
+        $scope.averageReview = function(eventReviews) {
+          if (eventReviews) {
             var sum = 0,
               count = 0;
-            itemReviews.forEach(function(review) {
+            eventReviews.forEach(function(review) {
               sum += review.rating;
               count += 1;
             });

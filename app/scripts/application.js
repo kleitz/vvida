@@ -86,7 +86,7 @@
         state: 'about'
       }, {
         name: 'Events',
-        state: 'events'
+        state: 'events.page'
       }, {
         name: 'Products',
         state: 'items'
@@ -129,16 +129,25 @@
           templateUrl: 'views/about.html'
         })
         .state('events', {
-          url: '/events/',
+          url: '/events',
           controller: 'EventCtrl',
           templateUrl: 'views/events.html'
         })
         .state('events.all', {
-          url: '/?{page}',
+          url: '/{view}/?{page}',
           views: {
             'inner@events': {
               controller: 'EventCtrl',
-              templateUrl: 'views/all-events.html'
+              templateUrl: 'views/all-events.html',
+            }
+          }
+        })
+        .state('events.page', {
+          url: '',
+          views: {
+            'inner@events': {
+              controller: 'EventCtrl',
+              templateUrl: 'views/event-page.html',
             }
           }
         })

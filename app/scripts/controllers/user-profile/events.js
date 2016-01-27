@@ -50,7 +50,6 @@ angular.module('vvida.controllers')
         Events.get({
           id: $stateParams.id
         }, function(event) {
-          console.log(event);
           $scope.event = event;
         });
       };
