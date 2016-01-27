@@ -8,7 +8,8 @@ angular.module('vvida.controllers')
     'Utils',
     'Events',
     'FileUploader',
-    function($scope, $rootScope, $state, $stateParams, Users, Utils, Events, FileUploader) {
+    function($scope, $rootScope,
+      $state, $stateParams, Users, Utils, Events, FileUploader) {
 
       $scope.init = function() {
         // Lists of fruit names and Vegetable objects
@@ -42,7 +43,9 @@ angular.module('vvida.controllers')
         $scope.uploader = new FileUploader({
           url: '/api/image/',
           alias: 'photos',
-          formData: [{eventId: $scope.eventId}],
+          formData: [{
+            eventId: $scope.eventId
+          }],
         });
         Events.get({
           id: $stateParams.id
