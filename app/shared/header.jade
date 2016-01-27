@@ -9,7 +9,7 @@ md-toolbar.navbar.md-whiteframe-z3.header-spacing(ng-controller="HeaderCtrl")
       md-button
         | {{menuItem.name}}
     a(ng-if="currentUser" ui-sref="userProfile" )
-      md-button.md-icon-button(aria-label="Comment" style="height: 48px; width: 48px; margin: 20px; padding: 0;")
+      md-button.md-icon-button.icon-button(aria-label="Comment")
         img(ng-src="{{currentUser.img_url}}")
         md-tooltip {{currentUser.name}}
     a(ng-if="currentUser")

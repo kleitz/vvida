@@ -41,9 +41,11 @@ describe('Utils Service Test', function() {
       $mdDialog.show = sinon.stub().returns($mdDialog);
       $mdDialog.then = sinon.stub();
       var cb = sinon.spy();
+
       Utils.dialog('title', 'message', {
         event: 'event'
       }, cb);
+
       expect($mdDialog.show.called).toBe(true);
       expect(typeof $mdDialog.show.args[0][0]).toBe('object');
       expect($mdDialog.then.called).toBe(true);

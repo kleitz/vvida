@@ -27,7 +27,7 @@ machine:
     FACEBOOK_CALLBACK_URL: http://localhost:3000/auth/facebook/callback
     GOOGLE_ID: 893360311572-s0cnhs0ffojknftltkmm9cbj1p078d7o.apps.googleusercontent.com
     GOOGLE_CALLBACK_URL: http://localhost:3000/auth/google/callback
-    CODECLIMATE_REPO_TOKEN: 35ab1a6ff31e97c2da22137f2425589cc8352566d2ad1e51738de4d3ae430729'
+    CODECLIMATE_REPO_TOKEN: 35ab1a6ff31e97c2da22137f2425589cc8352566d2ad1e51738de4d3ae430729
 
 test:
   override:

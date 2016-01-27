@@ -71,6 +71,13 @@ header {
   }
 }
 
+.icon-button {
+  height: 48px;
+  width: 48px;
+  margin: 20px;
+  padding: 0;
+}
+
 .footer-button {
   margin: 0;
   text-align: left;
@@ -97,6 +104,25 @@ button.md-button {
   }
   // padding: auto 10px;
   font-weight: bold;
+}
+
+md-list-item.md-3-line {
+ > .md-list-item-text{
+   >h4.review_title {
+    font-weight: bold;
+    color: #ff4081;
+    }
+    >p.review_text {
+     color: #666;
+     width: 13em;
+     font-style: italic;
+     word-wrap: break-word;
+     }
+  }
+}
+
+.post {
+  color: #666;
 }
 
 md-card.jumbotron.search-jumbotron {
@@ -888,7 +914,7 @@ a {
 }
 
 .left-border {
-  border-left: 1px solid #777;
+  border-left: 1px solid #c0c0c0;
   &.itemcity {
     width: 200px;
     color: #555;
@@ -902,7 +928,12 @@ a {
 
 .fa-style {
   padding: 8px;
-  color: #009090
+  color: #009090;
+}
+
+.address {
+  color: #000;
+  margin-left: 3px;
 }
 
 .rating {
@@ -964,7 +995,7 @@ a {
   > h3 {
     display:block;
     margin: 0 auto;
-    color: #666;
+    color: #fff;
   }
 }
 
