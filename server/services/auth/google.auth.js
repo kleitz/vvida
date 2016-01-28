@@ -20,7 +20,7 @@ module.exports = function(app, passport, config) {
               email: profile.emails[0].value
             }]
           },
-          attributes: ['id', 'firstname', 'lastname', 'gender', 'google_auth_id']
+          attributes: ['id', 'firstname', 'lastname', 'google_auth_id']
         })
           .then(function(user) {
             // If the user does not exist create one
