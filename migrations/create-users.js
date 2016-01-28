@@ -19,22 +19,12 @@
             type: Sequelize.STRING,
             allowNull: true
           },
-          // firstname
-          firstname: {
+          // name
+          name: {
             type: Sequelize.STRING,
-            allowNull: true,
-            validate: {
-              isAlpha: true
-            }
+            allowNull: true
           },
-          // lastname
-          lastname: {
-            type: Sequelize.STRING,
-            allowNull: true,
-            validate: {
-              isAlpha: true
-            }
-          },
+
           gender: {
             type: Sequelize.STRING,
             validate: {
