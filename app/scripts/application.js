@@ -53,7 +53,7 @@
     function($rootScope, $location, $state, $mdSidenav, Users) {
       $rootScope.$on('$stateChangeSuccess', fireAuth);
 
-      function fireAuth(ev, toState, toParams, fromState, fromParams) {
+      function fireAuth(ev, toState) {
         ev.preventDefault();
         if (toState.authenticate && $rootScope.currentUser) {
           $state.go(toState);
