@@ -61,7 +61,7 @@ describe('UserEventsCtrl tests', function() {
     spyOn(Users, 'events').and.callThrough();
     scope.init();
     expect(Users.events).toHaveBeenCalled();
-    expect(scope.message).toBe('Could not get events.');
+    expect(scope.message).toBe('Your events goes here.');
   });
 
   it('should call get Users events and set events', function() {

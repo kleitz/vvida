@@ -62,11 +62,13 @@
             user.name = res.name;
             user.id = res.id;
             user.img_url = res.picture.data.url;
+            user.email = res.email;
           } else {
             var fullName = res.firstname + ' ' + res.lastname;
             user.name = fullName;
             user.id = res.id;
             user.img_url = res.img_url;
+            user.email = res.email;
           }
           if (user.img_url) {
             $rootScope.currentUser = user;
@@ -103,19 +105,23 @@
     }
   ]);
 
-  window.app.config(['$stateProvider', '$httpProvider', '$urlRouterProvider', '$locationProvider', '$mdThemingProvider',
-    function($stateProvider, $httpProvider, $urlRouterProvider, $locationProvider, $mdThemingProvider) {
+  window.app.config(['$stateProvider', '$httpProvider', '$urlRouterProvider',
+   '$locationProvider', '$mdThemingProvider',
+    function($stateProvider, $httpProvider, $urlRouterProvider,
+      $locationProvider, $mdThemingProvider) {
 
       $httpProvider.interceptors.push('TokenInjector');
 
       // For any unmatched url, redirect to /state1
       $urlRouterProvider.otherwise('/404');
 
-      // Now set up the states
+
+      // Set up theme the entire application
       $mdThemingProvider.theme('default')
         .primaryPalette('teal')
         .accentPalette('pink');
 
+      // Set up states
       $stateProvider
         .state('home', {
           url: '/',
@@ -132,8 +138,7 @@
           controller: 'EventCtrl',
           templateUrl: 'views/events.html'
         })
-
-      .state('items', {
+        .state('items', {
           url: '/items',
           controller: 'ItemCtrl',
           templateUrl: 'views/items.html'
@@ -145,26 +150,33 @@
         })
         .state('userProfile', {
           url: '/user/profile',
+          controller: 'UserProfileCtrl',
+          templateUrl: 'views/user-profile.html'
+        })
+        .state('userProfile.edit', {
+          url: '/{id}/edit',
           views: {
-            '': {
-              controller: 'UserProfileCtrl',
-              templateUrl: 'views/user-profile.html',
+            'inner-view@userProfile': {
+              controller: 'ProfileCtrl',
+              templateUrl: 'views/edit-profile.html'
             },
-            'Reviews@userProfile': {
-              controller: 'UserReviewsCtrl',
-              templateUrl: 'views/user-reviews.html',
-            },
-            'Events@userProfile': {
-              controller: 'UserEventsCtrl',
-              templateUrl: 'views/user-events.html',
-            },
-            'Products@userProfile': {
+          }
+        })
+        .state('userProfile.products', {
+          url: '/products',
+          views: {
+            'inner-view@userProfile': {
               controller: 'UserProductsCtrl',
-              templateUrl: 'views/user-products.html',
-            },
-            'Pictures@userProfile': {
-              controller: 'UserPicturesCtrl',
-              templateUrl: 'views/user-pictures.html',
+              templateUrl: 'views/user-products.html'
+            }
+          }
+        })
+        .state('userProfile.events', {
+          url: '/events',
+          views: {
+            'inner-view@userProfile': {
+              controller: 'UserEventsCtrl',
+              templateUrl: 'views/user-events.html'
             }
           }
         })

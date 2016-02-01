@@ -121,4 +121,27 @@ describe('ItemCtrl tests', function() {
     expect(scope.uploader.uploadAll).toHaveBeenCalled();
   });
 
+  it('should return array of length n', function() {
+    var range=scope.range(9);
+    expect(range).toBeTruthy();
+    expect(range.length).toBe(9);
+  });
+
+  it('should set itemReview.rating', function() {
+    scope.itemReview={rating:0};
+    scope.rate(9);
+    expect(scope.itemReview.rating).toBe(9);
+  });
+
+  it('should set image', function() {
+    scope.setImage(9);
+    expect(scope.selectedImage).toBe(9);
+  });
+
+  it('should return average review', function() {
+    var reviews=[{rating:5},{rating:5}];
+    var avgReview=scope.averageReview(reviews);
+    expect(avgReview).toBe(5);
+  });
+
 });
