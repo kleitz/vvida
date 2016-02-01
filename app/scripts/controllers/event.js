@@ -1,7 +1,8 @@
 (function() {
   'use strict';
   angular.module('vvida.controllers')
-    .controller('EventCtrl', ['$scope', '$state', '$stateParams', 'FileUploader', 'Utils', 'Events',
+    .controller('EventCtrl', ['$scope', '$state', '$stateParams',
+      'FileUploader', 'Utils', 'Events',
       function($scope, $state, $stateParams, FileUploader, Utils, Events) {
         // create event
         $scope.addEvent = function() {
@@ -18,7 +19,7 @@
 
         //Get the eventId
         var eventId = $stateParams.id;
-        var init = function() {
+        $scope.init = function() {
           $scope.event = {
             eventId: $stateParams.id
           };
@@ -30,7 +31,7 @@
         };
 
         //load the item
-        if (eventId) {
+        $scope.getEvent=function(){
           Events.get({
             id: eventId
           }, function(event) {
@@ -38,6 +39,8 @@
             $scope.event.time = null;
           });
         }
+ 
+        
 
         $scope.updateEvent = function() {
           Events.update($scope.event, function(event) {
@@ -54,7 +57,7 @@
           $scope.uploader.uploadAll();
         };
 
-        init();
+        $scope.init();
       }
     ]);
 })();

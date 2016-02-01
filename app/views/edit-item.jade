@@ -6,7 +6,6 @@ div.not-loggedin-div(ng-if="!currentUser")
     p.md-headline.packed-top Click below to login or signup  to continue using vvida.
     md-button.login-btn(class="md-raised md-primary" aria-label="Login/Signup" ng-click="login()") Go to Login/Signup Page
 
-
 md-card.items(layout="column" flex="55" ng-if="currentUser" ng-init="getItem()")
   md-card-content.content
   md-content

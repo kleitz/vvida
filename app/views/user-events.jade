@@ -1,4 +1,4 @@
-md-card-content.content
+md-card-content.content(ng-if="currentUser" ng-init="init()")
   h1 Events
   p.md-headline {{message}}
   div(ng-repeat='x in events.Events')
