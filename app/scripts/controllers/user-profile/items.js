@@ -4,7 +4,7 @@ angular.module('vvida.controllers')
   'Users',
   'Utils',
   function($scope, $rootScope, Users, Utils) {
-    if ($rootScope.currentUser) {
+    $scope.init=function() {
       Users.items($rootScope.currentUser, function(err, res) {
         if (err) {
           $scope.message = 'Your products goes here.';
@@ -15,10 +15,9 @@ angular.module('vvida.controllers')
           }
         }
       });
-    }
+    };
 
     $scope.addItemModal = function(ev) {
       Utils.modal(ev, 'item', 'Create an Item');
     };
-
   }]);

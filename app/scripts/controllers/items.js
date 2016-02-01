@@ -18,10 +18,26 @@
           return new Array(n);
         };
 
+        $scope.rate = function(n) {
+          $scope.itemReview.rating = n;
+        };
+
         $scope.maxReview = function(itemReviews) {
           return window._.max(itemReviews, function(review) {
             return review.rating;
           });
+        };
+
+        $scope.averageReview = function(itemReviews) {
+          if (itemReviews) {
+            var sum = 0;
+            var count = 0;
+            itemReviews.forEach(function(review) {
+              sum += review.rating;
+              count += 1;
+            });
+            return Math.round(sum / count) || 0;
+          }
         };
 
         $scope.getCategory = function() {
@@ -60,7 +76,6 @@
         $scope.getItem = function() {
           // get selected item id
           $scope.itemId = $stateParams.id;
-
           $scope.uploader = new FileUploader({
             url: '/api/image/',
             alias: 'photos',
@@ -68,7 +83,6 @@
               id: $scope.itemId
             }],
           });
-
           //load the item
           Items.get({
             id: $scope.itemId
@@ -102,7 +116,6 @@
         $scope.upload = function() {
           $scope.uploader.uploadAll();
         };
-
         $scope.init();
       }
     ]);

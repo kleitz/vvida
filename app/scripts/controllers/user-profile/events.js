@@ -12,7 +12,7 @@ angular.module('vvida.controllers')
       $state, $stateParams, Users, Utils, Events, FileUploader) {
 
       $scope.init = function() {
-        // Lists of fruit names and Vegetable objects
+
         Users.events($rootScope.currentUser, function(err, res) {
           if (err) {
             $scope.message = 'Your events goes here.';

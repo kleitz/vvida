@@ -5,7 +5,6 @@
   angular.module('vvida.filters', []);
   angular.module('vvida.directives', []);
 
-
   //Require Services
   require('./services/utils');
   require('./services/users');
@@ -17,6 +16,10 @@
   require('./services/token');
   require('./services/auth');
   require('./services/token-injector');
+  require('./services/reservations');
+  require('./services/notifications');
+  require('./services/promotions');
+  require('./services/messages');
 
   // Require Controllers
   require('./controllers/footer');
@@ -102,8 +105,10 @@
     }
   ]);
 
-  window.app.config(['$stateProvider', '$httpProvider', '$urlRouterProvider', '$locationProvider', '$mdThemingProvider',
-    function($stateProvider, $httpProvider, $urlRouterProvider, $locationProvider, $mdThemingProvider) {
+  window.app.config(['$stateProvider', '$httpProvider', '$urlRouterProvider',
+    '$locationProvider', '$mdThemingProvider',
+    function($stateProvider, $httpProvider, $urlRouterProvider,
+      $locationProvider, $mdThemingProvider) {
 
       $httpProvider.interceptors.push('TokenInjector');
 

@@ -1,3 +1,7 @@
+var ENV = process.env.NODE_ENV || 'development';
+if (ENV === 'development') {
+  require('dotenv').load();
+}
 var gulp = require('gulp'),
   less = require('gulp-less'),
   jade = require('gulp-jade'),
@@ -6,6 +10,7 @@ var gulp = require('gulp'),
   jshint = require('jshint'),
   browserify = require('browserify'),
   path = require('path'),
+  reporter = require('gulp-codeclimate-reporter'),
   source = require('vinyl-source-stream'),
   imagemin = require('gulp-imagemin'),
   nodemon = require('gulp-nodemon'),
@@ -22,44 +27,11 @@ var gulp = require('gulp'),
       '!app/images/**/*',
       'app/**/*.*'
     ],
-    unitTests: [
-      'public/lib/angular/angular.min.js',
-      'public/lib/angular-ui-router/release/angular-ui-router.min.js',
-      'public/js/application.js',
-      'tests/unit/**/*.spec.js'
-    ],
+    unitTests: [],
     serverTests: ['./tests/server/**/*.spec.js'],
     libTests: ['lib/tests/**/*.js'],
     styles: 'app/styles/*.+(less|css)'
   };
-
-gulp.task('test:fend', function() {
-  // Be sure to return the stream
-  return gulp.src(paths.unitTests)
-    .pipe(karma({
-      configFile: __dirname + '/karma.conf.js',
-      // autoWatch: false,
-      // singleRun: true
-      action: 'run'
-    }))
-    .on('error', function(err) {
-      // Make sure failed tests cause gulp to exit non-zero
-      throw err;
-    });
-});
-
-gulp.task('test:bend', function() {
-  return gulp.src(paths.serverTests)
-    .pipe(mocha({
-      reporter: 'spec'
-    }))
-    .once('error', function() {
-      process.exit(1);
-    })
-    .once('end', function() {
-      process.exit();
-    });
-});
 
 gulp.task('less', function() {
   gulp.src(paths.styles)
@@ -126,6 +98,31 @@ gulp.task('nodemon', function() {
     });
 });
 
+gulp.task('test:fend', ['browserify', 'bower'], function() {
+  // Be sure to return the stream
+  return gulp.src(paths.unitTests)
+    .pipe(karma({
+      configFile: __dirname + '/karma.conf.js',
+      // autoWatch: false,
+      // singleRun: true
+      action: 'run'
+    }))
+    .on('error', function(err) {
+      // Make sure failed tests cause gulp to exit non-zero
+      throw err;
+    });
+});
+
+gulp.task('test:bend', ['test:fend'], function() {
+  return gulp.src(paths.serverTests)
+    .pipe(mocha({
+      reporter: 'spec'
+    }))
+    .once('error', function() {
+      process.exit(1);
+    });
+});
+
 gulp.task('test:e2e', function(cb) {
   gulp.src(['./tests/e2e/*.js'])
     .pipe(protractor({
@@ -136,6 +133,16 @@ gulp.task('test:e2e', function(cb) {
       console.log(e);
     })
     .on('end', cb);
+});
+
+gulp.task('codeclimate-reporter', ['test:fend', 'test:bend'], function() {
+  return gulp.src(['coverage/report-lcov/lcov.info'], {
+      read: false
+    })
+    .pipe(reporter({
+      token: process.env.CODECLIMATE_REPO_TOKEN,
+      verbose: true
+    }));
 });
 
 gulp.task('watch', function() {
@@ -152,5 +159,5 @@ gulp.task('build', ['jade', 'less', 'static-files',
 gulp.task('heroku:production', ['build']);
 gulp.task('heroku:staging', ['build']);
 gulp.task('production', ['nodemon', 'build']);
-gulp.task('test', ['test:fend', 'test:bend']);
+gulp.task('test', ['test:fend', 'test:bend', 'codeclimate-reporter']);
 gulp.task('default', ['nodemon', 'watch', 'build']);

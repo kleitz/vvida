@@ -75,6 +75,13 @@ header {
   }
 }
 
+.icon-button {
+  height: 48px;
+  width: 48px;
+  margin: 20px;
+  padding: 0;
+}
+
 .footer-button {
   margin: 0;
   text-align: left;
@@ -101,6 +108,25 @@ button.md-button {
   .fa {
     margin-right: 5%;
   }
+}
+
+md-list-item.md-3-line {
+  > .md-list-item-text {
+    >h4.review_title {
+      font-weight: bold;
+      color: #ff4081;
+    }
+    >p.review_text {
+      color: #666;
+      width: 13em;
+      font-style: italic;
+      word-wrap: break-word;
+    }
+  }
+}
+
+.post {
+  color: #666;
 }
 
 md-card.jumbotron.search-jumbotron {
@@ -880,9 +906,10 @@ md-toolbar.navbar {
 
 .thumbs {
   border-radius: 5px;
+  border: 1px solid #ddd;
   width: 350px;
-  height: 110px;
-  margin: 10px 0;
+  height: 100px;
+  margin: 10px;
 }
 
 .btn-style {
@@ -919,6 +946,16 @@ a {
   text-transform: none;
 }
 
+.colorteal {
+  color: #009090;
+  font-size: 1.2em;
+}
+
+.colorpink {
+  color: #ff4081;
+  font-size: 1.2em;
+}
+
 .reviews {
   border: 1px solid #009090;
   border-radius: 2px;
@@ -930,11 +967,97 @@ a {
 }
 
 .left-border {
-  border-left: 1px solid #777;
+  border-left: 1px solid #c0c0c0;
   &.itemcity {
     width: 200px;
     color: #555;
   }
+}
+
+.item-padding {
+  padding-left: 60px;
+  padding-right: 60px;
+}
+
+.fa-style {
+  padding: 8px;
+  color: #009090;
+}
+
+.address {
+  color: #000;
+  margin-left: 3px;
+}
+
+.rating {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  text-align: center;
+  font-size: 24px;
+}
+
+.container-height {
+  height: 300px;
+}
+
+.rating > span {
+  display: inline-block;
+  position: relative;
+  width: 1.1em;
+}
+
+.rating > span:hover,
+.rating > span:hover ~ span {
+  color: transparent;
+}
+
+.rating > span:hover:before,
+.rating > span:hover ~ span:before {
+  content: "\2605";
+  position: absolute;
+  left: 0;
+  color: #ff4081;
+}
+
+.stared {
+  color: #ff4081;
+}
+
+.item-title {
+  padding-left: 15px;
+  color: #666;
+}
+
+.title-color {
+  color: #666;
+}
+
+.no-padding {
+  padding: 0
+}
+
+.rating-box {
+  margin-left: 140px;
+}
+
+.average-rating {
+  width: 80px;
+  height: 80px;
+  line-height: 80px;
+  background: #009090;
+  > h3 {
+    display: block;
+    margin: 0 auto;
+    color: #fff;
+  }
+}
+
+.average-stars {
+  margin: 0 0 0 1px;
+}
+
+.small {
+  font-size: 12px;
 }
 
 .remove-link-deco {
