@@ -9,7 +9,17 @@
       Items = app.get('models').Items,
       Categories = app.get('models').Categories,
       Events = app.get('models').Events,
-      Reviews = app.get('models').Reviews;
+      Reviews = app.get('models').Reviews,
+      stripUser = function (user) {
+        user.password = null;
+        user.token = null;
+        user.facebook_auth_id = null;
+        user.facebook_auth_token = null;
+        user.img_public_id = null;
+        user.google_auth_id = null;
+        user.google_auth_token = null;
+        return user;
+      };
 
     return {
       // login middleware
@@ -36,7 +46,6 @@
         passport.authenticate('signup', function(err, user) {
           // check for errors, if exist send a response with error
           if (err) {
-            console.log(err);
             return res.status(500).json({
               error: err.message || err.errors[0].message || err
             });
@@ -49,7 +58,7 @@
             });
           }
           // else signup succesful
-          return res.json(user.dataValues);
+          return res.json(stripUser(user.dataValues));
         })(req, res, next);
       },
 
@@ -71,7 +80,7 @@
                 } else {
                   delete user.password;
                   req.decoded = user;
-                  res.json(user);
+                  res.json(stripUser(user));
                 }
               }).catch(function(err) {
                 res.status(500).json({
@@ -117,9 +126,7 @@
               message: 'User not found'
             });
           } else {
-            user.password = null;
-            delete user.password;
-            res.json(user);
+            res.json(stripUser(user));
           }
         }).catch(function(err) {
           res.status(500).json({
@@ -299,14 +306,8 @@
           where: {
             user_id: req.params.id
           }
-        }).then(function(results) {
-          if (!results) {
-            res.status(404).send({
-              error: 'User items not found'
-            });
-          } else {
-            res.json(results);
-          }
+        }).then(function(count) {
+          res.json(count || 0);
         }).catch(function(err) {
           res.status(500).send({
             error: err.message || err.errors[0].message

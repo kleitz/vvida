@@ -1,15 +1,23 @@
 angular.module('vvida.controllers')
-  .controller('UserProductsCtrl', ['$scope', '$rootScope', 'Users', function($scope, $rootScope, Users) {
-    if ($rootScope.currentUser) {
+  .controller('UserProductsCtrl', ['$scope',
+  '$rootScope',
+  'Users',
+  'Utils',
+  function($scope, $rootScope, Users, Utils) {
+    $scope.init=function() {
       Users.items($rootScope.currentUser, function(err, res) {
         if (err) {
-          $scope.message = 'No products have been created.';
+          $scope.message = 'Your products goes here.';
         } else {
           $scope.items = res;
           if (res.Items.length === 0) {
-            $scope.message = 'No products have been created.';
+            $scope.message = 'Your products goes here.';
           }
         }
       });
-    }
+    };
+
+    $scope.addItemModal = function(ev) {
+      Utils.modal(ev, 'item', 'Create an Item');
+    };
   }]);

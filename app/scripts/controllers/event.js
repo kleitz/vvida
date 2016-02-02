@@ -1,60 +1,107 @@
 (function() {
   'use strict';
   angular.module('vvida.controllers')
-    .controller('EventCtrl', ['$scope', '$state', '$stateParams', 'FileUploader', 'Utils', 'Events',
-      function($scope, $state, $stateParams, FileUploader, Utils, Events) {
-        // create event
-        $scope.addEvent = function() {
-          Events.save($scope.event, function(event) {
-            if (event) {
-              $state.go('editEvent', {
-                id: event.id
-              });
-            } else {
-              Utils.toast('Event not created');
-            }
+    .controller('EventCtrl', ['$scope', '$state', '$stateParams', '$filter',
+      'Utils', 'Events',
+      function($scope, $state, $stateParams, $filter,
+        Utils, Events) {
+
+        // initialize state data
+        $scope.init = function() {
+          // view all events
+          if ($stateParams.view) {
+            $scope.page = parseInt($stateParams.page) || 0;
+            $scope.viewEvents($scope.page);
+            $scope.viewType = $stateParams.view || 'grid';
+          }
+          // view an event details
+          else if ($stateParams.id) {
+            $state.go('viewEvent', {
+              id: $stateParams.id
+            });
+          }
+          // view the main page
+          else {
+            Events.query(function(result) {
+              $scope.loadEvents = result;
+              $state.go('events.page');
+            });
+          }
+        };
+
+        $scope.setViewType = function(type) {
+          $scope.viewType = type;
+          $scope.updateStateParams();
+        };
+
+        $scope.updateStateParams = function() {
+          $state.go('events.all', {
+            page: $scope.page,
+            view: $scope.viewType
           });
         };
 
-        //Get the eventId
-        var eventId = $stateParams.id;
-        var init = function() {
-          $scope.event = {
-            eventId: $stateParams.id
-          };
-          $scope.uploader = new FileUploader({
-            url: '/api/image/',
-            alias: 'photos',
-            formData: [$scope.event],
+        // event list to be updated for pagination
+        $scope.viewEvents = function(page) {
+          var pageNum = parseInt(page);
+          pageNum = (pageNum <= 0) ? 1 : pageNum;
+          $scope.limit = 3;
+
+          $scope.loadEvents = Events.query({
+            limit: $scope.limit,
+            page: pageNum - 1
           });
         };
 
-        //load the item
-        if (eventId) {
+        // redirect to pages
+        $scope.prevEvents = function() {
+          $scope.page = parseInt($state.params.page) - 1;
+          $scope.viewEvents($scope.page);
+          $scope.updateStateParams();
+        };
+
+        $scope.nextEvents = function() {
+          $scope.page = parseInt($state.params.page) + 1;
+          $scope.viewEvents($scope.page);
+          $scope.updateStateParams();
+        };
+
+
+
+        $scope.getEvent = function() {
+          $scope.eventId = $stateParams.id;
           Events.get({
-            id: eventId
+            id: $stateParams.id
           }, function(event) {
             $scope.event = event;
-            $scope.event.time = null;
-          });
-        }
-
-        $scope.updateEvent = function() {
-          Events.update($scope.event, function(event) {
-            Utils.toast(event.message);
           });
         };
 
-
-        $scope.showToast = function() {
-          Utils.toast('Upload complete');
+        // format date data
+        $scope.parseTime = function(eventTime) {
+          return {
+            day: $filter('date')(eventTime, 'EEEE dd MMM yyyy'),
+            time: $filter('date')(eventTime, 'hh:mm a')
+          };
         };
 
-        $scope.upload = function() {
-          $scope.uploader.uploadAll();
+        $scope.averageReview = function(eventReviews) {
+          if (eventReviews) {
+            var sum = 0,
+              count = 0;
+            eventReviews.forEach(function(review) {
+              sum += review.rating;
+              count += 1;
+            });
+            return Math.round(sum / count) || 0;
+          }
         };
 
-        init();
+        $scope.setImage = function(image) {
+          $scope.selectedImage = image;
+        };
+
+        $scope.init();
       }
     ]);
 })();

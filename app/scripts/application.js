@@ -5,7 +5,6 @@
   angular.module('vvida.filters', []);
   angular.module('vvida.directives', []);
 
-
   //Require Services
   require('./services/utils');
   require('./services/users');
@@ -17,6 +16,10 @@
   require('./services/token');
   require('./services/auth');
   require('./services/token-injector');
+  require('./services/reservations');
+  require('./services/notifications');
+  require('./services/promotions');
+  require('./services/messages');
 
   // Require Controllers
   require('./controllers/footer');
@@ -72,14 +75,13 @@
             user.name = res.name;
             user.id = res.id;
             user.img_url = res.img_url;
-            user.username = res.username;
-            user.city = res.city;
+            user.email = res.email;
           } else {
             user.name = res.name;
             user.id = res.id;
             user.img_url = res.img_url;
             user.username = res.username;
-            use.city = res.city;
+            user.email = res.email;
           }
           if (user.img_url) {
             $rootScope.currentUser = user;
@@ -99,7 +101,7 @@
         state: 'about'
       }, {
         name: 'Events',
-        state: 'events'
+        state: 'events.page'
       }, {
         name: 'Products',
         state: 'items'
@@ -114,11 +116,10 @@
       };
     }
   ]);
-
-  window.app.config(['$stateProvider', '$httpProvider',
-    '$urlRouterProvider', '$locationProvider', '$mdThemingProvider',
-    function($stateProvider, $httpProvider,
-      $urlRouterProvider, $locationProvider, $mdThemingProvider) {
+  window.app.config(['$stateProvider', '$httpProvider', '$urlRouterProvider',
+    '$locationProvider', '$mdThemingProvider',
+    function($stateProvider, $httpProvider, $urlRouterProvider,
+      $locationProvider, $mdThemingProvider) {
 
       // For injecting tokens into request headers
       $httpProvider.interceptors.push('TokenInjector');
@@ -126,11 +127,13 @@
       // For any unmatched url, redirect to /state1
       $urlRouterProvider.otherwise('/404');
 
-      // Now set up the states
+
+      // Set up theme the entire application
       $mdThemingProvider.theme('default')
         .primaryPalette('teal')
         .accentPalette('pink');
 
+      // Set up states
       $stateProvider
         .state('home', {
           url: '/',
@@ -147,12 +150,34 @@
           controller: 'EventCtrl',
           templateUrl: 'views/events.html'
         })
-
-      .state('items', {
-        url: '/items',
-        controller: 'ItemCtrl',
-        templateUrl: 'views/items.html'
-      })
+        .state('events.all', {
+          url: '/{view}/?{page}',
+          views: {
+            'inner@events': {
+              controller: 'EventCtrl',
+              templateUrl: 'views/all-events.html',
+            }
+          }
+        })
+        .state('events.page', {
+          url: '',
+          views: {
+            'inner@events': {
+              controller: 'EventCtrl',
+              templateUrl: 'views/event-page.html',
+            }
+          }
+        })
+        .state('viewEvent', {
+          url: '/events/{id}',
+          controller: 'EventCtrl',
+          templateUrl: 'views/view-event.html'
+        })
+        .state('items', {
+          url: '/items',
+          controller: 'ItemCtrl',
+          templateUrl: 'views/items.html'
+        })
         .state('profile', {
           url: '/user/{id}/edit',
           controller: 'ProfileCtrl',
@@ -160,26 +185,42 @@
         })
         .state('userProfile', {
           url: '/user/profile',
+          controller: 'UserProfileCtrl',
+          templateUrl: 'views/user-profile.html'
+        })
+        .state('userProfile.edit', {
+          url: '/{id}/edit',
           views: {
-            '': {
-              controller: 'UserProfileCtrl',
-              templateUrl: 'views/user-profile.html',
+            'inner-view@userProfile': {
+              controller: 'ProfileCtrl',
+              templateUrl: 'views/edit-profile.html'
             },
-            'Reviews@userProfile': {
-              controller: 'UserReviewsCtrl',
-              templateUrl: 'views/user-reviews.html',
-            },
-            'Events@userProfile': {
-              controller: 'UserEventsCtrl',
-              templateUrl: 'views/user-events.html',
-            },
-            'Products@userProfile': {
+          }
+        })
+        .state('userProfile.products', {
+          url: '/products',
+          views: {
+            'inner-view@userProfile': {
               controller: 'UserProductsCtrl',
-              templateUrl: 'views/user-products.html',
-            },
-            'Pictures@userProfile': {
-              controller: 'UserPicturesCtrl',
-              templateUrl: 'views/user-pictures.html',
+              templateUrl: 'views/user-products.html'
+            }
+          }
+        })
+        .state('userProfile.events', {
+          url: '/events',
+          views: {
+            'inner-view@userProfile': {
+              controller: 'UserEventsCtrl',
+              templateUrl: 'views/user-events.html'
+            }
+          }
+        })
+        .state('userProfile.editEvent', {
+          url: '/events/{id}/edit',
+          views: {
+            'inner-view@userProfile': {
+              controller: 'UserEventsCtrl',
+              templateUrl: 'views/edit-event.html'
             }
           }
         })
@@ -203,16 +244,6 @@
           url: '/categories/{catId}',
           controller: 'ItemCtrl',
           templateUrl: 'views/items.html'
-        })
-        .state('addEvent', {
-          url: '/events/create',
-          controller: 'EventCtrl',
-          templateUrl: 'views/add-event.html'
-        })
-        .state('editEvent', {
-          url: '/events/{id}/edit',
-          controller: 'EventCtrl',
-          templateUrl: 'views/edit-event.html'
         })
         .state('login', {
           url: '/users/login',
