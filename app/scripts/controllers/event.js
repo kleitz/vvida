@@ -6,42 +6,6 @@
       function($scope, $state, $stateParams, $filter,
         Utils, Events) {
 
-        $scope.setViewType = function(type) {
-          $scope.viewType = type;
-          $scope.updateStateParams();
-        };
-
-        $scope.updateStateParams = function() {
-          $state.go('events.all', {
-            page: $scope.page,
-            view: $scope.viewType
-          });
-        };
-        // redirect to pages
-        $scope.prevEvents = function() {
-          $scope.page = parseInt($state.params.page) - 1;
-          $scope.viewEvents($scope.page);
-          $scope.updateStateParams();
-        };
-
-        $scope.nextEvents = function() {
-          $scope.page = parseInt($state.params.page) + 1;
-          $scope.viewEvents($scope.page);
-          $scope.updateStateParams();
-        };
-
-        // event list to be updated for pagination
-        $scope.viewEvents = function(page) {
-          var pageNum = parseInt(page);
-          pageNum = (pageNum <= 0) ? 1 : pageNum;
-          $scope.limit = 3;
-
-          $scope.loadEvents = Events.query({
-            limit: $scope.limit,
-            page: pageNum - 1
-          });
-        };
-
         // initialize state data
         $scope.init = function() {
           // view all events
@@ -64,6 +28,45 @@
             });
           }
         };
+
+        $scope.setViewType = function(type) {
+          $scope.viewType = type;
+          $scope.updateStateParams();
+        };
+
+        $scope.updateStateParams = function() {
+          $state.go('events.all', {
+            page: $scope.page,
+            view: $scope.viewType
+          });
+        };
+
+        // event list to be updated for pagination
+        $scope.viewEvents = function(page) {
+          var pageNum = parseInt(page);
+          pageNum = (pageNum <= 0) ? 1 : pageNum;
+          $scope.limit = 3;
+
+          $scope.loadEvents = Events.query({
+            limit: $scope.limit,
+            page: pageNum - 1
+          });
+        };
+
+        // redirect to pages
+        $scope.prevEvents = function() {
+          $scope.page = parseInt($state.params.page) - 1;
+          $scope.viewEvents($scope.page);
+          $scope.updateStateParams();
+        };
+
+        $scope.nextEvents = function() {
+          $scope.page = parseInt($state.params.page) + 1;
+          $scope.viewEvents($scope.page);
+          $scope.updateStateParams();
+        };
+
+
 
         $scope.getEvent = function() {
           $scope.eventId = $stateParams.id;

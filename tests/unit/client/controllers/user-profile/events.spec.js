@@ -2,6 +2,8 @@ describe('UserEventsCtrl tests', function() {
   'use strict';
   var scope,
     controller,
+    Utils,
+    state,
     Users = {
       events: function(currentUser, cb) {
         var res;
@@ -38,6 +40,23 @@ describe('UserEventsCtrl tests', function() {
       token: null,
       updated_at: '2015-12-01T09:29:08.522Z',
       username: 'HannahCK',
+    },
+    Events = {
+      save: function(evt, cb) {
+        evt ? cb(evt) : cb(false);
+      },
+      update: function(evt, cb) {
+        evt ? cb(evt) : cb(false);
+      },
+      get: function(id, cb) {
+        cb({
+          message: 'Sample Event Message',
+          time: null
+        });
+      },
+      query: function() {
+        return [1, 2, 3];
+      }
     };
 
   beforeEach(function() {
@@ -48,9 +67,11 @@ describe('UserEventsCtrl tests', function() {
     inject(function($injector) {
       var $controller = $injector.get('$controller');
       scope = $injector.get('$rootScope');
+      Utils = $injector.get('Utils');
       controller = $controller('UserEventsCtrl', {
         $scope: scope,
-        Users: Users
+        Users: Users,
+        Events: Events
       });
     });
 
@@ -71,4 +92,73 @@ describe('UserEventsCtrl tests', function() {
     expect(Users.events).toHaveBeenCalled();
     expect(scope.message).not.toBeTruthy();
   });
+
+  it('should define a false event and fail', function() {
+    scope.event = false;
+    spyOn(Events, 'save').and.callThrough();
+    spyOn(Utils, 'toast').and.callThrough();
+    scope.addEvent();
+    expect(Events.save).toHaveBeenCalled();
+    expect(Utils.toast).toHaveBeenCalledWith('Event not created');
+  });
+
+  it('should define and add an event', function() {
+    scope.event = {
+      user_id: 1,
+      name: 'Sample Event',
+      description: 'Sample Event Description',
+      location: 'Sample Event Location',
+      venue: 'Sample Event Venue',
+      time: new Date(Date.now),
+      sponsor: 'Sample Event Sponsor',
+      message: 'Sample Event Message'
+    };
+    spyOn(Events, 'save').and.callThrough();
+    spyOn(Utils, 'toast').and.callThrough();
+    scope.addEvent();
+    expect(Events.save).toHaveBeenCalled();
+    expect(Utils.toast).not.toHaveBeenCalled();
+  });
+
+
+  it('should define and update an event', function() {
+    scope.event = {
+      message: 'Sample Event Message'
+    };
+    spyOn(Events, 'update').and.callThrough();
+    spyOn(Utils, 'toast').and.callThrough();
+    scope.updateEvent();
+    expect(Events.update).toHaveBeenCalled();
+    expect(Utils.toast).toHaveBeenCalledWith('Sample Event Message');
+  });
+
+  it('should get an event', function() {
+    spyOn(Events, 'get').and.callThrough();
+    scope.getEvent();
+    expect(Events.get).toHaveBeenCalled();
+    expect(scope.event).toEqual({
+      message: 'Sample Event Message',
+      time: null
+    });
+  });
+
+  it('should call Utils.toast', function() {
+    spyOn(Utils, 'toast');
+    scope.showToast();
+    expect(Utils.toast).toHaveBeenCalledWith('Upload complete');
+  });
+
+  it('should call uploader.uploadAll', function() {
+    scope.getEvent();
+    spyOn(scope.uploader, 'uploadAll');
+    scope.upload();
+    expect(scope.uploader.uploadAll).toHaveBeenCalled();
+  });
+
+  it('should add a dialog view', function() {
+    spyOn(Utils, 'modal').and.callThrough();
+    scope.addEventModal('ev', 'event', 'Create an Event');
+    expect(Utils.modal).toHaveBeenCalled();
+  });
+
 });
