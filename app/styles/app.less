@@ -1,8 +1,6 @@
 body {
   width: 100%;
-
   text-transform: none;
-
   font-family: "Roboto", "Open Sans", "Arial", "Verdana", sans-serif;
   font-size: 1em;
 }
@@ -20,7 +18,6 @@ h5 {
 
 img {
   max-width: 100%;
-
   border: 0;
   border-radius: 4px;
 }
@@ -33,9 +30,12 @@ input {
   text-align: center;
 }
 
+.small-font {
+  font-size: 0.8em;
+}
+
 header {
   overflow: auto;
-
   height: 50px;
   margin: 0 auto;
   padding: 10px;
@@ -50,9 +50,7 @@ header {
   }
   a {
     margin-top: 10px;
-
     color: white;
-
     font-size: 8px;
   }
 }
@@ -62,7 +60,6 @@ header {
   height: auto;
   margin-top: -2px;
   padding-bottom: 30px;
-
   background-color: #222;
 }
 
@@ -92,13 +89,11 @@ header {
 
   text-align: left;
   text-transform: capitalize;
-
   color: white;
 }
 
 .footer-text {
   text-align: center;
-
   color: white;
 }
 
@@ -119,21 +114,17 @@ button.md-button {
 }
 
 md-list-item.md-3-line {
- > .md-list-item-text{
-   >h4.review_title {
-    color: #ff4081;
-
-    font-weight: bold;
+  > .md-list-item-text {
+    >h4.review_title {
+      font-weight: bold;
+      color: #ff4081;
     }
     >p.review_text {
-     width: 13em;
-
-     word-wrap: break-word;
-
-     color: #666;
-
-     font-style: italic;
-     }
+      color: #666;
+      width: 13em;
+      font-style: italic;
+      word-wrap: break-word;
+    }
   }
 }
 
@@ -160,7 +151,6 @@ md-card.jumbotron.search-jumbotron {
   z-index: 50;
   top: 0;
   left: 0;
-
   width: 100%;
   margin-top: -47px;
   @media (max-width: 599px) {
@@ -170,18 +160,14 @@ md-card.jumbotron.search-jumbotron {
     position: absolute;
     bottom: 0;
     left: 0;
-
     width: 100%;
-
     opacity: 0.8;
     background: #fff;
-
     align-items: baseline;
     .search-bar {
       position: relative;
       bottom: 0;
       left: 0;
-
       margin: 0 auto;
       padding: 0;
       md-input-container {
@@ -241,7 +227,6 @@ md-toolbar,
 .card-images {
   width: 100%;
   height: 260px;
-
   background: center center no-repeat;
   background-size: cover;
 }
@@ -251,29 +236,64 @@ md-toolbar,
 
   background: center center no-repeat;
   background-size: cover;
+
+.eventGridList {
+  min-width: 400px;
 }
 
 .events {
-  border: 1px solid teal;
+  padding-left: 30px;
+  padding-right: 30px;
+  & .md-button {
+    font-size: 1.1em;
+    &.md-icon-button {
+      width: 80px;
+      border: 1px solid teal;
+    }
+  }
+  .small {
+    color: white;
+    font-style: italic;
+  }
   & h3 {
     margin: 0px;
     padding: 5px;
-
     color: red;
+    font-size: 1.4em;
   }
+  md-grid-tile-header {
+    background-color: #009090;
+    opacity: 0.9;
+  }
+  md-grid-tile-footer {
+    height: 90px;
+    background-color: #009090;
+    opacity: 0.9;
+  }
+  div md-list {
+    width: 100%;
+    md-list-item {
+      min-width: 600px;
+      width: inherit;
+    }
+  }
+}
+
+.event-main-img {
+  width: inherit;
+  height: 300px;
+  background-size: cover;
+  ;
 }
 
 .eventList {
   margin: 1px;
-
   border: 2px solid #009090;
   border-radius: 10px;
   > h3 {
     margin-top: 10px;
     padding: 5px;
-
     text-align: center;
-
     border-radius: 10px;
     background-color: #82b4b7;
   }
@@ -282,12 +302,9 @@ md-toolbar,
       text-align: left;
       > h4 {
         overflow: hidden;
-
         height: 20px;
-
         white-space: nowrap;
         text-overflow: ellipsis;
-
         font-style: italic;
       }
     }
@@ -298,35 +315,26 @@ md-toolbar,
   width: 100%;
   height: 650px;
   padding-bottom: 0;
-
   background: url(../images/header-background.jpg) center center no-repeat;
   background-size: cover;
   .image-overlay {
     display: flex;
     flex-direction: column;
-
     height: inherit;
     padding-bottom: 0;
-
     text-align: center;
-
     background: rgba(0, 0, 0, 0.2);
     p {
       display: inline-block;
-
       margin-top: 200px;
       margin-bottom: 0;
-
       color: white;
       text-shadow: 0 0 4px #333;
-
       font-size: 3.5em;
     }
     .jumbotron-middle-small-text {
       display: block;
-
       margin-top: 0;
-
       font-size: 1.7em;
     }
     .jumbotron-footer {
@@ -339,22 +347,17 @@ nav {
   float: right;
   p {
     display: inline-block;
-
     width: 85px;
     height: 60px;
     padding: 5px;
-
     text-align: center;
-
     color: white;
-
     font-size: 0.9rem;
   }
 }
 
 h3 {
   margin-bottom: 30px;
-
   color: rgb(16, 24, 14);
 
   font-size: 1.75em;
@@ -363,9 +366,7 @@ h3 {
 
 .middle-content {
   padding: 150px;
-
   text-align: center;
-
   color: white;
   h2 {
     font-size: 4.5em;
@@ -378,15 +379,12 @@ h3 {
 
 .top-reviews {
   overflow: auto;
-
   padding: 3% 4%;
 }
 
 .child-content-top-reviews {
   text-align: center;
-
   color: grey;
-
   line-height: 1.5em;
   p {
     text-align: justify;
@@ -423,9 +421,7 @@ h3 {
 
 .products {
   overflow: auto;
-
   padding: 3% 4%;
-
   text-align: justify;
   img {
     max-width: 100%;
@@ -455,7 +451,6 @@ h3 {
     margin-right: 30px;
     margin-left: 30px;
     padding: 0 px;
-
     background-color: rgb(255, 110, 64);
   }
   .text-divider {
@@ -463,15 +458,12 @@ h3 {
     margin-top: 20px;
     margin-right: 40px;
     margin-left: 40px;
-
     background-color: white;
   }
   .title {
     text-align: center;
     text-transform: uppercase;
-
     color: white;
-
     font-weight: bold;
   }
   .text {
@@ -484,13 +476,10 @@ h3 {
 .event-info {
   margin-bottom: 0;
   padding-bottom: 0;
-
   background-color: #f1f1f1;
   .info-cat {
     text-align: center;
-
     color: rgb(255, 110, 64);
-
     font-weight: bolder;
   }
   .divider {
@@ -505,14 +494,12 @@ h3 {
   width: 320;
   margin: 130px auto;
   padding: 20;
-
   text-align: center;
 
   border: 1px solid rgb(132, 132, 132);
   background: rgb(255, 255, 240);
   input {
     display: inline-block;
-
     max-width: 284px;
     margin: 5px 0;
     padding: 10px 3px;
@@ -526,7 +513,6 @@ h3 {
     color: white;
     border: 0 solid;
     background: rgb(255, 110, 64);
-
     font-size: 1.15em;
     font-weight: bold;
   }
@@ -542,6 +528,11 @@ md-tabs {
       }
     }
   }
+}
+
+.emphasis {
+  font-size: 0.8em;
+  font-weight: bold;
 }
 
 .sign-up {
@@ -562,15 +553,11 @@ md-tabs {
 md-sidenav.md-sidenav-left {
   .md-button.menu-button {
     display: block;
-
     width: 100%;
     margin: 0;
     padding: 5px 10px;
-
     text-align: left;
-
     border-radius: 0;
-
     text-color: #777;
   }
 }
@@ -582,7 +569,6 @@ md-sidenav.md-sidenav-left {
   margin-bottom: 20px;
   .file-upload {
     position: relative;
-
     display: block;
     overflow: hidden;
 
@@ -596,13 +582,10 @@ md-sidenav.md-sidenav-left {
 
     margin: 0;
     padding: 0;
-
     cursor: pointer;
 
     opacity: 0;
-
     font-size: 20px;
-
     filter: alpha(opacity=0);
   }
 }
@@ -612,7 +595,6 @@ md-sidenav.md-sidenav-left {
   margin: 0 auto;
   padding-right: 50px;
   padding-left: 50px;
-
   border-width: 0 1px 1px 1px;
   border-style: solid;
   border-color: rgb(204, 204, 200);
@@ -628,7 +610,6 @@ md-sidenav.md-sidenav-left {
     }
     p a {
       text-decoration: none;
-
       color: black;
     }
     span {
@@ -660,15 +641,11 @@ md-sidenav.md-sidenav-left {
     }
     p {
       overflow: hidden;
-
       width: 40em;
       margin: 10px 0 0 10px;
-
       animation: type 4s steps(100, end);
       white-space: nowrap;
-
       color: black;
-
       font-family: "Verdana";
       font-size: 15px;
     }
@@ -679,6 +656,30 @@ md-sidenav.md-sidenav-left {
   max-width: 1300px;
   margin: 0 auto;
   padding: 5px;
+}
+
+.rating {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  text-align: center;
+  font-size: 24px;
+}
+
+.rating-box {
+  margin-left: 140px;
+}
+
+.average-rating {
+  width: 80px;
+  height: 80px;
+  line-height: 80px;
+  background: #009090;
+  text-align: center;
+  > h3 {
+    display: block;
+    margin: 0 auto;
+    color: #666;
+  }
 }
 
 .recentReview {
@@ -706,14 +707,11 @@ md-sidenav.md-sidenav-left {
 
 .bubble {
   position: relative;
-
   float: right;
-
   width: 650px;
   height: 90px;
   margin-top: -15px;
   padding: 11px;
-
   border: 1px solid rgb(198, 198, 198);
   -webkit-border-radius: 9px;
   -moz-border-radius: 9px;
@@ -726,13 +724,9 @@ md-sidenav.md-sidenav-left {
   z-index: 1;
   top: 28px;
   left: -16px;
-
   display: block;
-
   width: 0;
-
   content: '';
-
   border-width: 13px 16px 13px 0;
   border-style: solid;
   border-color: transparent rgb(198, 198, 198);
@@ -740,26 +734,21 @@ md-sidenav.md-sidenav-left {
 
 .email {
   margin: 0 10px;
-
   color: #106CC8;
   background: rgba(0, 0, 0, 0.065);
-
   font-family: Menlo, Monaco, "Andale Mono", "lucida console", "Courier New", monospace;
 }
 
 .header-spacing {
   height: 50px;
   padding: 5 5px;
-
   opacity: 100%;
   background-color: white;
-
   font-size: 5px;
 }
 
 .user-name {
   padding-top: 35px;
-
   color: white;
 }
 
@@ -824,7 +813,6 @@ md-sidenav.md-sidenav-left {
   height: 70px;
   margin: 0 110px;
   padding: 0;
-
   border-radius: 50%;
 }
 
@@ -862,11 +850,8 @@ md-sidenav.md-sidenav-left {
 
 .no_events_msg {
   position: relative;
-
   display: block;
-
   margin: 4.5% 40%;
-
   font-variant: small-caps;
   font-stretch: ultra-expanded;
 }
@@ -936,10 +921,8 @@ md-toolbar.navbar {
 
 .user-events-msg {
   margin: 10% 35%;
-
   color: rgba(10, 60, 50, 0.6);
   text-shadow: 1px 3px 5px #eee inset;
-
   font-weight: bolder;
 }
 
@@ -968,7 +951,6 @@ md-toolbar.navbar {
   width: 100px;
   height: 100px;
   margin: 10px;
-
   border: 1px solid #ddd;
   border-radius: 5px;
 }
@@ -977,7 +959,6 @@ md-toolbar.navbar {
   width: 350px;
   height: 100px;
   margin: 10px;
-
   border: 1px solid #ddd;
   border-radius: 5px;
 }
@@ -986,10 +967,8 @@ md-toolbar.navbar {
   width: 100%;
   margin: 0;
   padding: 10px 0 10px 15px;
-
   text-align: left;
   text-transform: none;
-
   font-size: 16px;
 }
 
@@ -1008,10 +987,8 @@ a {
 
 .truncate {
   overflow: hidden;
-
   width: 250px;
   height: 20px;
-
   white-space: nowrap;
   text-overflow: ellipsis;
 
@@ -1034,7 +1011,7 @@ a {
   font-size: 1.2em;
 }
 
-.itemreviews {
+.reviews {
   border: 1px solid #009090;
   border-radius: 2px;
 }
@@ -1098,12 +1075,10 @@ a {
 
 .rating > span:hover:before,
 .rating > span:hover ~ span:before {
-   position: absolute;
-   left: 0;
-
-   content: "\2605";
-
-   color: #ff4081;
+  content: "\2605";
+  position: absolute;
+  left: 0;
+  color: #ff4081;
 }
 
 .stared {
@@ -1124,37 +1099,35 @@ a {
   padding: 0
 }
 
-.rating-box{
-  margin-left:140px;
+.rating-box {
+  margin-left: 140px;
 }
 
-.average-rating{
-  width:80px;
+.average-rating {
+  width: 80px;
   height: 80px;
 
   background: #009090;
 
   line-height: 80px;
   > h3 {
-    display:block;
-
+    display: block;
     margin: 0 auto;
 
     color: #fff;
   }
 }
 
-.average-stars{
+.average-stars {
   margin: 0 0 0 1px;
 }
 
-.small{
+.small {
   font-size: 12px;
 }
 
 .remove-link-deco {
   text-decoration: none;
-
   color: black;
 }
 
@@ -1162,7 +1135,6 @@ md-dialog {
   min-width: 50%!important;
   md-dialog-content {
     overflow: auto;
-
     padding: 5%;
     md-content {
       overflow-x: hidden;

@@ -89,7 +89,7 @@
         state: 'about'
       }, {
         name: 'Events',
-        state: 'events'
+        state: 'events.page'
       }, {
         name: 'Products',
         state: 'items'
@@ -106,7 +106,7 @@
   ]);
 
   window.app.config(['$stateProvider', '$httpProvider', '$urlRouterProvider',
-   '$locationProvider', '$mdThemingProvider',
+    '$locationProvider', '$mdThemingProvider',
     function($stateProvider, $httpProvider, $urlRouterProvider,
       $locationProvider, $mdThemingProvider) {
 
@@ -137,6 +137,29 @@
           url: '/events',
           controller: 'EventCtrl',
           templateUrl: 'views/events.html'
+        })
+        .state('events.all', {
+          url: '/{view}/?{page}',
+          views: {
+            'inner@events': {
+              controller: 'EventCtrl',
+              templateUrl: 'views/all-events.html',
+            }
+          }
+        })
+        .state('events.page', {
+          url: '',
+          views: {
+            'inner@events': {
+              controller: 'EventCtrl',
+              templateUrl: 'views/event-page.html',
+            }
+          }
+        })
+        .state('viewEvent', {
+          url: '/events/{id}',
+          controller: 'EventCtrl',
+          templateUrl: 'views/view-event.html'
         })
         .state('items', {
           url: '/items',
@@ -180,6 +203,15 @@
             }
           }
         })
+        .state('userProfile.editEvent', {
+          url: '/events/{id}/edit',
+          views: {
+            'inner-view@userProfile': {
+              controller: 'UserEventsCtrl',
+              templateUrl: 'views/edit-event.html'
+            }
+          }
+        })
         .state('addItem', {
           url: '/items/create',
           controller: 'ItemCtrl',
@@ -202,16 +234,6 @@
           url: '/categories/{catId}',
           controller: 'ItemCtrl',
           templateUrl: 'views/items.html'
-        })
-        .state('addEvent', {
-          url: '/events/create',
-          controller: 'EventCtrl',
-          templateUrl: 'views/add-event.html'
-        })
-        .state('editEvent', {
-          url: '/events/{id}/edit',
-          controller: 'EventCtrl',
-          templateUrl: 'views/edit-event.html'
         })
         .state('login', {
           url: '/users/login',
