@@ -33,8 +33,8 @@
 
       // Middleware to get all the events
       all: function(req, res) {
-        var offset = req.query.limit * req.query.page || 0;
         var limit = req.query.limit || 4;
+        var offset = req.query.limit * req.query.page || 0;
 
         return Events.findAll({
           order: [

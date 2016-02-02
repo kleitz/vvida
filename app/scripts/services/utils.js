@@ -18,7 +18,9 @@ angular.module('vvida.services', [])
           .targetEvent(event)
         )
         .then(function() {
-          callback();
+          if (typeof callback === 'function') {
+            callback();
+          }
         }, function() {});
     };
 

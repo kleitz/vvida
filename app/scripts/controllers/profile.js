@@ -9,7 +9,7 @@ angular.module('vvida.controllers')
     'Utils',
     function($rootScope, $scope, $state, Users, Countries,
       FileUploader, Utils) {
-      var init = function() {
+      $scope.init = function() {
         $scope.uploader = new FileUploader({
           url: '/api/users/image-upload',
           alias: 'photos',
@@ -71,6 +71,6 @@ angular.module('vvida.controllers')
         });
       };
 
-      init();
+      $scope.init();
     }
   ]);

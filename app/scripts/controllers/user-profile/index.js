@@ -1,7 +1,6 @@
 angular.module('vvida.controllers')
   .controller('UserProfileCtrl', ['$scope', '$rootScope', '$state', 'Users',
     function($scope, $rootScope, $state, Users) {
-
       $scope.init = function() {
         $scope.menu = [{
           link: 'userProfile.events',
