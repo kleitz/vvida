@@ -25,6 +25,7 @@
       // login middleware
       login: function(req, res, next) {
         passport.authenticate('login', function(err, user) {
+          console.log(err, 'Error from the login controller');
           if (err) {
             return res.status(500).json({
               error: 'Something went wrong while logging you in.'
