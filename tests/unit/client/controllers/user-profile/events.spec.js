@@ -3,7 +3,6 @@ describe('UserEventsCtrl tests', function() {
   var scope,
     controller,
     Utils,
-    state,
     Users = {
       events: function(currentUser, cb) {
         var res;
