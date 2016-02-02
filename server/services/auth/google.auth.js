@@ -40,10 +40,9 @@ module.exports = function(app, passport, config) {
               // save the user instance build
               .save()
                 .then(function(user) {
-                  delete user.token;
                   user.token = null;
                   var token = jwt.sign(user, app.get('superSecret'), {
-                    expireIn: 180
+                    expireIn: 6800
                   });
                   user.token = token;
                   Users.update(user, {
@@ -68,10 +67,9 @@ module.exports = function(app, passport, config) {
             else {
               // or TODO maybe create cookies/sessions
 
-              delete user.token;
               user.token = null;
               var token = jwt.sign(user, app.get('superSecret'), {
-                expiresIn: 180
+                expiresIn: 6800
               });
               user.token = token;
               Users.update(user, {

@@ -37,10 +37,9 @@ module.exports = function(app, passport, config) {
             })
               .save()
               .then(function(user) {
-                delete user.token;
                 user.token = null;
                 var token = jwt.sign(user, app.get('superSecret'), {
-                  expiresIn: 180
+                  expiresIn: 6800
                 });
                 user.token = token;
                 Users.update(user, {
@@ -63,10 +62,9 @@ module.exports = function(app, passport, config) {
           }
           // The user was found, redirect to homepage
           else {
-            delete user.token;
             user.token = null;
             var token = jwt.sign(user, app.get('superSecret'), {
-              expiresIn: 180
+              expiresIn: 6800
             });
             user.token = token;
             Users.update(user, {

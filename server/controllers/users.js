@@ -54,7 +54,7 @@
       },
 
       session: function(req, res) {
-        var token = req.headers['x-access-token'] || req.body.token ||
+        var token = req.headers['x-access-token'] || req.params.token ||
           req.session.user.token;
         if (token && token !== 'null') {
           jwt.verify(token, req.app.get('superSecret'), function(err, decoded) {
@@ -134,7 +134,7 @@
         // edit user email
         Users.update(req.body, {
           where: {
-            id: req.params.id,
+            id: req.params.id
           }
         }).then(function(ok, err) {
           if (err) {

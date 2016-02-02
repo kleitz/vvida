@@ -46,6 +46,9 @@ div(ng-if='currentUser' layout='row' layout-align='center center')
           md-input-container
             md-icon(class='fa fa-user-secret')
             input(ng-model='currentUser.username' type='text' placeholder='Username' ng-required='true')
+          md-input-container
+            md-icon(class='fa fa-user-secret')
+            input(ng-model='currentUser.name' type='text' placeholder='name' ng-required='true')
           div(layout='row' layout-sm='column')
             md-input-container(flex)
               md-icon(class='fa fa-building')

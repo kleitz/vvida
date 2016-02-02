@@ -57,7 +57,7 @@
         ev.preventDefault();
         if (toState.authenticate && $rootScope.currentUser) {
           $state.go(toState);
-        } else if (toState.authenticate === undefined) {
+        } else if (!toState.authenticate) {
           $state.go(toState);
         } else {
           $rootScope.intendedState = toState;
@@ -73,11 +73,13 @@
             user.id = res.id;
             user.img_url = res.img_url;
             user.username = res.username;
+            user.city = res.city;
           } else {
             user.name = res.name;
             user.id = res.id;
             user.img_url = res.img_url;
             user.username = res.username;
+            use.city = res.city;
           }
           if (user.img_url) {
             $rootScope.currentUser = user;
