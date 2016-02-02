@@ -13,7 +13,7 @@
           req.body.hasOwnProperty('description')) {
           Items.create({
               user_id: req.decoded.id,
-              category_id: req.body.catId,
+              category_id: req.body.category_id,
               name: req.body.name,
               city: req.body.city,
               description: req.body.description,
@@ -30,7 +30,6 @@
               res.json(item);
             })
             .catch(function(err) {
-              console.log(err);
               res.status(500).send({
                 error: err.message || err.errors[0].message
               });
