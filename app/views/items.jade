@@ -1,4 +1,3 @@
-
 div(layout="row")
   div(layout="row")
     md-sidenav.md-sidenav-left.md-whiteframe-z2(md-component-id="catNav" md-is-locked-open="$mdMedia(\"gt-md\")")
@@ -9,12 +8,12 @@ div(layout="row")
         md-divider
         md-button.btn-style(md-ink-ripple hide-gt-md ng-click="close()") Close Navbar
 
-  div(layout='column')
+  div(layout="column")
     div(layout="row" layout-wrap)
-      div.md-padding(ng-show="categoryId" layout="row")
+      .md-padding(ng-show="categoryId" layout="row")
         a.md-subheadline(ui-sref="items") Products
         a(ui-sref="categoryItems({catId: categoryId})") &nbsp;> {{categoryItems.type}}
-      div.md-padding(layout="row" layout-align="start center" ng-show="!categoryId" hide-gt-md)
+      .md-padding(layout="row" layout-align="start center" ng-show="!categoryId" hide-gt-md)
         md-button.md-icon-button(ng-click="toggleSidenav()" aria-label="Menu")
           i.fa.fa-bars
         h4.md-subheader Product Categories
@@ -22,38 +21,38 @@ div(layout="row")
     div(flex ng-if="!categoryId")
       md-subheader Recent Products 
       md-content(layout-wrap layout="row" flex layout-xs="column")
-        div(flex="33" flex-sm="100" flex-md="50" ng-repeat="item in recentItems | limitTo : 6")
+        div(flex="100" flex-sm="100" flex-md="50" ng-repeat="item in recentItems | limitTo : 6")
           md-card
-            .card-images(style="background-image: url('{{item.Images[0].img_url}}');")
+            img(ng-src="{{item.Images[0].img_url}}")
             md-card-title
               md-card-title-text 
                 span.md-headline(layout layout-padding layout-align="center center" ui-sref="viewItem({id:item.id})") {{item.name}}
             md-card-content
               div(layout="row" layout-align="start center")
-                i.fa.fa-star(ng-if="maxReview(item.Reviews).rating > 0" ng-repeat="i in range(maxReview(item.Reviews).rating) track by $index")
-                i.fa.fa-star-o(ng-repeat="i in range(5 - maxReview(item.Reviews).rating) track by $index")
+                i.fa.fa-star.colorpink(ng-if="maxReview(item.Reviews).rating > 0" ng-repeat="i in range(maxReview(item.Reviews).rating) track by $index")
+                i.fa.fa-star-o.colorpink(ng-repeat="i in range(5 - maxReview(item.Reviews).rating) track by $index")
                 h4.md-subheader &nbsp;&nbsp;{{item.Reviews.length}} reviews
               div(layout="column")
                 p.truncate {{maxReview(item.Reviews).review}}   
                 h4.md-subheader - {{maxReview(item.Reviews).User.username}}
             md-card-actions(layout="row" layout-align="start center")
-              md-button.md-accent(ui-sref="viewItem({id:item.id})") Review
+              md-button.md-accent(ui-sref="viewItem({id:item.id})") Write Review
 
     md-content(ng-if="categoryId" ng-init="getCategory()")
       h2.md-padding(ng-if="categoryItems.Items.length === 0") No Available Items in this Category
       div(layout)
         md-list
           md-list-item.md-3-line(ng-repeat="item in categoryItems.Items")
-            img.face(ng-src="{{item.Images[0].img_url}}")
+            img.face(ng-src="{{item.Images[0].img_url}}" ui-sref="viewItem({id:item.id})")
             .md-list-item-text
               div(layout="row" layout-margin)
                 div
                   h3(layout layout-padding ui-sref="viewItem({id:item.id})") {{$index + 1}}. {{item.name}} 
                   div(layout="row" layout-align="start center" layout-padding)
-                    i.fa.fa-star(ng-if="maxReview(item.Reviews).rating > 0" ng-repeat="i in range(maxReview(item.Reviews).rating) track by $index")
-                    i.fa.fa-star-o(ng-repeat="i in range(5 - maxReview(item.Reviews).rating) track by $index")
-                    span.itemreviews(layout layout-margin layout-padding).md-primary {{item.Reviews.length}} reviews
-                  span.categorylist.md-accent.md-subheader(ui-sref="viewItem({id:item.id})") Review
+
+                    i.fa.fa-star.colorpink(ng-if="maxReview(item.Reviews).rating > 0" ng-repeat="i in range(maxReview(item.Reviews).rating) track by $index")
+                    i.fa.fa-star-o.colorpink(ng-repeat="i in range(5 - maxReview(item.Reviews).rating) track by $index")
+                    span.reviews(layout layout-margin layout-padding).md-primary {{item.Reviews.length}} reviews
                 div.left-border.itemcity(layout-align="start start" layout-padding layout-wrap layout="column")
                   h4 {{item.street}}
                   h4 {{item.city}}

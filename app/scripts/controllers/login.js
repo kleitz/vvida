@@ -1,5 +1,6 @@
 angular.module('vvida.controllers')
-  .controller('LoginCtrl', ['$rootScope', '$scope', '$state', '$window', 'Users', 'Auth',
+  .controller('LoginCtrl', ['$rootScope', '$scope', '$state',
+    '$window', 'Users', 'Auth',
     function($rootScope, $scope, $state, $window, Users, Auth) {
       // login
       $scope.login = function() {
@@ -7,10 +8,11 @@ angular.module('vvida.controllers')
           if (!err) {
             Auth.setToken(res.token);
             var user = {};
-            user.name = res.firstname + ' ' + res.lastname;
-            user.picture_url = res.picture_url;
+            user.name = res.name;
+            user.img_url = res.img_url;
             $rootScope.currentUser = user;
-            $state.go('welcome');
+            var goTo = $rootScope.intendedState || 'welcome';
+            $state.go(goTo);
           } else {
             $scope.messageLogin = err.error || err || err[0].message;
           }
@@ -38,12 +40,10 @@ angular.module('vvida.controllers')
           Users.save(user, function(res) {
             Auth.setToken(res.token);
             $rootScope.currentUser = res;
-            console.log('$rootScope.currentUser: ', $rootScope.currentUser);
             $state.go('profile', {
               id: $rootScope.currentUser.id
             });
           }, function(err) {
-            console.log(err);
             $scope.messageSignup = err.data.error[0].message;
           });
         } else {

@@ -2,7 +2,6 @@ var Seq = require('sequelize'),
   env = process.env.NODE_ENV || 'development',
   config = require('./index')[env],
   sequelize = new Seq(config.db.url, {
-    host: config.host,
     protocol: 'postgres',
     dialect: config.db.dialect,
     port: config.db.port,
@@ -21,6 +20,6 @@ sequelize.authenticate()
   });
 
 sequelize.sync({
-  // force: true
+// force: true
 });
 module.exports = sequelize;

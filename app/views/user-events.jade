@@ -1,23 +1,27 @@
-md-card-content.content
-  h1 Events
-  p.md-headline {{message}}
-  div(ng-repeat='x in events.Events')
+md-content.content(ng-if="currentUser" ng-init="init()")
+  p.md-headline.user-events-msg {{message}}
+  div(ng-repeat='event in events.Events')
     div
       div(layout-gt-sm="row" layout='column' layout-align-gt-sm='start start' layout-align='start center')
-        div.md-padding
+        .md-padding
           md-card.ripple-container.prof-child-img(md-ink-ripple flex)
             .card-images.md-card-image.bg-img-event
-        div.md-padding(flex layout='column' layout-align-gt-sm='start start' layout-align='start center')
-          p.md-headline.packed-bottom.bold-title {{x.name}}
+        .md-padding(flex layout='column' layout-align-gt-sm='start start' layout-align='start center')
+          p.md-headline.packed-bottom.bold-title {{event.name}}
           p.md-subhead.packed
-            span.fa.fa-clock-o   {{parseDate(x.time)}}
+            span.fa.fa-clock-o   {{parseDate(event.time)}}
               md-tooltip Date and Time
           p.md-subhead.packed
-            span.fa.fa-building-o   {{x.venue}}, {{x.location}}
+            span.fa.fa-building-o   {{event.venue}}, {{event.location}}
               md-tooltip Venue and Location
           p.packed
-            span.fa.fa-users   {{x.sponsor}}
+            span.fa.fa-users   {{event.sponsor}}
               md-tooltip Sponsor
-      p {{x.description}}
+          p
+            a(ui-sref="userProfile.editEvent({id: event.id})") edit
+      p {{event.description}}
         md-tooltip Event Description
     md-divider.prof-divider
+  md-button.md-fab.add-event-btn(ng-click="addEventModal($event)")
+    span.fa.fa-plus
+    md-tooltip(md-direction='left') Add a new event
