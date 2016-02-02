@@ -1,31 +1,30 @@
-md-toolbar.md-accent.md-whiteframe-z3.header-spacing(ng-controller='HeaderCtrl')
-  .md-toolbar-tools.md-accent
-    md-button.md-icon-button.show-sm.hide-gt-sm(ng-click='openLeftMenu()', aria-label="openLeftMenu")
+md-toolbar.navbar.md-whiteframe-z3.header-spacing(ng-controller="HeaderCtrl")
+  .md-toolbar-tools
+    md-button.md-icon-button.show-sm.hide-gt-sm(ng-click="openLeftMenu()", aria-label="openLeftMenu")
       i.fa.fa-bars.fa-2x
-    a(ui-sref='home')
-      img(src='images/logo.png' height='24' hide-sm)
-      span.text-color.white &nbsp;Vvida
+    a(ui-sref="home")
+      img(src="images/logo.png" height="24" hide-sm)
     span(flex)
-
-    a(ng-repeat='menuItem in menu' ui-sref='{{menuItem.state}}' hide-sm)
-        md-button {{menuItem.name}}
-    div(ng-if='currentUser' layout)
-      md-button.md-fab(ui-sref='userProfile' aria-label='Comment' style='height: 48px; width: 48px; margin: 20px; padding: 0px;')
-        img(ng-src='{{currentUser.img_url}}')
-      h5.user-name {{currentUser.firstname}}
-      md-button(aria-label='Sign out' ng-click='logout()')
-        span.fa.fa-sign-out.fa-2x
+    a(ng-repeat="menuItem in menu" ui-sref="{{menuItem.state}}" hide-sm)
+      md-button
+        | {{menuItem.name}}
+    a(ng-if="currentUser" ui-sref="userProfile" )
+      md-button.md-icon-button.icon-button(aria-label="Comment")
+        img(ng-src="{{currentUser.img_url}}")
+        md-tooltip {{currentUser.name}}
+    a(ng-if="currentUser")
+      md-button.md-icon-button(aria-label="Sign out" ng-click="logout()")
+        i.md-accent.fa.fa-sign-out
         md-tooltip Sign out
-    md-button(ng-if='!currentUser' ui-sref='login')
-      span.fa.fa-sign-in.fa-2x
-      md-tooltip Sign in
-md-sidenav.md-sidenav-left(md-component-id='left' hide-gt-sm)
+    a(ng-if="!currentUser" ui-sref="login")
+      md-button.md-icon-button
+        span.md-accent.fa.fa-sign-in
+        md-tooltip Sign in
+md-sidenav.md-sidenav-left(md-component-id="left" hide-gt-sm)
   md-toolbar.md-accent
     h1.md-toolbar-tools
-      a(ui-sref='home')
-        img(src='images/logo.png' height='16')
+      a(ui-sref="home")
+        img(src="images/logo.png" height="16")
         span.text-color.white &nbsp;Vvida
   md-content.sidenav-contents
-    md-button.menu-button(ng-repeat='menuItem in menu' ui-sref='{{menuItem.state}}' ng-click='closeLeftMenu()') {{menuItem.name}}
-
-
+    md-button.menu-button(ng-repeat="menuItem in menu" ui-sref="{{menuItem.state}}" ng-click="closeLeftMenu()") {{menuItem.name}}

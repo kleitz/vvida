@@ -15,11 +15,23 @@ module.exports = function(sequelize, DataType) {
       city: {
         type: DataType.STRING,
         allowNull: true
+      },
+      street: {
+        type: DataType.STRING,
+        allowNull: true
+      },
+      phone: {
+        type: DataType.STRING,
+        allowNull: true
+      },
+      email: {
+        type: DataType.STRING,
+        allowNull: true
       }
     },
     // table configuration
     {
-      constaints: false,
+      constraints: false,
       // prevent time stamps from using camelase
       // updatedAt to updated_at and createdAt to created-at
       underscored: true,

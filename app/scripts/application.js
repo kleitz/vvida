@@ -5,18 +5,22 @@
   angular.module('vvida.filters', []);
   angular.module('vvida.directives', []);
 
-
   //Require Services
   require('./services/utils');
   require('./services/users');
   require('./services/categories');
   require('./services/countries');
+  require('./services/images');
   require('./services/items');
   require('./services/events');
   require('./services/reviews');
   require('./services/token');
   require('./services/auth');
   require('./services/token-injector');
+  require('./services/reservations');
+  require('./services/notifications');
+  require('./services/promotions');
+  require('./services/messages');
 
   // Require Controllers
   require('./controllers/footer');
@@ -33,7 +37,6 @@
   require('./controllers/user-profile/reviews');
   require('./controllers/items');
   require('./controllers/event');
-  require('./controllers/review');
 
   // Require Directives
   require('./directives/ng-thumb');
@@ -50,17 +53,42 @@
     'angularFileUpload'
   ]);
 
-  window.app.run(['$rootScope', '$location', '$state', '$mdSidenav', 'Users', 'Auth',
-    function($rootScope, $location, $state, $mdSidenav, Users, Auth) {
-      // Check if the user's session is still being persisted in the servers
-      if (Auth.isLoggedIn()) {
-        Users.session(function(err, res) {
-          if (!err) {
-            $rootScope.currentUser = res;
-            $rootScope.$broadcast('session_found', $rootScope.currentUser);
-          }
-        });
+  window.app.run(['$rootScope', '$location', '$state', '$mdSidenav', 'Users',
+    function($rootScope, $location, $state, $mdSidenav, Users) {
+      $rootScope.$on('$stateChangeSuccess', fireAuth);
+
+      function fireAuth(ev, toState) {
+        ev.preventDefault();
+        if (toState.authenticate && $rootScope.currentUser) {
+          $state.go(toState);
+        } else if (!toState.authenticate) {
+          $state.go(toState);
+        } else {
+          $rootScope.intendedState = toState;
+          $state.go('login');
+        }
       }
+      // Check if the user's session is still being persisted in the servers
+      Users.session(function(err, res) {
+        if (!err) {
+          var user = {};
+          if (res.name) {
+            user.name = res.name;
+            user.id = res.id;
+            user.img_url = res.img_url;
+            user.email = res.email;
+          } else {
+            user.name = res.name;
+            user.id = res.id;
+            user.img_url = res.img_url;
+            user.username = res.username;
+            user.email = res.email;
+          }
+          if (user.img_url) {
+            $rootScope.currentUser = user;
+          }
+        }
+      });
 
       $rootScope.login = function() {
         $state.go('login');
@@ -74,10 +102,10 @@
         state: 'about'
       }, {
         name: 'Events',
-        state: 'events'
+        state: 'events.page'
       }, {
         name: 'Products',
-        state: 'item'
+        state: 'items'
       }];
 
       $rootScope.openLeftMenu = function() {
@@ -89,23 +117,24 @@
       };
     }
   ]);
+  window.app.config(['$stateProvider', '$httpProvider', '$urlRouterProvider',
+    '$locationProvider', '$mdThemingProvider',
+    function($stateProvider, $httpProvider, $urlRouterProvider,
+      $locationProvider, $mdThemingProvider) {
 
-  window.app.config(['$stateProvider', '$httpProvider', '$urlRouterProvider', '$locationProvider', '$mdThemingProvider',
-    function($stateProvider, $httpProvider, $urlRouterProvider, $locationProvider, $mdThemingProvider) {
-
+      // For injecting tokens into request headers
       $httpProvider.interceptors.push('TokenInjector');
 
       // For any unmatched url, redirect to /state1
       $urlRouterProvider.otherwise('/404');
 
-      // Now set up the states
-      $mdThemingProvider.theme('default')
-        .primaryPalette('blue')
-        .accentPalette('deep-orange')
-        .backgroundPalette('grey', {
-          default: '200'
-        });
 
+      // Set up theme the entire application
+      $mdThemingProvider.theme('default')
+        .primaryPalette('teal')
+        .accentPalette('pink');
+
+      // Set up states
       $stateProvider
         .state('home', {
           url: '/',
@@ -119,8 +148,36 @@
         })
         .state('events', {
           url: '/events',
-          controller: 'EventsCtrl',
+          controller: 'EventCtrl',
           templateUrl: 'views/events.html'
+        })
+        .state('events.all', {
+          url: '/{view}/?{page}',
+          views: {
+            'inner@events': {
+              controller: 'EventCtrl',
+              templateUrl: 'views/all-events.html',
+            }
+          }
+        })
+        .state('events.page', {
+          url: '',
+          views: {
+            'inner@events': {
+              controller: 'EventCtrl',
+              templateUrl: 'views/event-page.html',
+            }
+          }
+        })
+        .state('viewEvent', {
+          url: '/events/{id}',
+          controller: 'EventCtrl',
+          templateUrl: 'views/view-event.html'
+        })
+        .state('items', {
+          url: '/items',
+          controller: 'ItemCtrl',
+          templateUrl: 'views/items.html'
         })
         .state('profile', {
           url: '/user/{id}/edit',
@@ -129,58 +186,73 @@
         })
         .state('userProfile', {
           url: '/user/profile',
+          controller: 'UserProfileCtrl',
+          templateUrl: 'views/user-profile.html'
+        })
+        .state('userProfile.edit', {
+          url: '/{id}/edit',
           views: {
-            '': {
-              controller: 'UserProfileCtrl',
-              templateUrl: 'views/user-profile.html',
+            'inner-view@userProfile': {
+              controller: 'ProfileCtrl',
+              templateUrl: 'views/edit-profile.html'
             },
-            'Reviews@userProfile': {
-              controller: 'UserReviewsCtrl',
-              templateUrl: 'views/user-reviews.html',
-            },
-            'Events@userProfile': {
-              controller: 'UserEventsCtrl',
-              templateUrl: 'views/user-events.html',
-            },
-            'Products@userProfile': {
+          }
+        })
+        .state('userProfile.products', {
+          url: '/products',
+          views: {
+            'inner-view@userProfile': {
               controller: 'UserProductsCtrl',
-              templateUrl: 'views/user-products.html',
-            },
-            'Pictures@userProfile': {
-              controller: 'UserPicturesCtrl',
-              templateUrl: 'views/user-pictures.html',
+              templateUrl: 'views/user-products.html'
+            }
+          }
+        })
+        .state('userProfile.events', {
+          url: '/events',
+          views: {
+            'inner-view@userProfile': {
+              controller: 'UserEventsCtrl',
+              templateUrl: 'views/user-events.html'
+            }
+          }
+        })
+        .state('userProfile.editEvent', {
+          url: '/events/{id}/edit',
+          views: {
+            'inner-view@userProfile': {
+              controller: 'UserEventsCtrl',
+              templateUrl: 'views/edit-event.html'
             }
           }
         })
         .state('addItem', {
           url: '/items/create',
           controller: 'ItemCtrl',
-          templateUrl: 'views/items.html'
+          templateUrl: 'views/add-item.html',
+          authenticate: true
         })
         .state('editItem', {
           url: '/items/{id}/edit',
+          params:{
+            tabIndex:0
+          },
           controller: 'ItemCtrl',
           templateUrl: 'views/edit-item.html'
         })
-        .state('addEvent', {
-          url: '/events/create',
-          controller: 'EventCtrl',
-          templateUrl: 'views/add-event.html'
+        .state('viewItem', {
+          url: '/items/{id}',
+          controller: 'ItemCtrl',
+          templateUrl: 'views/view-item.html'
         })
-        .state('editEvent', {
-          url: '/events/{id}/edit',
-          controller: 'EventCtrl',
-          templateUrl: 'views/edit-event.html'
+        .state('categoryItems', {
+          url: '/categories/{catId}',
+          controller: 'ItemCtrl',
+          templateUrl: 'views/items.html'
         })
         .state('login', {
           url: '/users/login',
           controller: 'LoginCtrl',
           templateUrl: 'views/login.html'
-        })
-        .state('review', {
-          url: '/review',
-          controller: 'ReviewCtrl',
-          templateUrl: 'views/review.html'
         })
         .state('welcome', {
           url: '/welcome',

@@ -9,9 +9,12 @@ describe('Items resource API tests', function() {
       return {
         // catId: faker.random.number(),
         name: faker.commerce.productName(),
-        catId: faker.random.number(),
+        category_id: faker.random.number(),
         description: faker.lorem.sentence(),
-        city: faker.address.city()
+        city: faker.address.city(),
+        street: faker.address.streetAddress(),
+        phone: faker.phone.phoneNumber(),
+        email: faker.internet.email()
       };
     },
     generateFakeItemUpdate = function() {

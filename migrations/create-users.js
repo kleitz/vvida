@@ -19,22 +19,12 @@
             type: Sequelize.STRING,
             allowNull: true
           },
-          // firstname
-          firstname: {
+          // name
+          name: {
             type: Sequelize.STRING,
-            allowNull: true,
-            validate: {
-              isAlpha: true
-            }
+            allowNull: true
           },
-          // lastname
-          lastname: {
-            type: Sequelize.STRING,
-            allowNull: true,
-            validate: {
-              isAlpha: true
-            }
-          },
+
           gender: {
             type: Sequelize.STRING,
             validate: {
@@ -90,8 +80,15 @@
           },
           // status
           status: {
-            type: Sequelize.ENUM,
-            values: ['active', 'innactive'],
+            type: Sequelize.STRING,
+            validate: {
+              isIn: {
+                args: [
+                  ['active', 'innactive']
+                ],
+                msg: 'Must be either active or inactive'
+              }
+            },
             defaultValue: 'active'
           },
           // facebook and google IDs of the user

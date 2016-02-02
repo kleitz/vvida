@@ -1,6 +1,5 @@
-.footer(ng-controller="FooterCtrl")
-  div.md-padding.md-margin(layout="row" layout-md="column" layout-sm="column" style="justify-content: center")
-
+.footer.hide-sm(ng-controller="FooterCtrl")
+  .md-padding.md-margin(layout="row" layout-md="column" layout-sm="column" style="justify-content: center")
     .footer-item-group
       .md-title.text-white.footer-titles About
         div(ng-repeat="aboutItem in about" ui-sref="{{aboutItem.state}}", aria-label="aboutItem.name")
@@ -18,7 +17,7 @@
 
   md-divider(style="background-color: white; margin-left: 80px; margin-right: 80px; ")
   .md-headline.text-white.footer-titles(style="text-align: center; margin-top: 10px") Join Us
-  div.md-padding.md-margin(layout="row" style="justify-content: center")
+  .md-padding.md-margin(layout="row" style="justify-content: center")
     div(layout="row" layout-md="row" layout-sm="column")
       md-button.no-space(aria-label="GoogleIcon")
         span.fa.fa-google-plus-square.fa-3x.text-white
@@ -37,4 +36,3 @@
       md-button.no-space(aria-label="YoutubeIcon")
         span.fa.fa-youtube-square.fa-3x.text-white
   .footer-text Copyright © 2015 Vvida Inc. Vvida, Vvida logo and related marks are registered trademarks of Vvida.
-
