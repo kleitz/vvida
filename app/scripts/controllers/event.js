@@ -2,95 +2,103 @@
   'use strict';
   angular.module('vvida.controllers')
     .controller('EventCtrl', ['$scope', '$state', '$stateParams', '$filter',
-      '$mdSidenav', 'FileUploader', 'Utils', 'Events',
-      function($scope, $state, $stateParams, $filter, $mdSidenav,
-        FileUploader, Utils, Events) {
-        // create event
-        $scope.addEvent = function() {
-          Events.save($scope.event, function(event) {
-            if (event) {
-              $state.go('editEvent', {
-                id: event.id
-              });
-            } else {
-              Utils.toast('Event not created');
-            }
+      'Utils', 'Events',
+      function($scope, $state, $stateParams, $filter,
+        Utils, Events) {
+
+        // initialize state data
+        $scope.init = function() {
+          // view all events
+          if ($stateParams.view) {
+            $scope.page = parseInt($stateParams.page) || 0;
+            $scope.viewEvents($scope.page);
+            $scope.viewType = $stateParams.view || 'grid';
+          }
+          // view an event details
+          else if ($stateParams.id) {
+            $state.go('viewEvent', {
+              id: $stateParams.id
+            });
+          }
+          // view the main page
+          else {
+            Events.query(function(result) {
+              $scope.loadEvents = result;
+              $state.go('events.page');
+            });
+          }
+        };
+
+        $scope.setViewType = function(type) {
+          $scope.viewType = type;
+          $scope.updateStateParams();
+        };
+
+        $scope.updateStateParams = function() {
+          $state.go('events.all', {
+            page: $scope.page,
+            view: $scope.viewType
           });
         };
 
-        // Sidebar Navigation control
-        $scope.close = function() {
-          $mdSidenav('eventNav').close();
+        // event list to be updated for pagination
+        $scope.viewEvents = function(page) {
+          var pageNum = parseInt(page);
+          pageNum = (pageNum <= 0) ? 1 : pageNum;
+          $scope.limit = 3;
+
+          $scope.loadEvents = Events.query({
+            limit: $scope.limit,
+            page: pageNum - 1
+          });
         };
 
-        $scope.toggleSidenav = function() {
-          $mdSidenav('eventNav').toggle();
+        // redirect to pages
+        $scope.prevEvents = function() {
+          $scope.page = parseInt($state.params.page) - 1;
+          $scope.viewEvents($scope.page);
+          $scope.updateStateParams();
         };
 
-        // Set filter for event list
-        // event model to be updated for list filter
-        $scope.setCat = function(listName) {
-          $scope.eventCat = listName;
-          $scope.close();
+        $scope.nextEvents = function() {
+          $scope.page = parseInt($state.params.page) + 1;
+          $scope.viewEvents($scope.page);
+          $scope.updateStateParams();
         };
 
-        //Get the eventId
-        $scope.init = function() {
-          $scope.event = {
-            eventId: $stateParams.id
-          };
 
-          $scope.eventCat = 'Popular Events';
-
-          $scope.loadEvents = Events.query();
-
-          // Data for event type lists
-          $scope.lists = [{
-            name: 'Popular Events'
-          }, {
-            name: 'Concerts'
-          }, {
-            name: 'Exhibitions and Showcases'
-          }, {
-            name: 'Business and Economics'
-          }];
-        };
-
-        // format date data
-        $scope.parseTime = function(eventTime) {
-          return $filter('date')(eventTime, 'EEEE dd MMM yyyy hh:mm a');
-        };
 
         $scope.getEvent = function() {
           $scope.eventId = $stateParams.id;
-
-          $scope.uploader = new FileUploader({
-            url: '/api/image/',
-            alias: 'photos',
-            formData: [$scope.event],
-          });
-
-          //load the item
           Events.get({
             id: $stateParams.id
           }, function(event) {
             $scope.event = event;
-            $scope.event.time = null;
           });
         };
 
-        $scope.updateEvent = function() {
-          Events.update($scope.event, function(event) {
-            Utils.toast(event.message);
-          });
+        // format date data
+        $scope.parseTime = function(eventTime) {
+          return {
+            day: $filter('date')(eventTime, 'EEEE dd MMM yyyy'),
+            time: $filter('date')(eventTime, 'hh:mm a')
+          };
         };
 
-        $scope.showToast = function() {
-          Utils.toast('Upload complete');
+        $scope.averageReview = function(eventReviews) {
+          if (eventReviews) {
+            var sum = 0,
+              count = 0;
+            eventReviews.forEach(function(review) {
+              sum += review.rating;
+              count += 1;
+            });
+            return Math.round(sum / count) || 0;
+          }
         };
 
-        $scope.upload = function() {
-          $scope.uploader.uploadAll();
+        $scope.setImage = function(image) {
+          $scope.selectedImage = image;
         };
 
         $scope.init();

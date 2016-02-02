@@ -1,38 +1,6 @@
-span(ng-show="loadEvents.length === 0" class="no_events_msg") There are currently no events.
-
-div(layout="row" ng-show="loadEvents.length !== 0")
-  md-sidenav.md-sidenav-left.md-whiteframe-z2(md-component-id="eventNav" md-is-locked-open="$mdMedia(\"gt-md\")")
-    md-toolbar
-      h1.md-toolbar-tools(ui-sref="events") Browse by
-    md-content
-      md-button.btn-style(ng-click="setCat(list.name)" md-ink-ripple ng-repeat="list in lists" )  {{list.name}}
-      md-divider
-      md-button.btn-style(md-ink-ripple hide-gt-md ng-click="close()") Close
-
+.events(layout="column" layout-padding)
+  div(layout-padding layout="column")
+    span(ng-show="loadEvents.length === 0" class="no_events_msg") There are currently no events.
   
-  div(layout="column")
-    div.events.md-padding(layout="row" layout-align="start center")
-      md-button.md-icon-button(ng-click="toggleSidenav()" aria-label="Events Menu")
-        i.fa.fa-bars(hide-gt-md)
-      h3.md-subheadline {{eventCat || "Recent Events"}}
-
-    md-content(layout-wrap layout="row" flex layout-xs="column" layout-align="center" )
-      div.eventList(flex-gt-sm="33" flex-sm="90" ng-repeat="event in loadEvents" )             
-        .eventImages(style="background-image: url('{{event.Images[0].img_url}}');")
-        h3 {{event.name}}
-        md-list
-          md-list-item
-            h4.md-padding {{event.description}}
-            md-divider
-          md-list-item
-            span.fa.fa-map-marker &nbsp;&nbsp; {{event.location}}
-          md-list-item
-            span.fa.fa-hand-o-right &nbsp;&nbsp; {{event.venue}}
-          md-list-item
-            span.fa.fa-calendar &nbsp;&nbsp; {{parseTime(event.time)}}
-          md-list-item
-            div(layout="row")
-              i.fa.fa-thumb-tack
-              h4 &nbsp;&nbsp;{{event.sponsor}}
-
-
+    div(ui-view="inner")
+  

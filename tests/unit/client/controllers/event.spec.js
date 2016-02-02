@@ -15,11 +15,19 @@ describe('EventCtrl tests', function() {
           message: 'Sample Event Message'
         });
       },
-      query: function(){
-        return [1,2,3];
+      query: function(params) {
+        if (typeof params === 'function') {
+          params([1, 2, 3, 4, 5, 6]);
+        } else {
+          var page = params.page || 0,
+            limit = params.limit || 3,
+            start = limit * page,
+            end = start + limit;
+          return [1, 2, 3, 4, 5, 6].slice(start, end);
+        }
       }
     },
-    state;
+    state, stateParams;
   beforeEach(function() {
     module('vvida');
   });
@@ -32,85 +40,145 @@ describe('EventCtrl tests', function() {
       Events: Events
     });
     state = $injector.get('$state');
+    stateParams = $injector.get('$stateParams');
     Utils = $injector.get('Utils');
-
-
   }));
-  it('should init the controller', function() {
-    spyOn(Events, 'query').and.callThrough();
-    scope.init();
-    expect(scope.lists).toBeTruthy();
-    expect(scope.eventCat).toEqual('Popular Events');
-    expect(scope.loadEvents).toBeDefined();
+
+  // initialize state based on state parameters
+  describe('it should initialize based on state parameters', function() {
+
+    beforeEach(function() {
+      stateParams.view = undefined;
+      stateParams.id = undefined;
+    });
+    it('when \'view\' is defined in state parameters', function() {
+      stateParams.view = 'grid';
+      spyOn(scope, 'viewEvents').and.callThrough();
+      scope.init();
+      expect(scope.page).toBe(0);
+      expect(scope.viewType).toBe('grid');
+      expect(scope.viewEvents).toHaveBeenCalledWith(0);
+    });
+
+    it('when \'id\' is defined in state parameters', function() {
+      stateParams.id = 1;
+      spyOn(state, 'go');
+      scope.init();
+      expect(state.go).toHaveBeenCalledWith('viewEvent', {
+        id: 1
+      });
+    });
+
+    it('when \'id\' and \'view\' is undefined in state parameters', function() {
+      spyOn(state, 'go');
+      spyOn(Events, 'query').and.callThrough();
+      scope.init();
+      expect(scope.loadEvents).toBeDefined();
+      expect(state.go).toHaveBeenCalledWith('events.page');
+    });
+
   });
 
-  it('should set eventCat', function() {
-    spyOn(scope, 'close').and.callThrough();
-    scope.setCat(2);
-    expect(scope.eventCat).toBe(2);
-    expect(scope.close).toHaveBeenCalled();
+  it('should set view type', function() {
+    spyOn(scope, 'setViewType').and.callThrough();
+    spyOn(scope, 'updateStateParams').and.callThrough();
+    scope.setViewType('list');
+    expect(scope.viewType).toBe('list');
+    expect(scope.updateStateParams).toHaveBeenCalled();
   });
 
-  it('should define an event and fail', function() {
-    scope.event = false;
-    spyOn(Events, 'save').and.callThrough();
-    spyOn(Utils, 'toast').and.callThrough();
-    scope.addEvent();
-    expect(Events.save).toHaveBeenCalled();
-    expect(Utils.toast).toHaveBeenCalledWith('Event not created');
-  });
-
-
-  it('should define and add an event', function() {
-    scope.event = {
-      user_id: 1,
-      name: 'Sample Event',
-      description: 'Sample Event Description',
-      location: 'Sample Event Location',
-      venue: 'Sample Event Venue',
-      time: new Date(Date.now),
-      sponsor: 'Sample Event Sponsor',
-      message: 'Sample Event Message'
-    };
-    spyOn(Events, 'save').and.callThrough();
-    spyOn(Utils, 'toast').and.callThrough();
-    scope.addEvent();
-    expect(Events.save).toHaveBeenCalled();
-    expect(Utils.toast).not.toHaveBeenCalled();
-  });
-
-  it('should define and update an event', function() {
-    scope.event = {
-      message: 'Sample Event Message'
-    };
-    spyOn(Events, 'update').and.callThrough();
-    spyOn(Utils, 'toast').and.callThrough();
-    scope.updateEvent();
-    expect(Events.update).toHaveBeenCalled();
-    expect(Utils.toast).toHaveBeenCalledWith('Sample Event Message');
-  });
-
-  it('should get an event', function() {
-    spyOn(Events, 'get').and.callThrough();
-    scope.getEvent();
-    expect(Events.get).toHaveBeenCalled();
-    expect(scope.event).toEqual({
-      message: 'Sample Event Message',
-      time: null
+  it('should update state parameters', function() {
+    scope.page = 0;
+    scope.viewType = 'list';
+    spyOn(state, 'go');
+    spyOn(scope, 'updateStateParams').and.callThrough();
+    scope.updateStateParams();
+    expect(state.go).toHaveBeenCalledWith('events.all', {
+      page: 0,
+      view: 'list'
     });
   });
 
-  it('should call Utils.toast', function() {
-    spyOn(Utils, 'toast');
-    scope.showToast();
-    expect(Utils.toast).toHaveBeenCalledWith('Upload complete');
+  it('should get events based on pages', function() {
+    scope.page = 0;
+    spyOn(Events, 'query').and.callThrough();
+    spyOn(scope, 'viewEvents').and.callThrough();
+    scope.viewEvents(scope.page);
+    expect(scope.limit).toBe(3);
+    expect(Events.query).toHaveBeenCalledWith({
+      limit: 3,
+      page: 0
+    });
+    expect(scope.loadEvents).toBeDefined();
+    expect(scope.loadEvents).toEqual([1, 2, 3]);
   });
 
-  it('should call uploader.uploadAll', function() {
+  it('should load next page of events', function() {
+    state.params.page = 1;
+    spyOn(scope, 'viewEvents').and.callThrough();
+    spyOn(Events, 'query').and.callThrough();
+    spyOn(scope, 'updateStateParams').and.callThrough();
+    scope.nextEvents();
+    expect(scope.page).toBe(2);
+    expect(scope.viewEvents).toHaveBeenCalledWith(scope.page);
+    expect(Events.query).toHaveBeenCalledWith({
+      limit: 3,
+      page: 1
+    });
+    expect(scope.loadEvents).toBeDefined();
+    expect(scope.loadEvents).toEqual([4, 5, 6]);
+  });
+
+  it('should load previous page of events', function() {
+    state.params.page = 1;
+    spyOn(scope, 'viewEvents').and.callThrough();
+    spyOn(Events, 'query').and.callThrough();
+    spyOn(scope, 'updateStateParams').and.callThrough();
+    scope.prevEvents();
+    expect(scope.page).toBe(0);
+    expect(scope.viewEvents).toHaveBeenCalledWith(scope.page);
+    expect(Events.query).toHaveBeenCalledWith({
+      limit: 3,
+      page: 0
+    });
+    expect(scope.loadEvents).toBeDefined();
+    expect(scope.loadEvents).toEqual([1, 2, 3]);
+  });
+
+  it('should get an event', function() {
+    stateParams.id = 1;
+    spyOn(Events, 'get').and.callThrough();
     scope.getEvent();
-    spyOn(scope.uploader, 'uploadAll');
-    scope.upload();
-    expect(scope.uploader.uploadAll).toHaveBeenCalled();
+    expect(scope.eventId).toBe(1);
+    expect(scope.event.message).toBe('Sample Event Message');
+  });
+
+  it('should return date and time', function() {
+    var testDate = new Date(),
+      eventTime = scope.parseTime(testDate);
+    expect(eventTime.day).toBeDefined();
+    expect(eventTime.time).toBeDefined();
+  });
+
+  it('should return average rating for an event', function() {
+    var eventReview = [{
+      title: 'Test Review 1',
+      rating: 5
+    }, {
+      title: 'Test Review 2',
+      rating: 6
+    }, {
+      title: 'Test Review 3',
+      rating: 5
+    }];
+    var avgRating = scope.averageReview(eventReview);
+    expect(avgRating).toBe(5);
+  });
+
+  it('should set Selected Image', function() {
+    var img_url = './images/test.png';
+    scope.setImage(img_url);
+    expect(scope.selectedImage).toBe('./images/test.png');
   });
 
 });
