@@ -2,9 +2,9 @@
   'use strict';
   angular.module('vvida.controllers')
     .controller('ItemCtrl', ['$scope', '$state', '$stateParams', '$mdSidenav',
-      'Categories', 'FileUploader', 'Utils', 'Items', 'Reviews',
+      'Categories', 'FileUploader', 'Utils', 'Items', 'Reviews', 'Images',
       function($scope, $state, $stateParams, $mdSidenav,
-        Categories, FileUploader, Utils, Items, Reviews) {
+        Categories, FileUploader, Utils, Items, Reviews, Images) {
         // Close Left Side Nav bar
         $scope.close = function() {
           $mdSidenav('catNav').close();
@@ -18,10 +18,26 @@
           return new Array(n);
         };
 
+        $scope.rate = function(n) {
+          $scope.itemReview.rating = n;
+        };
+
         $scope.maxReview = function(itemReviews) {
           return window._.max(itemReviews, function(review) {
             return review.rating;
           });
+        };
+
+        $scope.averageReview = function(itemReviews) {
+          if (itemReviews) {
+            var sum = 0;
+            var count = 0;
+            itemReviews.forEach(function(review) {
+              sum += review.rating;
+              count += 1;
+            });
+            return Math.round(sum / count) || 0;
+          }
         };
 
         $scope.getCategory = function() {
@@ -60,15 +76,23 @@
         $scope.getItem = function() {
           // get selected item id
           $scope.itemId = $stateParams.id;
-
           $scope.uploader = new FileUploader({
             url: '/api/image/',
             alias: 'photos',
             formData: [{
               id: $scope.itemId
             }],
+            onCompleteItem: function() {
+              Items.update($scope.item, function() {
+                $state.go($state.current, {
+                  id: $scope.itemId,
+                  tabIndex: 1
+                }, {
+                  reload: true
+                });
+              });
+            }
           });
-
           //load the item
           Items.get({
             id: $scope.itemId
@@ -79,7 +103,7 @@
         };
 
         $scope.init = function() {
-          // get all categories          
+          // get all categories
           $scope.categories = Categories.query();
           // get Recent Items
           $scope.recentItems = Items.query();
@@ -87,10 +111,13 @@
           $scope.categoryId = $stateParams.catId;
           // initialize scope.item for model
           $scope.item = {};
+          //initialize current tab
+          $scope.tabIndex = $stateParams.tabIndex;
         };
 
         $scope.updateItem = function() {
           Items.update($scope.item, function(item) {
+            $scope.getItem();
             Utils.toast(item.message);
           });
         };
@@ -102,7 +129,16 @@
         $scope.upload = function() {
           $scope.uploader.uploadAll();
         };
-
+        $scope.deleteImage = function(id) {
+          Images.delete(id, function() {
+            $state.go($state.current, {
+              id: $scope.itemId,
+              tabIndex: 2
+            }, {
+              reload: true
+            });
+          });
+        };
         $scope.init();
       }
     ]);

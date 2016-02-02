@@ -7,6 +7,7 @@ var config = require('./server/config')[env],
   express = require('express'),
   path = require('path'),
   multer = require('multer'),
+  methodOverride = require('method-override'),
   logger = require('morgan'),
   cookieParser = require('cookie-parser'),
   bodyParser = require('body-parser'),
@@ -23,6 +24,8 @@ var config = require('./server/config')[env],
 app.set('models', models);
 app.set('superSecret', process.env.WEB_TOKEN_SECRET);
 
+
+
 // load env variables from .env file in development environment
 // view engine setup
 app.set('views', path.join(__dirname, 'server/views'));
@@ -31,6 +34,7 @@ app.set('view engine', 'jade');
 // uncomment after placing your favicon in /public
 app.use(logger('dev'));
 app.use(bodyParser.json());
+app.use(methodOverride());
 app.use(bodyParser.urlencoded({
   extended: false
 }));
@@ -51,7 +55,7 @@ passport.deserializeUser(function(user, done) {
 
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, './public')));
-app.use(passport.initialize());
+
 
 app.use(session({
   secret: config.expressSessionKey,
@@ -60,6 +64,8 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }));
+
+app.use(passport.initialize());
 
 app.use(passport.session());
 routes(app, config, passport);

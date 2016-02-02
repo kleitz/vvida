@@ -1,40 +1,36 @@
-div.not-loggedin-div(ng-if='!currentUser' layout='row' layout-align='center center')
+.not-loggedin-div(ng-if='!currentUser' layout='row' layout-align='center center')
   md-card(layout='column' layout-align='center center' flex='90')
-    div.md-padding.md-margin.profile-pic
+    .md-padding.md-margin.profile-pic
       img(src='images/lock.png')
     p.md-padding.md-headline.packed-bottom You are currently not logged in.
     p.md-padding.md-headline.packed-top Click below to login or signup  to continue using vvida.
-    md-button.login-btn(class="md-raised md-primary" aria-label='Login/Signup' ng-click='login()') Go to Login/Signup Page
-div.profile-page(ng-if='currentUser' layout='row' layout-align='center center')
-  div(layout='column' flex='90')
-    md-card.md-margin.profile-header.packed-bottom(layout='column' flex)
-      br
-      md-card-content.content(layout='row' layout-align='center center')
-        div(layout="row" layout-sm='column' layout-md='column' layout-align-sm ='center center' layout-align-md='center center' flex='95')
-          div.right-margin
-            md-card.ripple-container.profile-pic(md-ink-ripple flex)
-              .card-images.md-card-image.bg-img-male(ng-if='currentUser.img_url' style="background-image: url({{currentUser.img_url}})")
-          div(flex layout='column' layout-align='center center' layout-align-gt-md='start start')
-            p.md-display-3.packed-bottom(flex) {{currentUser.name}}
-            p.md-headline.packed-top(flex) {{currentUser.city}}, {{currentUser.country}}
-            div.packed-top(layout="row" layout-sm='column' layout-align-sm='center center')
-              md-button.no-space(class='md-padding space-right')
-                span.fa.fa-camera 150 Photos
-              md-button.no-space(class='md-padding space-right')
-                span.fa.fa-star {{reviewsCount}} Reviews
-              md-button.no-space(class='md-padding space-right')
-                span.fa.fa-th-large {{itemsCount}} Products
-              md-button.no-space.md-margin(class='md-padding')
-                span.fa.fa-calendar {{eventsCount}} Events
+    md-button.login-btn.md-raised.md-primary(aria-label='Login/Signup', ng-click='login()') Go to Login/Signup Page
 
-    md-card.md-margin.md-padding.packed-top(layout='column' flex)
-      br
-      md-tabs(md-dynamic-height md-border-bottom)
-        md-tab(label='Reviews')
-          div(ui-view='Reviews')
-        md-tab(label='Events')
-          div(ui-view='Events')
-        md-tab(label='Items')
-          div(ui-view='Products')
-        md-tab(label='Photos')
-          div(ui-view='Pictures')
+.profile-page(ng-if='currentUser' layout ng-init="init()")
+  .md-content(layout="row")
+    md-sidenav.md-sidenav-left.md-whiteframe-z2(layout="column", md-component-id='left', md-is-locked-open="$mdMedia('gt-md')")
+      md-toolbar.md-tall.md-hue-2.toolbar-header
+        span(flex='')
+        .md-toolbar-tools-bottom.inset(layout='column')
+          span
+          img(class='profile-pic' ng-src='{{currentUser.img_url}}')
+          .text-center {{currentUser.username || currentUser.name}}
+          .text-center {{currentUser.email}}
+      md-list
+        a(class='remove-link-deco' ng-repeat='item in menu' ui-sref='{{item.link}}')
+          md-list-item(md-ink-ripple )
+            md-item-content( layout='row' layout-align='start center')
+              .inset
+                span(class='{{item.icon}}')
+              .inset
+                | {{item.title}}
+        md-divider
+        md-subheader Management
+        a(class='remove-link-deco' ng-repeat='item in ownerMenu' ui-sref='{{item.link}}')
+          md-list-item(md-ink-ripple)
+            md-item-content(layout='row' layout-align='start center')
+              .inset
+                span(class='{{item.icon}}')
+              .inset
+                | {{item.title}}
+  .md-padding(flex ui-view='inner-view')
