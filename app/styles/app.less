@@ -76,8 +76,8 @@ header {
 }
 
 .icon-button {
-  height: 48px;
   width: 48px;
+  height: 48px;
   margin: 20px;
   padding: 0;
 }
@@ -129,6 +129,20 @@ md-list-item.md-3-line {
   color: #666;
 }
 
+.delete-picture {
+  position:relative;
+  top:80%;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s ease-out;
+  display:inline;
+}
+
+.imageactions {
+  width:100%;
+  height:100%;
+  text-align:center;
+}
+
 md-card.jumbotron.search-jumbotron {
   position: relative;
   z-index: 50;
@@ -157,12 +171,14 @@ md-card.jumbotron.search-jumbotron {
         padding: 1em;
         label {
           margin-left: 10%;
+
           text-align: left;
         }
         md-icon {
           margin-top: 7%;
           margin-right: 0;
           padding-left: 0.5em;
+
           opacity: 0.8;
         }
       }
@@ -255,7 +271,6 @@ md-toolbar,
   width: inherit;
   height: 300px;
   background-size: cover;
-  ;
 }
 
 .eventList {
@@ -306,6 +321,7 @@ md-toolbar,
     }
     .jumbotron-middle-small-text {
       display: block;
+
       margin-top: 0;
       font-size: 1.7em;
     }
@@ -331,6 +347,7 @@ nav {
 h3 {
   margin-bottom: 30px;
   color: rgb(16, 24, 14);
+
   font-size: 1.75em;
   font-weight: bold;
 }
@@ -428,6 +445,7 @@ h3 {
   }
   .text {
     color: white;
+
     font-size: x-large;
   }
 }
@@ -454,6 +472,7 @@ h3 {
   margin: 130px auto;
   padding: 20;
   text-align: center;
+
   border: 1px solid rgb(132, 132, 132);
   background: rgb(255, 255, 240);
   input {
@@ -652,6 +671,7 @@ md-sidenav.md-sidenav-left {
 .nextReview img {
   width: 70px;
   height: 70px;
+
   border-radius: 5px;
 }
 
@@ -828,6 +848,7 @@ md-sidenav.md-sidenav-left {
 
 .about {
   margin: 0 auto;
+
   text-align: justify;
   h3 {
     color: #fefefe;
@@ -838,6 +859,7 @@ md-sidenav.md-sidenav-left {
   }
   md-grid-tile-footer {
     padding: 2.5em 0.2em;
+
     opacity: 0.8;
     background-color: #616161;
   }
@@ -859,6 +881,7 @@ md-toolbar.navbar {
   background-color: rgba(255, 255, 255, 0.3);
   & .md-button {
     color: #ff4081;
+
     font-weight: normal;
   }
 }
@@ -880,6 +903,7 @@ md-toolbar.navbar {
 .add-event-btn {
   position: fixed;
   right: 0;
+
   margin-bottom: 40%;
 }
 
@@ -898,18 +922,21 @@ md-toolbar.navbar {
 }
 
 .face {
-  border-radius: 5px;
   width: 100px;
   height: 100px;
   margin: 10px;
+
+  border: 1px solid #ddd;
+  border-radius: 5px;
 }
 
 .thumbs {
-  border-radius: 5px;
-  border: 1px solid #ddd;
   width: 350px;
   height: 100px;
   margin: 10px;
+
+  border: 1px solid #ddd;
+  border-radius: 5px;
 }
 
 .btn-style {
@@ -927,6 +954,7 @@ md-toolbar.navbar {
 
 a {
   text-decoration: none;
+
   color: #ff4081;
   &:visited {
     color: #009090;
@@ -939,6 +967,7 @@ a {
   height: 20px;
   white-space: nowrap;
   text-overflow: ellipsis;
+
   font-style: italic;
 }
 
@@ -948,11 +977,13 @@ a {
 
 .colorteal {
   color: #009090;
+
   font-size: 1.2em;
 }
 
 .colorpink {
   color: #ff4081;
+
   font-size: 1.2em;
 }
 
@@ -970,30 +1001,35 @@ a {
   border-left: 1px solid #c0c0c0;
   &.itemcity {
     width: 200px;
+
     color: #555;
   }
 }
 
 .item-padding {
-  padding-left: 60px;
   padding-right: 60px;
+  padding-left: 60px;
 }
 
 .fa-style {
   padding: 8px;
+
   color: #009090;
 }
 
 .address {
-  color: #000;
   margin-left: 3px;
+
+  color: #000;
 }
 
 .rating {
+  text-align: center;
+
+  font-size: 24px;
+
   unicode-bidi: bidi-override;
   direction: rtl;
-  text-align: center;
-  font-size: 24px;
 }
 
 .container-height {
@@ -1001,8 +1037,10 @@ a {
 }
 
 .rating > span {
-  display: inline-block;
   position: relative;
+
+  display: inline-block;
+
   width: 1.1em;
 }
 
@@ -1025,6 +1063,7 @@ a {
 
 .item-title {
   padding-left: 15px;
+
   color: #666;
 }
 
@@ -1043,11 +1082,14 @@ a {
 .average-rating {
   width: 80px;
   height: 80px;
-  line-height: 80px;
+
   background: #009090;
+
+  line-height: 80px;
   > h3 {
     display: block;
     margin: 0 auto;
+
     color: #fff;
   }
 }

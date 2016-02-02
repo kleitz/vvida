@@ -1,7 +1,7 @@
 md-card.items(layout="column" flex="55" ng-if="currentUser" ng-init="getItem()")
   md-card-content.content
   md-content
-    md-tabs(md-dynamic-height="", md-border-bottom="")
+    md-tabs(md-dynamic-height="", md-border-bottom="" md-selected="tabIndex")
       md-tab(label="Edit Item")
         md-content.md-padding
           h4.md-display-9 Edit Item
@@ -51,7 +51,7 @@ md-card.items(layout="column" flex="55" ng-if="currentUser" ng-init="getItem()")
               md-progress-linear.md-primary(md-mode="determinate", value="{{uploader.progress}}")
               br
               div(ng-init="showToast() && uploader.clearQueue()" ng-if="uploader.progress === 100 && !uploader.isUploading")
-              md-button.md-raised.md-primary(ng-click="uploader.uploadAll()", ng-disabled="!uploader.getNotUploadedItems().length && uploader.isUploading")
+              md-button.md-raised.md-primary(ng-click="upload()", ng-disabled="!uploader.getNotUploadedItems().length && uploader.isUploading")
                 i.fa.fa-cloud-upload
                 | upload
                 md-button.md-raised.md-warn(ng-click="uploader.cancelAll()", ng-disabled="!uploader.isUploading")
@@ -61,8 +61,11 @@ md-card.items(layout="column" flex="55" ng-if="currentUser" ng-init="getItem()")
                   i.fa.fa-remove
                   | Remove
 
-      md-tab(label="gallery")
+      md-tab(label="gallery" ng-init="opaq=0")
         md-content(layout="row" layout-sm="column" layout-md="column")
           md-subheader(ng-if="item.Images.length < 1")  No uploaded images, Please ensure you upload images in the upload image tab
-          md-card.ripple-container(md-ink-ripple flex ng-repeat="image in item.Images")
+          md-card.ripple-container(md-ink-ripple flex ng-repeat="image in item.Images" ng-mouseover="opaq=1" ng-mouseleave="opaq=0")
             .card-images.md-card-image(style="background-image: url({{image.img_url}})")
+              div.imageactions
+                md-button.md-primary.delete-picture(ng-style="{opacity:opaq}" ng-click="deleteImage(image.public_id)") Delete
+             

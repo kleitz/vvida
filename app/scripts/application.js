@@ -10,6 +10,7 @@
   require('./services/users');
   require('./services/categories');
   require('./services/countries');
+  require('./services/images');
   require('./services/items');
   require('./services/events');
   require('./services/reviews');
@@ -232,6 +233,9 @@
         })
         .state('editItem', {
           url: '/items/{id}/edit',
+          params:{
+            tabIndex:0
+          },
           controller: 'ItemCtrl',
           templateUrl: 'views/edit-item.html'
         })
