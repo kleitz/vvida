@@ -4,8 +4,7 @@ describe('LoginCtrl tests', function() {
     Users = {
       login: function(user, cb) {
         cb(!user, {
-          firstname: 3,
-          lastname: 5,
+          name: 3,
           picture_url: 8
         });
       },
