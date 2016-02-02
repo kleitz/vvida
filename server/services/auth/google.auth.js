@@ -21,6 +21,7 @@ module.exports = function(app, passport, config) {
               email: profile.emails[0].value
             }]
           },
+
           attributes: ['id', 'name', 'img_url', 'gender', 'google_auth_id']
         })
           .then(function(user) {

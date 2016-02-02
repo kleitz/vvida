@@ -21,6 +21,7 @@ module.exports = function(app, passport, config) {
               email: profile.emails[0].value
             }]
           },
+
           attributes: ['id', 'name', 'img_url', 'facebook_auth_id']
         }).then(function(user) {
           // If the user does not exist create one
