@@ -19,8 +19,8 @@ div.eventGridList(layout-padding layout="column")
         md-grid-tile-footer
           div(flex layout="column" layout-padding)
             h3.md-body-2 {{event.venue}}
-            h4.small {{parseTime(event.time).day}} 
-            h4.small {{parseTime(event.time).time}}
+            h4.small {{getTime(event.time).day}} 
+            h4.small {{getTime(event.time).time}}
 
   div(layout ng-if="viewType === \"list\"")
     md-list
@@ -37,12 +37,12 @@ div.eventGridList(layout-padding layout="column")
               span.categorylist.md-accent.md-subheader(ui-sref="viewEvent({id:event.id})") Review
             .left-border(layout-align="start start" layout-padding layout-wrap layout="column" flex="45")
               h3.details.md-subheadline {{event.venue}}
-              span {{parseTime(event.time).day}} 
-              span {{parseTime(event.time).time}}
+              span {{getTime(event.time).day}} 
+              span {{getTime(event.time).time}}
           md-divider(ng-if="!$last")
 
   div(layout="row" layout-align="center center")
     div(layout="row" layout-align="start center")
       md-button(ng-disabled="page <= 1" ng-click="prevEvents()") Prev
       span |
-      md-button(ng-disabled="loadEvents.length < 3" ng-click="nextEvents()") Next
+      md-button(ng-disabled="nextButton" ng-click="nextEvents()" ng-init="disableNext()") Next

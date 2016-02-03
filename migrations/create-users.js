@@ -30,13 +30,13 @@
             validate: {
               isIn: {
                 args: [
-                  ['male', 'female', 'hidden']
+                  ['Male', 'Female', 'Hidden']
                 ],
-                msg: 'Must be either male, female or hidden'
+                msg: 'Must be either Male, Female or Hidden'
               }
             },
             allowNull: true,
-            defaultValue: 'hidden'
+            defaultValue: 'Hidden'
           },
           // date of birth
           dob: {
