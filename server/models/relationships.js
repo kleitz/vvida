@@ -13,6 +13,8 @@ module.exports = function(m) {
   m.Events.hasMany(m.Images);
   m.Events.belongsTo(m.Users);
   m.Events.belongsTo(m.Categories);
+  m.Events.hasMany(m.Reviews);
+
 
   // Images
   m.Images.belongsTo(m.Items);
@@ -46,6 +48,8 @@ module.exports = function(m) {
   // Reviews
   m.Reviews.belongsTo(m.Items);
   m.Reviews.belongsTo(m.Users);
+  m.Reviews.belongsTo(m.Events);
+
 
   // Users
   m.Users.hasMany(m.Events);

@@ -1,5 +1,6 @@
 angular.module('vvida.services', [])
-  .service('Utils', function($mdToast, $mdDialog) {
+  .service('Utils', function($mdToast, $mdDialog, $filter) {
+
     this.toast = function(msg) {
       $mdToast.show($mdToast.simple().content(msg));
     };
@@ -21,6 +22,14 @@ angular.module('vvida.services', [])
             callback();
           }
         }, function() {});
+    };
+
+    // format date data
+    this.parseTime = function(eventTime) {
+      return {
+        day: $filter('date')(eventTime, 'EEEE dd MMM yyyy'),
+        time: $filter('date')(eventTime, 'hh:mm a')
+      };
     };
 
     this.modal = function(ev, title, content) {

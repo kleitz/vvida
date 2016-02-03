@@ -1,0 +1,106 @@
+(function() {
+  'use strict';
+  angular.module('vvida.controllers')
+    .controller('EventViewsCtrl', ['$scope', '$state', '$stateParams',
+      'Utils', 'Events', 'Categories',
+      function($scope, $state, $stateParams,
+        Utils, Events, Categories) {
+
+        // initialize state data
+
+        $scope.init = function() {
+          $scope.page = parseInt($stateParams.page) || 0;
+          $scope.viewType = $stateParams.view || 'grid';
+           // get selected category id
+          $scope.categoryId = $stateParams.catId;
+          console.log($scope.categoryId);
+          if($scope.categoryId){
+            $scope.getCategory();
+          }
+          else{
+            $scope.loadEvents = Events.query();
+          }
+        };
+
+        // event list to be updated for pagination
+        $scope.viewEvents = function(page) {
+          $scope.limit = 3;
+          var pageNum = parseInt(page);
+          pageNum = (pageNum <= 0) ? 1 : pageNum;
+
+
+          $scope.loadEvents = Events.query({
+            limit: $scope.limit,
+            page: pageNum - 1
+          });
+        };
+
+        $scope.getCategory = function() {
+          console.log('TreeSome');
+          // load the categoryItems
+          $scope.loadEvents = Categories.get({
+            id: $scope.categoryId,
+            type : 'Events'
+          });
+        };
+
+        $scope.setViewType = function(type) {
+          $scope.viewType = type;
+          $scope.updateStateParams();
+        };
+
+        $scope.updateStateParams = function() {
+          $state.go('events.all', {
+            page: $scope.page,
+            view: $scope.viewType
+          });
+        };
+        // redirect to pages
+        $scope.prevEvents = function() {
+          $scope.page = parseInt($state.params.page) - 1;
+          $scope.viewEvents($scope.page);
+          $scope.nextButton = false;
+          $scope.updateStateParams();
+        };
+
+        $scope.nextEvents = function() {
+          $scope.page = parseInt($state.params.page) + 1;
+          $scope.viewEvents($scope.page);
+          $scope.updateStateParams();
+        };
+
+        $scope.disableNextButton = function() {
+          $scope.limit = 3;
+          Events.query({
+            limit: $scope.limit,
+            page: parseInt($scope.page)
+          }, function(res) {
+            if (res.length === 0) {
+              $scope.nextButton = true;
+            } else {
+              $scope.nextButton = false;
+            }
+          });
+        };
+
+        // format date data
+        $scope.getTime = function(eventTime) {
+          return Utils.parseTime(eventTime);
+        };
+
+        $scope.averageReview = function(eventReviews) {
+          if (eventReviews) {
+            var sum = 0,
+              count = 0;
+            eventReviews.forEach(function(review) {
+              sum += review.rating;
+              count += 1;
+            });
+            return Math.round(sum / count) || 0;
+          }
+        };
+
+        $scope.init();
+      }
+    ]);
+})();

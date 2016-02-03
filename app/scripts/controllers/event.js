@@ -8,73 +8,34 @@
 
         // initialize state data
         $scope.init = function() {
-          // get all categories
+           // get all categories
           $scope.categories = Categories.query({
             type: 'Event'
           });
-          // view all events
-          if ($stateParams.view) {
-            $scope.page = parseInt($stateParams.page) || 0;
-            $scope.viewEvents($scope.page);
-            $scope.viewType = $stateParams.view || 'grid';
-          }
-          // view an event details
-          else if ($stateParams.id) {
-            $state.go('viewEvent', {
-              id: $stateParams.id
-            });
-          }
-          // view the main page
-          else {
-            Events.query(function(result) {
-              $scope.loadEvents = result;
-              $state.go('events.page');
-            });
-          }
+
+          // get selected category id
+          $scope.categoryId = $stateParams.catId;
+
+          $scope.loadEvents =Events.query();
+
+          $scope.$watch(function() {
+            return $state.current.name;
+          },
+          function(name) {
+            if (name === 'events') {
+              $scope.nextView = false;
+            } else {
+              $scope.nextView = true;
+            }
+          });
         };
 
-        // load the categoryItems
         $scope.getCategory = function() {
-          $scope.categoryItems = Categories.get({
-            id: $scope.categoryId
+          // load the categoryItems
+          $scope.categoryEvents = Categories.get({
+            id: $scope.categoryId,
+            type : 'Events'
           });
-        };
-
-        $scope.setViewType = function(type) {
-          $scope.viewType = type;
-          $scope.updateStateParams();
-        };
-
-        $scope.updateStateParams = function() {
-          $state.go('events.all', {
-            page: $scope.page,
-            view: $scope.viewType
-          });
-        };
-
-        // event list to be updated for pagination
-        $scope.viewEvents = function(page) {
-          var pageNum = parseInt(page);
-          pageNum = (pageNum <= 0) ? 1 : pageNum;
-          $scope.limit = 3;
-
-          $scope.loadEvents = Events.query({
-            limit: $scope.limit,
-            page: pageNum - 1
-          });
-        };
-
-        // redirect to pages
-        $scope.prevEvents = function() {
-          $scope.page = parseInt($state.params.page) - 1;
-          $scope.viewEvents($scope.page);
-          $scope.updateStateParams();
-        };
-
-        $scope.nextEvents = function() {
-          $scope.page = parseInt($state.params.page) + 1;
-          $scope.viewEvents($scope.page);
-          $scope.updateStateParams();
         };
 
 
@@ -89,11 +50,8 @@
         };
 
         // format date data
-        $scope.parseTime = function(eventTime) {
-          return {
-            day: $filter('date')(eventTime, 'EEEE dd MMM yyyy'),
-            time: $filter('date')(eventTime, 'hh:mm a')
-          };
+        $scope.getTime = function(eventTime) {
+          return Utils.parseTime(eventTime);
         };
 
         $scope.averageReview = function(eventReviews) {

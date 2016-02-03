@@ -47,10 +47,10 @@
       find: function(req, res) {
         Categories.find({
           where: {
-            id: req.params.id
+            id: req.params.id,
           },
           include: [{
-            model: Items,
+            model: req.params.type,
             include: [Images, Reviews]
           }]
         }).then(function(categoryItems) {
