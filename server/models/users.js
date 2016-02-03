@@ -22,7 +22,7 @@ module.exports = function(sequelize, DataType) {
             args: [
               ['Male', 'Female', 'Hidden']
             ],
-            msg: 'Must be either male, female or hidden'
+            msg: 'Must be either Male, Female or Hidden'
           }
         },
         allowNull: true,

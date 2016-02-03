@@ -44,105 +44,11 @@ describe('EventCtrl tests', function() {
     Utils = $injector.get('Utils');
   }));
 
-  // initialize state based on state parameters
-  describe('it should initialize based on state parameters', function() {
-
-    beforeEach(function() {
-      stateParams.view = undefined;
-      stateParams.id = undefined;
-    });
-    it('when \'view\' is defined in state parameters', function() {
-      stateParams.view = 'grid';
-      spyOn(scope, 'viewEvents').and.callThrough();
-      scope.init();
-      expect(scope.page).toBe(0);
-      expect(scope.viewType).toBe('grid');
-      expect(scope.viewEvents).toHaveBeenCalledWith(0);
-    });
-
-    it('when \'id\' is defined in state parameters', function() {
-      stateParams.id = 1;
-      spyOn(state, 'go');
-      scope.init();
-      expect(state.go).toHaveBeenCalledWith('viewEvent', {
-        id: 1
-      });
-    });
-
-    it('when \'id\' and \'view\' is undefined in state parameters', function() {
-      spyOn(state, 'go');
-      spyOn(Events, 'query').and.callThrough();
-      scope.init();
-      expect(scope.loadEvents).toBeDefined();
-      expect(state.go).toHaveBeenCalledWith('events.page');
-    });
-
-  });
-
-  it('should set view type', function() {
-    spyOn(scope, 'setViewType').and.callThrough();
-    spyOn(scope, 'updateStateParams').and.callThrough();
-    scope.setViewType('list');
-    expect(scope.viewType).toBe('list');
-    expect(scope.updateStateParams).toHaveBeenCalled();
-  });
-
-  it('should update state parameters', function() {
-    scope.page = 0;
-    scope.viewType = 'list';
-    spyOn(state, 'go');
-    spyOn(scope, 'updateStateParams').and.callThrough();
-    scope.updateStateParams();
-    expect(state.go).toHaveBeenCalledWith('events.all', {
-      page: 0,
-      view: 'list'
-    });
-  });
-
-  it('should get events based on pages', function() {
-    scope.page = 0;
+  // initialize state
+  it('should load events on init', function() {
     spyOn(Events, 'query').and.callThrough();
-    spyOn(scope, 'viewEvents').and.callThrough();
-    scope.viewEvents(scope.page);
-    expect(scope.limit).toBe(3);
-    expect(Events.query).toHaveBeenCalledWith({
-      limit: 3,
-      page: 0
-    });
+    scope.init();
     expect(scope.loadEvents).toBeDefined();
-    expect(scope.loadEvents).toEqual([1, 2, 3]);
-  });
-
-  it('should load next page of events', function() {
-    state.params.page = 1;
-    spyOn(scope, 'viewEvents').and.callThrough();
-    spyOn(Events, 'query').and.callThrough();
-    spyOn(scope, 'updateStateParams').and.callThrough();
-    scope.nextEvents();
-    expect(scope.page).toBe(2);
-    expect(scope.viewEvents).toHaveBeenCalledWith(scope.page);
-    expect(Events.query).toHaveBeenCalledWith({
-      limit: 3,
-      page: 1
-    });
-    expect(scope.loadEvents).toBeDefined();
-    expect(scope.loadEvents).toEqual([4, 5, 6]);
-  });
-
-  it('should load previous page of events', function() {
-    state.params.page = 1;
-    spyOn(scope, 'viewEvents').and.callThrough();
-    spyOn(Events, 'query').and.callThrough();
-    spyOn(scope, 'updateStateParams').and.callThrough();
-    scope.prevEvents();
-    expect(scope.page).toBe(0);
-    expect(scope.viewEvents).toHaveBeenCalledWith(scope.page);
-    expect(Events.query).toHaveBeenCalledWith({
-      limit: 3,
-      page: 0
-    });
-    expect(scope.loadEvents).toBeDefined();
-    expect(scope.loadEvents).toEqual([1, 2, 3]);
   });
 
   it('should get an event', function() {
@@ -154,8 +60,10 @@ describe('EventCtrl tests', function() {
   });
 
   it('should return date and time', function() {
+    spyOn(Utils, 'parseTime').and.callThrough();
     var testDate = new Date(),
-      eventTime = scope.parseTime(testDate);
+      eventTime = scope.getTime(testDate);
+    expect(Utils.parseTime).toHaveBeenCalledWith(testDate);
     expect(eventTime.day).toBeDefined();
     expect(eventTime.time).toBeDefined();
   });
