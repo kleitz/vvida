@@ -12,6 +12,7 @@ module.exports = function(m) {
   m.Events.hasMany(m.Rsvp);
   m.Events.hasMany(m.Images);
   m.Events.belongsTo(m.Users);
+  m.Events.belongsTo(m.Categories);
 
   // Images
   m.Images.belongsTo(m.Items);

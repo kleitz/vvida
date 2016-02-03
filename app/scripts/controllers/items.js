@@ -104,7 +104,9 @@
 
         $scope.init = function() {
           // get all categories
-          $scope.categories = Categories.query();
+          $scope.categories = Categories.query({
+            type: 'Item'
+          });
           // get Recent Items
           $scope.recentItems = Items.query();
           // get selected category id

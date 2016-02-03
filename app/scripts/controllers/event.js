@@ -2,12 +2,16 @@
   'use strict';
   angular.module('vvida.controllers')
     .controller('EventCtrl', ['$scope', '$state', '$stateParams', '$filter',
-      'Utils', 'Events',
+      'Utils', 'Events', 'Categories',
       function($scope, $state, $stateParams, $filter,
-        Utils, Events) {
+        Utils, Events, Categories) {
 
         // initialize state data
         $scope.init = function() {
+          // get all categories
+          $scope.categories = Categories.query({
+            type: 'Event'
+          });
           // view all events
           if ($stateParams.view) {
             $scope.page = parseInt($stateParams.page) || 0;
@@ -27,6 +31,13 @@
               $state.go('events.page');
             });
           }
+        };
+
+        // load the categoryItems
+        $scope.getCategory = function() {
+          $scope.categoryItems = Categories.get({
+            id: $scope.categoryId
+          });
         };
 
         $scope.setViewType = function(type) {
