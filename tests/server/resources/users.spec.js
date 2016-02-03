@@ -11,8 +11,8 @@ describe('User RESTful API tests', function() {
     },
     userInfoUpdates = {
       username: faker.internet.userName(),
-      firstname: faker.name.firstName() + faker.name.lastName(),
-      gender: 'male',
+      name: faker.name.findName(),
+      gender: 'Male',
       country: 'Kenya',
       city: 'Nairobi'
     },

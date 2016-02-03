@@ -14,7 +14,7 @@
         .md-toolbar-tools-bottom.inset(layout='column')
           span
           img(class='profile-pic' ng-src='{{currentUser.img_url}}')
-          .text-center {{currentUser.name}}
+          .text-center {{currentUser.username || currentUser.name}}
           .text-center {{currentUser.email}}
       md-list
         a(class='remove-link-deco' ng-repeat='item in menu' ui-sref='{{item.link}}')
@@ -22,7 +22,7 @@
             md-item-content( layout='row' layout-align='start center')
               .inset
                 span(class='{{item.icon}}')
-              .inset 
+              .inset
                 | {{item.title}}
         md-divider
         md-subheader Management

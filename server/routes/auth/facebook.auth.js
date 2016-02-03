@@ -18,9 +18,8 @@ module.exports = function(app, passport) {
     failureRedirect: '/sign-up'
   }), function(req, res) {
     // Successful authentication, redirect home.
-    console.log(req.user);
-    req.session.user = req.user._json;
-    res.redirect('/#');
+    req.session.user = req.user;
+    res.redirect('/welcome');
   });
 
 };

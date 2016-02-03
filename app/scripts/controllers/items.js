@@ -2,9 +2,9 @@
   'use strict';
   angular.module('vvida.controllers')
     .controller('ItemCtrl', ['$scope', '$state', '$stateParams', '$mdSidenav',
-      'Categories', 'FileUploader', 'Utils', 'Items', 'Reviews',
+      'Categories', 'FileUploader', 'Utils', 'Items', 'Reviews', 'Images',
       function($scope, $state, $stateParams, $mdSidenav,
-        Categories, FileUploader, Utils, Items, Reviews) {
+        Categories, FileUploader, Utils, Items, Reviews, Images) {
         // Close Left Side Nav bar
         $scope.close = function() {
           $mdSidenav('catNav').close();
@@ -82,6 +82,16 @@
             formData: [{
               id: $scope.itemId
             }],
+            onCompleteItem: function() {
+              Items.update($scope.item, function() {
+                $state.go($state.current, {
+                  id: $scope.itemId,
+                  tabIndex: 1
+                }, {
+                  reload: true
+                });
+              });
+            }
           });
           //load the item
           Items.get({
@@ -101,10 +111,13 @@
           $scope.categoryId = $stateParams.catId;
           // initialize scope.item for model
           $scope.item = {};
+          //initialize current tab
+          $scope.tabIndex = $stateParams.tabIndex;
         };
 
         $scope.updateItem = function() {
           Items.update($scope.item, function(item) {
+            $scope.getItem();
             Utils.toast(item.message);
           });
         };
@@ -115,6 +128,16 @@
 
         $scope.upload = function() {
           $scope.uploader.uploadAll();
+        };
+        $scope.deleteImage = function(id) {
+          Images.delete(id, function() {
+            $state.go($state.current, {
+              id: $scope.itemId,
+              tabIndex: 2
+            }, {
+              reload: true
+            });
+          });
         };
         $scope.init();
       }

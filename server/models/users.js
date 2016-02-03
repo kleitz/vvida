@@ -10,34 +10,23 @@ module.exports = function(sequelize, DataType) {
         type: DataType.STRING,
         allowNull: true
       },
-      // firstname
-      firstname: {
+      // name
+      name: {
         type: DataType.STRING,
-        allowNull: true,
-        validate: {
-          isAlpha: true
-        }
-      },
-      // lastname
-      lastname: {
-        type: DataType.STRING,
-        allowNull: true,
-        validate: {
-          isAlpha: true
-        }
+        allowNull: true
       },
       gender: {
         type: DataType.STRING,
         validate: {
           isIn: {
             args: [
-              ['male', 'female', 'hidden']
+              ['Male', 'Female', 'Hidden']
             ],
-            msg: 'Must be either male, female or hidden'
+            msg: 'Must be either Male, Female or Hidden'
           }
         },
         allowNull: true,
-        defaultValue: 'hidden'
+        defaultValue: 'Hidden'
       },
       // date of birth
       dob: {
