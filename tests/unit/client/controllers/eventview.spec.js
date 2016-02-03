@@ -15,16 +15,13 @@ describe('EventViewsCtrl tests', function() {
           message: 'Sample Event Message'
         });
       },
-      query: function(params) {
-        if (typeof params === 'function') {
-          params([1, 2, 3, 4, 5, 6]);
-        } else {
-          var page = params.page || 0,
-            limit = params.limit || 3,
-            start = limit * page,
-            end = start + limit;
-          return [1, 2, 3, 4, 5, 6].slice(start, end);
-        }
+      query: function(params, cb) {
+        var page = params.page || 0,
+          limit = params.limit || 3,
+          start = limit * page,
+          end = start + limit;
+        var res = [1, 2, 3, 4, 5, 6].slice(start, end);
+        cb ? cb(res) : return res;
       }
     },
     state, stateParams;
@@ -120,6 +117,14 @@ describe('EventViewsCtrl tests', function() {
     expect(scope.loadEvents).toEqual([4, 5, 6]);
   });
 
+  it('should disable next button', function() {
+    scope.page = 2;
+    scope.limt = 3;
+    spyOn(Events, 'query').and.callThrough();
+    scope.disableNext();
+    expect(Events.query).toHaveBeenCalled();
+    expect(scope.nextButton).toBe(true);
+  });
 
   it('should return date and time', function() {
     spyOn(Utils, 'parseTime').and.callThrough();

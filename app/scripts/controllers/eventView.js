@@ -16,9 +16,9 @@
 
         // event list to be updated for pagination
         $scope.viewEvents = function(page) {
+          $scope.limit = 3;
           var pageNum = parseInt(page);
           pageNum = (pageNum <= 0) ? 1 : pageNum;
-          $scope.limit = 3;
 
           $scope.loadEvents = Events.query({
             limit: $scope.limit,
@@ -41,6 +41,7 @@
         $scope.prevEvents = function() {
           $scope.page = parseInt($state.params.page) - 1;
           $scope.viewEvents($scope.page);
+          $scope.nextButton = false;
           $scope.updateStateParams();
         };
 
@@ -48,6 +49,20 @@
           $scope.page = parseInt($state.params.page) + 1;
           $scope.viewEvents($scope.page);
           $scope.updateStateParams();
+        };
+
+        $scope.disableNext = function() {
+          $scope.limit = 3;
+          Events.query({
+            limit: $scope.limit,
+            page: parseInt($scope.page)
+          }, function(res) {
+            if (res.length === 0) {
+              $scope.nextButton = true;
+            } else {
+              $scope.nextButton = false;
+            }
+          });
         };
 
         // format date data

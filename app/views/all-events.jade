@@ -45,4 +45,4 @@ div.eventGridList(layout-padding layout="column")
     div(layout="row" layout-align="start center")
       md-button(ng-disabled="page <= 1" ng-click="prevEvents()") Prev
       span |
-      md-button(ng-disabled="loadEvents.length < 3" ng-click="nextEvents()") Next
+      md-button(ng-disabled="nextButton" ng-click="nextEvents()" ng-init="disableNext()") Next
