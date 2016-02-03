@@ -1,10 +1,10 @@
 (function() {
   'use strict';
   angular.module('vvida.controllers')
-    .controller('EventCtrl', ['$scope', '$state', '$stateParams',
-      'Utils', 'Events',
-      function($scope, $state, $stateParams,
-        Utils, Events) {
+    .controller('EventCtrl', ['$scope', '$state', '$stateParams', '$filter',
+      'Utils', 'Events', 'Reviews',
+      function($scope, $state, $stateParams, $filter,
+        Utils, Events, Reviews) {
 
         // initialize state data
         $scope.init = function() {
@@ -38,15 +38,31 @@
           return Utils.parseTime(eventTime);
         };
 
+        $scope.range = function(n) {
+          return new Array(n);
+        };
+
+        $scope.rate = function(n) {
+          $scope.itemReview.rating = n;
+        };
+
+        $scope.addEventReview = function() {
+          $scope.eventReview.eventId = $stateParams.id;
+          Reviews.save($scope.eventReview, function(review) {
+            if (review) {
+              $scope.event.Reviews.push(review);
+              $scope.eventReview = {};
+            }
+          });
+        };
+
         $scope.averageReview = function(eventReviews) {
           if (eventReviews) {
-            var sum = 0,
-              count = 0;
+            var sum = 0;
             eventReviews.forEach(function(review) {
               sum += review.rating;
-              count += 1;
             });
-            return Math.round(sum / count) || 0;
+            return Math.round(sum / eventReviews.length) || 0;
           }
         };
 
