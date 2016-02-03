@@ -93,12 +93,6 @@
           $scope.itemReview.rating = n;
         };
 
-        $scope.maxReview = function(itemReviews) {
-          return window._.max(itemReviews, function(review) {
-            return review.rating;
-          });
-        };
-
         $scope.addEventReview = function() {
           $scope.eventReview.eventId = $stateParams.id;
           Reviews.save($scope.eventReview, function(review) {
