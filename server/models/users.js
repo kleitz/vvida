@@ -20,13 +20,13 @@ module.exports = function(sequelize, DataType) {
         validate: {
           isIn: {
             args: [
-              ['male', 'female', 'hidden']
+              ['Male', 'Female', 'Hidden']
             ],
             msg: 'Must be either male, female or hidden'
           }
         },
         allowNull: true,
-        defaultValue: 'hidden'
+        defaultValue: 'Hidden'
       },
       // date of birth
       dob: {
