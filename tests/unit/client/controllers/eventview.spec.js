@@ -21,7 +21,11 @@ describe('EventViewsCtrl tests', function() {
           start = limit * page,
           end = start + limit;
         var res = [1, 2, 3, 4, 5, 6].slice(start, end);
-        cb ? cb(res) : return res;
+        if (cb) {
+          cb(res);
+        } else {
+          return res;
+        }
       }
     },
     state, stateParams;
