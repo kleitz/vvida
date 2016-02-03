@@ -19,7 +19,7 @@ module.exports = function(app, passport, config) {
       }
       user.token = null;
       var token = jwt.sign(user, app.get('superSecret'), {
-        expireIn: 180
+        expireIn: '24h'
       });
       user.token = token;
       Users.update(user, {
@@ -59,7 +59,7 @@ module.exports = function(app, passport, config) {
       }
       user.token = null;
       var token = jwt.sign(user, app.get('superSecret'), {
-        expireIn: 180
+        expireIn: '24h'
       });
 
       user.token = token;
