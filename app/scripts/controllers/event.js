@@ -105,13 +105,11 @@
 
         $scope.averageReview = function(eventReviews) {
           if (eventReviews) {
-            var sum = 0,
-              count = 0;
+            var sum = 0;
             eventReviews.forEach(function(review) {
               sum += review.rating;
-              count += 1;
             });
-            return Math.round(sum / count) || 0;
+            return Math.round(sum / eventReviews.length) || 0;
           }
         };
 
