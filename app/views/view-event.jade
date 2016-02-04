@@ -1,5 +1,5 @@
 md-content(layout='row' layout-margin layout-align="center start" flex="100" ng-init="getEvent()")
-  md-content(layout="column" layout-margin flex="60")
+  md-content.no-overflow(layout="column" layout-margin flex="60")
     h4.md-headline {{event.name}}
     p.md-subheader Gallery Images
     br
@@ -29,7 +29,7 @@ md-content(layout='row' layout-margin layout-align="center start" flex="100" ng-
     i.fa.fa-group &nbsp;&nbsp; 
       span.emphasis {{event.sponsor}}
 
-  md-content(layout="column" layout-margin flex="30")
+  md-content.no-overflow(layout="column" layout-margin flex="30")
     h5.text-center Say something about this event
     md-divider
       md-input-container.no-padding
