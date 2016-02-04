@@ -10,8 +10,8 @@
         md-grid-tile-footer
           div(flex layout="column" layout-padding)
             h3.details.md-subheadline {{event.venue}}
-            span {{parseTime(event.time).day}} 
-            span {{parseTime(event.time).time}}
+            span {{getTime(event.time).day}} 
+            span {{getTime(event.time).time}}
   div(layout= "row")
     span(flex)
     md-button(ui-sref="events.all({view:\"grid\", page: 1})") See More
@@ -27,8 +27,8 @@
         md-grid-tile-footer
           div(flex layout="column" layout-padding)
             h3.details.md-subheadline {{event.venue}}
-            h4.details {{parseTime(event.time).day}} 
-            span {{parseTime(event.time).time}}
+            h4.details {{getTime(event.time).day}} 
+            span {{getTime(event.time).time}}
   div(layout= "row")
     span(flex)
     md-button(ui-sref="events.all({view:\"grid\", page: 1})") See More

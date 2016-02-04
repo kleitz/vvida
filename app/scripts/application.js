@@ -36,6 +36,7 @@
   require('./controllers/user-profile/pictures');
   require('./controllers/user-profile/reviews');
   require('./controllers/items');
+  require('./controllers/eventView');
   require('./controllers/event');
 
   // Require Directives
@@ -102,7 +103,7 @@
         state: 'about'
       }, {
         name: 'Events',
-        state: 'events.page'
+        state: 'events'
       }, {
         name: 'Products',
         state: 'items'
@@ -155,17 +156,8 @@
           url: '/{view}/?{page}',
           views: {
             'inner@events': {
-              controller: 'EventCtrl',
+              controller: 'EventViewsCtrl',
               templateUrl: 'views/all-events.html',
-            }
-          }
-        })
-        .state('events.page', {
-          url: '',
-          views: {
-            'inner@events': {
-              controller: 'EventCtrl',
-              templateUrl: 'views/event-page.html',
             }
           }
         })
