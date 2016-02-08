@@ -40,6 +40,10 @@ describe('Events resource API tests', function() {
     function(done) {
       request
         .get(resourceApiURL)
+        .query({
+          limit: 4,
+          page: 0
+        })
         .accept('application/json')
         .end(function(err, res) {
           _expect(res.status).to.be(200);
