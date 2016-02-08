@@ -13,7 +13,8 @@ describe('Events resource API tests', function() {
         location: faker.address.streetName(),
         venue: faker.address.streetAddress(),
         time: faker.date.recent(),
-        sponsor: faker.company.companyName()
+        sponsor: faker.company.companyName(),
+        category_id: faker.random.number(),
       };
     },
     generateFakeEventUpdates = function() {
@@ -40,10 +41,6 @@ describe('Events resource API tests', function() {
     function(done) {
       request
         .get(resourceApiURL)
-        .query({
-          limit: 4,
-          page: 0
-        })
         .accept('application/json')
         .end(function(err, res) {
           _expect(res.status).to.be(200);
