@@ -35,23 +35,25 @@ describe('Events resource API tests', function() {
    *
    * @return Response
    */
-  it('should return all items stored in the database or empty array if DB is empty', function(done) {
-    request
-      .get(resourceApiURL)
-      .accept('application/json')
-      .end(function(err, res) {
-        _expect(res.status).to.be(200);
-        if (res.body.length === 0) {
-          _expect(res.body).to.be.an(Array);
-        } else {
-          _expect(res.body.length).to.be.greaterThan(0);
-          _expect(res.body[0].id).to.be.a('number');
-          _expect(res.body[0].name).to.be.a('string');
-          _expect(res.body[0].description).to.be.a('string');
-        }
-        done();
-      });
-  });
+  it('should return all items stored in the database ' +
+    ' or empty array if DB is empty',
+    function(done) {
+      request
+        .get(resourceApiURL)
+        .accept('application/json')
+        .end(function(err, res) {
+          _expect(res.status).to.be(200);
+          if (res.body.length === 0) {
+            _expect(res.body).to.be.an(Array);
+          } else {
+            _expect(res.body.length).to.be.greaterThan(0);
+            _expect(res.body[0].id).to.be.a('number');
+            _expect(res.body[0].name).to.be.a('string');
+            _expect(res.body[0].description).to.be.a('string');
+          }
+          done();
+        });
+    });
 
   /**
    * Store a newly created resource in storage.

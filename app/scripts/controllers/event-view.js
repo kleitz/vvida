@@ -18,7 +18,6 @@
             $scope.getCategory();
           } else {
             $scope.viewEvents($scope.page);
-            $scope.updateStateParams();
           }
         };
 
@@ -36,7 +35,7 @@
         };
 
         $scope.getCategory = function() {
-          // load the categoryItems
+          // load the categoryEvents
           Categories.get({
             id: $scope.categoryId,
             model: 'Events'

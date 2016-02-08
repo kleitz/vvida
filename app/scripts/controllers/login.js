@@ -27,12 +27,14 @@ angular.module('vvida.controllers')
         } else if (!/\d/.test($scope.user.passwordSignup.trim()) ||
           !/\w/.test($scope.user.passwordSignup.trim())) {
           $scope.messageSignup =
-            'Your password need to contain both numbers and non-word characters';
+            'Your password need to contain both numbers ' +
+            'and non-word characters';
         } else if (!/[A-Z]/.test($scope.user.passwordSignup.trim()) ||
           !/[a-z]/.test($scope.user.passwordSignup.trim())) {
           $scope.messageSignup =
             'Your password need to contain both uppercase and lower characters';
-        } else if ($scope.user.passwordSignup.trim() === $scope.user.confirmPassword.trim()) {
+        } else if ($scope.user.passwordSignup.trim() ===
+          $scope.user.confirmPassword.trim()) {
           var user = {
             email: $scope.user.emailSignup,
             password: $scope.user.passwordSignup
@@ -48,7 +50,8 @@ angular.module('vvida.controllers')
           });
         } else {
           $scope.messageSignup =
-            'Your confirmation password does not match the initial password you have given.';
+            'Your confirmation password does not match ' +
+            ' the initial password you have given.';
         }
       };
 

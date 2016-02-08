@@ -11,7 +11,8 @@ angular.module('vvida.controllers')
     'Categories',
     '$mdDialog',
     function($scope, $rootScope,
-      $state, $stateParams, Users, Utils, Events, FileUploader, Categories, $mdDialog) {
+      $state, $stateParams, Users, Utils, Events,
+      FileUploader, Categories, $mdDialog) {
 
       $scope.init = function() {
 
@@ -30,7 +31,7 @@ angular.module('vvida.controllers')
           type: 'Event'
         });
       };
-      $scope.init();
+      // $scope.init();
 
       // create event
       $scope.addEvent = function() {

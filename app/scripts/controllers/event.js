@@ -1,14 +1,13 @@
 (function() {
   'use strict';
   angular.module('vvida.controllers')
-    .controller('EventCtrl', ['$scope', '$state', '$stateParams', '$filter',
+    .controller('EventCtrl', ['$scope', '$state', '$stateParams',
       '$mdSidenav', 'Utils', 'Events', 'Categories',
-      function($scope, $state, $stateParams, $filter, $mdSidenav,
+      function($scope, $state, $stateParams, $mdSidenav,
         Utils, Events, Categories) {
 
         // initialize state data
         $scope.init = function() {
-
           // get all categories
           $scope.categories = Categories.query({
             type: 'Event'
@@ -16,7 +15,6 @@
 
           // get selected category id
           $scope.categoryId = $stateParams.catId;
-
           $scope.loadEvents = Events.query();
 
           $scope.$watch(function() {
@@ -38,14 +36,6 @@
 
         $scope.toggleSidenav = function() {
           $mdSidenav('evcatNav').toggle();
-        };
-
-        $scope.getCategory = function() {
-          // load the categoryItems
-          $scope.categoryEvents = Categories.get({
-            id: $scope.categoryId,
-            type: 'Events'
-          });
         };
 
         $scope.getEvent = function() {
