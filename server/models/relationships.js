@@ -1,6 +1,8 @@
 module.exports = function(m) {
   // Categories
   m.Categories.hasMany(m.Items);
+  m.Categories.hasMany(m.Events);
+
   // for subcategories
   // this will add the attribute sub_cat_id to Categories
   m.Categories.hasMany(m.Categories, {

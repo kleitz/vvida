@@ -2,32 +2,32 @@
   'use strict';
   angular.module('vvida.controllers')
     .controller('EventViewsCtrl', ['$scope', '$state', '$stateParams',
-      'Utils', 'Events', 'Categories',
+      '$mdSidenav', 'Utils', 'Events', 'Categories',
       function($scope, $state, $stateParams,
-        Utils, Events, Categories) {
+        $mdSidenav, Utils, Events, Categories) {
 
         // initialize state data
 
         $scope.init = function() {
+          $mdSidenav('evcatNav').close();
           $scope.page = parseInt($stateParams.page) || 0;
           $scope.viewType = $stateParams.view || 'grid';
-           // get selected category id
+          // get selected category id
           $scope.categoryId = $stateParams.catId;
-          console.log($scope.categoryId);
-          if($scope.categoryId){
+          if ($scope.categoryId) {
             $scope.getCategory();
-          }
-          else{
-            $scope.loadEvents = Events.query();
+          } else {
+            $scope.viewEvents($scope.page);
+            $scope.updateStateParams();
           }
         };
+
 
         // event list to be updated for pagination
         $scope.viewEvents = function(page) {
           $scope.limit = 3;
           var pageNum = parseInt(page);
           pageNum = (pageNum <= 0) ? 1 : pageNum;
-
 
           $scope.loadEvents = Events.query({
             limit: $scope.limit,
@@ -36,12 +36,15 @@
         };
 
         $scope.getCategory = function() {
-          console.log('TreeSome');
           // load the categoryItems
-          $scope.loadEvents = Categories.get({
+          Categories.get({
             id: $scope.categoryId,
-            type : 'Events'
+            model: 'Events'
+          }, function(category) {
+            $scope.categoryName = category.name;
+            $scope.loadEvents = category.Events;
           });
+
         };
 
         $scope.setViewType = function(type) {
@@ -50,9 +53,10 @@
         };
 
         $scope.updateStateParams = function() {
-          $state.go('events.all', {
+          $state.go($state.current, {
             page: $scope.page,
-            view: $scope.viewType
+            view: $scope.viewType,
+            catId: $scope.categoryId
           });
         };
         // redirect to pages

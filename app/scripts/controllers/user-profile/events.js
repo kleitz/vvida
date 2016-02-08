@@ -54,6 +54,16 @@ angular.module('vvida.controllers')
           formData: [{
             eventId: $scope.eventId
           }],
+          onCompleteItem: function() {
+            Events.update($scope.event, function() {
+              $state.go($state.current, {
+                id: $scope.eventId,
+                tabIndex: 1
+              }, {
+                reload: true
+              });
+            });
+          }
         });
         Events.get({
           id: $stateParams.id

@@ -3,7 +3,8 @@ angular.module('vvida.services')
     function($resource) {
       return $resource('/api/categories/:id', {
         id: '@id',
-        type: '@type'
+        type: '@type',
+        model: '@model'
       }, {
         update: {
           // this method issues a PUT request

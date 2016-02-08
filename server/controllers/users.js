@@ -10,7 +10,7 @@
       Categories = app.get('models').Categories,
       Events = app.get('models').Events,
       Reviews = app.get('models').Reviews,
-      stripUser = function (user) {
+      stripUser = function(user) {
         user.password = null;
         user.token = null;
         user.facebook_auth_id = null;

@@ -2,13 +2,14 @@
   'use strict';
   angular.module('vvida.controllers')
     .controller('EventCtrl', ['$scope', '$state', '$stateParams', '$filter',
-      'Utils', 'Events', 'Categories',
-      function($scope, $state, $stateParams, $filter,
+      '$mdSidenav', 'Utils', 'Events', 'Categories',
+      function($scope, $state, $stateParams, $filter, $mdSidenav,
         Utils, Events, Categories) {
 
         // initialize state data
         $scope.init = function() {
-           // get all categories
+
+          // get all categories
           $scope.categories = Categories.query({
             type: 'Event'
           });
@@ -16,29 +17,36 @@
           // get selected category id
           $scope.categoryId = $stateParams.catId;
 
-          $scope.loadEvents =Events.query();
+          $scope.loadEvents = Events.query();
 
           $scope.$watch(function() {
-            return $state.current.name;
-          },
-          function(name) {
-            if (name === 'events') {
-              $scope.nextView = false;
-            } else {
-              $scope.nextView = true;
-            }
-          });
+              return $state.current.name;
+            },
+            function(name) {
+              if (name === 'events') {
+                $scope.nextView = false;
+              } else {
+                $scope.nextView = true;
+              }
+            });
+        };
+
+
+        $scope.close = function() {
+          $mdSidenav('evcatNav').close();
+        };
+
+        $scope.toggleSidenav = function() {
+          $mdSidenav('evcatNav').toggle();
         };
 
         $scope.getCategory = function() {
           // load the categoryItems
           $scope.categoryEvents = Categories.get({
             id: $scope.categoryId,
-            type : 'Events'
+            type: 'Events'
           });
         };
-
-
 
         $scope.getEvent = function() {
           $scope.eventId = $stateParams.id;

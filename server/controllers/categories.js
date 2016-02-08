@@ -2,7 +2,6 @@
   'use strict';
   module.exports = function(app) {
     var Categories = app.get('models').Categories,
-      Items = app.get('models').Items,
       Images = app.get('models').Images,
       Reviews = app.get('models').Reviews;
 
@@ -45,12 +44,13 @@
       },
 
       find: function(req, res) {
+
         Categories.find({
           where: {
             id: req.params.id,
           },
           include: [{
-            model: req.params.type,
+            model: app.get('models')[req.query.model],
             include: [Images, Reviews]
           }]
         }).then(function(categoryItems) {

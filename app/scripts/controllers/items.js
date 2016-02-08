@@ -44,7 +44,7 @@
           // load the categoryItems
           $scope.categoryItems = Categories.get({
             id: $scope.categoryId,
-            type: 'Items'
+            model: 'Items'
           });
         };
 

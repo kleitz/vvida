@@ -12,7 +12,7 @@ div(layout="row")
     div(layout="row" layout-wrap)
       .md-padding(ng-show="categoryId" layout="row")
         a.md-subheadline(ui-sref="items") Products
-        a(ui-sref="categoryItems({catId: categoryId})") &nbsp;> {{categoryItems.type}}
+        a(ui-sref="categoryItems({catId: categoryId})") &nbsp;> {{categoryItems.name}}
       .md-padding(layout="row" layout-align="start center" ng-show="!categoryId" hide-gt-md)
         md-button.md-icon-button(ng-click="toggleSidenav()" aria-label="Menu")
           i.fa.fa-bars
