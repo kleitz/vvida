@@ -6,7 +6,6 @@
       Images = app.get('models').Images,
       Reviews = app.get('models').Reviews;
 
-
     // Create event middlware
     return {
       create: function(req, res) {

@@ -17,7 +17,6 @@ module.exports = function(m) {
   m.Events.belongsTo(m.Categories);
   m.Events.hasMany(m.Reviews);
 
-
   // Images
   m.Images.belongsTo(m.Items);
   m.Images.belongsTo(m.Users);
@@ -51,7 +50,6 @@ module.exports = function(m) {
   m.Reviews.belongsTo(m.Items);
   m.Reviews.belongsTo(m.Users);
   m.Reviews.belongsTo(m.Events);
-
 
   // Users
   m.Users.hasMany(m.Events);
