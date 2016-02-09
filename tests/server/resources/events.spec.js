@@ -13,7 +13,8 @@ describe('Events resource API tests', function() {
         location: faker.address.streetName(),
         venue: faker.address.streetAddress(),
         time: faker.date.recent(),
-        sponsor: faker.company.companyName()
+        sponsor: faker.company.companyName(),
+        category_id: faker.random.number(),
       };
     },
     generateFakeEventUpdates = function() {
@@ -35,23 +36,25 @@ describe('Events resource API tests', function() {
    *
    * @return Response
    */
-  it('should return all items stored in the database or empty array if DB is empty', function(done) {
-    request
-      .get(resourceApiURL)
-      .accept('application/json')
-      .end(function(err, res) {
-        _expect(res.status).to.be(200);
-        if (res.body.length === 0) {
-          _expect(res.body).to.be.an(Array);
-        } else {
-          _expect(res.body.length).to.be.greaterThan(0);
-          _expect(res.body[0].id).to.be.a('number');
-          _expect(res.body[0].name).to.be.a('string');
-          _expect(res.body[0].description).to.be.a('string');
-        }
-        done();
-      });
-  });
+  it('should return all items stored in the database ' +
+    ' or empty array if DB is empty',
+    function(done) {
+      request
+        .get(resourceApiURL)
+        .accept('application/json')
+        .end(function(err, res) {
+          _expect(res.status).to.be(200);
+          if (res.body.length === 0) {
+            _expect(res.body).to.be.an(Array);
+          } else {
+            _expect(res.body.length).to.be.greaterThan(0);
+            _expect(res.body[0].id).to.be.a('number');
+            _expect(res.body[0].name).to.be.a('string');
+            _expect(res.body[0].description).to.be.a('string');
+          }
+          done();
+        });
+    });
 
   /**
    * Store a newly created resource in storage.
@@ -71,7 +74,6 @@ describe('Events resource API tests', function() {
         _expect(res.status).to.be(200);
         _expect(res.body.token).to.be.a('string');
         _expect(res.body.token.length).to.be.greaterThan(100);
-        console.log(err);
         authToken = res.body.token;
         done();
       });

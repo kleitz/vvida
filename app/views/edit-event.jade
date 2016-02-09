@@ -1,12 +1,12 @@
 md-card.items(layout="column" flex="55" ng-init="getEvent()")
   br
   md-card-content
-    md-subheader.md-no-sticky  Below is your product information, read through carefully to ensure your product information is accurate, edit when necceasry. Ensure you upload images for your product.
+    md-subheader.md-no-sticky  Below is your product information, read through carefully to ensure your product information is accurate, edit when necceasry. Ensure you upload images for your event.
 
 md-card.items(layout='column' flex='55' ng-init="getEvent()")
   br
   md-content
-    md-tabs(md-dynamic-height='', md-border-bottom='')
+    md-tabs(md-dynamic-height='', md-border-bottom='' md-selected="tabIndex")
       md-tab(label='Edit Item')
         md-content.md-padding
           h4.md-display-9 Edit Item
@@ -16,6 +16,11 @@ md-card.items(layout='column' flex='55' ng-init="getEvent()")
               i.fa.fa-glass
                 |   Event Name
               input(type="text" ng-model="event.name" ng-required="true" aria-label="event.name")
+            md-input-container
+              i.fa.fa-list
+                |   Category
+              md-select(ng-model="event.category_id" class="select" aria-label="event.category_id")
+                md-option(ng-value="category.id" ng-repeat="category in categories") {{category.name}}
             md-input-container
               i.fa.fa-file-text
                 |   Description
@@ -28,11 +33,10 @@ md-card.items(layout='column' flex='55' ng-init="getEvent()")
               i.fa.fa-university
                 |   Venue
               input(ng-model="event.venue" type="text" ng-required="true" rows='2' aria-label="event.venue")
-
-            i.fa.fa-university
-              |   Venue
-              md-datepicker(ng-model="event.time" md-placeholder="Enter start date" )
-
+            md-input-container
+              i.fa.fa-calendar
+                |   Date
+              md-datepicker(ng-model="event.time" md-placeholder="Enter date" )
             md-input-container
               i.fa.fa-thumbs-o-up
                 |   Sponsor
@@ -40,7 +44,7 @@ md-card.items(layout='column' flex='55' ng-init="getEvent()")
             br
             md-button.md-raised.md-warn(class="login-button" type="submit")
               i(class="fa fa-plus-circle")
-              | Add
+              | Update
 
       md-tab(label='Upload Images')
         md-content.md-padding

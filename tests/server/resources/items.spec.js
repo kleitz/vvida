@@ -56,26 +56,28 @@ describe('Items resource API tests', function() {
    *
    * @return Response
    */
-  it('should return all items stored in the database or empty array if DB is empty', function(done) {
-    request
-      .get(resourceApiUrl)
-      .accept('application/json')
-      .end(function(err, res) {
-        _expect(res.status).to.be(200);
-        if (res.body.length === 0) {
-          _expect(res.body).to.be.an('array');
-        } else {
-          var items = res.body;
-          _expect(items.length).to.be.greaterThan(0);
-          _expect(items[0].id).to.be.a('number');
-          _expect(items[0].user_id).to.be.a('number');
-          _expect(items[0].name).to.be.a('string');
-          _expect(items[0].description).to.be.a('string');
-          _expect(items[0].description).to.match(/(\s){1,}/g);
-        }
-        done();
-      });
-  });
+  it('should return all items stored in the database' +
+    ' or empty array if DB is empty',
+    function(done) {
+      request
+        .get(resourceApiUrl)
+        .accept('application/json')
+        .end(function(err, res) {
+          _expect(res.status).to.be(200);
+          if (res.body.length === 0) {
+            _expect(res.body).to.be.an('array');
+          } else {
+            var items = res.body;
+            _expect(items.length).to.be.greaterThan(0);
+            _expect(items[0].id).to.be.a('number');
+            _expect(items[0].user_id).to.be.a('number');
+            _expect(items[0].name).to.be.a('string');
+            _expect(items[0].description).to.be.a('string');
+            _expect(items[0].description).to.match(/(\s){1,}/g);
+          }
+          done();
+        });
+    });
 
   it('should store a newly created resource in storage.', function(done) {
     var item = generateFakeItem();

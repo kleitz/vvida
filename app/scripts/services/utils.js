@@ -28,7 +28,7 @@ angular.module('vvida.services', [])
     this.parseTime = function(eventTime) {
       return {
         day: $filter('date')(eventTime, 'EEEE dd MMM yyyy'),
-        time: $filter('date')(eventTime, 'hh:mm a')
+        time: $filter('date')(eventTime, 'hh:mma')
       };
     };
 
