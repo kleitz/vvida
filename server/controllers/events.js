@@ -17,7 +17,8 @@
           location: req.body.location,
           venue: req.body.venue,
           time: req.body.time,
-          sponsor: req.body.sponsor
+          sponsor: req.body.sponsor,
+          category_id: req.body.category_id
         }).then(function(event) {
           if (!event) {
             res.status(500).send({
