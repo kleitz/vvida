@@ -32,11 +32,14 @@
     "by",
     "exports",
     "sinon",
-    "spyOn"
+    "spyOn",
+    "Sequelize",
+
   ],
   "quotmark": true,
   "trailing": true,
   "undef": true,
   "expr": true,
-  "unused": true
+  "unused": true,
+  "exclude-path": "./migrations/"
 }
