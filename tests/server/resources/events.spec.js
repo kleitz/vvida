@@ -35,11 +35,12 @@ describe('Events resource API tests', function() {
    *
    * @return Response
    */
-  it('should return all items stored in the database or empty array if DB is empty', function(done) {
+  it('should return all events or empty array if DB is empty', function(done) {
     request
       .get(resourceApiURL)
       .accept('application/json')
       .end(function(err, res) {
+        console.log(err);
         _expect(res.status).to.be(200);
         if (res.body.length === 0) {
           _expect(res.body).to.be.an(Array);
@@ -73,6 +74,18 @@ describe('Events resource API tests', function() {
         _expect(res.body.token.length).to.be.greaterThan(100);
         console.log(err);
         authToken = res.body.token;
+        done();
+      });
+  });
+
+  it('should not store created resource in storage.', function(done) {
+    var fakeEvent = generateFakeEvent();
+    request
+      .post(resourceApiURL)
+      .send(fakeEvent)
+      .accept('application/json')
+      .end(function(err, res) {
+        _expect(res.status).to.be(500);
         done();
       });
   });

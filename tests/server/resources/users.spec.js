@@ -27,7 +27,7 @@ describe('User RESTful API tests', function() {
    *
    * @return Response
    */
-  it('should return all users stored in the database or empty array if DB is empty', function(done) {
+  it('should return all users or empty array if DB is empty', function(done) {
     request
       .get(resourceApiUrl)
       .accept('application/json')
@@ -74,7 +74,7 @@ describe('User RESTful API tests', function() {
    *
    * @return Response
    */
-  it('should login the newly created user and return API authorisation token.', function(done) {
+  it('should login the new user and return token.', function(done) {
     request
       .post(resourceApiUrl + '/login')
       .send(newUser)

@@ -118,8 +118,8 @@ gulp.task('test:bend', ['test:fend'], function() {
     .pipe(mocha({
       reporter: 'spec'
     }))
-    .once('error', function() {
-      process.exit(1);
+    .once('error', function(err) {
+      throw err;
     });
 });
 

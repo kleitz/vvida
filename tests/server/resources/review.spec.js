@@ -1,26 +1,24 @@
 var request = require('superagent'),
   faker = require('faker'),
   _expect = require('expect.js'),
-  resourceApiUrl = 'http://localhost:3000/api/items';
+  resourceApiUrl = 'http://localhost:3000/api/reviews';
 
-describe('Items resource API tests', function() {
+describe('Reviews resource API tests', function() {
 
-  var generateFakeItem = function() {
+  var generateFakeReview = function() {
       return {
         // catId: faker.random.number(),
-        name: faker.commerce.productName(),
-        category_id: faker.random.number(),
-        description: faker.lorem.sentence(),
-        city: faker.address.city(),
-        street: faker.address.streetAddress(),
-        phone: faker.phone.phoneNumber(),
-        email: faker.internet.email()
+        user_id: faker.random.number(),
+        item_id: faker.random.number(),
+        review: faker.lorem.sentence(),
+        review_title: faker.commerce.productName(),
+        rating: faker.random.number(),
       };
     },
-    generateFakeItemUpdate = function() {
+    generateFakeReviewUpdate = function() {
       return {
-        name: faker.commerce.productName(),
-        description: faker.lorem.sentence()
+        review: faker.lorem.sentence(),
+        review_title: faker.commerce.productName()
       };
     },
     authToken = null,
@@ -33,7 +31,7 @@ describe('Items resource API tests', function() {
    *
    * @return Response
    */
-  it('Must create session to be able to run actions on items', function(done) {
+  it('Must create session to run actions on reviews', function(done) {
     // Must log in to retain a session
     request
       .post('http://localhost:3000/api/users/login')
@@ -52,11 +50,11 @@ describe('Items resource API tests', function() {
 
   /**
    * Display a listing of the resource.
-   * GET /items
+   * GET /review
    *
    * @return Response
    */
-  it('should return all items or empty array if DB is empty', function(done) {
+  it('should return all reviews or empty array if DB is empty', function(done) {
     request
       .get(resourceApiUrl)
       .accept('application/json')
@@ -65,25 +63,23 @@ describe('Items resource API tests', function() {
         if (res.body.length === 0) {
           _expect(res.body).to.be.an('array');
         } else {
-          var items = res.body;
-          _expect(items.length).to.be.greaterThan(0);
-          _expect(items[0].id).to.be.a('number');
-          _expect(items[0].user_id).to.be.a('number');
-          _expect(items[0].name).to.be.a('string');
-          _expect(items[0].description).to.be.a('string');
-          _expect(items[0].description).to.match(/(\s){1,}/g);
+          var reviews = res.body;
+          _expect(reviews.length).to.be.greaterThan(0);
+          _expect(reviews[0].id).to.be.a('number');
+          _expect(reviews[0].user_id).to.be.a('number');
+          _expect(reviews[0].review).to.be.a('string');
+          _expect(reviews[0].review_title).to.be.a('string');
         }
         done();
       });
   });
 
   it('should not store resource in storage.', function(done) {
-    var item = generateFakeItem();
+    var review = generateFakeReview();
 
     request
       .post(resourceApiUrl)
-      .set('X-Access-Token', authToken)
-      .send(item)
+      .send(review)
       .accept('application/json')
       .end(function(err, res) {
         _expect(res.status).to.be(500);
@@ -92,26 +88,26 @@ describe('Items resource API tests', function() {
   });
 
   it('should store a newly created resource in storage.', function(done) {
-    var item = generateFakeItem();
+    var review = generateFakeReview();
 
     request
       .post(resourceApiUrl)
       .set('X-Access-Token', authToken)
-      .send(item)
+      .send(review)
       .accept('application/json')
       .end(function(err, res) {
         _expect(res.status).to.be(200);
-        var newItem = res.body;
-        _expect(newItem.name).to.be(item.name);
-        _expect(newItem.id).to.be.a('number');
-        id = newItem.id;
+        var newReview = res.body;
+        _expect(newReview.review).to.be(review.review);
+        _expect(newReview.id).to.be.a('number');
+        id = newReview.id;
         done();
       });
   });
 
   /**
    * Show the form for creating the specified resource.
-   * GET /items/{id}/create
+   * GET /reviews/:id
    *
    * @param  int  $id
    * @return Response
@@ -125,7 +121,7 @@ describe('Items resource API tests', function() {
 
   /**
    * Display the specified resource.
-   * GET /items/{id}
+   * GET /reviews/:id
    *
    * @param  int  $id
    * @return Response
@@ -143,7 +139,7 @@ describe('Items resource API tests', function() {
 
   /**
    * Show the form for editing the specified resource.
-   * GET /items/{id}/edit
+   * GET /reviews/:id/edit
    *
    * @param  int  $id
    * @return Response
@@ -157,7 +153,7 @@ describe('Items resource API tests', function() {
 
   /**
    * Update the specified resource in storage.
-   * PUT /items/{id}
+   * PUT /reviews/:id
    *
    * @param  int  $id
    * @return Response
@@ -166,7 +162,7 @@ describe('Items resource API tests', function() {
     request
       .put(resourceApiUrl + '/' + id)
       .set('X-Access-Token', authToken)
-      .send(generateFakeItemUpdate())
+      .send(generateFakeReviewUpdate())
       .accept('application/json')
       .end(function(err, res) {
         _expect(res.status).to.be(200);
@@ -177,7 +173,7 @@ describe('Items resource API tests', function() {
 
   /**
    * Remove the specified resource from storage.
-   * DELETE /items/{id}
+   * DELETE /reviews/:id
    *
    * @param  int  $id
    * @return Response
@@ -189,7 +185,7 @@ describe('Items resource API tests', function() {
       .accept('application/json')
       .end(function(err, res) {
         _expect(res.status).to.be(200);
-        _expect(res.body.message).to.match(/(success)/);
+        _expect(res.body.message).to.be('Review deleted succesfully');
         done();
       });
   });
