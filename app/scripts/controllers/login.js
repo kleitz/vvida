@@ -1,5 +1,6 @@
 angular.module('vvida.controllers')
-  .controller('LoginCtrl', ['$rootScope', '$scope', '$state', '$window', 'Users', 'Auth',
+  .controller('LoginCtrl', ['$rootScope', '$scope', '$state',
+    '$window', 'Users', 'Auth',
     function($rootScope, $scope, $state, $window, Users, Auth) {
       // login
       $scope.login = function() {
@@ -7,10 +8,11 @@ angular.module('vvida.controllers')
           if (!err) {
             Auth.setToken(res.token);
             var user = {};
-            user.name = res.firstname + ' ' + res.lastname;
-            user.picture_url = res.picture_url;
+            user.name = res.name;
+            user.img_url = res.img_url;
             $rootScope.currentUser = user;
-            $state.go('welcome');
+            var goTo = $rootScope.intendedState || 'welcome';
+            $state.go(goTo);
           } else {
             $scope.messageLogin = err.error || err || err[0].message;
           }
@@ -25,12 +27,14 @@ angular.module('vvida.controllers')
         } else if (!/\d/.test($scope.user.passwordSignup.trim()) ||
           !/\w/.test($scope.user.passwordSignup.trim())) {
           $scope.messageSignup =
-            'Your password need to contain both numbers and non-word characters';
+            'Your password need to contain both numbers ' +
+            'and non-word characters';
         } else if (!/[A-Z]/.test($scope.user.passwordSignup.trim()) ||
           !/[a-z]/.test($scope.user.passwordSignup.trim())) {
           $scope.messageSignup =
             'Your password need to contain both uppercase and lower characters';
-        } else if ($scope.user.passwordSignup.trim() === $scope.user.confirmPassword.trim()) {
+        } else if ($scope.user.passwordSignup.trim() ===
+          $scope.user.confirmPassword.trim()) {
           var user = {
             email: $scope.user.emailSignup,
             password: $scope.user.passwordSignup
@@ -38,17 +42,16 @@ angular.module('vvida.controllers')
           Users.save(user, function(res) {
             Auth.setToken(res.token);
             $rootScope.currentUser = res;
-            console.log('$rootScope.currentUser: ', $rootScope.currentUser);
             $state.go('profile', {
               id: $rootScope.currentUser.id
             });
           }, function(err) {
-            console.log(err);
             $scope.messageSignup = err.data.error[0].message;
           });
         } else {
           $scope.messageSignup =
-            'Your confirmation password does not match the initial password you have given.';
+            'Your confirmation password does not match ' +
+            ' the initial password you have given.';
         }
       };
 

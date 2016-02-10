@@ -60,12 +60,13 @@ angular.module('vvida.controllers')
       $scope.editProfile = function() {
         $rootScope.currentUser.dob = new Date($rootScope.currentUser.dob);
         Users.update($rootScope.currentUser, function() {
-          $rootScope.currentUser.name = $rootScope.currentUser.firstname +
-            ' ' + $rootScope.currentUser.lastname;
           $scope.message =
             'You have successfully updated your profile. ' +
             'Click on the home button to get to vvida homepage.';
-        }, function() {
+
+        }, function(err) {
+          console.log(err);
+          console.log($rootScope.currentUser);
           $scope.message =
             'There was a problem updating your profile.';
         });

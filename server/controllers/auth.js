@@ -2,10 +2,11 @@
   'use strict';
   var jwt = require('jsonwebtoken');
 
-  module.exports  = {
+  module.exports = {
     authenticate: function(req, res, next) {
       // check header or url parameters or post parameters for token
-      var token = req.headers['x-access-token'] || req.params('token') || req.body.token;
+      var token = req.headers['x-access-token'] || req.params.token ||
+        req.session.user.token;
       // decode token
       if (token && token !== 'null') {
         // verifies secret and checks exp

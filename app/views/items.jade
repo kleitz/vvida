@@ -4,7 +4,7 @@ div(layout="row")
       md-toolbar
         h1.md-toolbar-tools(ui-sref="items") All Categories
       md-content(layout-padding)
-        md-button.btn-style(md-ink-ripple ng-repeat="category in categories" ui-sref="categoryItems({catId: category.id})")  {{category.type}}
+        md-button.btn-style(md-ink-ripple ng-repeat="category in categories" ui-sref="categoryItems({catId: category.id})")  {{category.name}}
         md-divider
         md-button.btn-style(md-ink-ripple hide-gt-md ng-click="close()") Close Navbar
 
@@ -12,20 +12,20 @@ div(layout="row")
     div(layout="row" layout-wrap)
       .md-padding(ng-show="categoryId" layout="row")
         a.md-subheadline(ui-sref="items") Products
-        a(ui-sref="categoryItems({catId: categoryId})") &nbsp;> {{categoryItems.type}}
+        a(ui-sref="categoryItems({catId: categoryId})") &nbsp;> {{categoryItems.name}}
       .md-padding(layout="row" layout-align="start center" ng-show="!categoryId" hide-gt-md)
         md-button.md-icon-button(ng-click="toggleSidenav()" aria-label="Menu")
           i.fa.fa-bars
         h4.md-subheader Product Categories
 
     div(flex ng-if="!categoryId")
-      md-subheader Recent Products 
+      md-subheader Recent Products
       md-content(layout-wrap layout="row" flex layout-xs="column")
         div(flex="100" flex-sm="100" flex-md="50" ng-repeat="item in recentItems | limitTo : 6")
           md-card
             img(ng-src="{{item.Images[0].img_url}}")
             md-card-title
-              md-card-title-text 
+              md-card-title-text
                 span.md-headline(layout layout-padding layout-align="center center" ui-sref="viewItem({id:item.id})") {{item.name}}
             md-card-content
               div(layout="row" layout-align="start center")
@@ -33,7 +33,7 @@ div(layout="row")
                 i.fa.fa-star-o.colorpink(ng-repeat="i in range(5 - maxReview(item.Reviews).rating) track by $index")
                 h4.md-subheader &nbsp;&nbsp;{{item.Reviews.length}} reviews
               div(layout="column")
-                p.truncate {{maxReview(item.Reviews).review}}   
+                p.truncate {{maxReview(item.Reviews).review}}
                 h4.md-subheader - {{maxReview(item.Reviews).User.username}}
             md-card-actions(layout="row" layout-align="start center")
               md-button.md-accent(ui-sref="viewItem({id:item.id})") Write Review
@@ -47,7 +47,7 @@ div(layout="row")
             .md-list-item-text
               div(layout="row" layout-margin)
                 div
-                  h3(layout layout-padding ui-sref="viewItem({id:item.id})") {{$index + 1}}. {{item.name}} 
+                  h3(layout layout-padding ui-sref="viewItem({id:item.id})") {{$index + 1}}. {{item.name}}
                   div(layout="row" layout-align="start center" layout-padding)
 
                     i.fa.fa-star.colorpink(ng-if="maxReview(item.Reviews).rating > 0" ng-repeat="i in range(maxReview(item.Reviews).rating) track by $index")

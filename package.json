@@ -28,6 +28,7 @@
     "dotenv": "^1.2.0",
     "expect.js": "^0.3.1",
     "express": "^4.13.3",
+    "express-error-handler": "^1.0.1",
     "express-session": "^1.11.3",
     "faker": "^3.0.1",
     "gulp": "^3.9.0",
@@ -46,7 +47,7 @@
     "jade": "^1.11.0",
     "jasmine-node": "^1.14.5",
     "jshint": "^2.8.0",
-    "jsonwebtoken": "^5.4.1",
+    "jsonwebtoken": "5.4.1",
     "karma": "^0.13.9",
     "karma-chrome-launcher": "^0.2.0",
     "karma-coverage": "^0.5.3",
@@ -71,13 +72,15 @@
     "sinon": "^1.17.2",
     "stringify": "^3.1.0",
     "superagent": "^1.4.0",
-    "vinyl-source-stream": "^1.1.0"
+    "vinyl-source-stream": "^1.1.0",
+    "method-override": "^2.3.5"
   },
   "engines": {
     "node": "0.12.5"
   },
   "devDependencies": {
     "eslint-config-airbnb": "^3.1.0",
-    "eslint-plugin-react": "^3.15.0"
+    "eslint-plugin-react": "^3.15.0",
+    "gulp-jshint": "^2.0.0"
   }
 }

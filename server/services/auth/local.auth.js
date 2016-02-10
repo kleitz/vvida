@@ -17,10 +17,9 @@ module.exports = function(app, passport, config) {
       if (!user) {
         return done(null, false);
       }
-      delete user.token;
       user.token = null;
       var token = jwt.sign(user, app.get('superSecret'), {
-        expireIn: 180
+        expireIn: '24h'
       });
       user.token = token;
       Users.update(user, {
@@ -58,15 +57,12 @@ module.exports = function(app, passport, config) {
       if (bcrypt.compareSync(password, user.password) !== true) {
         return done(null, false);
       }
-
-      delete user.token;
       user.token = null;
       var token = jwt.sign(user, app.get('superSecret'), {
-        expireIn: 180
+        expireIn: '24h'
       });
 
       user.token = token;
-
       Users.update(user, {
         where: {
           email: user.email

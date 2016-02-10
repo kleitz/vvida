@@ -16,17 +16,68 @@ describe('EventCtrl tests', function() {
         });
       },
       query: function(params) {
-        if (typeof params === 'function') {
-          params([1, 2, 3, 4, 5, 6]);
+        if (!params) {
+          return [1, 2, 3, 4, 5, 6];
         } else {
-          var page = params.page || 0,
-            limit = params.limit || 3,
-            start = limit * page,
-            end = start + limit;
-          return [1, 2, 3, 4, 5, 6].slice(start, end);
+          if (typeof params === 'function') {
+            params([1, 2, 3, 4, 5, 6]);
+          } else {
+            var page = params.page || 0,
+              limit = params.limit || 3,
+              start = limit * page,
+              end = start + limit;
+            return [1, 2, 3, 4, 5, 6].slice(start, end);
+          }
         }
       }
     },
+
+    Categories = {
+      save: function(evt, cb) {
+        evt ? cb(evt) : cb(false);
+      },
+      update: function(evt, cb) {
+        evt ? cb(evt) : cb(false);
+      },
+      get: function(query, cb) {
+        if (query.model) {
+          cb({
+            message: 'Sample Category Message',
+            'Events': [1, 2, 3, 4]
+          });
+        } else {
+          cb({
+            message: 'Sample Category Message',
+          });
+        }
+      },
+      query: function(query) {
+        if (query.type === 'Event') {
+          return [1, 2, 3, 4, 5, 6];
+        } else if (query.type === 'Item') {
+          return [7, 8, 9, 10];
+        }
+      }
+    },
+
+    Reviews = {
+      save: function(evt, cb) {
+        evt ? cb(evt) : cb(false);
+      },
+      update: function(evt, cb) {
+        evt ? cb(evt) : cb(false);
+      },
+      get: function(id, cb) {
+        cb({
+          message: 'Sample Category Message'
+        });
+      },
+      query: function() {
+        return [1, 2, 3, 4, 5, 6];
+      }
+    },
+
+
     state, stateParams;
   beforeEach(function() {
     module('vvida');
@@ -37,112 +88,23 @@ describe('EventCtrl tests', function() {
     scope = $injector.get('$rootScope');
     controller = $controller('EventCtrl', {
       $scope: scope,
-      Events: Events
+      Events: Events,
+      Categories: Categories,
+      Reviews: Reviews
     });
     state = $injector.get('$state');
     stateParams = $injector.get('$stateParams');
     Utils = $injector.get('Utils');
   }));
 
-  // initialize state based on state parameters
-  describe('it should initialize based on state parameters', function() {
-
-    beforeEach(function() {
-      stateParams.view = undefined;
-      stateParams.id = undefined;
-    });
-    it('when \'view\' is defined in state parameters', function() {
-      stateParams.view = 'grid';
-      spyOn(scope, 'viewEvents').and.callThrough();
-      scope.init();
-      expect(scope.page).toBe(0);
-      expect(scope.viewType).toBe('grid');
-      expect(scope.viewEvents).toHaveBeenCalledWith(0);
-    });
-
-    it('when \'id\' is defined in state parameters', function() {
-      stateParams.id = 1;
-      spyOn(state, 'go');
-      scope.init();
-      expect(state.go).toHaveBeenCalledWith('viewEvent', {
-        id: 1
-      });
-    });
-
-    it('when \'id\' and \'view\' is undefined in state parameters', function() {
-      spyOn(state, 'go');
-      spyOn(Events, 'query').and.callThrough();
-      scope.init();
-      expect(scope.loadEvents).toBeDefined();
-      expect(state.go).toHaveBeenCalledWith('events.page');
-    });
-
-  });
-
-  it('should set view type', function() {
-    spyOn(scope, 'setViewType').and.callThrough();
-    spyOn(scope, 'updateStateParams').and.callThrough();
-    scope.setViewType('list');
-    expect(scope.viewType).toBe('list');
-    expect(scope.updateStateParams).toHaveBeenCalled();
-  });
-
-  it('should update state parameters', function() {
-    scope.page = 0;
-    scope.viewType = 'list';
-    spyOn(state, 'go');
-    spyOn(scope, 'updateStateParams').and.callThrough();
-    scope.updateStateParams();
-    expect(state.go).toHaveBeenCalledWith('events.all', {
-      page: 0,
-      view: 'list'
-    });
-  });
-
-  it('should get events based on pages', function() {
-    scope.page = 0;
+  // initialize state
+  it('should load events and categories on init', function() {
+    spyOn(Categories, 'query').and.callThrough();
     spyOn(Events, 'query').and.callThrough();
-    spyOn(scope, 'viewEvents').and.callThrough();
-    scope.viewEvents(scope.page);
-    expect(scope.limit).toBe(3);
-    expect(Events.query).toHaveBeenCalledWith({
-      limit: 3,
-      page: 0
-    });
+    scope.init();
+    expect(scope.eventReview).toBeDefined();
+    expect(scope.categories).toBeDefined();
     expect(scope.loadEvents).toBeDefined();
-    expect(scope.loadEvents).toEqual([1, 2, 3]);
-  });
-
-  it('should load next page of events', function() {
-    state.params.page = 1;
-    spyOn(scope, 'viewEvents').and.callThrough();
-    spyOn(Events, 'query').and.callThrough();
-    spyOn(scope, 'updateStateParams').and.callThrough();
-    scope.nextEvents();
-    expect(scope.page).toBe(2);
-    expect(scope.viewEvents).toHaveBeenCalledWith(scope.page);
-    expect(Events.query).toHaveBeenCalledWith({
-      limit: 3,
-      page: 1
-    });
-    expect(scope.loadEvents).toBeDefined();
-    expect(scope.loadEvents).toEqual([4, 5, 6]);
-  });
-
-  it('should load previous page of events', function() {
-    state.params.page = 1;
-    spyOn(scope, 'viewEvents').and.callThrough();
-    spyOn(Events, 'query').and.callThrough();
-    spyOn(scope, 'updateStateParams').and.callThrough();
-    scope.prevEvents();
-    expect(scope.page).toBe(0);
-    expect(scope.viewEvents).toHaveBeenCalledWith(scope.page);
-    expect(Events.query).toHaveBeenCalledWith({
-      limit: 3,
-      page: 0
-    });
-    expect(scope.loadEvents).toBeDefined();
-    expect(scope.loadEvents).toEqual([1, 2, 3]);
   });
 
   it('should get an event', function() {
@@ -154,10 +116,36 @@ describe('EventCtrl tests', function() {
   });
 
   it('should return date and time', function() {
+    spyOn(Utils, 'parseTime').and.callThrough();
     var testDate = new Date(),
-      eventTime = scope.parseTime(testDate);
+      eventTime = scope.getTime(testDate);
+    expect(Utils.parseTime).toHaveBeenCalledWith(testDate);
     expect(eventTime.day).toBeDefined();
     expect(eventTime.time).toBeDefined();
+  });
+
+  it('should return an array of n elements', function() {
+    spyOn(scope, 'range').and.callThrough();
+    var arr = scope.range(5);
+    expect(arr).toBeDefined();
+    expect(arr.length).toBe(5);
+  });
+
+  it('should set the rating of an event', function() {
+    spyOn(scope, 'rate').and.callThrough();
+    scope.rate(5);
+    expect(scope.eventReview.rating).toBe(5);
+  });
+
+  it('should save an event review', function() {
+    spyOn(Reviews, 'save').and.callThrough();
+    scope.event = {};
+    scope.event.Reviews = [];
+    stateParams.id = 1;
+    scope.addEventReview();
+    expect(Reviews.save).toHaveBeenCalled();
+    expect(scope.event.Reviews).toBeDefined();
+    expect(scope.eventReview).toBeDefined();
   });
 
   it('should return average rating for an event', function() {

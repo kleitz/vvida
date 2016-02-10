@@ -10,7 +10,7 @@
       Categories = app.get('models').Categories,
       Events = app.get('models').Events,
       Reviews = app.get('models').Reviews,
-      stripUser = function (user) {
+      stripUser = function(user) {
         user.password = null;
         user.token = null;
         user.facebook_auth_id = null;
@@ -63,7 +63,8 @@
       },
 
       session: function(req, res) {
-        var token = req.headers['x-access-token'] || req.body.token;
+        var token = req.headers['x-access-token'] || req.params.token ||
+          req.session.user.token;
         if (token && token !== 'null') {
           jwt.verify(token, req.app.get('superSecret'), function(err, decoded) {
             if (err) {
@@ -140,7 +141,7 @@
         // edit user email
         Users.update(req.body, {
           where: {
-            id: req.params.id,
+            id: req.params.id
           }
         }).then(function(ok, err) {
           if (err) {

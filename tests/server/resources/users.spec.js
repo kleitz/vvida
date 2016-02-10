@@ -11,9 +11,8 @@ describe('User RESTful API tests', function() {
     },
     userInfoUpdates = {
       username: faker.internet.userName(),
-      firstname: faker.name.firstName(),
-      lastname: faker.name.lastName(),
-      gender: 'male',
+      name: faker.name.findName(),
+      gender: 'Male',
       country: 'Kenya',
       city: 'Nairobi'
     },
@@ -81,19 +80,18 @@ describe('User RESTful API tests', function() {
       .accept('application/json')
       .end(function(err, res) {
         _expect(res.status).to.be(200);
+          var data = res.body;
+          _expect(data.email).to.be(newUser.email);
+          _expect(data.id).to.be.ok();
+          _expect(data.id).to.be.a('number');
 
-        var data = res.body;
-        _expect(data.email).to.be(newUser.email);
-        _expect(data.id).to.be.ok();
-        _expect(data.id).to.be.a('number');
-
-        _expect(data.token).to.be.a('string');
-        _expect(data.token.length).to.be.greaterThan(100);
-        user = data;
-        authToken = data.token;
-        done();
-      });
-  });
+          _expect(data.token).to.be.a('string');
+          _expect(data.token.length).to.be.greaterThan(100);
+          user = data;
+          authToken = data.token;
+          done();
+        });
+    });
 
   /**
    * Show the form for creating the specified resource.

@@ -15,7 +15,11 @@
             type: Sequelize.STRING,
             allowNull: false,
           },
-
+          // category
+          category_id: {
+            type: Sequelize.INTEGER,
+            allowNull: false
+          },
           // description
           description: {
             type: Sequelize.TEXT,

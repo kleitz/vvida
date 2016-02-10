@@ -1,6 +1,10 @@
 div.eventGridList(layout-padding layout="column")
-  div.md-padding(layout="row" layout-align="start center")
-    h3.md-subheader Events
+  div(layout="row")
+    div.md-padding(layout="row" layout-align="start center" ng-show="!categoryId")
+      h3.md-subheader Events
+    .md-padding.eventCrumb(ng-show="categoryId" layout="row")
+      a.md-subheadline(ui-sref="events") Events
+      a(ui-sref="events.categoryEvents({catId: categoryId})") &nbsp;> {{categoryName}}
     span(flex)
     md-button.md-icon-button(ng-click="setViewType(\"grid\")")
       i.fa.fa-th
@@ -8,19 +12,20 @@ div.eventGridList(layout-padding layout="column")
     md-button.md-icon-button(ng-click="setViewType(\"list\")")
       i.fa.fa-list
       span List
+  h2.md-padding(ng-if="loadEvents.length === 0") No Available Items in this Category
+
 
   md-divider(md-inset)
 
   div.md-padding(ng-if="viewType === \"grid\"")
-    md-grid-list(md-cols-xs='1' md-cols-sm='1' md-cols-md='2' md-cols-gt-md='4' md-row-height-gt-md='1:1' md-row-height='2:2' md-gutter='12px' md-gutter-gt-sm='8px')
+    md-grid-list(md-cols-sm='1' md-cols-md='2' md-cols-lg='3' md-cols-gt-lg='4' md-row-height='2:2' md-row-height-sm='1:1' md-gutter='12px' md-gutter-gt-sm='8px')
       md-grid-tile(ng-repeat="event in loadEvents | orderBy: Reviews.length" style="background: url('{{event.Images[0].img_url}}') no-repeat; background-size: 100% 100%;")
-        md-grid-tile-header
+        md-grid-tile-header(layout-align="center center")
           h3(ui-sref="viewEvent({id:event.id})") {{event.name}}
         md-grid-tile-footer
           div(flex layout="column" layout-padding)
-            h3.md-body-2 {{event.venue}}
-            h4.small {{parseTime(event.time).day}} 
-            h4.small {{parseTime(event.time).time}}
+            h3.md-subheadline {{event.venue}}
+            span {{getTime(event.time).day}} @{{getTime(event.time).time}}
 
   div(layout ng-if="viewType === \"list\"")
     md-list
@@ -29,20 +34,20 @@ div.eventGridList(layout-padding layout="column")
         .md-list-item-text
           div(layout="row" layout-margin)
             div(flex="55")
-              h3(layout layout-padding ui-sref="viewEvent({id:event.id})") {{$index + 1}}. {{event.name}} 
+              h3(layout layout-padding ui-sref="viewEvent({id:event.id})") {{$index + 1}}. {{event.name}}
               div(layout="row" layout-align="start center" layout-padding)
                 i.fa.fa-star(ng-if="maxReview(event.Reviews).rating > 0" ng-repeat="i in range(maxReview(event.Reviews).rating) track by $index")
                 i.fa.fa-star-o(ng-repeat="i in range(5 - maxReview(event.Reviews).rating) track by $index")
                 span.reviews(layout layout-margin layout-padding).md-primary {{event.Reviews.length}} reviews
               span.categorylist.md-accent.md-subheader(ui-sref="viewEvent({id:event.id})") Review
             .left-border(layout-align="start start" layout-padding layout-wrap layout="column" flex="45")
-              h3.details.md-subheadline {{event.venue}}
-              span {{parseTime(event.time).day}} 
-              span {{parseTime(event.time).time}}
+              h3.md-subheadline {{event.venue}}
+              span {{getTime(event.time).day}}
+              span {{getTime(event.time).time}}
           md-divider(ng-if="!$last")
 
-  div(layout="row" layout-align="center center")
+  div(layout="row" layout-align="center center" ng-if="!categoryId")
     div(layout="row" layout-align="start center")
       md-button(ng-disabled="page <= 1" ng-click="prevEvents()") Prev
       span |
-      md-button(ng-disabled="loadEvents.length < 3" ng-click="nextEvents()") Next
+      md-button(ng-disabled="nextButton" ng-click="nextEvents()" ng-init="disableNextButton()") Next

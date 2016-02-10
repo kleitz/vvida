@@ -36,6 +36,7 @@
   require('./controllers/user-profile/pictures');
   require('./controllers/user-profile/reviews');
   require('./controllers/items');
+  require('./controllers/event-view');
   require('./controllers/event');
 
   // Require Directives
@@ -55,6 +56,19 @@
 
   window.app.run(['$rootScope', '$location', '$state', '$mdSidenav', 'Users',
     function($rootScope, $location, $state, $mdSidenav, Users) {
+      $rootScope.$on('$stateChangeSuccess', fireAuth);
+
+      function fireAuth(ev, toState) {
+        ev.preventDefault();
+        if (toState.authenticate && $rootScope.currentUser) {
+          $state.go(toState);
+        } else if (!toState.authenticate) {
+          $state.go(toState);
+        } else {
+          $rootScope.intendedState = toState;
+          $state.go('login');
+        }
+      }
       // Check if the user's session is still being persisted in the servers
       Users.session(function(err, res) {
         if (!err) {
@@ -62,13 +76,13 @@
           if (res.name) {
             user.name = res.name;
             user.id = res.id;
-            user.img_url = res.picture.data.url;
+            user.img_url = res.img_url;
             user.email = res.email;
           } else {
-            var fullName = res.firstname + ' ' + res.lastname;
-            user.name = fullName;
+            user.name = res.name;
             user.id = res.id;
             user.img_url = res.img_url;
+            user.username = res.username;
             user.email = res.email;
           }
           if (user.img_url) {
@@ -89,7 +103,7 @@
         state: 'about'
       }, {
         name: 'Events',
-        state: 'events.page'
+        state: 'events'
       }, {
         name: 'Products',
         state: 'items'
@@ -104,12 +118,12 @@
       };
     }
   ]);
-
   window.app.config(['$stateProvider', '$httpProvider', '$urlRouterProvider',
     '$locationProvider', '$mdThemingProvider',
     function($stateProvider, $httpProvider, $urlRouterProvider,
       $locationProvider, $mdThemingProvider) {
 
+      // For injecting tokens into request headers
       $httpProvider.interceptors.push('TokenInjector');
 
       // For any unmatched url, redirect to /state1
@@ -142,17 +156,17 @@
           url: '/{view}/?{page}',
           views: {
             'inner@events': {
-              controller: 'EventCtrl',
+              controller: 'EventViewsCtrl',
               templateUrl: 'views/all-events.html',
             }
           }
         })
-        .state('events.page', {
-          url: '',
+        .state('events.categoryEvents', {
+          url: '/categories/{catId}',
           views: {
             'inner@events': {
-              controller: 'EventCtrl',
-              templateUrl: 'views/event-page.html',
+              controller: 'EventViewsCtrl',
+              templateUrl: 'views/all-events.html'
             }
           }
         })
@@ -215,12 +229,13 @@
         .state('addItem', {
           url: '/items/create',
           controller: 'ItemCtrl',
-          templateUrl: 'views/add-item.html'
+          templateUrl: 'views/add-item.html',
+          authenticate: true
         })
         .state('editItem', {
           url: '/items/{id}/edit',
-          params:{
-            tabIndex:0
+          params: {
+            tabIndex: 0
           },
           controller: 'ItemCtrl',
           templateUrl: 'views/edit-item.html'
@@ -231,9 +246,14 @@
           templateUrl: 'views/view-item.html'
         })
         .state('categoryItems', {
-          url: '/categories/{catId}',
+          url: '/items/categories/{catId}',
           controller: 'ItemCtrl',
           templateUrl: 'views/items.html'
+        })
+        .state('categoryEvents', {
+          url: '/event/categories/{catId}',
+          controller: 'EventCtrl',
+          templateUrl: 'views/events.html'
         })
         .state('login', {
           url: '/users/login',

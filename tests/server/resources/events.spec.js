@@ -13,7 +13,8 @@ describe('Events resource API tests', function() {
         location: faker.address.streetName(),
         venue: faker.address.streetAddress(),
         time: faker.date.recent(),
-        sponsor: faker.company.companyName()
+        sponsor: faker.company.companyName(),
+        category_id: faker.random.number(),
       };
     },
     generateFakeEventUpdates = function() {
@@ -72,7 +73,6 @@ describe('Events resource API tests', function() {
         _expect(res.status).to.be(200);
         _expect(res.body.token).to.be.a('string');
         _expect(res.body.token.length).to.be.greaterThan(100);
-        console.log(err);
         authToken = res.body.token;
         done();
       });

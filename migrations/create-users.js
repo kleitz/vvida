@@ -19,34 +19,24 @@
             type: Sequelize.STRING,
             allowNull: true
           },
-          // firstname
-          firstname: {
+          // name
+          name: {
             type: Sequelize.STRING,
-            allowNull: true,
-            validate: {
-              isAlpha: true
-            }
+            allowNull: true
           },
-          // lastname
-          lastname: {
-            type: Sequelize.STRING,
-            allowNull: true,
-            validate: {
-              isAlpha: true
-            }
-          },
+
           gender: {
             type: Sequelize.STRING,
             validate: {
               isIn: {
                 args: [
-                  ['male', 'female', 'hidden']
+                  ['Male', 'Female', 'Hidden']
                 ],
-                msg: 'Must be either male, female or hidden'
+                msg: 'Must be either Male, Female or Hidden'
               }
             },
             allowNull: true,
-            defaultValue: 'hidden'
+            defaultValue: 'Hidden'
           },
           // date of birth
           dob: {

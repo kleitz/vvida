@@ -7,7 +7,7 @@ var gulp = require('gulp'),
   jade = require('gulp-jade'),
   bower = require('gulp-bower'),
   gutil = require('gulp-util'),
-  jshint = require('jshint'),
+  jshint = require('gulp-jshint'),
   browserify = require('browserify'),
   path = require('path'),
   reporter = require('gulp-codeclimate-reporter'),
@@ -74,7 +74,7 @@ gulp.task('browserify', function() {
 });
 
 gulp.task('lint', function() {
-  return gulp.src(['./app/**/*.js', './index.js', +
+  return gulp.src(['./app/**/*.js', './index.js',
       './server/**/*.js', './tests/**/*.js'
     ])
     .pipe(jshint())
