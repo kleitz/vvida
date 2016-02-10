@@ -84,7 +84,6 @@ describe('Categories resource API tests', function() {
       .send(category)
       .accept('application/json')
       .end(function(err, res) {
-        console.log(res.body, "herfghjjhnbgfd");
         _expect(res.status).to.be(200);
         var newCategory = res.body;
         _expect(newCategory.type).to.be(category.category);
