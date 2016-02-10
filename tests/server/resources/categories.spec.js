@@ -77,7 +77,6 @@ describe('Categories resource API tests', function() {
 
   it('should store a newly created resource in storage.', function(done) {
     var category = generateFakeCategory();
-    console.log(category);
     request
       .post(resourceApiUrl)
       .set('X-Access-Token', authToken)
