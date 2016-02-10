@@ -15,7 +15,6 @@ describe('Countries resource API tests', function() {
       .get(resourceApiUrl)
       .accept('application/json')
       .end(function(err, res) {
-        console.log(res.body);
         _expect(res.status).to.be(200);
         if (res.body.length === 0) {
           _expect(res.body).to.be.an('array');

@@ -79,10 +79,8 @@ describe('Items resource API tests', function() {
 
   it('should not store resource in storage.', function(done) {
     var item = generateFakeItem();
-
     request
       .post(resourceApiUrl)
-      .set('X-Access-Token', authToken)
       .send(item)
       .accept('application/json')
       .end(function(err, res) {

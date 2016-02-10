@@ -8,7 +8,8 @@ describe('Categories resource API tests', function() {
   var generateFakeCategory = function() {
       return {
         // catId: faker.random.number(),
-        category: faker.commerce.department(),
+        name: faker.commerce.department(),
+        category: 'Item'
       };
     },
     authToken = null,
@@ -76,12 +77,14 @@ describe('Categories resource API tests', function() {
 
   it('should store a newly created resource in storage.', function(done) {
     var category = generateFakeCategory();
+    console.log(category);
     request
       .post(resourceApiUrl)
       .set('X-Access-Token', authToken)
       .send(category)
       .accept('application/json')
       .end(function(err, res) {
+        console.log(res.body, "herfghjjhnbgfd");
         _expect(res.status).to.be(200);
         var newCategory = res.body;
         _expect(newCategory.type).to.be(category.category);
