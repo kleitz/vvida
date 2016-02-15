@@ -3,7 +3,7 @@
   'use strict';
 
   module.exports = {
-    up: function(queryInterface, Sequelize) {
+    up: function(queryInterface) {
       return queryInterface.renameColumn('Users', 'firstname', 'name');
     }
 
