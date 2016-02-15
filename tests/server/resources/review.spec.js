@@ -96,7 +96,6 @@ describe('Reviews resource API tests', function() {
       .send(review)
       .accept('application/json')
       .end(function(err, res) {
-        console.log(res.status, 'hgfsaddfghj');
         _expect(res.status).to.be(200);
         var newReview = res.body;
         _expect(newReview.review).to.be(review.review);

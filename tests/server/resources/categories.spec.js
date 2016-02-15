@@ -83,7 +83,6 @@ describe('Categories resource API tests', function() {
       .send(category)
       .accept('application/json')
       .end(function(err, res) {
-        console.log(res.body, "im here");
         _expect(res.status).to.be(200);
         var newCategory = res.body;
         _expect(newCategory.type).to.be(category.category);
@@ -118,10 +117,9 @@ describe('Categories resource API tests', function() {
   it('should display the specified resource.', function(done) {
     request
       .get(resourceApiUrl + '/' + id)
-      .query({'model' : 'Items'})
+      // .query({'model' : 'Items'})
       .accept('application/json')
       .end(function(err, res) {
-        console.log(res.body);
         _expect(res.status).to.be(200);
         _expect(res.body.id).to.be(id);
         done();
