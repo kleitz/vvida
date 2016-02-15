@@ -8,10 +8,10 @@
         type: Sequelize.STRING,
         allowNull: true
       });
-    },
-
-    down: function(queryInterface, Sequelize) {
-
     }
+
+    // down: function(queryInterface, Sequelize) {
+
+    // }
   };
 })();

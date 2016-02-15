@@ -20,10 +20,10 @@
           defaultValue: 'Hidden'
         }
       );
-    },
-
-    down: function(queryInterface, Sequelize) {
-
     }
+
+    // down: function(queryInterface, Sequelize) {
+
+    // }
   };
 })();

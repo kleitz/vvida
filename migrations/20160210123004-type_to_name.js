@@ -5,10 +5,10 @@
   module.exports = {
     up: function(queryInterface, Sequelize) {
       return queryInterface.renameColumn('Categories', 'type', 'name');
-    },
-
-    down: function(queryInterface, Sequelize) {
-
     }
+
+    // down: function(queryInterface, Sequelize) {
+
+    // }
   };
 })();
