@@ -10,6 +10,7 @@ module.exports = {
      */
     return queryInterface.bulkInsert('Users', [{
       username: 'vvidaapp',
+      name:'vvida lavida',
       password: bcrypt.hashSync('3at1ngYums@wh1leD0ingTh3Whip.c0m'),
       gender: 'female',
       email: 'vvidaapp@gmail.com',

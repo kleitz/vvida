@@ -83,6 +83,7 @@ describe('Categories resource API tests', function() {
       .send(category)
       .accept('application/json')
       .end(function(err, res) {
+        console.log(res.body, "im here");
         _expect(res.status).to.be(200);
         var newCategory = res.body;
         _expect(newCategory.type).to.be(category.category);
@@ -109,7 +110,7 @@ describe('Categories resource API tests', function() {
 
   /**
    * Display the specified resource.
-   * GET /categories/:id
+   * GET /categories/{id}
    *
    * @param  int  $id
    * @return Response
@@ -117,8 +118,10 @@ describe('Categories resource API tests', function() {
   it('should display the specified resource.', function(done) {
     request
       .get(resourceApiUrl + '/' + id)
+      .query({'model' : 'Items'})
       .accept('application/json')
       .end(function(err, res) {
+        console.log(res.body);
         _expect(res.status).to.be(200);
         _expect(res.body.id).to.be(id);
         done();
@@ -132,15 +135,15 @@ describe('Categories resource API tests', function() {
    * @param  int  $id
    * @return Response
    */
-  it('should remove the specified resource from storage.', function(done) {
-    request
-      .del(resourceApiUrl + '/' + id)
-      .set('X-Access-Token', authToken)
-      .accept('application/json')
-      .end(function(err, res) {
-        _expect(res.status).to.be(200);
-        _expect(res.body.message).to.match(/(success)/);
-        done();
-      });
-  });
+  // it('should remove the specified resource from storage.', function(done) {
+  //   request
+  //     .del(resourceApiUrl + '/' + id)
+  //     .set('X-Access-Token', authToken)
+  //     .accept('application/json')
+  //     .end(function(err, res) {
+  //       _expect(res.status).to.be(200);
+  //       _expect(res.body.message).to.match(/(success)/);
+  //       done();
+  //     });
+  // });
 });

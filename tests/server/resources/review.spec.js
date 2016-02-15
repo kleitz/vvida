@@ -8,8 +8,8 @@ describe('Reviews resource API tests', function() {
   var generateFakeReview = function() {
       return {
         // catId: faker.random.number(),
-        user_id: faker.random.number(),
-        item_id: faker.random.number(),
+        itemId: faker.random.number(),
+        eventId: faker.random.number(),
         review: faker.lorem.sentence(),
         review_title: faker.commerce.productName(),
         rating: faker.random.number(),
@@ -96,6 +96,7 @@ describe('Reviews resource API tests', function() {
       .send(review)
       .accept('application/json')
       .end(function(err, res) {
+        console.log(res.status, 'hgfsaddfghj');
         _expect(res.status).to.be(200);
         var newReview = res.body;
         _expect(newReview.review).to.be(review.review);
