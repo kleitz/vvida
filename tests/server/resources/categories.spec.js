@@ -117,7 +117,7 @@ describe('Categories resource API tests', function() {
   it('should display the specified resource.', function(done) {
     request
       .get(resourceApiUrl + '/' + id)
-      // .query({'model' : 'Items'})
+      .query({'model' : 'Items'})
       .accept('application/json')
       .end(function(err, res) {
         _expect(res.status).to.be(200);
