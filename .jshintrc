@@ -39,6 +39,5 @@
   "trailing": true,
   "undef": true,
   "expr": true,
-  "unused": true,
-  "exclude-path": "./migrations/"
+  "unused": true
 }
