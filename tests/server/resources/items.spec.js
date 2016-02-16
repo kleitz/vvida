@@ -57,16 +57,16 @@ describe('Items resource API tests', function() {
    * @return Response
    */
 
-   it('should return empty array if DB is empty', function(done) {
-     request
-       .get(resourceApiUrl)
-       .accept('application/json')
-       .end(function(err, res) {
-         _expect(res.status).to.be(200);
-           _expect(res.body).to.be.an(Array);
-         done();
-       });
-   });
+  it('should return empty array if DB is empty', function(done) {
+    request
+      .get(resourceApiUrl)
+      .accept('application/json')
+      .end(function(err, res) {
+        _expect(res.status).to.be(200);
+        _expect(res.body).to.be.an(Array);
+        done();
+      });
+  });
 
   it('should not store resource in storage.', function(done) {
     var item = generateFakeItem();
@@ -104,13 +104,13 @@ describe('Items resource API tests', function() {
       .accept('application/json')
       .end(function(err, res) {
         _expect(res.status).to.be(200);
-          var items = res.body;
-          _expect(items.length).to.be.greaterThan(0);
-          _expect(items[0].id).to.be.a('number');
-          _expect(items[0].user_id).to.be.a('number');
-          _expect(items[0].name).to.be.a('string');
-          _expect(items[0].description).to.be.a('string');
-          _expect(items[0].description).to.match(/(\s){1,}/g);
+        var items = res.body;
+        _expect(items.length).to.be.greaterThan(0);
+        _expect(items[0].id).to.be.a('number');
+        _expect(items[0].user_id).to.be.a('number');
+        _expect(items[0].name).to.be.a('string');
+        _expect(items[0].description).to.be.a('string');
+        _expect(items[0].description).to.match(/(\s){1,}/g);
         done();
       });
   });

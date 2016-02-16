@@ -46,16 +46,16 @@ describe('Categories resource API tests', function() {
    * @return Response
    */
 
-   it('should return empty array if DB is empty', function(done) {
-     request
-       .get(resourceApiUrl)
-       .accept('application/json')
-       .end(function(err, res) {
-         _expect(res.status).to.be(200);
-           _expect(res.body).to.be.an(Array);
-         done();
-       });
-   });
+  it('should return empty array if DB is empty', function(done) {
+    request
+      .get(resourceApiUrl)
+      .accept('application/json')
+      .end(function(err, res) {
+        _expect(res.status).to.be(200);
+        _expect(res.body).to.be.an(Array);
+        done();
+      });
+  });
 
 
   it('should not store a newly created resource in storage.', function(done) {
@@ -90,14 +90,16 @@ describe('Categories resource API tests', function() {
   it('should return all categories', function(done) {
     request
       .get(resourceApiUrl)
-      .query({'type' : 'Item'})
+      .query({
+        'type': 'Item'
+      })
       .accept('application/json')
       .end(function(err, res) {
         _expect(res.status).to.be(200);
-          var category = res.body;
-          _expect(category.length).to.be.greaterThan(0);
-          _expect(category[0].id).to.be.a('number');
-          _expect(category[0].type).to.be.a('string');
+        var category = res.body;
+        _expect(category.length).to.be.greaterThan(0);
+        _expect(category[0].id).to.be.a('number');
+        _expect(category[0].type).to.be.a('string');
         done();
       });
   });
@@ -127,7 +129,9 @@ describe('Categories resource API tests', function() {
   it('should display the specified resource.', function(done) {
     request
       .get(resourceApiUrl + '/' + id)
-      .query({'model' : 'Items'})
+      .query({
+        'model': 'Items'
+      })
       .accept('application/json')
       .end(function(err, res) {
         _expect(res.status).to.be(200);
@@ -158,7 +162,9 @@ describe('Categories resource API tests', function() {
   it('should assert the document was deleted.', function(done) {
     request
       .get(resourceApiUrl + '/' + id)
-      .query({'model' : 'Items'})
+      .query({
+        'model': 'Items'
+      })
       .accept('application/json')
       .end(function(err, res) {
         _expect(res.status).to.be(200);

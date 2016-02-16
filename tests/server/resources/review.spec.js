@@ -55,16 +55,16 @@ describe('Reviews resource API tests', function() {
    * @return Response
    */
 
-   it('should return empty array if DB is empty', function(done) {
-     request
-       .get(resourceApiUrl)
-       .accept('application/json')
-       .end(function(err, res) {
-         _expect(res.status).to.be(200);
-           _expect(res.body).to.be.an(Array);
-         done();
-       });
-   });
+  it('should return empty array if DB is empty', function(done) {
+    request
+      .get(resourceApiUrl)
+      .accept('application/json')
+      .end(function(err, res) {
+        _expect(res.status).to.be(200);
+        _expect(res.body).to.be.an(Array);
+        done();
+      });
+  });
 
 
   it('should not store resource in storage.', function(done) {
@@ -104,12 +104,12 @@ describe('Reviews resource API tests', function() {
       .accept('application/json')
       .end(function(err, res) {
         _expect(res.status).to.be(200);
-          var reviews = res.body;
-          _expect(reviews.length).to.be.greaterThan(0);
-          _expect(reviews[0].id).to.be.a('number');
-          _expect(reviews[0].user_id).to.be.a('number');
-          _expect(reviews[0].review).to.be.a('string');
-          _expect(reviews[0].review_title).to.be.a('string');
+        var reviews = res.body;
+        _expect(reviews.length).to.be.greaterThan(0);
+        _expect(reviews[0].id).to.be.a('number');
+        _expect(reviews[0].user_id).to.be.a('number');
+        _expect(reviews[0].review).to.be.a('string');
+        _expect(reviews[0].review_title).to.be.a('string');
         done();
       });
   });
