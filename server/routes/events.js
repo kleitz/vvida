@@ -11,6 +11,14 @@
       // get all events
       .get(Events.all);
 
+    // get popular events
+    app.route('/api/events/popular')
+      .get(Events.popularEvents);
+
+    // get recent events
+    app.route('/api/events/recent')
+      .get(Events.recentEvents);
+
     app.route('/api/events/:id')
       // read events route
       .get(Events.find)

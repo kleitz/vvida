@@ -1,6 +1,6 @@
 angular.module('vvida.services')
-  .factory('Events', ['$resource', '$http', function($resource) {
-    return $resource('/api/events/:id', {
+  .factory('Events', ['$resource', '$http', function($resource, $http) {
+    var obj = $resource('/api/events/:id', {
       id: '@id',
       limit: '@limit',
       page: '@page'
@@ -12,4 +12,22 @@ angular.module('vvida.services')
     }, {
       stripTrailingSlashes: false
     });
+
+    obj.recentEvents = function(cb) {
+      $http.get('/api/events/recent').success(function(res) {
+        cb(null, res);
+      }).error(function(err) {
+        cb(err);
+      });
+    };
+
+    obj.popularEvents = function(cb) {
+      $http.get('/api/events/popular').success(function(res) {
+        cb(null, res);
+      }).error(function(err) {
+        cb(err);
+      });
+    };
+
+    return obj;
   }]);

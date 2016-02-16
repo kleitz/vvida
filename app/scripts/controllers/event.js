@@ -17,7 +17,23 @@
           $scope.eventReview = {};
           // get selected category id
           $scope.categoryId = $stateParams.catId;
-          $scope.loadEvents = Events.query();
+
+          // load recent events
+          Events.recentEvents(function(err, res) {
+            if (err) {
+              console.log(err);
+            } else {
+              $scope.recentEvents = res;
+            }
+          });
+          // get popular events
+          Events.popularEvents(function(err, res) {
+            if (err) {
+              console.log(err);
+            } else {
+              $scope.popularEvents = res;
+            }
+          });
 
           $scope.$watch(function() {
               return $state.current.name;
