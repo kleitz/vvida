@@ -36,21 +36,13 @@ describe('Events resource API tests', function() {
    *
    * @return Response
    */
-  it('should return all events or empty array if DB is empty', function(done) {
+  it('should return empty array if DB is empty', function(done) {
     request
       .get(resourceApiURL)
       .accept('application/json')
       .end(function(err, res) {
-        console.log(err);
         _expect(res.status).to.be(200);
-        if (res.body.length === 0) {
           _expect(res.body).to.be.an(Array);
-        } else {
-          _expect(res.body.length).to.be.greaterThan(0);
-          _expect(res.body[0].id).to.be.a('number');
-          _expect(res.body[0].name).to.be.a('string');
-          _expect(res.body[0].description).to.be.a('string');
-        }
         done();
       });
   });
@@ -105,6 +97,20 @@ describe('Events resource API tests', function() {
         _expect(newEventStored.description).to.be(fakeEvent.description);
         _expect(newEventStored.id).to.be.a('number');
         anEvent = newEventStored;
+        done();
+      });
+  });
+
+  it('should return all events', function(done) {
+    request
+      .get(resourceApiURL)
+      .accept('application/json')
+      .end(function(err, res) {
+        _expect(res.status).to.be(200);
+        _expect(res.body.length).to.be.greaterThan(0);
+        _expect(res.body[0].id).to.be.a('number');
+        _expect(res.body[0].name).to.be.a('string');
+        _expect(res.body[0].description).to.be.a('string');
         done();
       });
   });
@@ -193,4 +199,16 @@ describe('Events resource API tests', function() {
         done();
       });
   });
+
+  it('should assert the document was deleted.', function(done) {
+    request
+      .get(resourceApiURL + '/' + anEvent.id)
+      .accept('application/json')
+      .end(function(err, res) {
+        _expect(res.status).to.be(404);
+        _expect(res.body.message).to.be('Event not found');
+        done();
+      });
+  });
+
 });

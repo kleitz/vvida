@@ -54,25 +54,18 @@ describe('Reviews resource API tests', function() {
    *
    * @return Response
    */
-  it('should return all reviews or empty array if DB is empty', function(done) {
-    request
-      .get(resourceApiUrl)
-      .accept('application/json')
-      .end(function(err, res) {
-        _expect(res.status).to.be(200);
-        if (res.body.length === 0) {
-          _expect(res.body).to.be.an('array');
-        } else {
-          var reviews = res.body;
-          _expect(reviews.length).to.be.greaterThan(0);
-          _expect(reviews[0].id).to.be.a('number');
-          _expect(reviews[0].user_id).to.be.a('number');
-          _expect(reviews[0].review).to.be.a('string');
-          _expect(reviews[0].review_title).to.be.a('string');
-        }
-        done();
-      });
-  });
+
+   it('should return empty array if DB is empty', function(done) {
+     request
+       .get(resourceApiUrl)
+       .accept('application/json')
+       .end(function(err, res) {
+         _expect(res.status).to.be(200);
+           _expect(res.body).to.be.an(Array);
+         done();
+       });
+   });
+
 
   it('should not store resource in storage.', function(done) {
     var review = generateFakeReview();
@@ -101,6 +94,22 @@ describe('Reviews resource API tests', function() {
         _expect(newReview.review).to.be(review.review);
         _expect(newReview.id).to.be.a('number');
         id = newReview.id;
+        done();
+      });
+  });
+
+  it('should return all reviews', function(done) {
+    request
+      .get(resourceApiUrl)
+      .accept('application/json')
+      .end(function(err, res) {
+        _expect(res.status).to.be(200);
+          var reviews = res.body;
+          _expect(reviews.length).to.be.greaterThan(0);
+          _expect(reviews[0].id).to.be.a('number');
+          _expect(reviews[0].user_id).to.be.a('number');
+          _expect(reviews[0].review).to.be.a('string');
+          _expect(reviews[0].review_title).to.be.a('string');
         done();
       });
   });
@@ -189,4 +198,16 @@ describe('Reviews resource API tests', function() {
         done();
       });
   });
+
+  it('should assert the document was deleted.', function(done) {
+    request
+      .get(resourceApiUrl + '/' + id)
+      .accept('application/json')
+      .end(function(err, res) {
+        _expect(res.status).to.be(404);
+        _expect(res.body.message).to.be('Review not found');
+        done();
+      });
+  });
+
 });

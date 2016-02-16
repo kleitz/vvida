@@ -177,4 +177,16 @@ describe('User RESTful API tests', function() {
         done();
       });
   });
+
+  it('should assert the document was deleted.', function(done) {
+    request
+      .get(resourceApiUrl + '/' + user.id)
+      .accept('application/json')
+      .end(function(err, res) {
+        _expect(res.status).to.be(404);
+        _expect(res.body.message).to.be('User not found');
+        done();
+      });
+  });
+
 });

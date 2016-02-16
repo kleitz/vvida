@@ -45,23 +45,18 @@ describe('Categories resource API tests', function() {
    *
    * @return Response
    */
-  it('should return categories or empty array if DB is empty', function(done) {
-    request
-      .get(resourceApiUrl)
-      .accept('application/json')
-      .end(function(err, res) {
-        _expect(res.status).to.be(200);
-        if (res.body.length === 0) {
-          _expect(res.body).to.be.an('array');
-        } else {
-          var category = res.body;
-          _expect(category.length).to.be.greaterThan(0);
-          _expect(category[0].id).to.be.a('number');
-          _expect(category[0].type).to.be.a('string');
-        }
-        done();
-      });
-  });
+
+   it('should return empty array if DB is empty', function(done) {
+     request
+       .get(resourceApiUrl)
+       .accept('application/json')
+       .end(function(err, res) {
+         _expect(res.status).to.be(200);
+           _expect(res.body).to.be.an(Array);
+         done();
+       });
+   });
+
 
   it('should not store a newly created resource in storage.', function(done) {
     var category = generateFakeCategory();
@@ -88,6 +83,21 @@ describe('Categories resource API tests', function() {
         _expect(newCategory.type).to.be(category.category);
         _expect(newCategory.id).to.be.a('number');
         id = newCategory.id;
+        done();
+      });
+  });
+
+  it('should return all categories', function(done) {
+    request
+      .get(resourceApiUrl)
+      .query({'type' : 'Item'})
+      .accept('application/json')
+      .end(function(err, res) {
+        _expect(res.status).to.be(200);
+          var category = res.body;
+          _expect(category.length).to.be.greaterThan(0);
+          _expect(category[0].id).to.be.a('number');
+          _expect(category[0].type).to.be.a('string');
         done();
       });
   });
@@ -133,15 +143,28 @@ describe('Categories resource API tests', function() {
    * @param  int  $id
    * @return Response
    */
-  // it('should remove the specified resource from storage.', function(done) {
-  //   request
-  //     .del(resourceApiUrl + '/' + id)
-  //     .set('X-Access-Token', authToken)
-  //     .accept('application/json')
-  //     .end(function(err, res) {
-  //       _expect(res.status).to.be(200);
-  //       _expect(res.body.message).to.match(/(success)/);
-  //       done();
-  //     });
-  // });
+  it('should remove the specified resource from storage.', function(done) {
+    request
+      .del(resourceApiUrl + '/' + id)
+      .set('X-Access-Token', authToken)
+      .accept('application/json')
+      .end(function(err, res) {
+        _expect(res.status).to.be(200);
+        _expect(res.body.message).to.match(/(success)/);
+        done();
+      });
+  });
+
+  it('should assert the document was deleted.', function(done) {
+    request
+      .get(resourceApiUrl + '/' + id)
+      .query({'model' : 'Items'})
+      .accept('application/json')
+      .end(function(err, res) {
+        _expect(res.status).to.be(200);
+        _expect(res.body).to.be(null);
+        done();
+      });
+  });
+
 });

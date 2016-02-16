@@ -45,7 +45,6 @@
       },
 
       find: function(req, res) {
-        console.log(req.query);
         Categories.find({
           where: {
             id: req.params.id,
