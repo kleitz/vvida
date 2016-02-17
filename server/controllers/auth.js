@@ -4,7 +4,6 @@
 
   module.exports = {
     authenticate: function(req, res, next) {
-      console.log(req.session);
       // check header or url parameters or post parameters for token
       var token = req.headers['x-access-token'] || req.params.token ||
         req.session.user.token;

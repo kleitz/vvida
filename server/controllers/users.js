@@ -35,10 +35,11 @@
             return res.status(500).json({
               error: 'Authentication failed.'
             });
+          } else {
+            user.password = null;
+            req.session.user = user;
+            return res.json(user);
           }
-          user.password = null;
-          req.session.user = user;
-          return res.json(user);
         })(req, res, next);
       },
 
@@ -100,7 +101,7 @@
       // Middleware to get all users
       all: function(req, res) {
         Users.findAll().then(function(users) {
-          if (!users) {
+          if (users.length === 0) {
             res.status(404).json({
               success: false,
               message: 'User not found'

@@ -62,7 +62,8 @@
         }).then(function(categoryItems) {
           if (!categoryItems) {
             res.status(404).json({
-              error: 'Category not found!'
+              success: false,
+              message: 'Category not found!'
             });
           } else {
             res.json(categoryItems);
