@@ -10,11 +10,6 @@ describe('EventCtrl tests', function() {
       update: function(evt, cb) {
         evt ? cb(evt) : cb(false);
       },
-      recentEvents: function(cb) {
-        cb(null, {
-          message: 'Sample Event Message'
-        });
-      },
       popularEvents: function(cb) {
         cb(null, {
           message: 'Sample Event Message'
@@ -25,8 +20,8 @@ describe('EventCtrl tests', function() {
           message: 'Sample Event Message'
         });
       },
-      query: function(params) {
-        if (!params) {
+      query: function(id, params) {
+        if (!params && !id) {
           return [1, 2, 3, 4, 5, 6];
         } else {
           if (typeof params === 'function') {
@@ -110,11 +105,13 @@ describe('EventCtrl tests', function() {
   // initialize state
   it('should load events and categories on init', function() {
     spyOn(Categories, 'query').and.callThrough();
-    spyOn(Events, 'recentEvents').and.callThrough();
+    spyOn(Events, 'query').and.callThrough();
     spyOn(Events, 'popularEvents').and.callThrough();
     scope.init();
     expect(scope.eventReview).toBeDefined();
     expect(scope.categories).toBeDefined();
+    expect(Events.query).toHaveBeenCalled();
+    expect(Events.popularEvents).toHaveBeenCalled();
     expect(scope.recentEvents).toBeDefined();
     expect(scope.popularEvents).toBeDefined();
   });

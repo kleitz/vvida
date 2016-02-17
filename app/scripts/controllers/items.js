@@ -57,8 +57,7 @@
           Items.save($scope.item, function(item) {
             if (item) {
               $state.go('editItem', {
-                ItemId: item.id,
-                userId: $rootScope.currentUser.id
+                id: item.id
               });
             } else {
               Utils.toast('Item not created');
@@ -83,7 +82,8 @@
             url: '/api/image/',
             alias: 'photos',
             formData: [{
-              id: $scope.itemId
+              id: $scope.itemId,
+              userId: $rootScope.currentUser.id
             }],
             onCompleteItem: function() {
               Items.update($scope.item, function() {
