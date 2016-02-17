@@ -51,7 +51,8 @@ describe('Categories resource API tests', function() {
       .get(resourceApiUrl)
       .accept('application/json')
       .end(function(err, res) {
-        _expect(res.status).to.be(200);
+        console.log(res.body, 'here');
+        _expect(res.body.length).to.be(0);
         _expect(res.body).to.be.an(Array);
         done();
       });
@@ -66,8 +67,6 @@ describe('Categories resource API tests', function() {
       .send(category)
       .accept('application/json')
       .end(function(err, res) {
-        console.log(res.body, 'theesl');
-        console.log(err, 'thtgh');
         _expect(res.status).to.be(401);
         done();
       });

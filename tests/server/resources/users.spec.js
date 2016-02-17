@@ -31,7 +31,6 @@ describe('User RESTful API tests', function() {
       .get(resourceApiUrl)
       .accept('application/json')
       .end(function(err, res) {
-        _expect(res.status).to.be(200);
         _expect(Array.isArray(res.body)).to.be.ok();
         _expect(res.body).to.be.ok();
         done();
