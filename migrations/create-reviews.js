@@ -7,7 +7,7 @@
           // id
           id: {
             type: Sequelize.INTEGER,
-            autoincrement: true
+            autoIncrement: true
           },
           review: {
             type: Sequelize.TEXT,

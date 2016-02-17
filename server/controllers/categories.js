@@ -12,6 +12,7 @@
       //Middleware to create an item
       create: function(req, res) {
         return Categories.create({
+          name: req.body.name,
           type: req.body.category
         }).then(function(category) {
           if (!category) {
@@ -44,7 +45,6 @@
       },
 
       find: function(req, res) {
-
         Categories.find({
           where: {
             id: req.params.id,
