@@ -48,7 +48,8 @@
         }).then(function(event) {
           if (event.length === 0) {
             res.status(404).json({
-              error: 'There are no events'
+              success: false,
+              message: 'There are no events'
             });
           } else {
             res.status(200).json(event);

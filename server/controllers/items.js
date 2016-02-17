@@ -58,7 +58,8 @@
         }).then(function(item) {
           if (item.length === 0) {
             res.status(404).json({
-              error: 'Item(s) not found'
+              success: false,
+              message: 'Item(s) not found'
             });
           } else {
             res.status(200).json(item);

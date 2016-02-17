@@ -35,7 +35,8 @@
         }).then(function(category) {
           if (category.length === 0) {
             res.status(404).json({
-              error: 'Category(ies) not found!'
+              success: false,
+              message: 'Category(ies) not found!'
             });
           } else {
             res.status(200).json(category);

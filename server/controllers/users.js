@@ -102,7 +102,8 @@
         Users.findAll().then(function(users) {
           if (!users) {
             res.status(404).json({
-              error: 'User not found'
+              success: false,
+              message: 'User not found'
             });
           } else {
             users.map(function(user) {

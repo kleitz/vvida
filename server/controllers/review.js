@@ -37,7 +37,8 @@
         }).then(function(review) {
           if(review.length === 0) {
             res.status(404).json({
-              error: 'Review(s) not found'
+              success: false,
+              message: 'Review(s) not found'
             });
           } else {
             res.status(200).json(review);

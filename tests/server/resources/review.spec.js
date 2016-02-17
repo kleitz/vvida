@@ -61,7 +61,7 @@ describe('Reviews resource API tests', function() {
       .accept('application/json')
       .end(function(err, res) {
         _expect(res.status).to.be(404);
-        _expect(res.body).to.be.an(Array);
+        _expect(res.body.success).to.be(false);
         done();
       });
   });
