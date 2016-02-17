@@ -62,10 +62,13 @@ describe('Categories resource API tests', function() {
     var category = generateFakeCategory();
     request
       .post(resourceApiUrl)
+      .set('X-Access-Token', null)
       .send(category)
       .accept('application/json')
       .end(function(err, res) {
-        _expect(res.status).to.be(500);
+        console.log(res.body, 'theesl');
+        console.log(err, 'thtgh');
+        _expect(res.status).to.be(401);
         done();
       });
   });

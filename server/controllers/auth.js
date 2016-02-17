@@ -4,11 +4,12 @@
 
   module.exports = {
     authenticate: function(req, res, next) {
+      console.log(req.session);
       // check header or url parameters or post parameters for token
       var token = req.headers['x-access-token'] || req.params.token ||
         req.session.user.token;
       // decode token
-      if (token && token !== 'null') {
+      if (token) {
         // verifies secret and checks exp
         jwt.verify(token, req.app.get('superSecret'), function(err, decoded) {
           if (err) {
@@ -24,11 +25,10 @@
       } else {
         // if there is no token
         // return an error
-        res.status(401).json({
+        return res.status(401).send({
           error: 'Unauthorised. No user is logged in.'
         });
       }
     }
   };
-
 })();

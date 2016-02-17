@@ -74,10 +74,11 @@ describe('Events resource API tests', function() {
     var fakeEvent = generateFakeEvent();
     request
       .post(resourceApiURL)
+      .set('X-Access-Token', null)
       .send(fakeEvent)
       .accept('application/json')
       .end(function(err, res) {
-        _expect(res.status).to.be(500);
+        _expect(res.status).to.be(401);
         done();
       });
   });

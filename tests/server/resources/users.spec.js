@@ -26,18 +26,14 @@ describe('User RESTful API tests', function() {
    *
    * @return Response
    */
-  it('should return all users or empty array if DB is empty', function(done) {
+  it('should return an empty array if DB is empty', function(done) {
     request
       .get(resourceApiUrl)
       .accept('application/json')
       .end(function(err, res) {
         _expect(res.status).to.be(200);
-        if (res.body.length === 0) {
-          _expect(Array.isArray(res.body)).to.be.ok();
-          _expect(res.body).to.be.ok();
-        } else {
-          _expect(typeof res.body[0].id).to.be('number');
-        }
+        _expect(Array.isArray(res.body)).to.be.ok();
+        _expect(res.body).to.be.ok();
         done();
       });
   });
@@ -53,8 +49,6 @@ describe('User RESTful API tests', function() {
       .post(resourceApiUrl)
       .send(newUser)
       .accept('application/json')
-      // .expect('Content-Type', /json/)
-      // .expect(200)
       .end(function(err, res) {
         _expect(res.status).to.be(200);
 
@@ -63,6 +57,16 @@ describe('User RESTful API tests', function() {
         _expect(data.id).to.be.ok();
         _expect(typeof data.id).to.be('number');
         user = data;
+        done();
+      });
+  });
+
+  it('should return all users or empty array if DB is empty', function(done) {
+    request
+      .get(resourceApiUrl)
+      .accept('application/json')
+      .end(function(err, res) {
+        _expect(typeof res.body[0].id).to.be('number');
         done();
       });
   });

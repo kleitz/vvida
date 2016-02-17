@@ -72,10 +72,11 @@ describe('Reviews resource API tests', function() {
 
     request
       .post(resourceApiUrl)
+      .set('X-Access-Token', null)
       .send(review)
       .accept('application/json')
       .end(function(err, res) {
-        _expect(res.status).to.be(500);
+        _expect(res.status).to.be(401);
         done();
       });
   });

@@ -53,7 +53,7 @@
           // If passport doesn't return the user object,  signup failed
           if (!user) {
             console.log('User not found');
-            return res.status(500).json({
+            return res.status(404).json({
               error: 'Signup failed. User already exists.'
             });
           }
@@ -148,10 +148,11 @@
             return res.status(500).json({
               error: err.message || err.errors[0].message
             });
+          } else {
+            res.json({
+              message: 'Profile updated successfully.'
+            });
           }
-          res.json({
-            message: 'Profile updated successfully.'
-          });
         });
       },
 
@@ -165,10 +166,11 @@
             return res.status(500).json({
               error: err.message || err.errors[0].message
             });
+          } else {
+            res.json({
+              message: 'User deleted successfully'
+            });
           }
-          res.json({
-            message: 'User deleted successfully'
-          });
         });
       },
 
@@ -316,5 +318,4 @@
       }
     };
   };
-
 })();
