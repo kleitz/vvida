@@ -34,7 +34,7 @@ div.eventGridList(layout-padding layout="column")
         .md-list-item-text
           div(layout="row" layout-margin)
             div(flex="55")
-              h3(layout layout-padding ui-sref="viewEvent({id:event.id})") {{$index + 1}}. {{event.name}}
+              h3(layout layout-padding ui-sref="viewEvent({id:event.id})") {{$index + 1 + limit*(page-1)}}. {{event.name}}
               div(layout="row" layout-align="start center" layout-padding)
                 i.fa.fa-star(ng-if="maxReview(event.Reviews).rating > 0" ng-repeat="i in range(maxReview(event.Reviews).rating) track by $index")
                 i.fa.fa-star-o(ng-repeat="i in range(5 - maxReview(event.Reviews).rating) track by $index")

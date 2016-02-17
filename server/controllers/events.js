@@ -38,39 +38,15 @@
       all: function(req, res) {
         var limit = req.query.limit || 4;
         var offset = req.query.limit * req.query.page || 0;
-
-        return Events.findAll({
-          order: [
-            ['time', 'ASC']
-          ],
-          offset: offset,
-          limit: limit,
-          include: [Images, Reviews]
-        }).then(function(event) {
-          if (event) {
-            res.json(event);
-          }
-        }).catch(function(err) {
-          return res.status(500).send({
-            message: 'Error retrieving event',
-            error: err
-          });
-        });
-      },
-
-      // Middleware to get all the events
-      recentEvents: function(req, res) {
-        var limit = req.query.limit || 4;
-        var offset = req.query.limit * req.query.page || 0;
-
         var date = Date.now();
+        var filter = (req.query.filter) ? {
+          time: {
+            $gt: date
+          }
+        } : {};
 
         return Events.findAll({
-          where: {
-            time: {
-              $gt: date
-            }
-          },
+          where: filter,
           order: [
             ['time', 'ASC']
           ],
@@ -95,11 +71,12 @@
         var offset = req.query.limit * req.query.page || 0;
 
         var stmt =
-          'SELECT Ev1.id, Ev1.name, COUNT(Rv1.id) ' +
-          'AS review_count, ROUND(AVG(Rv1.rating)) AS avg_rating ' +
-          'FROM public."Events" AS Ev1 ' +
+          'SELECT Ev1.*, string_agg(Im1.img_url,\',\') AS Images, ' +
+          'COUNT(Rv1.id) AS review_count, ROUND(AVG(Rv1.rating)) ' +
+          'AS avg_rating FROM public."Events" AS Ev1 ' +
           'INNER JOIN public."Reviews" AS Rv1 ON Ev1.id=Rv1.event_id ' +
-          'GROUP BY Ev1.id ORDER BY review_count DESC ' +
+          'LEFT JOIN public."Images" AS Im1 ON Ev1.id=Im1.event_id ' +
+          'GROUP BY Ev1.id, Ev1.name ORDER BY review_count DESC ' +
           'LIMIT ' + limit + ' OFFSET ' + offset;
 
         sequelize.query(stmt, {
@@ -107,6 +84,7 @@
         }).then(function(events) {
           return res.json(events);
         }, function(err) {
+          console.log(err);
           return res.status(500).send({
             message: 'Error retrieving events',
             error: err

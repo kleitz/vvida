@@ -19,12 +19,12 @@
           $scope.categoryId = $stateParams.catId;
 
           // load recent events
-          Events.recentEvents(function(err, res) {
-            if (err) {
-              console.log(err);
-            } else {
-              $scope.recentEvents = res;
-            }
+          Events.query({
+            filter: 'recent'
+          }, function(res) {
+            $scope.recentEvents = res;
+          }, function(err) {
+            console.log(err);
           });
           // get popular events
           Events.popularEvents(function(err, res) {
@@ -32,6 +32,7 @@
               console.log(err);
             } else {
               $scope.popularEvents = res;
+
             }
           });
 

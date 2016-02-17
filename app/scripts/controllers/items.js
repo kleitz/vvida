@@ -1,9 +1,10 @@
 (function() {
   'use strict';
   angular.module('vvida.controllers')
-    .controller('ItemCtrl', ['$scope', '$state', '$stateParams', '$mdSidenav',
-      'Categories', 'FileUploader', 'Utils', 'Items', 'Reviews', 'Images',
-      function($scope, $state, $stateParams, $mdSidenav,
+    .controller('ItemCtrl', ['$rootScope', '$scope', '$state', '$stateParams',
+      '$mdSidenav', 'Categories', 'FileUploader', 'Utils', 'Items', 'Reviews',
+      'Images',
+      function($rootScope, $scope, $state, $stateParams, $mdSidenav,
         Categories, FileUploader, Utils, Items, Reviews, Images) {
         // Close Left Side Nav bar
         $scope.close = function() {
@@ -56,7 +57,8 @@
           Items.save($scope.item, function(item) {
             if (item) {
               $state.go('editItem', {
-                id: item.id
+                ItemId: item.id,
+                userId: $rootScope.currentUser.id
               });
             } else {
               Utils.toast('Item not created');
