@@ -9,7 +9,7 @@
       var token = req.headers['x-access-token'] || req.params.token ||
         req.session.user.token;
       // decode token
-      if (token) {
+      if (token && token !== 'null') {
         // verifies secret and checks exp
         jwt.verify(token, req.app.get('superSecret'), function(err, decoded) {
           if (err) {
@@ -31,4 +31,5 @@
       }
     }
   };
+
 })();
