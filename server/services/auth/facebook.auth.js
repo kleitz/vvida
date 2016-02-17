@@ -5,7 +5,7 @@
 module.exports = function(app, passport, config) {
   var FacebookStrategy = config.strategy.Facebook,
     jwt = require('jsonwebtoken'),
-    ucfirst = require('./ucfirst'),
+    ucfirst = require('../ucfirst'),
     Users = app.get('models').Users;
 
   passport.use(new FacebookStrategy(config.auth.FACEBOOK,
