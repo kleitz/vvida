@@ -13,6 +13,18 @@
           // e.g product, service, location
           type: {
             type: Sequelize.STRING,
+            validate: {
+              isIn: {
+                args: [
+                  ['Item', 'Event']
+                ],
+                msg: 'Must be either Item, Event'
+              }
+            },
+            allowNull: false
+          },
+          name: {
+            type: Sequelize.STRING,
             allowNull: false
           },
           sub_cat_id: {

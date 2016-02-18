@@ -26,7 +26,7 @@ describe('User RESTful API tests', function() {
    *
    * @return Response
    */
-  it('should return all users stored in the database or empty array if DB is empty', function(done) {
+  it('should return all users or empty array if DB is empty', function(done) {
     request
       .get(resourceApiUrl)
       .accept('application/json')
@@ -73,14 +73,13 @@ describe('User RESTful API tests', function() {
    *
    * @return Response
    */
-  it('should login the newly created user and return API authorisation token.', function(done) {
+  it('should login the new user and return token.', function(done) {
     request
       .post(resourceApiUrl + '/login')
       .send(newUser)
       .accept('application/json')
       .end(function(err, res) {
         _expect(res.status).to.be(200);
-
         var data = res.body;
         _expect(data.email).to.be(newUser.email);
         _expect(data.id).to.be.ok();
@@ -178,4 +177,16 @@ describe('User RESTful API tests', function() {
         done();
       });
   });
+
+  it('should assert the document was deleted.', function(done) {
+    request
+      .get(resourceApiUrl + '/' + user.id)
+      .accept('application/json')
+      .end(function(err, res) {
+        _expect(res.status).to.be(404);
+        _expect(res.body.message).to.be('User not found');
+        done();
+      });
+  });
+
 });

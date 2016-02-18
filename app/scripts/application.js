@@ -36,7 +36,7 @@
   require('./controllers/user-profile/pictures');
   require('./controllers/user-profile/reviews');
   require('./controllers/items');
-  require('./controllers/eventView');
+  require('./controllers/event-view');
   require('./controllers/event');
 
   // Require Directives
@@ -161,6 +161,15 @@
             }
           }
         })
+        .state('events.categoryEvents', {
+          url: '/categories/{catId}',
+          views: {
+            'inner@events': {
+              controller: 'EventViewsCtrl',
+              templateUrl: 'views/all-events.html'
+            }
+          }
+        })
         .state('viewEvent', {
           url: '/events/{id}',
           controller: 'EventCtrl',
@@ -225,8 +234,8 @@
         })
         .state('editItem', {
           url: '/items/{id}/edit',
-          params:{
-            tabIndex:0
+          params: {
+            tabIndex: 0
           },
           controller: 'ItemCtrl',
           templateUrl: 'views/edit-item.html'
@@ -237,9 +246,14 @@
           templateUrl: 'views/view-item.html'
         })
         .state('categoryItems', {
-          url: '/categories/{catId}',
+          url: '/items/categories/{catId}',
           controller: 'ItemCtrl',
           templateUrl: 'views/items.html'
+        })
+        .state('categoryEvents', {
+          url: '/event/categories/{catId}',
+          controller: 'EventCtrl',
+          templateUrl: 'views/events.html'
         })
         .state('login', {
           url: '/users/login',

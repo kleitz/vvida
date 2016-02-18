@@ -26,8 +26,9 @@
                 return res.status(500).send({
                   error: 'Failed to create item'
                 });
+              } else {
+                res.json(item);
               }
-              res.json(item);
             })
             .catch(function(err) {
               res.status(500).send({
@@ -71,11 +72,12 @@
           include: [Images, Reviews, Categories]
         }).then(function(item) {
           if (!item) {
-            res.status(404).send({
+            return res.status(404).send({
               message: 'Item not found'
             });
-          }
-          res.json(item);
+          } else {
+          return res.json(item);
+        }
         }).catch(function(err) {
           res.status(500).send({
             error: err.message || err.errors[0].message
@@ -93,10 +95,11 @@
             return res.status(500).send({
               error: 'Update failed'
             });
+          } else {
+            res.json({
+              message: 'Item has been updated.'
+            });
           }
-          res.json({
-            message: 'Item has been updated.'
-          });
         }).catch(function(err) {
           return res.status(500).send({
             error: err.message || err.errors[0].message
@@ -114,10 +117,11 @@
             return res.status(500).send({
               error: 'Delete failed'
             });
-          }
+          } else {
           res.status(200).send({
             message: 'Delete successful'
           });
+        }
         }).catch(function(err) {
           res.status(500).send({
             error: err.message || err.errors[0].message

@@ -2,7 +2,6 @@
   'use strict';
   module.exports = function(app) {
     var Categories = app.get('models').Categories,
-      Items = app.get('models').Items,
       Images = app.get('models').Images,
       Reviews = app.get('models').Reviews;
 
@@ -13,6 +12,7 @@
       //Middleware to create an item
       create: function(req, res) {
         return Categories.create({
+          name: req.body.name,
           type: req.body.category
         }).then(function(category) {
           if (!category) {
@@ -31,7 +31,11 @@
 
       // Middleware to get all items
       all: function(req, res) {
-        Categories.findAll().then(function(category) {
+        Categories.findAll({
+          where: {
+            type: req.query.type
+          }
+        }).then(function(category) {
           res.json(category);
         }).catch(function(err) {
           res.status(500).send({
@@ -41,23 +45,23 @@
       },
 
       find: function(req, res) {
-          Categories.find({
-            where: {
-              id: req.params.id
-            },
-            include: [{
-              model: Items,
-              include: [Images, Reviews]
-            }]
-          }).then(function(categoryItems) {
-            res.json(categoryItems);
-          }).catch(function(err) {
-            res.status(500).send({
-              error: err.message || err.errors[0].message
-            });
+        Categories.find({
+          where: {
+            id: req.params.id,
+          },
+          include: [{
+            model: app.get('models')[req.query.model],
+            include: [Images, Reviews]
+          }]
+        }).then(function(categoryItems) {
+          res.json(categoryItems);
+        }).catch(function(err) {
+          res.status(500).send({
+            error: err.message || err.errors[0].message
           });
-        },
-        // Middleware to delete an item
+        });
+      },
+      // Middleware to delete an item
       delete: function(req, res) {
         return Categories.destroy({
           where: {

@@ -7,7 +7,7 @@
           // id
           id: {
             type: Sequelize.INTEGER,
-            autoincrement: true
+            autoIncrement: true
           },
           review: {
             type: Sequelize.TEXT,
@@ -23,6 +23,10 @@
             defaultValue: 0
           },
           item_id: {
+            type: Sequelize.INTEGER,
+            allowNull: false
+          },
+          event_id: {
             type: Sequelize.INTEGER,
             allowNull: false
           },

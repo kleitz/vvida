@@ -2,27 +2,43 @@
   'use strict';
   angular.module('vvida.controllers')
     .controller('EventCtrl', ['$scope', '$state', '$stateParams',
-      'Utils', 'Events',
-      function($scope, $state, $stateParams,
-        Utils, Events) {
+      '$mdSidenav', 'Utils', 'Events', 'Categories', 'Reviews',
+      function($scope, $state, $stateParams, $mdSidenav,
+        Utils, Events, Categories, Reviews) {
+
 
         // initialize state data
         $scope.init = function() {
-          Events.query(function(events) {
-            $scope.loadEvents = events;
+          // get all categories
+          $scope.categories = Categories.query({
+            type: 'Event'
           });
+
+          $scope.eventReview = {};
+          // get selected category id
+          $scope.categoryId = $stateParams.catId;
+          $scope.loadEvents = Events.query();
+
+          $scope.$watch(function() {
+              return $state.current.name;
+            },
+            function(name) {
+              if (name === 'events') {
+                $scope.nextView = false;
+              } else {
+                $scope.nextView = true;
+              }
+            });
         };
 
-        $scope.$watch(function() {
-            return $state.current.name;
-          },
-          function(name) {
-            if (name === 'events') {
-              $scope.nextView = false;
-            } else {
-              $scope.nextView = true;
-            }
-          });
+
+        $scope.close = function() {
+          $mdSidenav('evcatNav').close();
+        };
+
+        $scope.toggleSidenav = function() {
+          $mdSidenav('evcatNav').toggle();
+        };
 
         $scope.getEvent = function() {
           $scope.eventId = $stateParams.id;
@@ -38,15 +54,31 @@
           return Utils.parseTime(eventTime);
         };
 
+        $scope.range = function(n) {
+          return new Array(n);
+        };
+
+        $scope.rate = function(n) {
+          $scope.eventReview.rating = n;
+        };
+
+        $scope.addEventReview = function() {
+          $scope.eventReview.eventId = $stateParams.id;
+          Reviews.save($scope.eventReview, function(review) {
+            if (review) {
+              $scope.event.Reviews.push(review);
+              $scope.eventReview = {};
+            }
+          });
+        };
+
         $scope.averageReview = function(eventReviews) {
           if (eventReviews) {
-            var sum = 0,
-              count = 0;
+            var sum = 0;
             eventReviews.forEach(function(review) {
               sum += review.rating;
-              count += 1;
             });
-            return Math.round(sum / count) || 0;
+            return Math.round(sum / eventReviews.length) || 0;
           }
         };
 

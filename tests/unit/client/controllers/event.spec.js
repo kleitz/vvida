@@ -16,17 +16,68 @@ describe('EventCtrl tests', function() {
         });
       },
       query: function(params) {
-        if (typeof params === 'function') {
-          params([1, 2, 3, 4, 5, 6]);
+        if (!params) {
+          return [1, 2, 3, 4, 5, 6];
         } else {
-          var page = params.page || 0,
-            limit = params.limit || 3,
-            start = limit * page,
-            end = start + limit;
-          return [1, 2, 3, 4, 5, 6].slice(start, end);
+          if (typeof params === 'function') {
+            params([1, 2, 3, 4, 5, 6]);
+          } else {
+            var page = params.page || 0,
+              limit = params.limit || 3,
+              start = limit * page,
+              end = start + limit;
+            return [1, 2, 3, 4, 5, 6].slice(start, end);
+          }
         }
       }
     },
+
+    Categories = {
+      save: function(evt, cb) {
+        evt ? cb(evt) : cb(false);
+      },
+      update: function(evt, cb) {
+        evt ? cb(evt) : cb(false);
+      },
+      get: function(query, cb) {
+        if (query.model) {
+          cb({
+            message: 'Sample Category Message',
+            'Events': [1, 2, 3, 4]
+          });
+        } else {
+          cb({
+            message: 'Sample Category Message',
+          });
+        }
+      },
+      query: function(query) {
+        if (query.type === 'Event') {
+          return [1, 2, 3, 4, 5, 6];
+        } else if (query.type === 'Item') {
+          return [7, 8, 9, 10];
+        }
+      }
+    },
+
+    Reviews = {
+      save: function(evt, cb) {
+        evt ? cb(evt) : cb(false);
+      },
+      update: function(evt, cb) {
+        evt ? cb(evt) : cb(false);
+      },
+      get: function(id, cb) {
+        cb({
+          message: 'Sample Category Message'
+        });
+      },
+      query: function() {
+        return [1, 2, 3, 4, 5, 6];
+      }
+    },
+
+
     state, stateParams;
   beforeEach(function() {
     module('vvida');
@@ -37,7 +88,9 @@ describe('EventCtrl tests', function() {
     scope = $injector.get('$rootScope');
     controller = $controller('EventCtrl', {
       $scope: scope,
-      Events: Events
+      Events: Events,
+      Categories: Categories,
+      Reviews: Reviews
     });
     state = $injector.get('$state');
     stateParams = $injector.get('$stateParams');
@@ -45,9 +98,12 @@ describe('EventCtrl tests', function() {
   }));
 
   // initialize state
-  it('should load events on init', function() {
+  it('should load events and categories on init', function() {
+    spyOn(Categories, 'query').and.callThrough();
     spyOn(Events, 'query').and.callThrough();
     scope.init();
+    expect(scope.eventReview).toBeDefined();
+    expect(scope.categories).toBeDefined();
     expect(scope.loadEvents).toBeDefined();
   });
 
@@ -66,6 +122,30 @@ describe('EventCtrl tests', function() {
     expect(Utils.parseTime).toHaveBeenCalledWith(testDate);
     expect(eventTime.day).toBeDefined();
     expect(eventTime.time).toBeDefined();
+  });
+
+  it('should return an array of n elements', function() {
+    spyOn(scope, 'range').and.callThrough();
+    var arr = scope.range(5);
+    expect(arr).toBeDefined();
+    expect(arr.length).toBe(5);
+  });
+
+  it('should set the rating of an event', function() {
+    spyOn(scope, 'rate').and.callThrough();
+    scope.rate(5);
+    expect(scope.eventReview.rating).toBe(5);
+  });
+
+  it('should save an event review', function() {
+    spyOn(Reviews, 'save').and.callThrough();
+    scope.event = {};
+    scope.event.Reviews = [];
+    stateParams.id = 1;
+    scope.addEventReview();
+    expect(Reviews.save).toHaveBeenCalled();
+    expect(scope.event.Reviews).toBeDefined();
+    expect(scope.eventReview).toBeDefined();
   });
 
   it('should return average rating for an event', function() {
