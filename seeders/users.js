@@ -12,7 +12,7 @@ module.exports = {
       username: 'vvidaapp',
       name:'vvida lavida',
       password: bcrypt.hashSync('3at1ngYums@wh1leD0ingTh3Whip.c0m'),
-      gender: 'female',
+      gender: 'Female',
       email: 'vvidaapp@gmail.com',
       created_at: moment().utc().format(),
       updated_at: moment().utc().format()

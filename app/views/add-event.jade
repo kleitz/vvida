@@ -1,4 +1,4 @@
-md-content(ng-controller="UserEventsCtrl" layout='column', layout-md='column', layout-sm='column', flex='100')
+md-content(ng-controller="UserEventsCtrl" layout='column', layout-md='column', layout-sm='column', flex='100' ng-init="init()")
   form(method='post', enctype='multipart/data', ng-submit='addEvent()')
     md-input-container
       label
