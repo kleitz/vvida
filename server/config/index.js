@@ -2,6 +2,7 @@ var passportConfig = require('./passport.config'),
   Strategy = require('./strategies'),
   envVariables = {
     expressSessionKey: process.env.EXPRESS_SESSION_KEY,
+    superSecret: process.env.WEB_TOKEN_SECRET,
     auth: passportConfig,
     strategy: Strategy,
     db: {

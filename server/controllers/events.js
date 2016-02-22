@@ -27,7 +27,7 @@
             res.status(200).json(event);
           }
         }).catch(function(err) {
-          res.send({
+          res.status(500).send({
             error: err.message || err.errors[0].message
           });
         });
@@ -47,12 +47,12 @@
           include: [Images, Reviews]
         }).then(function(event) {
           if (event.length === 0) {
-            res.status(404).json({
-              success: false,
+            res.status(200).json({
+              success: true,
               message: 'There are no events'
             });
           } else {
-            res.status(200).json(event);
+            res.json(event);
           }
         }).catch(function(err) {
           return res.status(500).send({
@@ -97,8 +97,7 @@
               error: 'Update failed'
             });
           } else {
-            res.status(200).json({
-              isUpdate: true,
+            res.json({
               message: 'You have successfully Edited Your event'
             });
           }

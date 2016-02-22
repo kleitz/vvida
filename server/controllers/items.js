@@ -22,16 +22,10 @@
               email: req.body.email
             })
             .then(function(item) {
-              if (!item) {
-                return res.status(500).send({
-                  error: 'Failed to create item'
-                });
-              } else {
-                res.status(200).json(item);
-              }
+                res.json(item);
             })
             .catch(function(err) {
-              res.send({
+              res.status(500).send({
                 error: err.message || err.errors[0].message
               });
             });
@@ -57,15 +51,14 @@
           }]
         }).then(function(item) {
           if (item.length === 0) {
-            res.status(404).json({
-              success: false,
+            res.status(200).json({
               message: 'Item(s) not found'
             });
           } else {
-            res.status(200).json(item);
+            res.json(item);
           }
         }).catch(function(err) {
-          res.send({
+          res.status(500).send({
             error: err.message || err.errors[0].message
           });
         });
@@ -83,10 +76,10 @@
               message: 'Item not found'
             });
           } else {
-            return res.status(200).json(item);
+            return res.json(item);
           }
         }).catch(function(err) {
-          res.send({
+          res.status(500).send({
             error: err.message || err.errors[0].message
           });
         });
@@ -125,7 +118,7 @@
               error: 'Delete failed'
             });
           } else {
-            res.status(200).send({
+            res.send({
               message: 'Delete successful'
             });
           }

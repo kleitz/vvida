@@ -12,13 +12,7 @@
           name: req.body.name,
           type: req.body.category
         }).then(function(category) {
-          if (!category) {
-            res.status(404).send({
-              error: 'Category not created!'
-            });
-          } else {
             res.status(200).json(category);
-          }
         }).catch(function(err) {
           res.status(401).send({
             error: err.message || err.errors[0].message
@@ -34,12 +28,12 @@
           }
         }).then(function(category) {
           if (category.length === 0) {
-            res.status(404).json({
-              success: false,
-              message: 'Category(ies) not found!'
+            res.status(200).json({
+              success: true,
+              message: 'Category not found!'
             });
           } else {
-            res.status(200).json(category);
+            res.json(category);
           }
         }).catch(function(err) {
           return res.status(500).send({
@@ -62,7 +56,6 @@
         }).then(function(categoryItems) {
           if (!categoryItems) {
             res.status(404).json({
-              success: false,
               message: 'Category not found!'
             });
           } else {
@@ -88,12 +81,12 @@
               error: 'Delete failed'
             });
           } else {
-            res.status(200).send({
+            res.send({
               message: 'Delete successful'
             });
           }
         }).catch(function(err) {
-          res.send({
+          res.status(500).send({
             error: err.message || err.errors[0].message
           });
         });

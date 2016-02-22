@@ -1,4 +1,4 @@
-describe('ProfileCtrl tests', function() {
+eupdescribe('ProfileCtrl tests', function() {
   'use strict';
   var scope,
     testVariables={

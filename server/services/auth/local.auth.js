@@ -18,8 +18,8 @@ module.exports = function(app, passport, config) {
         return done(null, false);
       }
       user.token = null;
-      var token = jwt.sign(user, app.get('superSecret'), {
-        expireIn: '24h'
+      var token = jwt.sign(user, config.superSecret, {
+        expireIn: '8760h'
       });
       user.token = token;
       Users.update(user, {
@@ -58,8 +58,8 @@ module.exports = function(app, passport, config) {
         return done(null, false);
       }
       user.token = null;
-      var token = jwt.sign(user, app.get('superSecret'), {
-        expireIn: '24h'
+      var token = jwt.sign({id: user.id}, config.superSecret, {
+        expireIn: '8760h'
       });
 
       user.token = token;
