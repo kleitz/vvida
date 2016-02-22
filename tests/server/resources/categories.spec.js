@@ -1,26 +1,15 @@
 var request = require('superagent'),
   faker = require('faker'),
   _expect = require('expect.js'),
-  resourceApiUrl = 'http://localhost:3000/api/items';
+  resourceApiUrl = 'http://localhost:3000/api/categories';
 
-describe('Items resource API tests', function() {
+describe('Categories resource API tests', function() {
 
-  var generateFakeItem = function() {
+  var generateFakeCategory = function() {
       return {
         // catId: faker.random.number(),
-        name: faker.commerce.productName(),
-        category_id: faker.random.number(),
-        description: faker.lorem.sentence(),
-        city: faker.address.city(),
-        street: faker.address.streetAddress(),
-        phone: faker.phone.phoneNumber(),
-        email: faker.internet.email()
-      };
-    },
-    generateFakeItemUpdate = function() {
-      return {
-        name: faker.commerce.productName(),
-        description: faker.lorem.sentence()
+        name: faker.commerce.department(),
+        category: 'Item'
       };
     },
     authToken = null,
@@ -52,7 +41,7 @@ describe('Items resource API tests', function() {
 
   /**
    * Display a listing of the resource.
-   * GET /items
+   * GET /categories
    *
    * @return Response
    */
@@ -68,11 +57,12 @@ describe('Items resource API tests', function() {
       });
   });
 
-  it('should not store resource in storage.', function(done) {
-    var item = generateFakeItem();
+
+  it('should not store a newly created resource in storage.', function(done) {
+    var category = generateFakeCategory();
     request
       .post(resourceApiUrl)
-      .send(item)
+      .send(category)
       .accept('application/json')
       .end(function(err, res) {
         _expect(res.status).to.be(500);
@@ -81,43 +71,43 @@ describe('Items resource API tests', function() {
   });
 
   it('should store a newly created resource in storage.', function(done) {
-    var item = generateFakeItem();
-
+    var category = generateFakeCategory();
     request
       .post(resourceApiUrl)
       .set('X-Access-Token', authToken)
-      .send(item)
+      .send(category)
       .accept('application/json')
       .end(function(err, res) {
         _expect(res.status).to.be(200);
-        var newItem = res.body;
-        _expect(newItem.name).to.be(item.name);
-        _expect(newItem.id).to.be.a('number');
-        id = newItem.id;
+        var newCategory = res.body;
+        _expect(newCategory.type).to.be(category.category);
+        _expect(newCategory.id).to.be.a('number');
+        id = newCategory.id;
         done();
       });
   });
 
-  it('should return all items', function(done) {
+  it('should return all categories', function(done) {
     request
       .get(resourceApiUrl)
+      .query({
+        'type': 'Item'
+      })
       .accept('application/json')
       .end(function(err, res) {
         _expect(res.status).to.be(200);
-        var items = res.body;
-        _expect(items.length).to.be.greaterThan(0);
-        _expect(items[0].id).to.be.a('number');
-        _expect(items[0].user_id).to.be.a('number');
-        _expect(items[0].name).to.be.a('string');
-        _expect(items[0].description).to.be.a('string');
-        _expect(items[0].description).to.match(/(\s){1,}/g);
+        var category = res.body;
+        _expect(category.length).to.be.greaterThan(0);
+        _expect(category[0].id).to.be.a('number');
+        _expect(category[0].type).to.be.a('string');
         done();
       });
   });
+
 
   /**
    * Show the form for creating the specified resource.
-   * GET /items/{id}/create
+   * GET /categories/:id
    *
    * @param  int  $id
    * @return Response
@@ -131,7 +121,7 @@ describe('Items resource API tests', function() {
 
   /**
    * Display the specified resource.
-   * GET /items/{id}
+   * GET /categories/{id}
    *
    * @param  int  $id
    * @return Response
@@ -139,6 +129,9 @@ describe('Items resource API tests', function() {
   it('should display the specified resource.', function(done) {
     request
       .get(resourceApiUrl + '/' + id)
+      .query({
+        'model': 'Items'
+      })
       .accept('application/json')
       .end(function(err, res) {
         _expect(res.status).to.be(200);
@@ -148,42 +141,8 @@ describe('Items resource API tests', function() {
   });
 
   /**
-   * Show the form for editing the specified resource.
-   * GET /items/{id}/edit
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  it('should show the form for editing the specified resource', function() {
-    // Not used in an angular application
-    // since the angular application will route to the edit form
-    // and display it
-    _expect(true).to.be(true);
-  });
-
-  /**
-   * Update the specified resource in storage.
-   * PUT /items/{id}
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  it('should update the specified resource in storage.', function(done) {
-    request
-      .put(resourceApiUrl + '/' + id)
-      .set('X-Access-Token', authToken)
-      .send(generateFakeItemUpdate())
-      .accept('application/json')
-      .end(function(err, res) {
-        _expect(res.status).to.be(200);
-        _expect(res.body.message).to.match(/(updated)/);
-        done();
-      });
-  });
-
-  /**
    * Remove the specified resource from storage.
-   * DELETE /items/{id}
+   * DELETE /categories/:id
    *
    * @param  int  $id
    * @return Response
@@ -203,10 +162,13 @@ describe('Items resource API tests', function() {
   it('should assert the document was deleted.', function(done) {
     request
       .get(resourceApiUrl + '/' + id)
+      .query({
+        'model': 'Items'
+      })
       .accept('application/json')
       .end(function(err, res) {
-        _expect(res.status).to.be(404);
-        _expect(res.body.message).to.be('Item not found');
+        _expect(res.status).to.be(200);
+        _expect(res.body).to.be(null);
         done();
       });
   });

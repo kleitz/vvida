@@ -36,25 +36,16 @@ describe('Events resource API tests', function() {
    *
    * @return Response
    */
-  it('should return all items stored in the database ' +
-    ' or empty array if DB is empty',
-    function(done) {
-      request
-        .get(resourceApiURL)
-        .accept('application/json')
-        .end(function(err, res) {
-          _expect(res.status).to.be(200);
-          if (res.body.length === 0) {
-            _expect(res.body).to.be.an(Array);
-          } else {
-            _expect(res.body.length).to.be.greaterThan(0);
-            _expect(res.body[0].id).to.be.a('number');
-            _expect(res.body[0].name).to.be.a('string');
-            _expect(res.body[0].description).to.be.a('string');
-          }
-          done();
-        });
-    });
+  it('should return empty array if DB is empty', function(done) {
+    request
+      .get(resourceApiURL)
+      .accept('application/json')
+      .end(function(err, res) {
+        _expect(res.status).to.be(200);
+        _expect(res.body).to.be.an(Array);
+        done();
+      });
+  });
 
   /**
    * Store a newly created resource in storage.
@@ -79,6 +70,18 @@ describe('Events resource API tests', function() {
       });
   });
 
+  it('should not store created resource in storage.', function(done) {
+    var fakeEvent = generateFakeEvent();
+    request
+      .post(resourceApiURL)
+      .send(fakeEvent)
+      .accept('application/json')
+      .end(function(err, res) {
+        _expect(res.status).to.be(500);
+        done();
+      });
+  });
+
   it('should store a newly created resource in storage.', function(done) {
     var fakeEvent = generateFakeEvent();
     request
@@ -94,6 +97,20 @@ describe('Events resource API tests', function() {
         _expect(newEventStored.description).to.be(fakeEvent.description);
         _expect(newEventStored.id).to.be.a('number');
         anEvent = newEventStored;
+        done();
+      });
+  });
+
+  it('should return all events', function(done) {
+    request
+      .get(resourceApiURL)
+      .accept('application/json')
+      .end(function(err, res) {
+        _expect(res.status).to.be(200);
+        _expect(res.body.length).to.be.greaterThan(0);
+        _expect(res.body[0].id).to.be.a('number');
+        _expect(res.body[0].name).to.be.a('string');
+        _expect(res.body[0].description).to.be.a('string');
         done();
       });
   });
@@ -182,4 +199,16 @@ describe('Events resource API tests', function() {
         done();
       });
   });
+
+  it('should assert the document was deleted.', function(done) {
+    request
+      .get(resourceApiURL + '/' + anEvent.id)
+      .accept('application/json')
+      .end(function(err, res) {
+        _expect(res.status).to.be(404);
+        _expect(res.body.message).to.be('Event not found');
+        done();
+      });
+  });
+
 });

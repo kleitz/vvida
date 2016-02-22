@@ -26,23 +26,21 @@ describe('User RESTful API tests', function() {
    *
    * @return Response
    */
-  it('should return all users stored in the database' +
-    ' or empty array if DB is empty',
-    function(done) {
-      request
-        .get(resourceApiUrl)
-        .accept('application/json')
-        .end(function(err, res) {
-          _expect(res.status).to.be(200);
-          if (res.body.length === 0) {
-            _expect(Array.isArray(res.body)).to.be.ok();
-            _expect(res.body).to.be.ok();
-          } else {
-            _expect(typeof res.body[0].id).to.be('number');
-          }
-          done();
-        });
-    });
+  it('should return all users or empty array if DB is empty', function(done) {
+    request
+      .get(resourceApiUrl)
+      .accept('application/json')
+      .end(function(err, res) {
+        _expect(res.status).to.be(200);
+        if (res.body.length === 0) {
+          _expect(Array.isArray(res.body)).to.be.ok();
+          _expect(res.body).to.be.ok();
+        } else {
+          _expect(typeof res.body[0].id).to.be('number');
+        }
+        done();
+      });
+  });
 
   /**
    * Store a newly created resource in storage.
@@ -75,28 +73,25 @@ describe('User RESTful API tests', function() {
    *
    * @return Response
    */
-  it('should login the newly created user and ' +
-    'return API authorisation token.',
-    function(done) {
-      request
-        .post(resourceApiUrl + '/login')
-        .send(newUser)
-        .accept('application/json')
-        .end(function(err, res) {
-          _expect(res.status).to.be(200);
+  it('should login the new user and return token.', function(done) {
+    request
+      .post(resourceApiUrl + '/login')
+      .send(newUser)
+      .accept('application/json')
+      .end(function(err, res) {
+        _expect(res.status).to.be(200);
+        var data = res.body;
+        _expect(data.email).to.be(newUser.email);
+        _expect(data.id).to.be.ok();
+        _expect(data.id).to.be.a('number');
 
-          var data = res.body;
-          _expect(data.email).to.be(newUser.email);
-          _expect(data.id).to.be.ok();
-          _expect(data.id).to.be.a('number');
-
-          _expect(data.token).to.be.a('string');
-          _expect(data.token.length).to.be.greaterThan(100);
-          user = data;
-          authToken = data.token;
-          done();
-        });
-    });
+        _expect(data.token).to.be.a('string');
+        _expect(data.token.length).to.be.greaterThan(100);
+        user = data;
+        authToken = data.token;
+        done();
+      });
+  });
 
   /**
    * Show the form for creating the specified resource.
@@ -182,4 +177,16 @@ describe('User RESTful API tests', function() {
         done();
       });
   });
+
+  it('should assert the document was deleted.', function(done) {
+    request
+      .get(resourceApiUrl + '/' + user.id)
+      .accept('application/json')
+      .end(function(err, res) {
+        _expect(res.status).to.be(404);
+        _expect(res.body.message).to.be('User not found');
+        done();
+      });
+  });
+
 });
