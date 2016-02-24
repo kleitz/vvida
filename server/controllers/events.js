@@ -82,9 +82,12 @@
         sequelize.query(stmt, {
           type: sequelize.QueryTypes.SELECT
         }).then(function(events) {
-          return res.json(events);
+          var response = events.map(function(event) {
+            event.images = event.images.split(',');
+            return event;
+          });
+          return res.json(response);
         }, function(err) {
-          console.log(err);
           return res.status(500).send({
             message: 'Error retrieving events',
             error: err

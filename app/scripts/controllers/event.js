@@ -29,10 +29,9 @@
           // get popular events
           Events.popularEvents(function(err, res) {
             if (err) {
-              console.log(err);
+              $scope.errMessage = 'Error Encountered';
             } else {
               $scope.popularEvents = res;
-
             }
           });
 

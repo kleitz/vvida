@@ -23,7 +23,6 @@
             res.json(review);
           }
         }).catch(function(err) {
-          console.log(err);
           res.status(500).send({
             error: err.message || err.errors[0].message
           });
