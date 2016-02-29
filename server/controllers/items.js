@@ -49,14 +49,8 @@
           }, {
             model: Categories
           }]
-        }).then(function(item) {
-          if (item.length === 0) {
-            res.status(200).json({
-              message: 'Item(s) not found'
-            });
-          } else {
-            res.json(item);
-          }
+        }).then(function(items) {
+            res.json(items);
         }).catch(function(err) {
           res.status(500).send({
             error: err.message || err.errors[0].message

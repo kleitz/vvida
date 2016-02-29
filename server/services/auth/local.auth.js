@@ -14,26 +14,26 @@ module.exports = function(app, passport, config) {
       email: email,
       password: hash
     }).then(function(user) {
+      console.log(config, 'here it is');
       if (!user) {
         return done(null, false);
       }
       user.token = null;
-      var token = jwt.sign(user, config.superSecret, {
+      var token = jwt.sign({id: user.id}, config.superSecret, {
         expireIn: '8760h'
       });
-      user.token = token;
-      Users.update(user, {
+      user.dataValues.token = token;
+      console.log(user, 'user is here');
+      Users.update({token: token}, {
         where: {
-          email: user.email
+          id: user.id
         }
-      }).then(function(ok, err) {
-        if (err) {
-          return done(err, null);
-        }
+      }).then(function() {
         user.password = undefined;
         done(null, user);
       });
     }).catch(function(err) {
+      console.log(err, 'here');
       return done(err);
     });
   }));

@@ -16,9 +16,4 @@ var passportConfig = require('./passport.config'),
     }
   };
 
-module.exports = {
-  development: envVariables,
-  staging: envVariables,
-  production: envVariables,
-  test: envVariables
-};
+module.exports = envVariables;

@@ -3,7 +3,7 @@ if (env === 'development') {
   require('dotenv').load();
 }
 
-var config = require('./server/config')[env],
+var config = require('./server/config'),
   express = require('express'),
   path = require('path'),
   multer = require('multer'),

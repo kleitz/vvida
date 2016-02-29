@@ -45,15 +45,8 @@
           offset: offset,
           limit: limit,
           include: [Images, Reviews]
-        }).then(function(event) {
-          if (event.length === 0) {
-            res.status(200).json({
-              success: true,
-              message: 'There are no events'
-            });
-          } else {
-            res.json(event);
-          }
+        }).then(function(events) {
+            res.json(events);
         }).catch(function(err) {
           return res.status(500).send({
             message: 'Error retrieving event',

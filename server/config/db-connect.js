@@ -1,6 +1,6 @@
 var Seq = require('sequelize'),
   env = process.env.NODE_ENV || 'development',
-  config = require('./index')[env],
+  config = require('./index'),
   sequelize = new Seq(config.db.url, {
     protocol: 'postgres',
     dialect: config.db.dialect,

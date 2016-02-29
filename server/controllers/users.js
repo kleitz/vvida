@@ -13,7 +13,6 @@
       Reviews = app.get('models').Reviews,
       stripUser = function(user) {
         user.password = null;
-        user.token = null;
         user.facebook_auth_id = null;
         user.facebook_auth_token = null;
         user.img_public_id = null;
@@ -150,7 +149,7 @@
             });
           } else {
             res.json({
-              message: 'User deleted successfully'
+              message: 'User deleted successfully.'
             });
           }
         });
@@ -166,13 +165,13 @@
         }).then(function(ok) {
           if (ok) {
             return res.json({
-              message: 'successfully logged out'
+              message: 'Successfully logged out.'
             });
           }
         }).catch(function(err) {
           if(err) {
             res.status(500).json({
-              error: 'Failed to logout user',
+              error: 'Failed to logout user.',
               err: err
             });
           }

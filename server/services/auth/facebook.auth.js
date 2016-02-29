@@ -12,16 +12,22 @@ module.exports = function(app, passport, config) {
       // make the code asynchronous
       // User.findOne won't fire until we have all our data back from Facebook
       process.nextTick(function() {
-        // check if the user exists in out database
-        Users.findOne({
-          where: {
+        var $where = {
+          facebook_auth_id: profile.id
+        };
+
+        if(profile.emails[0] && profile.emails[0].value) {
+          $where = {
             $or: [{
               facebook_auth_id: profile.id,
             }, {
               email: profile.emails[0].value
             }]
-          },
-
+          };
+        }
+        // check if the user exists in out database
+        Users.findOne({
+          where: $where,
           attributes: ['id', 'name', 'img_url', 'facebook_auth_id']
         }).then(function(user) {
           // If the user does not exist create one
@@ -35,13 +41,13 @@ module.exports = function(app, passport, config) {
               img_url: profile.photos[0].value,
               facebook_auth_token: accessToken,
               gender: profile.gender
-            })
-              .save()
+            }).save()
               .then(function(user) {
                 user.token = null;
-                var token = jwt.sign(user, app.get('superSecret'), {
-                  expiresIn: '24h'
+                var token = jwt.sign({id: user.id}, config.superSecret, {
+                  expiresIn: '8760h'
                 });
+
                 user.token = token;
                 Users.update(user, {
                   where: {
@@ -51,6 +57,7 @@ module.exports = function(app, passport, config) {
                   if (err) {
                     return done(err, null);
                   }
+
                   user.password = undefined;
                   done(null, user);
                 });
@@ -60,28 +67,27 @@ module.exports = function(app, passport, config) {
                   return done(err);
                 }
               });
-          }
-          // The user was found, redirect to homepage
-          else {
+          } else {
             user.token = null;
-            var token = jwt.sign(user, app.get('superSecret'), {
-              expiresIn: '24h'
+            var token = jwt.sign({id: user.id}, config.superSecret, {
+              expiresIn: '8760h'
             });
+
             user.token = token;
-            Users.update(user, {
+            Users.update({token: user.token}, {
               where: {
-                email: user.email
+                id: user.id
               }
             }).then(function(ok, err) {
               if (err) {
                 return done(err, null);
               }
+
               user.password = undefined;
               done(null, user);
             });
           }
-        })
-          .catch(function(err) {
+        }).catch(function(err) {
             if (err) {
               return done(err);
             }
