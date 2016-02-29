@@ -1,3 +1,4 @@
+
 var request = require('superagent'),
   faker = require('faker'),
   _expect = require('expect.js'),
@@ -91,9 +92,7 @@ describe('Events resource API tests', function() {
       .send(fakeEvent)
       .accept('application/json')
       .end(function(err, res) {
-        console.log(res.body)
         _expect(res.status).to.be(200);
-
         var newEventStored = res.body;
         _expect(newEventStored.name).to.be(fakeEvent.name);
         _expect(newEventStored.description).to.be(fakeEvent.description);
