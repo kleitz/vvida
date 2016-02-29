@@ -25,10 +25,10 @@
               error: 'Create event failed'
             });
           } else {
-            res.json(event);
+            res.status(200).json(event);
           }
         }).catch(function(err) {
-          res.status(500).send({
+          res.send({
             error: err.message || err.errors[0].message
           });
         });
@@ -47,8 +47,13 @@
           limit: limit,
           include: [Images, Reviews, Categories]
         }).then(function(event) {
-          if (event) {
-            res.json(event);
+          if (event.length === 0) {
+            res.status(404).json({
+              success: false,
+              message: 'There are no events'
+            });
+          } else {
+            res.status(200).json(event);
           }
         }).catch(function(err) {
           return res.status(500).send({
@@ -71,7 +76,7 @@
               message: 'Event not found'
             });
           } else {
-            res.json(event);
+            res.status(200).json(event);
           }
         }).catch(function(err) {
           return res.status(500).send({
@@ -80,6 +85,7 @@
           });
         });
       },
+
       // Middlware to  update events
       update: function(req, res) {
         Events.update(req.body, {
@@ -91,12 +97,12 @@
             return res.status(500).send({
               error: 'Update failed'
             });
+          } else {
+            res.status(200).json({
+              isUpdate: true,
+              message: 'You have successfully Edited Your event'
+            });
           }
-
-          res.json({
-            isUpdate: true,
-            message: 'You have successfully Edited Your event'
-          });
         });
       },
 
@@ -111,15 +117,13 @@
             return res.status(500).send({
               error: 'Delete failed'
             });
+          } else {
+            res.status(200).send({
+              message: 'Delete successful'
+            });
           }
-
-          res.status(200).send({
-            message: 'Delete successful'
-          });
         });
       }
     };
-
   };
-
 })();

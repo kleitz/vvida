@@ -5,45 +5,51 @@
       Images = app.get('models').Images,
       Reviews = app.get('models').Reviews;
 
-
-
-
     return {
-      //Middleware to create an item
+      //Middleware to create a category
       create: function(req, res) {
         return Categories.create({
           name: req.body.name,
           type: req.body.category
         }).then(function(category) {
           if (!category) {
-            res.status(500).send({
-              error: 'Create category failed'
+            res.status(404).send({
+              error: 'Category not created!'
             });
           } else {
-            res.json(category);
+            res.status(200).json(category);
           }
         }).catch(function(err) {
-          res.status(500).send({
+          res.status(401).send({
             error: err.message || err.errors[0].message
           });
         });
       },
 
-      // Middleware to get all items
+      // Middleware to get all categories
       all: function(req, res) {
         Categories.findAll({
           where: {
             type: req.query.type
           }
         }).then(function(category) {
-          res.json(category);
+          if (category.length === 0) {
+            res.status(404).json({
+              success: false,
+              message: 'Category(ies) not found!'
+            });
+          } else {
+            res.status(200).json(category);
+          }
         }).catch(function(err) {
-          res.status(500).send({
-            error: err.message || err.errors[0].message
+          return res.status(500).send({
+            message: 'Error retrieving category(ies)',
+            error: err
           });
         });
       },
 
+      //middleware to get a category
       find: function(req, res) {
         Categories.find({
           where: {
@@ -54,14 +60,23 @@
             include: [Images, Reviews]
           }]
         }).then(function(categoryItems) {
-          res.json(categoryItems);
+          if (!categoryItems) {
+            res.status(404).json({
+              success: false,
+              message: 'Category not found!'
+            });
+          } else {
+            res.json(categoryItems);
+          }
         }).catch(function(err) {
-          res.status(500).send({
-            error: err.message || err.errors[0].message
+          return res.status(500).send({
+            message: 'Error retrieving category',
+            error: err
           });
         });
       },
-      // Middleware to delete an item
+
+      // Middleware to delete a category
       delete: function(req, res) {
         return Categories.destroy({
           where: {
@@ -78,13 +93,11 @@
             });
           }
         }).catch(function(err) {
-          res.status(500).send({
+          res.send({
             error: err.message || err.errors[0].message
           });
         });
       }
     };
-
   };
-
 })();

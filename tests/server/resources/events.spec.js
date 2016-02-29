@@ -41,8 +41,8 @@ describe('Events resource API tests', function() {
       .get(resourceApiURL)
       .accept('application/json')
       .end(function(err, res) {
-        _expect(res.status).to.be(200);
-        _expect(res.body).to.be.an(Array);
+        _expect(res.status).to.be(404);
+        _expect(res.body.success).to.be(false);
         done();
       });
   });
@@ -74,10 +74,11 @@ describe('Events resource API tests', function() {
     var fakeEvent = generateFakeEvent();
     request
       .post(resourceApiURL)
+      .set('X-Access-Token', null)
       .send(fakeEvent)
       .accept('application/json')
       .end(function(err, res) {
-        _expect(res.status).to.be(500);
+        _expect(res.status).to.be(401);
         done();
       });
   });

@@ -19,7 +19,7 @@
               error: 'Create review failed'
             });
           } else {
-            res.json(review);
+            res.status(200).json(review);
           }
         }).catch(function(err) {
           res.status(500).send({
@@ -35,7 +35,14 @@
             ['id', 'DESC']
           ]
         }).then(function(review) {
-          res.json(review);
+          if(review.length === 0) {
+            res.status(404).json({
+              success: false,
+              message: 'Review(s) not found'
+            });
+          } else {
+            res.status(200).json(review);
+          }
         }).catch(function(err) {
           res.status(500).send({
             error: err.message || err.error[0].message
@@ -98,7 +105,7 @@
               message: 'Review not found'
             });
           } else {
-            res.json(review);
+            res.status(200).json(review);
           }
         }).catch(function(err) {
           res.status(500).send({
@@ -107,7 +114,5 @@
         });
       }
     };
-
   };
-
 })();

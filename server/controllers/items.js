@@ -27,16 +27,16 @@
                   error: 'Failed to create item'
                 });
               } else {
-                res.json(item);
+                res.status(200).json(item);
               }
             })
             .catch(function(err) {
-              res.status(500).send({
+              res.send({
                 error: err.message || err.errors[0].message
               });
             });
         } else {
-          res.status(416).json({
+          res.status(406).json({
             error: 'Not enough arguments/values to create item.'
           });
         }
@@ -56,9 +56,16 @@
             model: Categories
           }]
         }).then(function(item) {
-          res.json(item);
+          if (item.length === 0) {
+            res.status(404).json({
+              success: false,
+              message: 'Item(s) not found'
+            });
+          } else {
+            res.status(200).json(item);
+          }
         }).catch(function(err) {
-          res.status(500).send({
+          res.send({
             error: err.message || err.errors[0].message
           });
         });
@@ -76,10 +83,10 @@
               message: 'Item not found'
             });
           } else {
-          return res.json(item);
-        }
+            return res.status(200).json(item);
+          }
         }).catch(function(err) {
-          res.status(500).send({
+          res.send({
             error: err.message || err.errors[0].message
           });
         });
@@ -118,10 +125,10 @@
               error: 'Delete failed'
             });
           } else {
-          res.status(200).send({
-            message: 'Delete successful'
-          });
-        }
+            res.status(200).send({
+              message: 'Delete successful'
+            });
+          }
         }).catch(function(err) {
           res.status(500).send({
             error: err.message || err.errors[0].message
@@ -129,7 +136,5 @@
         });
       }
     };
-
   };
-
 })();

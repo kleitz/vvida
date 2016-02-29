@@ -35,10 +35,11 @@
             return res.status(500).json({
               error: 'Authentication failed.'
             });
+          } else {
+            user.password = null;
+            req.session.user = user;
+            return res.json(user);
           }
-          user.password = null;
-          req.session.user = user;
-          return res.json(user);
         })(req, res, next);
       },
 
@@ -52,7 +53,7 @@
           }
           // If passport doesn't return the user object,  signup failed
           if (!user) {
-            return res.status(500).json({
+            return res.status(409).json({
               error: 'Signup failed. User already exists.'
             });
           }
@@ -99,9 +100,10 @@
       // Middleware to get all users
       all: function(req, res) {
         Users.findAll().then(function(users) {
-          if (!users) {
+          if (users.length === 0) {
             res.status(404).json({
-              error: 'User not found'
+              success: false,
+              message: 'User not found'
             });
           } else {
             users.map(function(user) {
@@ -147,10 +149,11 @@
             return res.status(500).json({
               error: err.message || err.errors[0].message
             });
+          } else {
+            res.json({
+              message: 'Profile updated successfully.'
+            });
           }
-          res.json({
-            message: 'Profile updated successfully.'
-          });
         });
       },
 
@@ -164,10 +167,11 @@
             return res.status(500).json({
               error: err.message || err.errors[0].message
             });
+          } else {
+            res.json({
+              message: 'User deleted successfully'
+            });
           }
-          res.json({
-            message: 'User deleted successfully'
-          });
         });
       },
 
@@ -315,5 +319,4 @@
       }
     };
   };
-
 })();
