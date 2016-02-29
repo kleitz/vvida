@@ -6,7 +6,7 @@
 
     return {
       create: function(req, res) {
-        return Reviews.create({
+         Reviews.create({
           user_id: req.decoded.id,
           item_id: req.body.itemId,
           event_id: req.body.eventId,
@@ -15,14 +15,14 @@
           rating: req.body.rating
         }).then(function(review) {
           if (!review) {
-            res.status(500).send({
+            res.status(500).json({
               error: 'Create review failed'
             });
           } else {
-            res.status(200).json(review);
+            res.json(review);
           }
         }).catch(function(err) {
-          res.status(500).send({
+          res.status(500).json({
             error: err.message || err.errors[0].message
           });
         });
@@ -41,23 +41,23 @@
               message: 'Review(s) not found'
             });
           } else {
-            res.status(200).json(review);
+            res.json(review);
           }
         }).catch(function(err) {
-          res.status(500).send({
+          res.status(500).json({
             error: err.message || err.error[0].message
           });
         });
       },
 
       update: function(req, res) {
-        return Reviews.update(req.body, {
+         Reviews.update(req.body, {
           where: {
             id: req.params.id
           }
         }).then(function(update) {
           if (!update) {
-            res.status(500).send({
+            res.status(500).json({
               error: 'Update failed'
             });
           } else {
@@ -66,7 +66,7 @@
             });
           }
         }).catch(function(err) {
-          res.status(500).send({
+          res.status(500).json({
             error: err.message || err.errors[0].message
           });
         });
@@ -79,36 +79,36 @@
           }
         }).then(function(ok, err) {
           if (err) {
-            res.status(500).send({
+            res.status(500).json({
               error: err.message || err.errors[0].message
             });
           } else {
-            res.send({
+            res.json({
               message: 'Review deleted succesfully'
             });
           }
         }).catch(function(err) {
-          res.status(500).send({
+          res.status(500).json({
             error: err.message || err.errors[0].message
           });
         });
       },
 
       find: function(req, res) {
-        return Reviews.find({
+         Reviews.find({
           where: {
             id: req.params.id
           }
         }).then(function(review) {
           if (!review) {
-            res.status(404).send({
+            res.status(404).json({
               message: 'Review not found'
             });
           } else {
-            res.status(200).json(review);
+            res.json(review);
           }
         }).catch(function(err) {
-          res.status(500).send({
+          res.status(500).json({
             error: err.message || err.errors[0].message
           });
         });

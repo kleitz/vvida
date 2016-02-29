@@ -1,5 +1,6 @@
 (function() {
   'use strict';
+
   module.exports = function(app) {
     var Items = app.get('models').Items,
       Images = app.get('models').Images,
@@ -23,15 +24,15 @@
             })
             .then(function(item) {
               if (!item) {
-                return res.status(500).send({
+                 res.status(500).json({
                   error: 'Failed to create item'
                 });
               } else {
-                res.status(200).json(item);
+                res.json(item);
               }
             })
             .catch(function(err) {
-              res.send({
+              res.status(500).json({
                 error: err.message || err.errors[0].message
               });
             });
@@ -62,31 +63,31 @@
               message: 'Item(s) not found'
             });
           } else {
-            res.status(200).json(item);
+            res.json(item);
           }
         }).catch(function(err) {
-          res.send({
+          res.status(500).json({
             error: err.message || err.errors[0].message
           });
         });
       },
 
       find: function(req, res) {
-        return Items.find({
+         Items.find({
           where: {
             id: req.params.id
           },
           include: [Images, Reviews, Categories]
         }).then(function(item) {
           if (!item) {
-            return res.status(404).send({
+             res.status(404).json({
               message: 'Item not found'
             });
           } else {
-            return res.status(200).json(item);
+             res.json(item);
           }
         }).catch(function(err) {
-          res.send({
+          res.status(500).json({
             error: err.message || err.errors[0].message
           });
         });
@@ -99,7 +100,7 @@
           }
         }).then(function(ok, err) {
           if (err) {
-            return res.status(500).send({
+             res.status(500).json({
               error: 'Update failed'
             });
           } else {
@@ -108,7 +109,7 @@
             });
           }
         }).catch(function(err) {
-          return res.status(500).send({
+           res.status(500).json({
             error: err.message || err.errors[0].message
           });
         });
@@ -121,16 +122,16 @@
           }
         }).then(function(ok, err) {
           if (err) {
-            return res.status(500).send({
+             res.status(500).json({
               error: 'Delete failed'
             });
           } else {
-            res.status(200).send({
+            res.json({
               message: 'Delete successful'
             });
           }
         }).catch(function(err) {
-          res.status(500).send({
+          res.status(500).json({
             error: err.message || err.errors[0].message
           });
         });

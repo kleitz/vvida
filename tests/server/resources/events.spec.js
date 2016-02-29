@@ -91,6 +91,7 @@ describe('Events resource API tests', function() {
       .send(fakeEvent)
       .accept('application/json')
       .end(function(err, res) {
+        console.log(res.body)
         _expect(res.status).to.be(200);
 
         var newEventStored = res.body;

@@ -8,19 +8,19 @@
     return {
       //Middleware to create a category
       create: function(req, res) {
-        return Categories.create({
+        Categories.create({
           name: req.body.name,
           type: req.body.category
         }).then(function(category) {
           if (!category) {
-            res.status(404).send({
+            res.status(500).json({
               error: 'Category not created!'
             });
           } else {
-            res.status(200).json(category);
+            res.json(category);
           }
         }).catch(function(err) {
-          res.status(401).send({
+          res.status(500).json({
             error: err.message || err.errors[0].message
           });
         });
@@ -36,13 +36,13 @@
           if (category.length === 0) {
             res.status(404).json({
               success: false,
-              message: 'Category(ies) not found!'
+              message: 'Category not found!'
             });
           } else {
-            res.status(200).json(category);
+            res.json(category);
           }
         }).catch(function(err) {
-          return res.status(500).send({
+          res.status(500).json({
             message: 'Error retrieving category(ies)',
             error: err
           });
@@ -69,7 +69,7 @@
             res.json(categoryItems);
           }
         }).catch(function(err) {
-          return res.status(500).send({
+          res.status(500).json({
             message: 'Error retrieving category',
             error: err
           });
@@ -78,22 +78,22 @@
 
       // Middleware to delete a category
       delete: function(req, res) {
-        return Categories.destroy({
+        Categories.destroy({
           where: {
             id: req.params.id
           }
         }).then(function(ok) {
           if (!ok) {
-            res.status(500).send({
+            res.status(500).json({
               error: 'Delete failed'
             });
           } else {
-            res.status(200).send({
+            res.json({
               message: 'Delete successful'
             });
           }
         }).catch(function(err) {
-          res.send({
+          res.status(500).json({
             error: err.message || err.errors[0].message
           });
         });

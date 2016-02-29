@@ -10,7 +10,7 @@
     // Create event middlware
     return {
       create: function(req, res) {
-        return Events.create({
+        Events.create({
           user_id: req.decoded.id,
           name: req.body.name,
           description: req.body.description,
@@ -21,14 +21,14 @@
           category_id: req.body.category_id
         }).then(function(event) {
           if (!event) {
-            res.status(500).send({
+            res.status(500).json({
               error: 'Create event failed'
             });
           } else {
-            res.status(200).json(event);
+            res.json(event);
           }
         }).catch(function(err) {
-          res.send({
+          res.status(500).json({
             error: err.message || err.errors[0].message
           });
         });
@@ -39,7 +39,7 @@
         var limit = req.query.limit || 4;
         var offset = req.query.limit * req.query.page || 0;
 
-        return Events.findAll({
+        Events.findAll({
           order: [
             ['id', 'DESC']
           ],
@@ -53,10 +53,10 @@
               message: 'There are no events'
             });
           } else {
-            res.status(200).json(event);
+            res.json(event);
           }
         }).catch(function(err) {
-          return res.status(500).send({
+          res.status(500).json({
             message: 'Error retrieving event',
             error: err
           });
@@ -65,21 +65,21 @@
 
       // Middlware to get event by id
       find: function(req, res) {
-        return Events.find({
+        Events.find({
           where: {
             id: req.params.id,
           },
           include: [Images, Reviews]
         }).then(function(event) {
           if (!event) {
-            return res.status(404).send({
+            res.status(404).json({
               message: 'Event not found'
             });
           } else {
-            res.status(200).json(event);
+            res.json(event);
           }
         }).catch(function(err) {
-          return res.status(500).send({
+          res.status(500).json({
             message: 'Error retrieving event',
             error: err
           });
@@ -94,11 +94,11 @@
           }
         }).then(function(ok, err) {
           if (err) {
-            return res.status(500).send({
+            res.status(500).json({
               error: 'Update failed'
             });
           } else {
-            res.status(200).json({
+            res.json({
               isUpdate: true,
               message: 'You have successfully Edited Your event'
             });
@@ -114,11 +114,11 @@
           }
         }).then(function(ok, err) {
           if (err) {
-            return res.status(500).send({
+            res.status(500).json({
               error: 'Delete failed'
             });
           } else {
-            res.status(200).send({
+            res.json({
               message: 'Delete successful'
             });
           }

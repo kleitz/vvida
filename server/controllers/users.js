@@ -200,7 +200,7 @@
           }]
         }).then(function(user) {
           if (!user) {
-            res.status(404).send({
+            res.status(404).json({
               error: 'User not found'
             });
           } else {
@@ -208,7 +208,7 @@
             res.json(user);
           }
         }).catch(function(err) {
-          res.status(500).send({
+          res.status(500).json({
             error: err.message || err.errors[0].message
           });
         });
@@ -222,7 +222,7 @@
           include: [Events]
         }).then(function(user) {
           if (!user) {
-            res.status(404).send({
+            res.status(404).json({
               error: 'User not found'
             });
           } else {
@@ -230,7 +230,7 @@
             res.json(user);
           }
         }).catch(function(err) {
-          res.status(500).send({
+          res.status(500).json({
             error: err.message || err.errors[0].message
           });
         });
@@ -250,7 +250,7 @@
           }]
         }).then(function(user) {
           if (!user) {
-            res.status(404).send({
+            res.status(404).json({
               error: 'User not found'
             });
           } else {
@@ -258,7 +258,7 @@
             res.json(user);
           }
         }).catch(function(err) {
-          res.status(500).send({
+          res.status(500).json({
             error: err.message || err.errors[0].message
           });
         });
@@ -271,14 +271,14 @@
           }
         }).then(function(results) {
           if (!results) {
-            res.status(404).send({
+            res.status(404).json({
               error: 'User reviews not found'
             });
           } else {
             res.json(results);
           }
         }).catch(function(err) {
-          res.status(500).send({
+          res.status(500).json({
             error: err.message || err.errors[0].message
           });
         });
@@ -291,14 +291,14 @@
           }
         }).then(function(results) {
           if (!results) {
-            res.status(404).send({
+            res.status(404).json({
               error: 'User events not found'
             });
           } else {
             res.json(results);
           }
         }).catch(function(err) {
-          res.status(500).send({
+          res.status(500).json({
             error: err.message || err.errors[0].message
           });
         });
@@ -312,7 +312,7 @@
         }).then(function(count) {
           res.json(count || 0);
         }).catch(function(err) {
-          res.status(500).send({
+          res.status(500).json({
             error: err.message || err.errors[0].message
           });
         });
