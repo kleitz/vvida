@@ -4,6 +4,7 @@
   module.exports = function(app) {
     var Events = app.get('models').Events,
       Images = app.get('models').Images,
+      Categories = app.get('models').Categories,
       Reviews = app.get('models').Reviews;
 
     // Create event middlware
@@ -44,7 +45,7 @@
           ],
           offset: offset,
           limit: limit,
-          include: [Images, Reviews]
+          include: [Images, Reviews, Categories]
         }).then(function(event) {
           if (event) {
             res.json(event);
