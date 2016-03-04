@@ -71,6 +71,10 @@ angular.module('vvida.controllers')
         }, function(event) {
           $scope.event = event;
         });
+
+        $scope.categories = Categories.query({
+          type: 'Event'
+        });
       };
 
       $scope.updateEvent = function() {
