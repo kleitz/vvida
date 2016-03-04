@@ -12,7 +12,7 @@ md-card.jumbotron.search-jumbotron
   md-tabs.md-dynamic-height(md-selected="data.selectedIndex")
     md-tab(label="Events")
       div.tabCards(ng-if="events.length > 0" layout="row"  layout-sm="column" flex  layout-margin layout-align="start center")
-        div(flex flex-md="45" ng-repeat="event in events" layout-align="center start" )
+        div(flex flex-md="45" flex-gt-md="{{events.length > 3? \"\": \"25\"}}" ng-repeat="event in events | limitTo : 4" layout-align="center start" )
           .images(style="background-image: url('{{event.Images[0].img_url}}');")
           div.content(layout="column")
             div.category {{event.Category.name}}
@@ -21,7 +21,7 @@ md-card.jumbotron.search-jumbotron
 
     md-tab(label="Products")
       div.tabCards(ng-if="items.length > 0" layout="row"  layout-sm="column" flex  layout-margin layout-align="start center")
-        div(flex flex-md="45" ng-repeat="item in items" layout-align="center start" )
+        div(flex flex-md="45" flex-gt-md="{{items.length > 3? \"\": \"25\"}}" ng-repeat="item in items | limitTo : 4" layout-align="center start" )
           .images(style="background-image: url('{{item.Images[0].img_url}}');")
           div.content(layout="column")
             div.category {{item.Category.name}}
