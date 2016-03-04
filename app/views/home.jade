@@ -1,20 +1,17 @@
 md-card.jumbotron.search-jumbotron
   .jumbotron-image.md-card-image
     .image-overlay
-      p WELCOME HOME
-      p.jumbotron-middle-small-text Create, Review, Rate
-      .search
-        md-input-container.white(flex)
-          label
-          input(ng-model="search.searchItem")
-        md-button.md-raised.md-accent
-          i.fa.fa-search
-          | search
+      p Create, Review, Rate
+      .search(layout="row")
+        md-input-container.md-block(md-no-float)
+          md-icon(md-font-set="fa fa-search")
+          input(type="text" ng-model="search.searchItem" placeholder="Search")
+        md-button.md-raised.md-accent Search
 
 .Sections(layout="column" )
   md-tabs.md-dynamic-height(md-selected="data.selectedIndex")
     md-tab(label="Events")
-      div.eventCards(ng-if="events.length > 0" layout="row"  layout-sm="column" flex  layout-margin layout-align="center center")
+      div.tabCards(ng-if="events.length > 0" layout="row"  layout-sm="column" flex  layout-margin layout-align="start center")
         div(flex flex-md="45" ng-repeat="event in events" layout-align="center start" )
           .images(style="background-image: url('{{event.Images[0].img_url}}');")
           div.content(layout="column")
@@ -23,7 +20,7 @@ md-card.jumbotron.search-jumbotron
             span {{event.description}}
 
     md-tab(label="Products")
-      div.eventCards(ng-if="items.length > 0" layout="row"  layout-sm="column" flex  layout-margin layout-align="center center")
+      div.tabCards(ng-if="items.length > 0" layout="row"  layout-sm="column" flex  layout-margin layout-align="start center")
         div(flex flex-md="45" ng-repeat="item in items" layout-align="center start" )
           .images(style="background-image: url('{{item.Images[0].img_url}}');")
           div.content(layout="column")
