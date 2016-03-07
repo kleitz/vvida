@@ -14,13 +14,7 @@
           review_title: req.body.review_title,
           rating: req.body.rating
         }).then(function(review) {
-          if (!review) {
-            res.status(500).json({
-              error: 'Create review failed'
-            });
-          } else {
             res.json(review);
-          }
         }).catch(function(err) {
           res.status(500).json({
             error: err.message || err.errors[0].message
@@ -35,14 +29,7 @@
             ['id', 'DESC']
           ]
         }).then(function(review) {
-          if(review.length === 0) {
-            res.status(404).json({
-              success: false,
-              message: 'Review(s) not found'
-            });
-          } else {
             res.json(review);
-          }
         }).catch(function(err) {
           res.status(500).json({
             error: err.message || err.error[0].message

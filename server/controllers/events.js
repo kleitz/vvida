@@ -20,13 +20,7 @@
           sponsor: req.body.sponsor,
           category_id: req.body.category_id
         }).then(function(event) {
-          if (!event) {
-            res.status(500).json({
-              error: 'Create event failed'
-            });
-          } else {
             res.json(event);
-          }
         }).catch(function(err) {
           res.status(500).json({
             error: err.message || err.errors[0].message
@@ -47,14 +41,7 @@
           limit: limit,
           include: [Images, Reviews, Categories]
         }).then(function(event) {
-          if (event.length === 0) {
-            res.status(404).json({
-              success: false,
-              message: 'There are no events'
-            });
-          } else {
             res.json(event);
-          }
         }).catch(function(err) {
           res.status(500).json({
             message: 'Error retrieving event',

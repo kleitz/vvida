@@ -100,17 +100,10 @@
       // Middleware to get all users
       all: function(req, res) {
         Users.findAll().then(function(users) {
-          if (users.length === 0) {
-            res.status(404).json({
-              success: false,
-              message: 'User not found'
-            });
-          } else {
             users.map(function(user) {
               user.password = null;
             });
             res.json(users);
-          }
         }).catch(function(err) {
           res.status(500).json({
             message: 'Error retrieving user',

@@ -12,13 +12,7 @@
           name: req.body.name,
           type: req.body.category
         }).then(function(category) {
-          if (!category) {
-            res.status(500).json({
-              error: 'Category not created!'
-            });
-          } else {
             res.json(category);
-          }
         }).catch(function(err) {
           res.status(500).json({
             error: err.message || err.errors[0].message
@@ -33,14 +27,7 @@
             type: req.query.type
           }
         }).then(function(category) {
-          if (category.length === 0) {
-            res.status(404).json({
-              success: false,
-              message: 'Category not found!'
-            });
-          } else {
             res.json(category);
-          }
         }).catch(function(err) {
           res.status(500).json({
             message: 'Error retrieving category(ies)',

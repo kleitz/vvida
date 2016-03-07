@@ -54,8 +54,8 @@
         .get(resourceApiUrl)
         .accept('application/json')
         .end(function(err, res) {
-          _expect(res.status).to.be(404);
-          _expect(res.body.success).to.be(false);
+          console.log(res.body);
+          _expect(res.body.length).to.equal(0);
           done();
         });
     });

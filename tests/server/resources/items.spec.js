@@ -62,8 +62,7 @@ describe('Items resource API tests', function() {
       .get(resourceApiUrl)
       .accept('application/json')
       .end(function(err, res) {
-        _expect(res.status).to.be(404);
-        _expect(res.body.success).to.be(false);
+        _expect(res.body.length).to.equal(0);
         done();
       });
   });

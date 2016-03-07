@@ -23,13 +23,7 @@
               email: req.body.email
             })
             .then(function(item) {
-              if (!item) {
-                 res.status(500).json({
-                  error: 'Failed to create item'
-                });
-              } else {
                 res.json(item);
-              }
             })
             .catch(function(err) {
               res.status(500).json({
@@ -57,14 +51,7 @@
             model: Categories
           }]
         }).then(function(item) {
-          if (item.length === 0) {
-            res.status(404).json({
-              success: false,
-              message: 'Item(s) not found'
-            });
-          } else {
             res.json(item);
-          }
         }).catch(function(err) {
           res.status(500).json({
             error: err.message || err.errors[0].message
