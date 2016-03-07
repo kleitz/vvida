@@ -4,6 +4,7 @@
   "description": "front end app env",
   "main": "index.js",
   "scripts": {
+    "prestart": "sequelize db:migrate",
     "start": "node index.js",
     "test": "node index.js &\ngulp test",
     "build": "gulp heroku:production"
@@ -80,7 +81,6 @@
   },
   "devDependencies": {
     "eslint-config-airbnb": "^3.1.0",
-    "eslint-plugin-react": "^3.15.0",
-    "gulp-jshint": "^2.0.0"
+    "eslint-plugin-react": "^3.15.0"
   }
 }

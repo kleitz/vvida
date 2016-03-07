@@ -5,7 +5,7 @@
 module.exports = function(app, passport, config) {
   var FacebookStrategy = config.strategy.Facebook,
     jwt = require('jsonwebtoken'),
-    ucfist = require('./../ucfirst'),
+    ucfirst = require('../ucfirst'),
     Users = app.get('models').Users;
 
   passport.use(new FacebookStrategy(config.auth.FACEBOOK,
@@ -35,7 +35,7 @@ module.exports = function(app, passport, config) {
               facebook_auth_id: profile.id,
               img_url: profile.photos[0].value,
               facebook_auth_token: accessToken,
-              gender: ucfist(profile.gender)
+              gender: ucfirst(profile.gender)
             })
               .save()
               .then(function(user) {

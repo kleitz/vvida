@@ -5,7 +5,7 @@
 module.exports = function(app, passport, config) {
   var GoogleStrategy = config.strategy.Google,
     jwt = require('jsonwebtoken'),
-    ucfirst = require('./../ucfirst'),
+    ucfirst = require('../ucfirst'),
     Users = app.get('models').Users;
   passport.use(new GoogleStrategy(config.auth.GOOGLE,
     function(accessToken, refreshToken, profile, done) {
@@ -26,7 +26,6 @@ module.exports = function(app, passport, config) {
           attributes: ['id', 'name', 'img_url', 'gender', 'google_auth_id']
         })
           .then(function(user) {
-            console.log(profile.gender);
             // If the user does not exist create one
             if (!user) {
               Users.build({
