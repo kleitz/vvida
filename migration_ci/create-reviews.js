@@ -24,11 +24,11 @@
           },
           item_id: {
             type: Sequelize.INTEGER,
-            allowNull: false
+            allowNull: true
           },
           event_id: {
             type: Sequelize.INTEGER,
-            allowNull: false
+            allowNull: true
           },
           user_id: {
             type: Sequelize.INTEGER,

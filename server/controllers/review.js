@@ -14,6 +14,7 @@
           review_title: req.body.review_title,
           rating: req.body.rating
         }).then(function(review) {
+          console.log(review);
           if (!review) {
             res.status(500).send({
               error: 'Create review failed'
