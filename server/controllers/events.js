@@ -5,7 +5,8 @@
     var Events = app.get('models').Events,
       Images = app.get('models').Images,
       Categories = app.get('models').Categories,
-      Reviews = app.get('models').Reviews;
+      Reviews = app.get('models').Reviews,
+      sequelize = require('./../config/db-connect');
 
     // Create event middlware
     return {
@@ -32,10 +33,17 @@
       all: function(req, res) {
         var limit = req.query.limit || 4;
         var offset = req.query.limit * req.query.page || 0;
+        var date = Date.now();
+        var filter = (req.query.filter) ? {
+          time: {
+            $gt: date
+          }
+        } : {};
 
-        Events.findAll({
+        return Events.findAll({
+          where: filter,
           order: [
-            ['id', 'DESC']
+            ['time', 'ASC']
           ],
           offset: offset,
           limit: limit,
@@ -45,6 +53,36 @@
         }).catch(function(err) {
           res.status(500).json({
             message: 'Error retrieving event',
+            error: err
+          });
+        });
+      },
+
+      // Middleware to get all the events
+      popularEvents: function(req, res) {
+        var limit = req.query.limit || 4;
+        var offset = req.query.limit * req.query.page || 0;
+
+        var stmt =
+          'SELECT Ev1.*, string_agg(Im1.img_url,\',\') AS Images, ' +
+          'COUNT(Rv1.id) AS review_count, ROUND(AVG(Rv1.rating)) ' +
+          'AS avg_rating FROM public."Events" AS Ev1 ' +
+          'INNER JOIN public."Reviews" AS Rv1 ON Ev1.id=Rv1.event_id ' +
+          'LEFT JOIN public."Images" AS Im1 ON Ev1.id=Im1.event_id ' +
+          'GROUP BY Ev1.id, Ev1.name ORDER BY review_count DESC ' +
+          'LIMIT ' + limit + ' OFFSET ' + offset;
+
+        sequelize.query(stmt, {
+          type: sequelize.QueryTypes.SELECT
+        }).then(function(events) {
+          var response = events.map(function(event) {
+            event.images = event.images.split(',');
+            return event;
+          });
+          return res.json(response);
+        }, function(err) {
+          return res.status(500).send({
+            message: 'Error retrieving events',
             error: err
           });
         });
