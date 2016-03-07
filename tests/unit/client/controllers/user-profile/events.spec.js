@@ -134,6 +134,7 @@ describe('UserEventsCtrl tests', function() {
   });
 
   it('should get an event', function() {
+    scope.currentUser = currentUser;
     spyOn(Events, 'get').and.callThrough();
     scope.getEvent();
     expect(Events.get).toHaveBeenCalled();
@@ -150,6 +151,7 @@ describe('UserEventsCtrl tests', function() {
   });
 
   it('should call uploader.uploadAll', function() {
+    scope.currentUser = currentUser;
     scope.getEvent();
     spyOn(scope.uploader, 'uploadAll');
     scope.upload();
