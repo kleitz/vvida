@@ -1,4 +1,5 @@
 (function() {
+
   'use strict';
   module.exports = function(app) {
     var Categories = app.get('models').Categories,
@@ -12,9 +13,9 @@
           name: req.body.name,
           type: req.body.category
         }).then(function(category) {
-            res.status(200).json(category);
+          res.json(category);
         }).catch(function(err) {
-          res.status(401).send({
+          res.status(500).json({
             error: err.message || err.errors[0].message
           });
         });
@@ -27,14 +28,7 @@
             type: req.query.type
           }
         }).then(function(category) {
-          if (category.length === 0) {
-            res.status(200).json({
-              success: true,
-              message: 'Category not found!'
-            });
-          } else {
-            res.json(category);
-          }
+          res.json(category);
         }).catch(function(err) {
           return res.status(500).send({
             message: 'Error retrieving category(ies)',
@@ -56,7 +50,8 @@
         }).then(function(categoryItems) {
           if (!categoryItems) {
             res.status(404).json({
-              message: 'Category not found!'
+              message: 'Category not found!',
+              success: false
             });
           } else {
             res.json(categoryItems);
@@ -76,15 +71,9 @@
             id: req.params.id
           }
         }).then(function(ok) {
-          if (!ok) {
-            res.status(500).send({
-              error: 'Delete failed'
-            });
-          } else {
-            res.send({
-              message: 'Delete successful'
-            });
-          }
+          res.json({
+            message: 'Delete successful'
+          });
         }).catch(function(err) {
           res.status(500).send({
             error: err.message || err.errors[0].message

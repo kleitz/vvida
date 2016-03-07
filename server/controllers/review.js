@@ -14,9 +14,9 @@
           review_title: req.body.review_title,
           rating: req.body.rating
         }).then(function(review) {
-            res.json(review);
+          res.json(review);
         }).catch(function(err) {
-          res.status(500).send({
+          res.status(500).json({
             error: err.message || err.errors[0].message
           });
         });
@@ -29,16 +29,9 @@
             ['id', 'DESC']
           ]
         }).then(function(review) {
-          if(review.length === 0) {
-            res.status(200).json({
-              success: true,
-              message: 'Review(s) not found'
-            });
-          } else {
-            res.json(review);
-          }
+          res.json(review);
         }).catch(function(err) {
-          res.status(500).send({
+          res.status(500).json({
             error: err.message || err.error[0].message
           });
         });
@@ -50,17 +43,11 @@
             id: req.params.id
           }
         }).then(function(update) {
-          if (!update) {
-            res.status(500).send({
-              error: 'Update failed'
-            });
-          } else {
-            res.json({
-              message: 'You have successfully updated your Review'
-            });
-          }
+          res.json({
+            message: 'You have successfully updated your Review'
+          });
         }).catch(function(err) {
-          res.status(500).send({
+          res.status(500).json({
             error: err.message || err.errors[0].message
           });
         });
@@ -73,16 +60,16 @@
           }
         }).then(function(ok, err) {
           if (err) {
-            res.status(500).send({
+            res.status(500).json({
               error: err.message || err.errors[0].message
             });
           } else {
-            res.send({
+            res.json({
               message: 'Review deleted succesfully'
             });
           }
         }).catch(function(err) {
-          res.status(500).send({
+          res.status(500).json({
             error: err.message || err.errors[0].message
           });
         });
@@ -95,14 +82,14 @@
           }
         }).then(function(review) {
           if (!review) {
-            res.status(404).send({
+            res.status(404).json({
               message: 'Review not found'
             });
           } else {
-            res.status(200).json(review);
+            res.json(review);
           }
         }).catch(function(err) {
-          res.status(500).send({
+          res.status(500).json({
             error: err.message || err.errors[0].message
           });
         });

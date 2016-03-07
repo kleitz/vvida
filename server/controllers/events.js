@@ -20,13 +20,7 @@
           sponsor: req.body.sponsor,
           category_id: req.body.category_id
         }).then(function(event) {
-          if (!event) {
-            res.status(500).send({
-              error: 'Create event failed'
-            });
-          } else {
-            res.status(200).json(event);
-          }
+            res.json(event);
         }).catch(function(err) {
           res.status(500).send({
             error: err.message || err.errors[0].message
@@ -147,7 +141,7 @@
               error: 'Delete failed'
             });
           } else {
-            res.status(200).send({
+            res.json({
               message: 'Delete successful'
             });
           }

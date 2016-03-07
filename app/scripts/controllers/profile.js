@@ -58,7 +58,6 @@ angular.module('vvida.controllers')
       };
 
       $scope.editProfile = function() {
-        console.log($rootScope.currentUser, 'here it is');
         $rootScope.currentUser.dob = new Date($rootScope.currentUser.dob);
         Users.update($rootScope.currentUser, function() {
           $scope.message =

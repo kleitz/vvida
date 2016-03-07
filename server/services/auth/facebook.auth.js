@@ -86,7 +86,6 @@ module.exports = function(app, passport, config) {
               }
 
               user.password = undefined;
-              console.log(user);
               done(null, user);
             });
           }

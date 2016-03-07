@@ -41,8 +41,7 @@ describe('Events resource API tests', function() {
       .get(resourceApiURL)
       .accept('application/json')
       .end(function(err, res) {
-        _expect(res.status).to.be(404);
-        _expect(res.body.body).to.equal(0);
+        _expect(res.body.length).to.equal(0);
         done();
       });
   });

@@ -1,5 +1,6 @@
 (function() {
   'use strict';
+
   var jwt = require('jsonwebtoken'),
     config = require('./../config');
 

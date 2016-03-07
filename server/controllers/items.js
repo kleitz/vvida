@@ -1,5 +1,6 @@
 (function() {
   'use strict';
+
   module.exports = function(app) {
     var Items = app.get('models').Items,
       Images = app.get('models').Images,
@@ -25,7 +26,7 @@
                 res.json(item);
             })
             .catch(function(err) {
-              res.status(500).send({
+              res.status(500).json({
                 error: err.message || err.errors[0].message
               });
             });
@@ -52,7 +53,7 @@
         }).then(function(items) {
             res.json(items);
         }).catch(function(err) {
-          res.status(500).send({
+          res.status(500).json({
             error: err.message || err.errors[0].message
           });
         });
@@ -66,14 +67,14 @@
           include: [Images, Reviews, Categories]
         }).then(function(item) {
           if (!item) {
-            return res.status(404).send({
+            return res.status(404).json({
               message: 'Item not found'
             });
           } else {
             return res.json(item);
           }
         }).catch(function(err) {
-          res.status(500).send({
+          res.status(500).json({
             error: err.message || err.errors[0].message
           });
         });
@@ -85,17 +86,11 @@
             id: req.params.id
           }
         }).then(function(ok, err) {
-          if (err) {
-            return res.status(500).send({
-              error: 'Update failed'
-            });
-          } else {
             res.json({
               message: 'Item has been updated.'
             });
-          }
         }).catch(function(err) {
-          return res.status(500).send({
+          return res.status(500).json({
             error: err.message || err.errors[0].message
           });
         });
@@ -106,18 +101,12 @@
           where: {
             id: req.params.id
           }
-        }).then(function(ok, err) {
-          if (err) {
-            return res.status(500).send({
-              error: 'Delete failed'
-            });
-          } else {
-            res.send({
+        }).then(function(ok) {
+            res.json({
               message: 'Delete successful'
             });
-          }
         }).catch(function(err) {
-          res.status(500).send({
+          res.status(500).json({
             error: err.message || err.errors[0].message
           });
         });

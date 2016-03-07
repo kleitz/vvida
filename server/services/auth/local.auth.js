@@ -14,7 +14,6 @@ module.exports = function(app, passport, config) {
       email: email,
       password: hash
     }).then(function(user) {
-      console.log(config, 'here it is');
       if (!user) {
         return done(null, false);
       }
@@ -23,7 +22,6 @@ module.exports = function(app, passport, config) {
         expireIn: '8760h'
       });
       user.dataValues.token = token;
-      console.log(user, 'user is here');
       Users.update({token: token}, {
         where: {
           id: user.id
@@ -33,7 +31,6 @@ module.exports = function(app, passport, config) {
         done(null, user);
       });
     }).catch(function(err) {
-      console.log(err, 'here');
       return done(err);
     });
   }));
