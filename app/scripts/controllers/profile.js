@@ -66,8 +66,6 @@ angular.module('vvida.controllers')
             'Click on the home button to get to vvida homepage.';
 
         }, function(err) {
-          console.log(err);
-          console.log($rootScope.currentUser);
           $scope.message =
             'There was a problem updating your profile.';
         });
