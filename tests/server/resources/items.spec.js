@@ -74,11 +74,11 @@
       var item = generateFakeItem();
       request
         .post(resourceApiUrl)
-        .set('X-Access-Token', null)
+        .set('X-Access-Token', 'null')
         .send(item)
         .accept('application/json')
         .end(function(err, res) {
-          _expect(res.status).to.be(500);
+          _expect(res.status).to.be(401);
           done();
         });
     });
