@@ -16,11 +16,9 @@ module.exports = function(app, passport) {
   // If valid, the user will be logged in.
   // Otherwise, authentication has failed.
   app.get('/auth/google/callback', passport.authenticate('google', {
-      failureRedirect: '/sign-up'
-    }),
-    function(req, res) {
-      // Successful authentication, redirect home.
-      req.session.user = req.user;
-      res.redirect('/welcome');
-    });
+    failureRedirect: '/sign-up'
+  }), function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/auth/success/' + req.user.dataValues.id);
+  });
 };

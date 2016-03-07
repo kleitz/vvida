@@ -5,6 +5,7 @@
 module.exports = function(app, passport, config) {
   var GoogleStrategy = config.strategy.Google,
     jwt = require('jsonwebtoken'),
+    ucfirst = require('../ucfirst'),
     Users = app.get('models').Users;
   passport.use(new GoogleStrategy(config.auth.GOOGLE,
     function(accessToken, refreshToken, profile, done) {
@@ -33,8 +34,10 @@ module.exports = function(app, passport, config) {
                 name: profile.displayName,
                 google_auth_token: accessToken,
                 img_url: profile.photos[0].value,
-                gender: profile.gender
-              }).save()
+                gender: ucfirst(profile.gender)
+              })
+              // save the user instance build
+              .save()
                 .then(function(user) {
                   user.token = null;
                   var token = jwt.sign({id: user.id}, config.superSecret, {
@@ -44,7 +47,7 @@ module.exports = function(app, passport, config) {
                   user.token = token;
                   Users.update(user, {
                     where: {
-                      email: user.email
+                      id: user.id
                     }
                   }).then(function(ok, err) {
                     if (err) {
@@ -71,7 +74,7 @@ module.exports = function(app, passport, config) {
               user.token = token;
               Users.update({token: user.token}, {
                 where: {
-                  email: user.email
+                  id: user.id
                 }
               }).then(function(ok, err) {
                 if (err) {
@@ -79,6 +82,7 @@ module.exports = function(app, passport, config) {
                 }
 
                 user.password = undefined;
+                console.log(user);
                 done(null, user);
               });
             }

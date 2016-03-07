@@ -26,7 +26,7 @@
         md-divider(md-inset)
         .md-padding
           md-grid-list(md-cols-sm='1' md-cols-md='2' md-cols-lg='3' md-cols-gt-lg='4' md-row-height='2:2' md-row-height-sm='1:1' md-gutter='12px' md-gutter-gt-sm='8px')
-            md-grid-tile(ng-repeat="event in loadEvents" style="background: url('{{event.Images[0].img_url}}') no-repeat; background-size: 100% 100%;")
+            md-grid-tile(ng-repeat="event in loadEvents | orderBy:'-time' " style="background: url('{{event.Images[0].img_url}}') no-repeat; background-size: 100% 100%;")
               md-grid-tile-header(layout-align="center center")
                 h3(ui-sref="viewEvent({id:event.id})") {{event.name}}
               md-grid-tile-footer
@@ -39,7 +39,7 @@
         md-divider(md-inset)
         .md-padding
           md-grid-list(md-cols-sm='1' md-cols-md='2' md-cols-lg='3' md-cols-gt-lg='4' md-row-height='2:2' md-row-height-sm='1:1' md-gutter='12px' md-gutter-gt-sm='8px')
-            md-grid-tile(ng-repeat="event in loadEvents" style="background: url('{{event.Images[0].img_url}}') no-repeat; background-size: 100% 100%;")
+            md-grid-tile(ng-repeat="event in loadEvents | orderBy: '-Reviews.length'"  style="background: url('{{event.Images[0].img_url}}') no-repeat; background-size: 100% 100%;")
               md-grid-tile-header(layout-align="center center")
                 h3(ui-sref="viewEvent({id:event.id})") {{event.name}}
               md-grid-tile-footer

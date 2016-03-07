@@ -9,7 +9,6 @@
       var token = req.headers['x-access-token'] || req.params.token;
       // decode token
       if (token && token !== 'null') {
-        console.log('config', config);
         // verifies secret and checks exp
         jwt.verify(token, config.superSecret, function(err, decoded) {
           if (err) {

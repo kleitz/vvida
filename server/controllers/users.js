@@ -49,7 +49,6 @@
                 err: err
               });
             }
-
             return res.status(409).json({
               error: 'User already exists.'
             });
