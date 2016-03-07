@@ -9,6 +9,7 @@ describe('Root route test', function() {
    *
    * @return Response
    */
+
   it('should return index.html', function(done) {
     request
       .get('http://localhost:3000')

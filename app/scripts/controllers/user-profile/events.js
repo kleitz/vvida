@@ -53,12 +53,14 @@ angular.module('vvida.controllers')
           url: '/api/image/',
           alias: 'photos',
           formData: [{
-            eventId: $scope.eventId
+            eventId: $scope.eventId,
+            userId: $rootScope.currentUser.id
           }],
           onCompleteItem: function() {
             Events.update($scope.event, function() {
               $state.go($state.current, {
                 id: $scope.eventId,
+                userId: $rootScope.currentUser.id,
                 tabIndex: 1
               }, {
                 reload: true
@@ -70,6 +72,10 @@ angular.module('vvida.controllers')
           id: $stateParams.id
         }, function(event) {
           $scope.event = event;
+        });
+
+        $scope.categories = Categories.query({
+          type: 'Event'
         });
       };
 
