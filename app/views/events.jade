@@ -13,12 +13,12 @@
       md-button.md-icon-button(md-no-ink ng-click="toggleSidenav()" aria-label="Menu" hide-gt-md)
         i.fa.fa-bars
       span(hide-gt-md) Categories
-      span(ng-show="loadEvents.length === 0" class="no_events_msg") There are currently no events.
+      span(ng-show="recentEvents.length === 0 && popularEvents.length === 0" class="no_events_msg") There are currently no events.
     md-divider
 
-    div(ng-if="loadEvents.length > 0")
+    div
       .eventGridList(layout="column" layout-padding ng-if="!nextView")
-        .md-padding(layout="row" layout-align="start center")
+        .md-padding(layout="row" layout-align="start center" ng-if="recentEvents.length > 0")
           h3.md-subheader Recent Events
           span(flex)
           md-button(ui-sref="events.all({view:\"grid\", page: 1})") See All Events
@@ -26,7 +26,7 @@
         md-divider(md-inset)
         .md-padding
           md-grid-list(md-cols-sm='1' md-cols-md='2' md-cols-lg='3' md-cols-gt-lg='4' md-row-height='2:2' md-row-height-sm='1:1' md-gutter='12px' md-gutter-gt-sm='8px')
-            md-grid-tile(ng-repeat="event in loadEvents" style="background: url('{{event.Images[0].img_url}}') no-repeat; background-size: 100% 100%;")
+            md-grid-tile(ng-repeat="event in recentEvents" style="background: url('{{event.Images[0].img_url}}') no-repeat; background-size: 100% 100%;")
               md-grid-tile-header(layout-align="center center")
                 h3(ui-sref="viewEvent({id:event.id})") {{event.name}}
               md-grid-tile-footer
@@ -34,12 +34,12 @@
                   h3.md-subheadline {{event.venue}}
                   span {{getTime(event.time).day}} @{{getTime(event.time).time}}
 
-        .md-padding(layout="row" layout-align="start center")
+        .md-padding(layout="row" layout-align="start center" ng-if="popularEvents.length > 0")
           h3.md-subheader Popular Events
         md-divider(md-inset)
         .md-padding
           md-grid-list(md-cols-sm='1' md-cols-md='2' md-cols-lg='3' md-cols-gt-lg='4' md-row-height='2:2' md-row-height-sm='1:1' md-gutter='12px' md-gutter-gt-sm='8px')
-            md-grid-tile(ng-repeat="event in loadEvents" style="background: url('{{event.Images[0].img_url}}') no-repeat; background-size: 100% 100%;")
+            md-grid-tile(ng-repeat="event in popularEvents"  style="background: url('{{event.images[0]}}') no-repeat; background-size: 100% 100%;")
               md-grid-tile-header(layout-align="center center")
                 h3(ui-sref="viewEvent({id:event.id})") {{event.name}}
               md-grid-tile-footer

@@ -23,6 +23,33 @@ describe('ItemCtrl tests', function() {
         }];
       }
     },
+    currentUser = {
+      city: 'Nairobi',
+      country: 'Kenya',
+      created_at: '2015-11-30T08:27:51.129Z',
+      dob: '1941-09-29T21:00:00.000Z',
+      email: 'koske.hannah@gmail.com',
+      enabled: 'yes',
+      facebook_auth_id: null,
+      facebook_auth_token: null,
+      firstname: 'Hannah',
+      gender: 'female',
+      google_auth_id: null,
+      google_auth_token: null,
+      id: 1,
+      img_public_id: 'mpoibjealpmx2pmgc33a',
+      img_url: 'http://res.cloudinary.com/vvida/image/upload/v1448872085/' +
+        'mpoibjealpmx2pmgc33a.png',
+      lastname: 'Koske',
+      password: '$2a$10$mzOv0oTX/pNtl1f5HxTZZ.' +
+        'LgHMBA2UHPYygq8AtdXeFpfoSGiw32u',
+      role: 'user',
+      status: 'active',
+      token: null,
+      updated_at: '2015-12-01T09:29:08.522Z',
+      username: 'HannahCK',
+    },
+
     Reviews,
     Categories;
   beforeEach(function() {
@@ -53,6 +80,7 @@ describe('ItemCtrl tests', function() {
   });
 
   it('should call Items.update', function() {
+    scope.currentUser = currentUser;
     scope.item = {
       message: 'I am groot'
     };
@@ -76,12 +104,14 @@ describe('ItemCtrl tests', function() {
     spyOn(Items, 'save').and.callThrough();
     spyOn(Utils, 'toast').and.callThrough();
     scope.item = true;
+
     scope.addItems();
     expect(Items.save).toHaveBeenCalled();
     expect(Utils.toast).not.toHaveBeenCalled();
   });
 
   it('should call Items.get', function() {
+    scope.currentUser = currentUser;
     spyOn(Items, 'get').and.callThrough();
     scope.getItem();
     expect(scope.uploader).toBeDefined();
@@ -114,6 +144,7 @@ describe('ItemCtrl tests', function() {
   });
 
   it('should call uploader.uploadAll', function() {
+    scope.currentUser = currentUser;
     scope.getItem();
     expect(scope.uploader.uploadAll).toBeDefined();
     spyOn(scope.uploader, 'uploadAll');
@@ -122,13 +153,15 @@ describe('ItemCtrl tests', function() {
   });
 
   it('should return array of length n', function() {
-    var range=scope.range(9);
+    var range = scope.range(9);
     expect(range).toBeTruthy();
     expect(range.length).toBe(9);
   });
 
   it('should set itemReview.rating', function() {
-    scope.itemReview={rating:0};
+    scope.itemReview = {
+      rating: 0
+    };
     scope.rate(9);
     expect(scope.itemReview.rating).toBe(9);
   });
@@ -139,8 +172,12 @@ describe('ItemCtrl tests', function() {
   });
 
   it('should return average review', function() {
-    var reviews=[{rating:5},{rating:5}];
-    var avgReview=scope.averageReview(reviews);
+    var reviews = [{
+      rating: 5
+    }, {
+      rating: 5
+    }];
+    var avgReview = scope.averageReview(reviews);
     expect(avgReview).toBe(5);
   });
 

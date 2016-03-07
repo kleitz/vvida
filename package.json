@@ -4,6 +4,7 @@
   "description": "front end app env",
   "main": "index.js",
   "scripts": {
+    "prestart": "sequelize db:migrate",
     "start": "node index.js",
     "test": "node index.js &\ngulp test",
     "build": "gulp heroku:production"
