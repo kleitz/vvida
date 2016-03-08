@@ -64,7 +64,7 @@ angular.module('vvida.controllers')
             'You have successfully updated your profile. ' +
             'Click on the home button to get to vvida homepage.';
 
-        }, function(err) {
+        }, function() {
           $scope.message =
             'There was a problem updating your profile.';
         });

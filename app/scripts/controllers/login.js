@@ -35,7 +35,7 @@
           } else if (!/[A-Z]/.test($scope.user.passwordSignup.trim()) ||
             !/[a-z]/.test($scope.user.passwordSignup.trim())) {
             $scope.messageSignup =
-              'Your password need to contain both uppercase and lower characters';
+              'Your password should contain uppercase and lower characters';
           } else if ($scope.user.passwordSignup.trim() ===
             $scope.user.confirmPassword.trim()) {
             var user = {

@@ -70,7 +70,7 @@
           where: {
             id: req.params.id
           }
-        }).then(function(ok) {
+        }).then(function() {
           res.json({
             message: 'Delete successful'
           });

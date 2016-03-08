@@ -85,7 +85,7 @@
           where: {
             id: req.params.id
           }
-        }).then(function(ok, err) {
+        }).then(function() {
             res.json({
               message: 'Item has been updated.'
             });
@@ -101,7 +101,7 @@
           where: {
             id: req.params.id
           }
-        }).then(function(ok) {
+        }).then(function() {
             res.json({
               message: 'Delete successful'
             });

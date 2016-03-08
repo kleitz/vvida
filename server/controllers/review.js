@@ -42,7 +42,7 @@
           where: {
             id: req.params.id
           }
-        }).then(function(update) {
+        }).then(function() {
           res.json({
             message: 'You have successfully updated your Review'
           });

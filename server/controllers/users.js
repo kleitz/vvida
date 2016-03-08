@@ -2,9 +2,7 @@
   'use strict';
 
   module.exports = function(app) {
-    var passport = require('passport'),
-      jwt = require('jsonwebtoken'),
-      config = require('../config');
+    var passport = require('passport');
 
     var Users = app.get('models').Users,
       Items = app.get('models').Items,
