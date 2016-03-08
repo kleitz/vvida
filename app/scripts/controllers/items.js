@@ -1,9 +1,10 @@
 (function() {
   'use strict';
   angular.module('vvida.controllers')
-    .controller('ItemCtrl', ['$scope', '$state', '$stateParams', '$mdSidenav',
-      'Categories', 'FileUploader', 'Utils', 'Items', 'Reviews', 'Images',
-      function($scope, $state, $stateParams, $mdSidenav,
+    .controller('ItemCtrl', ['$rootScope', '$scope', '$state', '$stateParams',
+      '$mdSidenav', 'Categories', 'FileUploader', 'Utils', 'Items', 'Reviews',
+      'Images',
+      function($rootScope, $scope, $state, $stateParams, $mdSidenav,
         Categories, FileUploader, Utils, Items, Reviews, Images) {
         // Close Left Side Nav bar
         $scope.close = function() {
@@ -81,7 +82,8 @@
             url: '/api/image/',
             alias: 'photos',
             formData: [{
-              id: $scope.itemId
+              id: $scope.itemId,
+              userId: $rootScope.currentUser.id
             }],
             onCompleteItem: function() {
               Items.update($scope.item, function() {

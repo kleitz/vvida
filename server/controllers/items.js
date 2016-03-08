@@ -1,5 +1,6 @@
 (function() {
   'use strict';
+
   module.exports = function(app) {
     var Items = app.get('models').Items,
       Images = app.get('models').Images,
@@ -22,21 +23,15 @@
               email: req.body.email
             })
             .then(function(item) {
-              if (!item) {
-                return res.status(500).send({
-                  error: 'Failed to create item'
-                });
-              } else {
                 res.json(item);
-              }
             })
             .catch(function(err) {
-              res.status(500).send({
+              res.status(500).json({
                 error: err.message || err.errors[0].message
               });
             });
         } else {
-          res.status(416).json({
+          res.status(406).json({
             error: 'Not enough arguments/values to create item.'
           });
         }
@@ -56,30 +51,30 @@
             model: Categories
           }]
         }).then(function(item) {
-          res.json(item);
+            res.json(item);
         }).catch(function(err) {
-          res.status(500).send({
+          res.status(500).json({
             error: err.message || err.errors[0].message
           });
         });
       },
 
       find: function(req, res) {
-        return Items.find({
+         Items.find({
           where: {
             id: req.params.id
           },
           include: [Images, Reviews, Categories]
         }).then(function(item) {
           if (!item) {
-            return res.status(404).send({
+             res.status(404).json({
               message: 'Item not found'
             });
           } else {
-          return res.json(item);
-        }
+             res.json(item);
+          }
         }).catch(function(err) {
-          res.status(500).send({
+          res.status(500).json({
             error: err.message || err.errors[0].message
           });
         });
@@ -90,18 +85,12 @@
           where: {
             id: req.params.id
           }
-        }).then(function(ok, err) {
-          if (err) {
-            return res.status(500).send({
-              error: 'Update failed'
-            });
-          } else {
+        }).then(function() {
             res.json({
               message: 'Item has been updated.'
             });
-          }
         }).catch(function(err) {
-          return res.status(500).send({
+           res.status(500).json({
             error: err.message || err.errors[0].message
           });
         });
@@ -112,24 +101,16 @@
           where: {
             id: req.params.id
           }
-        }).then(function(ok, err) {
-          if (err) {
-            return res.status(500).send({
-              error: 'Delete failed'
+        }).then(function() {
+            res.json({
+              message: 'Delete successful'
             });
-          } else {
-          res.status(200).send({
-            message: 'Delete successful'
-          });
-        }
         }).catch(function(err) {
-          res.status(500).send({
+          res.status(500).json({
             error: err.message || err.errors[0].message
           });
         });
       }
     };
-
   };
-
 })();
