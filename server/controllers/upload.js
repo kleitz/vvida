@@ -1,5 +1,6 @@
 (function() {
   'use strict';
+
   module.exports = function(app) {
     var Images = app.get('models').Images,
       Users = app.get('models').Users,
@@ -32,7 +33,7 @@
             if (image) {
               res.json(image);
             } else {
-              res.status(400).send({
+              res.status(400).json({
                 error: 'Upload'
               });
             }
@@ -47,7 +48,7 @@
             if (image) {
               res.json(image);
             } else {
-              res.status(400).send({
+              res.status(400).json({
                 error: 'Upload'
               });
             }
@@ -80,10 +81,9 @@
         cloudinary.uploader.destroy(req.params.id, function(result) {
           if (result) {
             req.info = result;
-            console.log(req.info);
             next();
           } else {
-            res.status(400).send({
+            res.status(400).json({
               error: 'Delete failed'
             });
           }
@@ -91,7 +91,7 @@
       },
 
       deleteImage: function(req, res) {
-        return Images.destroy({
+         Images.destroy({
           where: {
             public_id: req.params.id
           }
@@ -100,20 +100,19 @@
             req.info.db = {
               error: 'Delete failed'
             };
-            res.status(500).send(req.info);
+            res.status(500).json(req.info);
           } else {
             req.info.db = {
               message: 'Delete succesful'
             };
-            res.status(200).send(req.info);
+            res.json(req.info);
           }
         }).catch(function(err) {
-          res.status(500).send({
+          res.status(500).json({
             error: err.message || err.errors[0].message
           });
         });
       }
     };
-
   };
 })();

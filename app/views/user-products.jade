@@ -1,7 +1,7 @@
 md-card-content.content(ng-if="currentUser" ng-init="init()")
   h1 Items
   p.md-headline {{message}}
-  div(ng-repeat='item in items')
+  div(ng-repeat='item in items.Items')
     div
       div(layout-gt-sm="row" layout='column' layout-align-gt-sm='start start' layout-align='start center')
         .md-padding
