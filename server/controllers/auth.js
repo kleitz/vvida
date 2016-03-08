@@ -26,7 +26,7 @@
       } else {
         // if there is no token
         // return an error
-        return res.status(401).send({
+        return res.status(401).json({
           error: 'Unauthorised. No user is logged in.'
         });
       }

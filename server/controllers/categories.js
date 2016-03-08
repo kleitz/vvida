@@ -9,11 +9,11 @@
     return {
       //Middleware to create a category
       create: function(req, res) {
-        return Categories.create({
+        Categories.create({
           name: req.body.name,
           type: req.body.category
         }).then(function(category) {
-          res.json(category);
+            res.json(category);
         }).catch(function(err) {
           res.status(500).json({
             error: err.message || err.errors[0].message
@@ -28,9 +28,9 @@
             type: req.query.type
           }
         }).then(function(category) {
-          res.json(category);
+            res.json(category);
         }).catch(function(err) {
-          return res.status(500).send({
+          res.status(500).json({
             message: 'Error retrieving category(ies)',
             error: err
           });
@@ -57,7 +57,7 @@
             res.json(categoryItems);
           }
         }).catch(function(err) {
-          return res.status(500).send({
+          res.status(500).json({
             message: 'Error retrieving category',
             error: err
           });
@@ -66,16 +66,16 @@
 
       // Middleware to delete a category
       delete: function(req, res) {
-        return Categories.destroy({
+        Categories.destroy({
           where: {
             id: req.params.id
           }
         }).then(function() {
-          res.json({
-            message: 'Delete successful'
-          });
+            res.json({
+              message: 'Delete successful'
+            });
         }).catch(function(err) {
-          res.status(500).send({
+          res.status(500).json({
             error: err.message || err.errors[0].message
           });
         });

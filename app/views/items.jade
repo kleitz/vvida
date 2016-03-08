@@ -49,7 +49,6 @@ div(layout="row")
                 div
                   h3(layout layout-padding ui-sref="viewItem({id:item.id})") {{$index + 1}}. {{item.name}}
                   div(layout="row" layout-align="start center" layout-padding)
-
                     i.fa.fa-star.colorpink(ng-if="maxReview(item.Reviews).rating > 0" ng-repeat="i in range(maxReview(item.Reviews).rating) track by $index")
                     i.fa.fa-star-o.colorpink(ng-repeat="i in range(5 - maxReview(item.Reviews).rating) track by $index")
                     span.reviews(layout layout-margin layout-padding).md-primary {{item.Reviews.length}} reviews

@@ -13,7 +13,8 @@ var passportConfig = require('./passport.config'),
       username: process.env.DATABASE_USERNAME,
       password: process.env.DATABASE_PASSWORD,
       port: process.env.DATABASE_PORT
-    }
-  };
+    },
+    superSecret: process.env.WEB_TOKEN_SECRET
+    };
 
 module.exports = envVariables;

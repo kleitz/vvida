@@ -6,7 +6,7 @@
 
     return {
       create: function(req, res) {
-        return Reviews.create({
+        Reviews.create({
           user_id: req.decoded.id,
           item_id: req.body.itemId,
           event_id: req.body.eventId,
@@ -38,7 +38,7 @@
       },
 
       update: function(req, res) {
-        return Reviews.update(req.body, {
+        Reviews.update(req.body, {
           where: {
             id: req.params.id
           }
@@ -58,16 +58,10 @@
           where: {
             id: req.params.id
           }
-        }).then(function(ok, err) {
-          if (err) {
-            res.status(500).json({
-              error: err.message || err.errors[0].message
-            });
-          } else {
-            res.json({
-              message: 'Review deleted succesfully'
-            });
-          }
+        }).then(function() {
+          res.json({
+            message: 'Review deleted succesfully'
+          });
         }).catch(function(err) {
           res.status(500).json({
             error: err.message || err.errors[0].message
@@ -76,7 +70,7 @@
       },
 
       find: function(req, res) {
-        return Reviews.find({
+        Reviews.find({
           where: {
             id: req.params.id
           }

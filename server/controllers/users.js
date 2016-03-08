@@ -38,17 +38,16 @@
       signup: function(req, res, next) {
         passport.authenticate('signup', function(err, user) {
           // check for errors, if exist send a response with error
-          if (user) {
-            return res.json(stripUser(user.dataValues));
-          } else {
-            if (err) {
-              return res.status(500).json({
-                error: 'Error',
-                err: err
-              });
-            }
+
+          if (err) {
+            return res.status(500).json({
+              error: err.message || err.errors[0].message || err
+            });
+          }
+          // If passport doesn't return the user object,  signup failed
+          if (!user) {
             return res.status(409).json({
-              error: 'User already exists.'
+              error: 'Signup failed. User already exists.'
             });
           }
           // else signup succesful
@@ -77,17 +76,10 @@
       // Middleware to get all users
       all: function(req, res) {
         Users.findAll().then(function(users) {
-          if (users.length === 0) {
-            res.status(200).json({
-              success: true,
-              message: 'User not found'
-            });
-          } else {
-            users.map(function(user) {
-              user.password = null;
-            });
-            res.json(users);
-          }
+          users.map(function(user) {
+            user.password = null;
+          });
+          res.json(users);
         }).catch(function(err) {
           res.status(500).json({
             message: 'Error retrieving user',
@@ -166,7 +158,7 @@
             });
           }
         }).catch(function(err) {
-          if(err) {
+          if (err) {
             res.status(500).json({
               error: 'Failed to logout user.',
               err: err
@@ -186,7 +178,7 @@
           }]
         }).then(function(user) {
           if (!user) {
-            res.status(404).send({
+            res.status(404).json({
               error: 'User not found'
             });
           } else {
@@ -194,7 +186,7 @@
             res.json(user);
           }
         }).catch(function(err) {
-          res.status(500).send({
+          res.status(500).json({
             error: err.message || err.errors[0].message
           });
         });
@@ -208,7 +200,7 @@
           include: [Events]
         }).then(function(user) {
           if (!user) {
-            res.status(404).send({
+            res.status(404).json({
               error: 'User not found'
             });
           } else {
@@ -216,7 +208,7 @@
             res.json(user);
           }
         }).catch(function(err) {
-          res.status(500).send({
+          res.status(500).json({
             error: err.message || err.errors[0].message
           });
         });
@@ -236,7 +228,7 @@
           }]
         }).then(function(user) {
           if (!user) {
-            res.status(404).send({
+            res.status(404).json({
               error: 'User not found'
             });
           } else {
@@ -244,7 +236,7 @@
             res.json(user);
           }
         }).catch(function(err) {
-          res.status(500).send({
+          res.status(500).json({
             error: err.message || err.errors[0].message
           });
         });
@@ -257,14 +249,14 @@
           }
         }).then(function(results) {
           if (!results) {
-            res.status(404).send({
+            res.status(404).json({
               error: 'User reviews not found'
             });
           } else {
             res.json(results);
           }
         }).catch(function(err) {
-          res.status(500).send({
+          res.status(500).json({
             error: err.message || err.errors[0].message
           });
         });
@@ -277,14 +269,14 @@
           }
         }).then(function(results) {
           if (!results) {
-            res.status(404).send({
+            res.status(404).json({
               error: 'User events not found'
             });
           } else {
             res.json(results);
           }
         }).catch(function(err) {
-          res.status(500).send({
+          res.status(500).json({
             error: err.message || err.errors[0].message
           });
         });
@@ -298,7 +290,7 @@
         }).then(function(count) {
           res.json(count || 0);
         }).catch(function(err) {
-          res.status(500).send({
+          res.status(500).json({
             error: err.message || err.errors[0].message
           });
         });
