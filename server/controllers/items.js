@@ -85,16 +85,10 @@
           where: {
             id: req.params.id
           }
-        }).then(function(ok, err) {
-          if (err) {
-             res.status(500).json({
-              error: 'Update failed'
-            });
-          } else {
+        }).then(function() {
             res.json({
               message: 'Item has been updated.'
             });
-          }
         }).catch(function(err) {
            res.status(500).json({
             error: err.message || err.errors[0].message
@@ -107,16 +101,10 @@
           where: {
             id: req.params.id
           }
-        }).then(function(ok, err) {
-          if (err) {
-             res.status(500).json({
-              error: 'Delete failed'
-            });
-          } else {
+        }).then(function() {
             res.json({
               message: 'Delete successful'
             });
-          }
         }).catch(function(err) {
           res.status(500).json({
             error: err.message || err.errors[0].message

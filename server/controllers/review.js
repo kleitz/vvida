@@ -42,16 +42,10 @@
           where: {
             id: req.params.id
           }
-        }).then(function(update) {
-          if (!update) {
-            res.status(500).json({
-              error: 'Update failed'
-            });
-          } else {
+        }).then(function() {
             res.json({
               message: 'You have successfully updated your Review'
             });
-          }
         }).catch(function(err) {
           res.status(500).json({
             error: err.message || err.errors[0].message
@@ -64,16 +58,10 @@
           where: {
             id: req.params.id
           }
-        }).then(function(ok, err) {
-          if (err) {
-            res.status(500).json({
-              error: err.message || err.errors[0].message
-            });
-          } else {
+        }).then(function() {
             res.json({
               message: 'Review deleted succesfully'
             });
-          }
         }).catch(function(err) {
           res.status(500).json({
             error: err.message || err.errors[0].message

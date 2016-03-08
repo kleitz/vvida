@@ -69,16 +69,10 @@
           where: {
             id: req.params.id
           }
-        }).then(function(ok) {
-          if (!ok) {
-            res.status(500).json({
-              error: 'Delete failed'
-            });
-          } else {
+        }).then(function() {
             res.json({
               message: 'Delete successful'
             });
-          }
         }).catch(function(err) {
           res.status(500).json({
             error: err.message || err.errors[0].message
