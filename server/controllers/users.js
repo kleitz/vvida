@@ -25,9 +25,9 @@
         passport.authenticate('login', function(err, user) {
           if (user) {
             user.password = null;
-            return res.json(user);
+            res.json(user);
           } else {
-            return res.status(401).json({
+            res.status(401).json({
               error: 'Authentication failed.',
               err: err
             });
@@ -40,13 +40,13 @@
           // check for errors, if exist send a response with error
 
           if (err) {
-            return res.status(500).json({
+            res.status(500).json({
               error: err.message || err.errors[0].message || err
             });
           }
-          // If passport doesn't return the user object,  signup failed
+          // If passport doesn't  the user object,  signup failed
           if (!user) {
-            return res.status(409).json({
+            res.status(409).json({
               error: 'Signup failed. User already exists.'
             });
           }
@@ -56,9 +56,9 @@
 
       session: function(req, res) {
         Users.findById(req.decoded.id).then(function(user) {
-          if (user && user.token === req.token) {
-            delete user.password;
-            res.json(stripUser(user));
+          if (user && user.dataValues.token === req.token) {
+            delete user.dataValues.password;
+            res.json(stripUser(user.dataValues));
           } else {
             res.status(401).json({
               error: 'Invalid token.'
@@ -115,7 +115,7 @@
           }
         }).then(function(ok, err) {
           if (err) {
-            return res.status(500).json({
+            res.status(500).json({
               error: err.message || err.errors[0].message
             });
           } else {
@@ -131,17 +131,15 @@
           where: {
             id: req.params.id
           }
-        }).then(function(ok, err) {
-          if (err) {
-            return res.status(500).json({
-              error: err.message || err.errors[0].message
-            });
-          } else {
-            res.json({
-              message: 'User deleted successfully.'
-            });
-          }
-        });
+        }).then(function() {
+          res.json({
+            message: 'User deleted successfully.'
+          });
+        }).catch(function() {
+          res.status(500).json({
+            error: err.message || err.errors[0].message
+          });
+        })
       },
 
       logout: function(req, res) {
@@ -151,20 +149,16 @@
           where: {
             id: req.decoded.id
           }
-        }).then(function(ok) {
-          if (ok) {
-            return res.json({
-              message: 'Successfully logged out.'
-            });
-          }
-        }).catch(function(err) {
-          if (err) {
+        }).then(function() {
+          res.json({
+            message: 'Successfully logged out.'
+          });
+        }).catch(function() {
             res.status(500).json({
               error: 'Failed to logout user.',
               err: err
             });
-          }
-        });
+          });
       },
 
       getItems: function(req, res) {

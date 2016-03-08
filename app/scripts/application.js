@@ -71,27 +71,11 @@
       }
 
       // Check if the user's session is still being persisted in the servers
-        Users.session(function(err, res) {
-          if (!err) {
-
-            var user = {};
-            if (res.name) {
-              user.name = res.name;
-              user.id = res.id;
-              user.img_url = res.img_url;
-              user.email = res.email;
-            } else {
-              user.name = res.name;
-              user.id = res.id;
-              user.img_url = res.img_url;
-              user.username = res.username;
-              user.email = res.email;
-            }
-            if (user.img_url) {
-              $rootScope.currentUser = user;
-            }
-          }
-        });
+      Users.session(function(err, res) {
+        if (!err && res) {
+          $rootScope.currentUser = res;
+        }
+      });
 
       $rootScope.login = function() {
         $state.go('login');
@@ -173,18 +157,13 @@
           }
         })
         .state('authSuccess', {
-          url: '/auth/success/{userId}',
-          controller: ['$stateParams', 'Users', 'Auth', '$rootScope', '$state',
-            function($stateParams, Users, Auth, $rootScope, $state) {
-              Users.get({
-                id: $stateParams.userId
-              }, function(res) {
-                Auth.setToken(res.token);
-                $rootScope.currentUser = res.user;
-                var loc = $state.href('userProfile', {}, { absolute: true });
+          url: '/auth/success/{token}',
+          controller: ['$stateParams', 'Auth', '$state',
+            function($stateParams, Auth, $state) {
+                Auth.setToken($stateParams.token);
+                var loc = $state.href('userProfile', {}, {absolute:true});
                 window.location.href = loc;
-              });
-            }
+              }
           ]
         })
         .state('viewEvent', {
