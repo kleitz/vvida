@@ -1,3 +1,4 @@
+
 var request = require('superagent'),
   faker = require('faker'),
   _expect = require('expect.js'),
@@ -41,8 +42,7 @@ describe('Events resource API tests', function() {
       .get(resourceApiURL)
       .accept('application/json')
       .end(function(err, res) {
-        _expect(res.status).to.be(200);
-        _expect(res.body).to.be.an(Array);
+        _expect(res.body.length).to.equal(0);
         done();
       });
   });
@@ -74,10 +74,11 @@ describe('Events resource API tests', function() {
     var fakeEvent = generateFakeEvent();
     request
       .post(resourceApiURL)
+      .set('X-Access-Token', null)
       .send(fakeEvent)
       .accept('application/json')
       .end(function(err, res) {
-        _expect(res.status).to.be(500);
+        _expect(res.status).to.be(401);
         done();
       });
   });
@@ -91,7 +92,6 @@ describe('Events resource API tests', function() {
       .accept('application/json')
       .end(function(err, res) {
         _expect(res.status).to.be(200);
-
         var newEventStored = res.body;
         _expect(newEventStored.name).to.be(fakeEvent.name);
         _expect(newEventStored.description).to.be(fakeEvent.description);
