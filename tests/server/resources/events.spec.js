@@ -55,7 +55,7 @@
      *
      * @return Response
      */
-    it('Must create session to be able to run actions on items', function(done) {
+    it('Must create session to run actions on items', function(done) {
       // Must log in to retain a session
       request
         .post('http://localhost:3000/api/users/login')

@@ -135,11 +135,11 @@
           res.json({
             message: 'User deleted successfully.'
           });
-        }).catch(function() {
+        }).catch(function(err) {
           res.status(500).json({
             error: err.message || err.errors[0].message
           });
-        })
+        });
       },
 
       logout: function(req, res) {
@@ -153,7 +153,7 @@
           res.json({
             message: 'Successfully logged out.'
           });
-        }).catch(function() {
+        }).catch(function(err) {
             res.status(500).json({
               error: 'Failed to logout user.',
               err: err
