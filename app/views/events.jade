@@ -1,9 +1,9 @@
 .events(layout="row")
   div(layout="row")
-    md-sidenav.md-sidenav-left.md-whiteframe-z2(md-component-id="evcatNav" md-is-locked-open="$mdMedia(\"gt-md\")")
+    md-sidenav.md-sidenav-left.md-whiteframe-1dp(md-component-id="evcatNav" md-is-locked-open="$mdMedia(\"gt-md\")")
       md-toolbar
         h1.md-toolbar-tools(ui-sref="events.all({view:\"grid\", page: 1})") All Events
-      md-content(layout-padding)
+      md-content
         md-button.btn-style(md-ink-ripple ng-repeat="category in categories" ui-sref="events.categoryEvents({catId: category.id})")  {{category.name}}
         md-divider
         md-button.btn-style(md-ink-ripple hide-gt-md ng-click="close()") Close Navbar
@@ -17,35 +17,34 @@
     md-divider
 
     div(ng-if="loadEvents.length > 0")
-      .eventGridList(layout="column" layout-padding ng-if="!nextView")
+      .eventList(layout="column" ng-if="!nextView")
         .md-padding(layout="row" layout-align="start center")
           h3.md-subheader Recent Events
           span(flex)
           md-button(ui-sref="events.all({view:\"grid\", page: 1})") See All Events
 
-        md-divider(md-inset)
-        .md-padding
-          md-grid-list(md-cols-sm='1' md-cols-md='2' md-cols-lg='3' md-cols-gt-lg='4' md-row-height='2:2' md-row-height-sm='1:1' md-gutter='12px' md-gutter-gt-sm='8px')
-            md-grid-tile(ng-repeat="event in loadEvents | orderBy:'-time' " style="background: url('{{event.Images[0].img_url}}') no-repeat; background-size: 100% 100%;")
-              md-grid-tile-header(layout-align="center center")
-                h3(ui-sref="viewEvent({id:event.id})") {{event.name}}
-              md-grid-tile-footer
-                div(flex layout="column" layout-padding)
-                  h3.md-subheadline {{event.venue}}
-                  span {{getTime(event.time).day}} @{{getTime(event.time).time}}
+        md-divider
+        div.gridItems(flex layout-gt-sm="row" layout-sm="row" layout-align="start start")
+          div.md-padding(flex flex-sm="100" flex-gt-sm="33" ng-repeat="event in loadEvents | orderBy:'-time' " layout-align="center start" layout-margin)
+            .images(style="background-image: url('{{event.Images[0].img_url}}');")
+            div.content(layout="column")
+              div.category {{event.Category.name}}
+              h2.md-subhead(ui-sref="viewEvent({id: event.id})") {{event.name}}
+              span {{getTime(event.time).day}} @{{getTime(event.time).time}}
+            md-button.md-raised(md-ink-ripple) See Details
 
+        md-divider
         .md-padding(layout="row" layout-align="start center")
           h3.md-subheader Popular Events
-        md-divider(md-inset)
-        .md-padding
-          md-grid-list(md-cols-sm='1' md-cols-md='2' md-cols-lg='3' md-cols-gt-lg='4' md-row-height='2:2' md-row-height-sm='1:1' md-gutter='12px' md-gutter-gt-sm='8px')
-            md-grid-tile(ng-repeat="event in loadEvents | orderBy: '-Reviews.length'"  style="background: url('{{event.Images[0].img_url}}') no-repeat; background-size: 100% 100%;")
-              md-grid-tile-header(layout-align="center center")
-                h3(ui-sref="viewEvent({id:event.id})") {{event.name}}
-              md-grid-tile-footer
-                div(flex layout="column" layout-padding)
-                  h3.md-subheadline {{event.venue}}
-                  span {{getTime(event.time).day}} @{{getTime(event.time).time}}
+        md-divider
+        div.gridItems(layout="row" layout-sm="row" layout-xs="column" layout-align="start start")
+           div.md-padding(flex flex-sm="50" flex-gt-sm="33" ng-repeat="event in loadEvents | orderBy:'-time' " layout-align="center start" )
+            .images(style="background-image: url('{{event.Images[0].img_url}}');")
+            div.content(layout="column")
+              div.category {{event.Category.name}}
+              h2.md-subhead(ui-sref="viewEvent({id: event.id})") {{event.name}}
+              span {{getTime(event.time).day}} @{{getTime(event.time).time}}
+            md-button.md-raised(md-ink-ripple) See Details
 
       div(ui-view="inner")
 
