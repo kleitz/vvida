@@ -6,7 +6,7 @@ angular.module('vvida.filters')
         if (str === ' ') {
           return input.substring(0, arg) + '...';
         }
-        var end = input.indexOf(' ', arg - 1)
+        var end = input.indexOf(' ', arg - 1);
         if (end === -1) {
           end = input.length;
         }
@@ -14,5 +14,5 @@ angular.module('vvida.filters')
       } else {
         return input;
       }
-    }
+    };
   });

@@ -2,7 +2,7 @@
   div(layout="row")
     md-sidenav.md-sidenav-left.md-whiteframe-1dp(md-component-id="evcatNav" md-is-locked-open="$mdMedia(\"gt-md\")")
       md-toolbar
-        h1.md-toolbar-tools(ui-sref="events.all({view:\"grid\", page: 1})") All Events
+        h1.md-toolbar-tools(ui-sref="events.all({view:\"grid\", page: 1})") Events - All
       md-content
         md-button.btn-style(md-ink-ripple ng-repeat="category in categories" ui-sref="events.categoryEvents({catId: category.id})")  {{category.name}}
         md-divider
@@ -13,38 +13,46 @@
       md-button.md-icon-button(md-no-ink ng-click="toggleSidenav()" aria-label="Menu" hide-gt-md)
         i.fa.fa-bars
       span(hide-gt-md) Categories
-      span(ng-show="recentEvents.length === 0 && popularEvents.length === 0" class="no_events_msg") There are currently no events.
+      span.md-padding(ng-show="recentEvents.length === 0 && popularEvents.length === 0" class="no_events_msg") There are currently no events.
     md-divider
 
-    div(ng-if="loadEvents.length > 0")
-      .eventList(layout="column" ng-if="!nextView")
-        .md-padding(layout="row" layout-align="start center" ng-if="recentEvents.length > 0")
+    div(ng-if="recentEvents.length > 0")
+      .eventsList(layout="column" ng-if="!nextView")
+        .md-padding.recentEvents(layout="row" layout-align="start center" ng-if="recentEvents.length > 0")
           h3.md-subheader Recent Events
           span(flex)
           md-button(ui-sref="events.all({view:\"grid\", page: 1})") See All Events
 
         md-divider
-        div.gridItems(flex layout-gt-sm="row" layout-sm="row" layout-align="start start")
-          div.md-padding(flex flex-sm="100" flex-gt-sm="33" ng-repeat="event in loadEvents | orderBy:'-time' " layout-align="center start" layout-margin)
-            .images(style="background-image: url('{{event.Images[0].img_url}}');")
-            div.content(layout="column")
-              div.category {{event.Category.name}}
-              h2.md-subhead(ui-sref="viewEvent({id: event.id})") {{event.name}}
-              span {{getTime(event.time).day}} @{{getTime(event.time).time}}
-            md-button.md-raised(md-ink-ripple) See Details
+        div.gridItems(flex layout="row" layout-sm="column" layo ut-align="start start")
+          md-card(flex flex-sm="50" flex-md="45" flex-gt-md="{{recentEvents.length > 3? \"\": \"25\"}}" ng-repeat="event in recentEvents | orderBy:'-time' ")
+            img.md-card-image(ng-src="{{event.Images[0].img_url}}")
+            md-card-title(layout="column"  layout-align="end start")
+              md-card-title-text(layout="column")
+                span.md-subhead.category {{event.Category.name}}
+                span.md-subheadline.name(ui-sref="viewEvent({id: event.id})") {{event.name}}
+                i.fa.fa-map-marker.location.md-subheader 
+                  | {{event.venue}}
+                span.time {{getTime(event.time).day}} @{{getTime(event.time).time}}
+            md-card-content
+              md-button.md-raised(md-ink-ripple) Review
 
         md-divider
-        .md-padding(layout="row" layout-align="start center")
+        .md-padding(layout="row" layout-align="start center" ng-if="popularEvents.length > 0")
           h3.md-subheader Popular Events
         md-divider
-        div.gridItems(layout="row" layout-sm="row" layout-xs="column" layout-align="start start")
-           div.md-padding(flex flex-sm="50" flex-gt-sm="33" ng-repeat="event in popularEvents" layout-align="center start" )
-            .images(style="background-image: url('{{event.Images[0].img_url}}');")
-            div.content(layout="column")
-              div.category {{event.Category.name}}
-              h2.md-subhead(ui-sref="viewEvent({id: event.id})") {{event.name}}
-              span {{getTime(event.time).day}} @{{getTime(event.time).time}}
-            md-button.md-raised(md-ink-ripple) See Details
+        div.gridItems(flex layout="row" layout-sm="column" layout-align="start start")
+          md-card(flex flex-sm="50" flex-md="45" flex-gt-md="{{popularEvents.length > 3? \"\": \"25\"}}" ng-repeat="event in popularEvents | orderBy:'-time' ")
+            img.md-card-image(ng-src="{{event.images[0]}}")
+            md-card-title(layout="column"  layout-align="end start")
+              md-card-title-text(layout="column")
+                span.md-subhead.category {{event.catname}}
+                span.md-subheadline.name(ui-sref="viewEvent({id: event.id})") {{event.name}}
+                i.fa.fa-map-marker.location.md-subheader 
+                  | {{event.venue}}
+                span.time {{getTime(event.time).day}} @{{getTime(event.time).time}}
+            md-card-content
+              md-button.md-raised(md-ink-ripple) Review
 
       div(ui-view="inner")
 

@@ -1,8 +1,10 @@
 div.item-padding(layout="column" ng-init="getItem()")
   div.md-padding(layout="row")
     a.md-subheadline(ui-sref="items") Products
-    a.md-subheadline(ui-sref="categoryItems({catId: item.category_id})") &nbsp;> {{item.Category.name}}
-    a.md-subheadline &nbsp; > {{item.name}}
+    span &nbsp;&gt;
+    a.md-subheadline(ui-sref="categoryItems({catId: item.category_id})") &nbsp;{{item.Category.name}}
+    span &nbsp;&gt;
+    span.md-subheadline &nbsp;{{item.name}}
 
   div(layout="row" layout-sm="column" layout-align="start start" flex)
     div(layout="column" flex="66" flex-sm="100")

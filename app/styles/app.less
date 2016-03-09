@@ -214,8 +214,11 @@ md-toolbar,
     background-size: cover;
 }
 
-.eventGridList {
-    min-width: 400px;
+.eventGridList,
+.itemGridList {
+    div>md-list {
+        width: 100%;
+    }
 }
 
 .event-main-img {
@@ -344,7 +347,20 @@ content-view {
     }
 }
 
+.itemSideNav {
+    md-toolbar {
+        h1 {
+            font-size: 0.9em;
+            color: white;
+        }
+    }
+    .md-button {
+        font-size: 0.9em;
+    }
+}
+
 md-sidenav.md-sidenav-left {
+    min-width: 200px;
     max-width: 250px;
 }
 
@@ -353,18 +369,14 @@ md-sidenav.md-sidenav-left {
         background-color: #FAFAFA;
     }
     md-toolbar {
-        background-color: #FAFAFA;
         h1 {
-            font-size: 1.0em;
-            color: black;
+            font-size: 0.9em;
+            color: white;
         }
     }
     overflow: auto;
     & .md-button {
         font-size: 0.9em;
-        &.md-icon-button {
-            width: 80px;
-        }
     }
     .small {
         color: white;
@@ -374,36 +386,11 @@ md-sidenav.md-sidenav-left {
         font-size: 1.1em;
         margin: auto 0;
     }
-    md-grid-tile-header {
-        background-color: #009090;
-        opacity: 0.9;
-        & h3 {
-            font-size: 1.4em;
-            margin: auto 0;
-            color: white
-        }
-    }
-    md-grid-tile-footer {
-        height: 60px;
-        background-color: #009090;
-        opacity: 0.9;
-        h3 {
-            font-size: 1.2em;
-            margin: auto 0;
-            color: white
-        }
-        span {
-            color: black;
-            font-size: 0.9em;
-        }
-    }
-    .eventCrumb {
-        font-size: 1.4em;
-    }
 }
 
-
-/*event page less*/
+.Crumb {
+    font-size: 1.1em;
+}
 
 .event-jumbotron {
     padding-right: 30px;
@@ -860,6 +847,7 @@ md-sidenav.md-sidenav-left {
     width: 70%;
     margin: auto;
     p {
+        font-family: 'PT Sans Narrow', sans-serif;
         display: inline-block;
         color: white;
         text-shadow: 0 0 4px #111;
@@ -893,7 +881,7 @@ md-toolbar.navbar {
     background-color: #fff;
     height: 70px;
     & .md-button {
-        color: #ff4081;
+        color: #ff4091;
         font-weight: normal;
     }
 }
@@ -971,7 +959,7 @@ a {
 
 .truncate {
     overflow: hidden;
-    width: 250px;
+    width: auto;
     height: 20px;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -995,6 +983,7 @@ a {
 .reviews {
     border: 1px solid #009090;
     border-radius: 2px;
+    font-size: 14px;
 }
 
 .categorylist {
@@ -1002,11 +991,19 @@ a {
     padding: 5px;
 }
 
-.left-border {
+.listDetails {
     border-left: 1px solid #c0c0c0;
-    &.itemcity {
-        width: 200px;
-        color: #555;
+    i {
+        font-size: 12px;
+        margin: 10px;
+        &.location {
+            font-size: 16px;
+            color: #ff4091;
+        }
+        &.date,
+        &.time {
+            font-size: 12px;
+        }
     }
 }
 
@@ -1130,21 +1127,26 @@ md-dialog {
                 width: 100%;
                 height: 200px;
             }
-            md-card-title md-card-title-text {
-                padding: 5px;
-                height: 90px;
-                span.category {
-                    text-transform: uppercase;
-                    color: grey;
-                    font-size: 11px;
-                }
-                span.name {
-                    margin-top: 5px;
-                    color: #ff4081;
+            md-card-title {
+                height: 120px;
+                md-card-title-text {
+                    padding: 5px;
+                    span.category {
+                        text-transform: uppercase;
+                        color: grey;
+                        font-size: 11px;
+                    }
+                    span.name {
+                        margin-top: 5px;
+                        color: #ff4081;
+                    }
+                    i {
+                        margin-top: 15px;
+                        color: #009090;
+                    }
                 }
             }
             md-card-content {
-                height: 50px;
                 padding: 5px;
                 margin-bottom: 5px;
                 p {
@@ -1161,44 +1163,76 @@ md-tabs-canvas {
     margin: 0 115px;
 }
 
-.eventList {
-    .gridItems {
-        margin-bottom: 10px;
-        flex-wrap: wrap;
-        >div:hover {
-            border: 1px solid teal;
+.eventsList {
+    margin: 0 30px;
+    .recentEvents {
+        height: 47px;
+    }
+}
+
+.itemsList {
+    margin: 0 30px;
+    .recentProducts {
+        h3 {
+            font-size: 1.1em;
         }
-        > div {
-            padding: 10px;
-            margin: 0px;
-            .images {
-                width: 100%;
-                height: 200px;
-                background: center center no-repeat;
-                background-size: cover;
+    }
+}
+
+.gridItems {
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    >md-card:hover {
+        border: 1px solid teal;
+    }
+    md-card {
+        width: 90%;
+        img {
+            width: 100%;
+            height: 200px;
+        }
+        md-card-title {
+            height: 150px;
+            &.itemCard {
+                height: auto;
             }
+            md-card-title-text {
+                padding: 5px;
+                span.category {
+                    text-transform: uppercase;
+                    color: grey;
+                    font-size: 11px;
+                }
+                span.name {
+                    margin-top: 5px;
+                    color: #ff4081;
+                }
+                span.time {
+                    font-size: 12px;
+                    margin-top: 10px;
+                }
+                i.location {
+                    margin-top: 15px;
+                    color: black;
+                }
+            }
+        }
+        md-card-content {
+            padding: 5px;
             .md-button {
                 font-size: 12px;
                 width: 100%;
                 margin: 0;
             }
-            .content {
-                padding: 15px;
-                margin-top: 3px;
-                height: 120px;
-                .category {
-                    text-transform: uppercase;
-                    color: grey;
-                    font-size: 11px;
-                }
-                h2 {
-                    margin-top: 5px;
-                    color: #ff4081;
-                }
-                span {
-                    margin-top: 10px;
-                    font-size: 12px;
-                }
+            div>p {
+                margin-top: 0;
+                margin-bottom: 0;
+            }
+        }
+        md-card-actions {
+            .md-button {
+                font-size: 12px;
+                margin: 2px;
             }
         }
     }
