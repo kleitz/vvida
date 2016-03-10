@@ -110,13 +110,13 @@ describe('EventViewsCtrl tests', function() {
     spyOn(Events, 'query').and.callThrough();
     spyOn(scope, 'viewEvents').and.callThrough();
     scope.viewEvents(scope.page);
-    expect(scope.limit).toBe(3);
+    expect(scope.limit).toBe(5);
     expect(Events.query).toHaveBeenCalledWith({
-      limit: 3,
+      limit: 5,
       page: 0
     });
     expect(scope.loadEvents).toBeDefined();
-    expect(scope.loadEvents).toEqual([1, 2, 3]);
+    expect(scope.loadEvents).toEqual([1, 2, 3, 4, 5]);
   });
 
   it('should set view type', function() {
@@ -144,11 +144,11 @@ describe('EventViewsCtrl tests', function() {
     expect(scope.page).toBe(0);
     expect(scope.viewEvents).toHaveBeenCalledWith(scope.page);
     expect(Events.query).toHaveBeenCalledWith({
-      limit: 3,
+      limit: 5,
       page: 0
     });
     expect(scope.loadEvents).toBeDefined();
-    expect(scope.loadEvents).toEqual([1, 2, 3]);
+    expect(scope.loadEvents).toEqual([1, 2, 3, 4, 5]);
   });
 
   it('should load next page of events', function() {
@@ -160,16 +160,16 @@ describe('EventViewsCtrl tests', function() {
     expect(scope.page).toBe(2);
     expect(scope.viewEvents).toHaveBeenCalledWith(scope.page);
     expect(Events.query).toHaveBeenCalledWith({
-      limit: 3,
+      limit: 5,
       page: 1
     });
     expect(scope.loadEvents).toBeDefined();
-    expect(scope.loadEvents).toEqual([4, 5, 6]);
+    expect(scope.loadEvents).toEqual([6]);
   });
 
   it('should disable next button', function() {
     scope.page = 2;
-    scope.limt = 3;
+    scope.limt = 5;
     spyOn(Events, 'query').and.callThrough();
     scope.disableNextButton();
     expect(Events.query).toHaveBeenCalled();
