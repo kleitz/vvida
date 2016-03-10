@@ -24,7 +24,7 @@
 
         // event list to be updated for pagination
         $scope.viewEvents = function(page) {
-          $scope.limit = 3;
+          $scope.limit = 5;
           var pageNum = parseInt(page);
           pageNum = (pageNum <= 0) ? 1 : pageNum;
 
@@ -73,7 +73,7 @@
         };
 
         $scope.disableNextButton = function() {
-          $scope.limit = 3;
+          $scope.limit = 5;
           Events.query({
             limit: $scope.limit,
             page: parseInt($scope.page)
