@@ -1,6 +1,6 @@
 .footer.hide-sm(ng-controller="FooterCtrl" layout="column")
   .md-padding(layout="row" layout-md="column" layout-sm="column" flex layout-align="center")
-    .nav-links(flex-gt-md="50" layout="row" layout-align="center" flex="100")
+    .nav-links(flex-gt-md="50" layout="row" layout-align="start" flex layout-padding)
       .footer-item-group(layout="column")
         .md-title.footer-titles About
         div.footer-links(ng-repeat="aboutItem in about" ui-sref="{{aboutItem.state}}", aria-label="aboutItem.name") {{aboutItem.name}}
@@ -15,17 +15,17 @@
 
     md-divider.md-inset
 
-    .social_icons(layout="column" flex-gt-md="50" flex="100" layout-align="center")  
-      .md-headline.footer-titles Join Us
-      md-divider.socials.md-inset
-      div(layout="row" layout-md="row" layout-sm="column")
-        span.fa.fa-google-plus-square.fa-3x.text-white
-        span.fa.fa-facebook-square.fa-3x.text-white
-        span.fa.fa-twitter-square.fa-3x.text-white
-        span.fa.fa-instagram.fa-3x.text-white
-        span.fa.fa-linkedin-square.fa-3x.text-white
-        span.fa.fa-pinterest-square.fa-3x.text-white
-        span.fa.fa-youtube-square.fa-3x.text-white
+    .social_icons(layout="column" flex-gt-md="50" flex layout-align="start start" layout-padding)   
+      .footer-titles Join Us
+      div.icons(layout="row" layout-md="row" layout-sm="column")
+        span.fa.fa-google-plus-square.fa-2x.text-white
+        span.fa.fa-facebook-square.fa-2x.text-white
+        span.fa.fa-twitter-square.fa-2x.text-white
+        span.fa.fa-instagram.fa-2x.text-white
+        span.fa.fa-linkedin-square.fa-2x.text-white
+        span.fa.fa-pinterest-square.fa-2x.text-white
+        span.fa.fa-youtube-square.fa-2x.text-white
 
-  md-divider
-  .footer-text Copyright © 2015 Vvida Inc. Vvida, Vvida logo and related marks are registered trademarks of Vvida.
+  .md-padding
+    md-divider.md-inset
+    .footer-text Copyright © 2015 Vvida Inc. Vvida, Vvida logo and related marks are registered trademarks of Vvida.

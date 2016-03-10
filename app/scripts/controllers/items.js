@@ -29,6 +29,10 @@
           });
         };
 
+        $scope.reviewNum = function(review) {
+          return review.length > 1 ? 'reviews' : 'review';
+        };
+
         $scope.averageReview = function(itemReviews) {
           if (itemReviews) {
             var sum = 0;

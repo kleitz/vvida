@@ -65,11 +65,13 @@
 
         var stmt =
           'SELECT Ev1.*, string_agg(Im1.img_url,\',\') AS Images, ' +
+          'Cat1.name AS CatName, ' +
           'COUNT(Rv1.id) AS review_count, ROUND(AVG(Rv1.rating)) ' +
           'AS avg_rating FROM public."Events" AS Ev1 ' +
+          'LEFT JOIN public."Categories" AS Cat1 ON Cat1.id=Ev1.category_id ' +
           'INNER JOIN public."Reviews" AS Rv1 ON Ev1.id=Rv1.event_id ' +
           'LEFT JOIN public."Images" AS Im1 ON Ev1.id=Im1.event_id ' +
-          'GROUP BY Ev1.id, Ev1.name ORDER BY review_count DESC ' +
+          'GROUP BY Ev1.id, Ev1.name, Cat1.id ORDER BY review_count DESC ' +
           'LIMIT ' + limit + ' OFFSET ' + offset;
 
         sequelize.query(stmt, {

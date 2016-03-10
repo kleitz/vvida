@@ -42,6 +42,9 @@
   // Require Directives
   require('./directives/ng-thumb');
 
+  // Requier Filters
+  require('./filters/clip-text');
+
   window.app = angular.module('vvida', [
     'vvida.controllers',
     'vvida.services',
