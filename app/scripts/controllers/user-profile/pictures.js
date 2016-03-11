@@ -1,5 +1,5 @@
 angular.module('vvida.controllers')
-  .controller('UserPicturesCtrl', ['$scope', '$rootScope', function($scope, $rootScope) {
+  .controller('UserPicturesCtrl', ['$scope', function($scope) {
     $scope.init = function() {
       $scope.arrayNo = function(num) {
         var array = new Array(num);
@@ -8,5 +8,5 @@ angular.module('vvida.controllers')
         }
         return array;
       };
-    }
+    };
   }]);

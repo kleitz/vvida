@@ -1,9 +1,10 @@
 (function() {
   'use strict';
   angular.module('vvida.controllers')
-    .controller('ItemCtrl', ['$scope', '$state', '$stateParams', '$mdSidenav',
-      'Categories', 'FileUploader', 'Utils', 'Items', 'Reviews', 'Images',
-      function($scope, $state, $stateParams, $mdSidenav,
+    .controller('ItemCtrl', ['$rootScope', '$scope', '$state', '$stateParams',
+      '$mdSidenav', 'Categories', 'FileUploader', 'Utils', 'Items', 'Reviews',
+      'Images',
+      function($rootScope, $scope, $state, $stateParams, $mdSidenav,
         Categories, FileUploader, Utils, Items, Reviews, Images) {
         // Close Left Side Nav bar
         $scope.close = function() {
@@ -28,6 +29,10 @@
           });
         };
 
+        $scope.reviewNum = function(review) {
+          return review.length > 1 ? 'reviews' : 'review';
+        };
+
         $scope.averageReview = function(itemReviews) {
           if (itemReviews) {
             var sum = 0;
@@ -43,7 +48,8 @@
         $scope.getCategory = function() {
           // load the categoryItems
           $scope.categoryItems = Categories.get({
-            id: $scope.categoryId
+            id: $scope.categoryId,
+            model: 'Items'
           });
         };
 
@@ -80,7 +86,8 @@
             url: '/api/image/',
             alias: 'photos',
             formData: [{
-              id: $scope.itemId
+              id: $scope.itemId,
+              userId: $rootScope.currentUser.id
             }],
             onCompleteItem: function() {
               Items.update($scope.item, function() {
@@ -104,7 +111,9 @@
 
         $scope.init = function() {
           // get all categories
-          $scope.categories = Categories.query();
+          $scope.categories = Categories.query({
+            type: 'Item'
+          });
           // get Recent Items
           $scope.recentItems = Items.query();
           // get selected category id

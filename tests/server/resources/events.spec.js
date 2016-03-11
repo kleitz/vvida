@@ -1,3 +1,4 @@
+
 var request = require('superagent'),
   faker = require('faker'),
   _expect = require('expect.js'),
@@ -13,7 +14,8 @@ describe('Events resource API tests', function() {
         location: faker.address.streetName(),
         venue: faker.address.streetAddress(),
         time: faker.date.recent(),
-        sponsor: faker.company.companyName()
+        sponsor: faker.company.companyName(),
+        category_id: faker.random.number(),
       };
     },
     generateFakeEventUpdates = function() {
@@ -35,20 +37,12 @@ describe('Events resource API tests', function() {
    *
    * @return Response
    */
-  it('should return all items stored in the database or empty array if DB is empty', function(done) {
+  it('should return empty array if DB is empty', function(done) {
     request
       .get(resourceApiURL)
       .accept('application/json')
       .end(function(err, res) {
-        _expect(res.status).to.be(200);
-        if (res.body.length === 0) {
-          _expect(res.body).to.be.an(Array);
-        } else {
-          _expect(res.body.length).to.be.greaterThan(0);
-          _expect(res.body[0].id).to.be.a('number');
-          _expect(res.body[0].name).to.be.a('string');
-          _expect(res.body[0].description).to.be.a('string');
-        }
+        _expect(res.body.length).to.equal(0);
         done();
       });
   });
@@ -71,8 +65,20 @@ describe('Events resource API tests', function() {
         _expect(res.status).to.be(200);
         _expect(res.body.token).to.be.a('string');
         _expect(res.body.token.length).to.be.greaterThan(100);
-        console.log(err);
         authToken = res.body.token;
+        done();
+      });
+  });
+
+  it('should not store created resource in storage.', function(done) {
+    var fakeEvent = generateFakeEvent();
+    request
+      .post(resourceApiURL)
+      .set('X-Access-Token', null)
+      .send(fakeEvent)
+      .accept('application/json')
+      .end(function(err, res) {
+        _expect(res.status).to.be(401);
         done();
       });
   });
@@ -86,12 +92,25 @@ describe('Events resource API tests', function() {
       .accept('application/json')
       .end(function(err, res) {
         _expect(res.status).to.be(200);
-
         var newEventStored = res.body;
         _expect(newEventStored.name).to.be(fakeEvent.name);
         _expect(newEventStored.description).to.be(fakeEvent.description);
         _expect(newEventStored.id).to.be.a('number');
         anEvent = newEventStored;
+        done();
+      });
+  });
+
+  it('should return all events', function(done) {
+    request
+      .get(resourceApiURL)
+      .accept('application/json')
+      .end(function(err, res) {
+        _expect(res.status).to.be(200);
+        _expect(res.body.length).to.be.greaterThan(0);
+        _expect(res.body[0].id).to.be.a('number');
+        _expect(res.body[0].name).to.be.a('string');
+        _expect(res.body[0].description).to.be.a('string');
         done();
       });
   });
@@ -180,4 +199,16 @@ describe('Events resource API tests', function() {
         done();
       });
   });
+
+  it('should assert the document was deleted.', function(done) {
+    request
+      .get(resourceApiURL + '/' + anEvent.id)
+      .accept('application/json')
+      .end(function(err, res) {
+        _expect(res.status).to.be(404);
+        _expect(res.body.message).to.be('Event not found');
+        done();
+      });
+  });
+
 });

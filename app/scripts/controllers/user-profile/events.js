@@ -8,8 +8,11 @@ angular.module('vvida.controllers')
     'Utils',
     'Events',
     'FileUploader',
+    'Categories',
+    '$mdDialog',
     function($scope, $rootScope,
-      $state, $stateParams, Users, Utils, Events, FileUploader) {
+      $state, $stateParams, Users, Utils, Events,
+      FileUploader, Categories, $mdDialog) {
 
       $scope.init = function() {
 
@@ -23,12 +26,18 @@ angular.module('vvida.controllers')
             }
           }
         });
+        // get all categories
+        $scope.categories = Categories.query({
+          type: 'Event'
+        });
       };
+      // $scope.init();
 
       // create event
       $scope.addEvent = function() {
         Events.save($scope.event, function(event) {
           if (event) {
+            $mdDialog.cancel();
             $state.go('userProfile.editEvent', {
               id: event.id
             });
@@ -44,13 +53,29 @@ angular.module('vvida.controllers')
           url: '/api/image/',
           alias: 'photos',
           formData: [{
-            eventId: $scope.eventId
+            eventId: $scope.eventId,
+            userId: $rootScope.currentUser.id
           }],
+          onCompleteItem: function() {
+            Events.update($scope.event, function() {
+              $state.go($state.current, {
+                id: $scope.eventId,
+                userId: $rootScope.currentUser.id,
+                tabIndex: 1
+              }, {
+                reload: true
+              });
+            });
+          }
         });
         Events.get({
           id: $stateParams.id
         }, function(event) {
           $scope.event = event;
+        });
+
+        $scope.categories = Categories.query({
+          type: 'Event'
         });
       };
 

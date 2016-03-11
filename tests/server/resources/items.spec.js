@@ -56,23 +56,26 @@ describe('Items resource API tests', function() {
    *
    * @return Response
    */
-  it('should return all items stored in the database or empty array if DB is empty', function(done) {
+
+  it('should return empty array if DB is empty', function(done) {
     request
       .get(resourceApiUrl)
       .accept('application/json')
       .end(function(err, res) {
-        _expect(res.status).to.be(200);
-        if (res.body.length === 0) {
-          _expect(res.body).to.be.an('array');
-        } else {
-          var items = res.body;
-          _expect(items.length).to.be.greaterThan(0);
-          _expect(items[0].id).to.be.a('number');
-          _expect(items[0].user_id).to.be.a('number');
-          _expect(items[0].name).to.be.a('string');
-          _expect(items[0].description).to.be.a('string');
-          _expect(items[0].description).to.match(/(\s){1,}/g);
-        }
+        _expect(res.body.length).to.equal(0);
+        done();
+      });
+  });
+
+  it('should not store resource in storage.', function(done) {
+    var item = generateFakeItem();
+    request
+      .post(resourceApiUrl)
+      .set('X-Access-Token', null)
+      .send(item)
+      .accept('application/json')
+      .end(function(err, res) {
+        _expect(res.status).to.be(401);
         done();
       });
   });
@@ -91,6 +94,23 @@ describe('Items resource API tests', function() {
         _expect(newItem.name).to.be(item.name);
         _expect(newItem.id).to.be.a('number');
         id = newItem.id;
+        done();
+      });
+  });
+
+  it('should return all items', function(done) {
+    request
+      .get(resourceApiUrl)
+      .accept('application/json')
+      .end(function(err, res) {
+        _expect(res.status).to.be(200);
+        var items = res.body;
+        _expect(items.length).to.be.greaterThan(0);
+        _expect(items[0].id).to.be.a('number');
+        _expect(items[0].user_id).to.be.a('number');
+        _expect(items[0].name).to.be.a('string');
+        _expect(items[0].description).to.be.a('string');
+        _expect(items[0].description).to.match(/(\s){1,}/g);
         done();
       });
   });
@@ -179,4 +199,16 @@ describe('Items resource API tests', function() {
         done();
       });
   });
+
+  it('should assert the document was deleted.', function(done) {
+    request
+      .get(resourceApiUrl + '/' + id)
+      .accept('application/json')
+      .end(function(err, res) {
+        _expect(res.status).to.be(404);
+        _expect(res.body.message).to.be('Item not found');
+        done();
+      });
+  });
+
 });

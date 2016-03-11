@@ -1,9 +1,14 @@
-md-content(ng-controller="UserEventsCtrl" layout='column', layout-md='column', layout-sm='column', flex='100')
+md-content(ng-controller="UserEventsCtrl" layout='column', layout-md='column', layout-sm='column', flex='100' ng-init="init()")
   form(method='post', enctype='multipart/data', ng-submit='addEvent()')
     md-input-container
       label
         i.fa.fa-glass &nbsp;&nbsp;&nbsp;Event Name
       input(type='text', ng-model='event.name', ng-required='true', aria-label='event.name')
+    md-input-container
+      label
+        i.fa.fa-list &nbsp;&nbsp;&nbsp;Category Name
+      md-select(ng-model="event.category_id" class="select" aria-label="event.category_id")
+          md-option(ng-value="category.id" ng-repeat="category in categories") {{category.name}}
     md-input-container
       label
         i.fa.fa-file-text &nbsp;&nbsp;&nbsp;Description

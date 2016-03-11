@@ -5,6 +5,7 @@
 module.exports = function(app, passport, config) {
   var GoogleStrategy = config.strategy.Google,
     jwt = require('jsonwebtoken'),
+    ucfirst = require('../ucfirst'),
     Users = app.get('models').Users;
   passport.use(new GoogleStrategy(config.auth.GOOGLE,
     function(accessToken, refreshToken, profile, done) {
@@ -35,7 +36,7 @@ module.exports = function(app, passport, config) {
                 name: profile.displayName,
                 google_auth_token: accessToken,
                 img_url: profile.photos[0].value,
-                gender: profile.gender
+                gender: ucfirst(profile.gender)
               })
 
               // save the user instance build

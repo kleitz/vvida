@@ -7,28 +7,65 @@ describe('EventViewsCtrl tests', function() {
       save: function(evt, cb) {
         evt ? cb(evt) : cb(false);
       },
+
       update: function(evt, cb) {
         evt ? cb(evt) : cb(false);
       },
+
       get: function(id, cb) {
         cb({
           message: 'Sample Event Message'
         });
       },
+
       query: function(params, cb) {
-        var page = params.page || 0,
-          limit = params.limit || 3,
-          start = limit * page,
-          end = start + limit;
-        var res = [1, 2, 3, 4, 5, 6].slice(start, end);
-        if (cb) {
-          cb(res);
+        if (!params && !cb) {
+          return [1, 2, 3, 4, 5, 6];
         } else {
-          return res;
+          var page = params.page || 0,
+            limit = params.limit || 3,
+            start = limit * page,
+            end = start + limit;
+          var res = [1, 2, 3, 4, 5, 6].slice(start, end);
+          if (cb) {
+            cb(res);
+          } else {
+            return res;
+          }
         }
       }
     },
+
+    Categories = {
+      save: function(evt, cb) {
+        evt ? cb(evt) : cb(false);
+      },
+      update: function(evt, cb) {
+        evt ? cb(evt) : cb(false);
+      },
+      get: function(query, cb) {
+        if (query.model) {
+          cb({
+            message: 'Sample Category Message',
+            'Events': [1, 2, 3, 4]
+          });
+        } else {
+          cb({
+            message: 'Sample Category Message',
+          });
+        }
+      },
+      query: function(query) {
+        if (query.type === 'Event') {
+          return [1, 2, 3, 4, 5, 6];
+        } else if (query.type === 'Item') {
+          return [7, 8, 9, 10];
+        }
+      }
+    },
+
     state, stateParams;
+
   beforeEach(function() {
     module('vvida');
   });
@@ -38,7 +75,8 @@ describe('EventViewsCtrl tests', function() {
     scope = $injector.get('$rootScope');
     controller = $controller('EventViewsCtrl', {
       $scope: scope,
-      Events: Events
+      Events: Events,
+      Categories: Categories
     });
     state = $injector.get('$state');
     stateParams = $injector.get('$stateParams');
@@ -52,6 +90,18 @@ describe('EventViewsCtrl tests', function() {
     expect(scope.page).toBeDefined();
     expect(scope.viewType).toBeDefined();
     expect(scope.viewEvents).toHaveBeenCalled();
+  });
+
+  it('should init based on stateParams catId', function() {
+    stateParams.catId = 1;
+    spyOn(scope, 'viewEvents').and.callThrough();
+    spyOn(scope, 'getCategory').and.callThrough();
+    spyOn(Categories, 'get').and.callThrough();
+    scope.init();
+    expect(scope.categoryId).toBeDefined();
+    expect(scope.getCategory).toHaveBeenCalled();
+    expect(scope.viewEvents).not.toHaveBeenCalled();
+    expect(Categories.get).toHaveBeenCalled();
     expect(scope.loadEvents).toBeDefined();
   });
 
@@ -60,18 +110,18 @@ describe('EventViewsCtrl tests', function() {
     spyOn(Events, 'query').and.callThrough();
     spyOn(scope, 'viewEvents').and.callThrough();
     scope.viewEvents(scope.page);
-    expect(scope.limit).toBe(3);
+    expect(scope.limit).toBe(5);
     expect(Events.query).toHaveBeenCalledWith({
-      limit: 3,
+      limit: 5,
       page: 0
     });
     expect(scope.loadEvents).toBeDefined();
-    expect(scope.loadEvents).toEqual([1, 2, 3]);
+    expect(scope.loadEvents).toEqual([1, 2, 3, 4, 5]);
   });
 
   it('should set view type', function() {
     spyOn(scope, 'setViewType').and.callThrough();
-    spyOn(scope, 'updateStateParams').and.callThrough();
+    spyOn(scope, 'updateStateParams');
     scope.setViewType('list');
     expect(scope.viewType).toBe('list');
     expect(scope.updateStateParams).toHaveBeenCalled();
@@ -81,51 +131,47 @@ describe('EventViewsCtrl tests', function() {
     scope.page = 0;
     scope.viewType = 'list';
     spyOn(state, 'go');
-    spyOn(scope, 'updateStateParams').and.callThrough();
     scope.updateStateParams();
-    expect(state.go).toHaveBeenCalledWith('events.all', {
-      page: 0,
-      view: 'list'
-    });
+    expect(state.go).toHaveBeenCalled();
   });
 
   it('should load previous page of events', function() {
     state.params.page = 1;
     spyOn(scope, 'viewEvents').and.callThrough();
     spyOn(Events, 'query').and.callThrough();
-    spyOn(scope, 'updateStateParams').and.callThrough();
+    spyOn(scope, 'updateStateParams');
     scope.prevEvents();
     expect(scope.page).toBe(0);
     expect(scope.viewEvents).toHaveBeenCalledWith(scope.page);
     expect(Events.query).toHaveBeenCalledWith({
-      limit: 3,
+      limit: 5,
       page: 0
     });
     expect(scope.loadEvents).toBeDefined();
-    expect(scope.loadEvents).toEqual([1, 2, 3]);
+    expect(scope.loadEvents).toEqual([1, 2, 3, 4, 5]);
   });
 
   it('should load next page of events', function() {
     state.params.page = 1;
     spyOn(scope, 'viewEvents').and.callThrough();
     spyOn(Events, 'query').and.callThrough();
-    spyOn(scope, 'updateStateParams').and.callThrough();
+    spyOn(scope, 'updateStateParams');
     scope.nextEvents();
     expect(scope.page).toBe(2);
     expect(scope.viewEvents).toHaveBeenCalledWith(scope.page);
     expect(Events.query).toHaveBeenCalledWith({
-      limit: 3,
+      limit: 5,
       page: 1
     });
     expect(scope.loadEvents).toBeDefined();
-    expect(scope.loadEvents).toEqual([4, 5, 6]);
+    expect(scope.loadEvents).toEqual([6]);
   });
 
   it('should disable next button', function() {
     scope.page = 2;
-    scope.limt = 3;
+    scope.limt = 5;
     spyOn(Events, 'query').and.callThrough();
-    scope.disableNext();
+    scope.disableNextButton();
     expect(Events.query).toHaveBeenCalled();
     expect(scope.nextButton).toBe(true);
   });

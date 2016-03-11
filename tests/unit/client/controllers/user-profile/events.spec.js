@@ -14,6 +14,7 @@ describe('UserEventsCtrl tests', function() {
         cb(!currentUser, res);
       }
     },
+
     currentUser = {
       city: 'Nairobi',
       country: 'Kenya',
@@ -40,6 +41,7 @@ describe('UserEventsCtrl tests', function() {
       updated_at: '2015-12-01T09:29:08.522Z',
       username: 'HannahCK',
     },
+
     Events = {
       save: function(evt, cb) {
         evt ? cb(evt) : cb(false);
@@ -132,6 +134,7 @@ describe('UserEventsCtrl tests', function() {
   });
 
   it('should get an event', function() {
+    scope.currentUser = currentUser;
     spyOn(Events, 'get').and.callThrough();
     scope.getEvent();
     expect(Events.get).toHaveBeenCalled();
@@ -148,6 +151,7 @@ describe('UserEventsCtrl tests', function() {
   });
 
   it('should call uploader.uploadAll', function() {
+    scope.currentUser = currentUser;
     scope.getEvent();
     spyOn(scope.uploader, 'uploadAll');
     scope.upload();

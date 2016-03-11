@@ -4,9 +4,22 @@ module.exports = function(sequelize, DataType) {
       // e.g product, service, location
       type: {
         type: DataType.STRING,
+        validate: {
+          isIn: {
+            args: [
+              ['Item', 'Event']
+            ],
+            msg: 'Must be either Item, Event'
+          }
+        },
+        allowNull: false
+      },
+      name: {
+        type: DataType.STRING,
         allowNull: false
       }
     },
+
     // table configuration
     {
       // prevent timestamps from using camelase

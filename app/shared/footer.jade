@@ -1,38 +1,31 @@
-.footer.hide-sm(ng-controller="FooterCtrl")
-  .md-padding.md-margin(layout="row" layout-md="column" layout-sm="column" style="justify-content: center")
-    .footer-item-group
-      .md-title.text-white.footer-titles About
-        div(ng-repeat="aboutItem in about" ui-sref="{{aboutItem.state}}", aria-label="aboutItem.name")
-          md-button.footer-button {{aboutItem.name}}
+.footer.hide-sm(ng-controller="FooterCtrl" layout="column")
+  .md-padding(layout="row" layout-md="column" layout-sm="column" flex layout-align="center")
+    .nav-links(flex-gt-md="50" layout="row" layout-align="start" flex layout-padding)
+      .footer-item-group(layout="column")
+        .md-title.footer-titles About
+        div.footer-links(ng-repeat="aboutItem in about" ui-sref="{{aboutItem.state}}", aria-label="aboutItem.name") {{aboutItem.name}}
 
-    .footer-item-group
-      .md-title.text-white.footer-titles Discover
-        div(ng-repeat="item in discover" ui-sref="{{item.state}}", aria-label="item.name")
-          md-button.footer-button {{item.name}}
+      .footer-item-group(layout="column")
+        .md-title.footer-titles Discover
+        div.footer-links(ng-repeat="item in discover" ui-sref="{{item.state}}", aria-label="item.name") {{item.name}}
 
-    .footer-item-group
-      .md-title.text-white.footer-titles Business
-        div(ng-repeat="item in business" ui-sref="{{item.state}}", aria-label="item.name")
-          md-button.footer-button {{item.name}}
+      .footer-item-group(layout="column")
+        .md-title.footer-titles Business
+        div.footer-links(ng-repeat="item in business" ui-sref="{{item.state}}", aria-label="item.name") {{item.name}}
 
-  md-divider(style="background-color: white; margin-left: 80px; margin-right: 80px; ")
-  .md-headline.text-white.footer-titles(style="text-align: center; margin-top: 10px") Join Us
-  .md-padding.md-margin(layout="row" style="justify-content: center")
-    div(layout="row" layout-md="row" layout-sm="column")
-      md-button.no-space(aria-label="GoogleIcon")
-        span.fa.fa-google-plus-square.fa-3x.text-white
-      md-button.no-space(aria-label="FacebookIcon")
-        span.fa.fa-facebook-square.fa-3x.text-white
-      md-button.no-space(aria-label="TwitterIcon")
-        span.fa.fa-twitter-square.fa-3x.text-white
-    div(layout="row" layout-md="row" layout-sm="column")
-      md-button.no-space(aria-label="InstagramIcon")
-        span.fa.fa-instagram.fa-3x.text-white
-      md-button.no-space(aria-label="LinkedinIcon")
-        span.fa.fa-linkedin-square.fa-3x.text-white
-      md-button.no-space(aria-label="PinterestIcon")
-        span.fa.fa-pinterest-square.fa-3x.text-white
-    div
-      md-button.no-space(aria-label="YoutubeIcon")
-        span.fa.fa-youtube-square.fa-3x.text-white
-  .footer-text Copyright © 2015 Vvida Inc. Vvida, Vvida logo and related marks are registered trademarks of Vvida.
+    md-divider.md-inset
+
+    .social_icons(layout="column" flex-gt-md="50" flex layout-align="start start" layout-padding)   
+      .footer-titles Join Us
+      div.icons(layout="row" layout-md="row" layout-sm="column")
+        span.fa.fa-google-plus-square.fa-2x.text-white
+        span.fa.fa-facebook-square.fa-2x.text-white
+        span.fa.fa-twitter-square.fa-2x.text-white
+        span.fa.fa-instagram.fa-2x.text-white
+        span.fa.fa-linkedin-square.fa-2x.text-white
+        span.fa.fa-pinterest-square.fa-2x.text-white
+        span.fa.fa-youtube-square.fa-2x.text-white
+
+  .md-padding
+    md-divider.md-inset
+    .footer-text Copyright © 2015 Vvida Inc. Vvida, Vvida logo and related marks are registered trademarks of Vvida.
