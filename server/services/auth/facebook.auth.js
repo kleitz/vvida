@@ -6,8 +6,7 @@ module.exports = function(app, passport, config) {
   var FacebookStrategy = config.strategy.Facebook,
     jwt = require('jsonwebtoken'),
     ucfirst = require('../ucfirst'),
-    Users = app.get('models').Users,
-    user;
+    Users = app.get('models').Users;
 
   passport.use(new FacebookStrategy(config.auth.FACEBOOK,
     function(accessToken, refreshToken, profile, done) {
@@ -72,6 +71,7 @@ module.exports = function(app, passport, config) {
                   return done(err);
                 }
               });
+
           } else {
             user.token = null;
             var token = jwt.sign({ id: user.id }, config.superSecret, {
