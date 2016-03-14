@@ -6,7 +6,8 @@ module.exports = function(app, passport, config) {
   var FacebookStrategy = config.strategy.Facebook,
     jwt = require('jsonwebtoken'),
     ucfirst = require('../ucfirst'),
-    Users = app.get('models').Users;
+    Users = app.get('models').Users,
+    user;
 
   passport.use(new FacebookStrategy(config.auth.FACEBOOK,
     function(accessToken, refreshToken, profile, done) {
@@ -17,7 +18,7 @@ module.exports = function(app, passport, config) {
           facebook_auth_id: profile.id
         };
 
-        if(profile.emails[0] && profile.emails[0].value) {
+        if (profile.emails[0] && profile.emails[0].value) {
           $where = {
             $or: [{
               facebook_auth_id: profile.id,
@@ -26,7 +27,7 @@ module.exports = function(app, passport, config) {
             }]
           };
         }
-        // check if the user exists in out database
+        // check if the user exists in database
         Users.findOne({
           where: $where,
           attributes: ['id', 'name', 'img_url', 'facebook_auth_id']
@@ -34,26 +35,28 @@ module.exports = function(app, passport, config) {
           // If the user does not exist create one
           if (!user) {
             Users.build({
-              email: profile.emails[0].value,
-              role: 'user',
-              username: profile.username,
-              name: profile.displayName,
-              facebook_auth_id: profile.id,
-              img_url: profile.photos[0].value,
-              facebook_auth_token: accessToken,
-              gender: ucfirst(profile.gender)
-            })
+                email: profile.emails[0].value,
+                role: 'user',
+                username: profile.username,
+                name: profile.displayName,
+                facebook_auth_id: profile.id,
+                img_url: profile.photos[0].value,
+                facebook_auth_token: accessToken,
+                gender: ucfirst(profile.gender)
+              })
               .save()
-              .then(function(user) {
+              .then(function(newUser) {
+                user = newUser.dataValues;
+
                 user.token = null;
-                var token = jwt.sign({id: user.id}, config.superSecret, {
+                var token = jwt.sign({ id: user.id }, config.superSecret, {
                   expiresIn: '8760h'
                 });
 
                 user.token = token;
                 Users.update(user, {
                   where: {
-                    email: user.email
+                    id: user.id
                   }
                 }).then(function(ok, err) {
                   if (err) {
@@ -61,7 +64,7 @@ module.exports = function(app, passport, config) {
                   }
 
                   user.password = undefined;
-                  done(null, user);
+                  return done(null, user);
                 });
               })
               .catch(function(err) {
@@ -71,12 +74,12 @@ module.exports = function(app, passport, config) {
               });
           } else {
             user.token = null;
-            var token = jwt.sign({id: user.id}, config.superSecret, {
+            var token = jwt.sign({ id: user.id }, config.superSecret, {
               expiresIn: '8760h'
             });
 
             user.token = token;
-            Users.update({token: user.token}, {
+            Users.update({ token: user.token }, {
               where: {
                 id: user.id
               }
@@ -90,13 +93,11 @@ module.exports = function(app, passport, config) {
             });
           }
         }).catch(function(err) {
-            if (err) {
-              return done(err);
-            }
-          });
-
+          if (err) {
+            return done(err);
+          }
+        });
       });
     }
   ));
-
 };

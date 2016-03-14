@@ -18,6 +18,6 @@ module.exports = function(app, passport) {
     failureRedirect: '/sign-up'
   }), function(req, res) {
     // Successful authentication, redirect home.
-    res.redirect('/auth/success/' + req.user.dataValues.token);
+    res.redirect('/auth/success/' + req.user.token + '/' + req.user.id);
   });
 };

@@ -2,7 +2,8 @@ module.exports = function(app, passport, config) {
   var bcrypt = require('bcrypt-nodejs'),
     Users = app.get('models').Users,
     jwt = require('jsonwebtoken'),
-    LocalStrategy = config.strategy.Local;
+    LocalStrategy = config.strategy.Local,
+    user;
 
   // signup middleware for local signup
   passport.use('signup', new LocalStrategy({
@@ -13,22 +14,22 @@ module.exports = function(app, passport, config) {
     return Users.create({
       email: email,
       password: hash
-    }).then(function(user) {
-      if (!user) {
-        return done(null, false);
-      }
+    }).then(function(newUser) {
+      user = newUser.dataValues;
+
       user.token = null;
-      var token = jwt.sign({id: user.id}, config.superSecret, {
-        expireIn: '8760h'
+      var token = jwt.sign({ id: user.id }, config.superSecret, {
+        expiresIn: '8760h'
       });
-      user.dataValues.token = token;
-      Users.update({token: token}, {
+
+      user.token = token;
+      Users.update({ token: token }, {
         where: {
           id: user.id
         }
       }).then(function() {
         user.password = undefined;
-        done(null, user);
+        return done(null, user);
       });
     }).catch(function(err) {
       return done(err);
@@ -45,7 +46,8 @@ module.exports = function(app, passport, config) {
       where: {
         email: username
       }
-    }).then(function(user) {
+    }).then(function(getUser) {
+      user = getUser.dataValues;
       if (!user) {
         return done(null, false);
       }
@@ -55,21 +57,20 @@ module.exports = function(app, passport, config) {
         return done(null, false);
       }
       user.token = null;
-      var token = jwt.sign({id: user.id}, config.superSecret, {
-        expireIn: '8760h'
+      var token = jwt.sign({ id: user.id }, config.superSecret, {
+        expiresIn: '8760h'
       });
-
       user.token = token;
       Users.update(user, {
         where: {
-          email: user.email
+          id: user.id
         }
       }).then(function(ok, err) {
         if (err) {
           return done(err, null);
         }
         user.password = undefined;
-        done(null, user);
+        return done(null, user);
       });
     }).catch(function(err) {
       return done(err);

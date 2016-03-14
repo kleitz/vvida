@@ -10,10 +10,7 @@
           Users.login($scope.user, function(err, res) {
             if (!err) {
               Auth.setToken(res.token);
-              var user = {};
-              user.name = res.name;
-              user.img_url = res.img_url;
-              $rootScope.currentUser = user;
+              $rootScope.currentUser = res;
               var goTo = $rootScope.intendedState || 'welcome';
               $state.go(goTo);
             } else {
@@ -42,10 +39,11 @@
               email: $scope.user.emailSignup,
               password: $scope.user.passwordSignup
             };
+
             Users.save(user, function(res) {
               Auth.setToken(res.token);
               $rootScope.currentUser = res;
-              $state.go('profile', {
+              $state.go('userProfile', {
                 id: $rootScope.currentUser.id
               });
             }, function(err) {

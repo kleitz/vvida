@@ -25,7 +25,7 @@
         passport.authenticate('login', function(err, user) {
           if (user) {
             user.password = null;
-            res.json(user);
+            res.json(stripUser(user));
           } else {
             res.status(401).json({
               error: 'Authentication failed.',
@@ -37,18 +37,20 @@
 
       signup: function(req, res, next) {
         passport.authenticate('signup', function(err, user) {
-          // check for errors, if exist send a response with error
-
+          // check for errors
           if (err) {
             res.status(500).json({
               error: err.message || err.errors[0].message || err
             });
           }
-          // If passport doesn't  the user object,  signup failed
-          if (!user) {
+          // If passport doesn't return the user object,  signup failed
+          else if (!user) {
             res.status(409).json({
               error: 'Signup failed. User already exists.'
             });
+          } else {
+            delete user.password;
+            return res.json(stripUser(user));
           }
           // else signup succesful
         })(req, res, next);
@@ -70,7 +72,6 @@
             err: err
           });
         });
-
       },
 
       // Middleware to get all users
@@ -154,11 +155,11 @@
             message: 'Successfully logged out.'
           });
         }).catch(function(err) {
-            res.status(500).json({
-              error: 'Failed to logout user.',
-              err: err
-            });
+          res.status(500).json({
+            error: 'Failed to logout user.',
+            err: err
           });
+        });
       },
 
       getItems: function(req, res) {

@@ -6,7 +6,8 @@ module.exports = function(app, passport, config) {
   var GoogleStrategy = config.strategy.Google,
     jwt = require('jsonwebtoken'),
     ucfirst = require('../ucfirst'),
-    Users = app.get('models').Users;
+    Users = app.get('models').Users,
+    user;
   passport.use(new GoogleStrategy(config.auth.GOOGLE,
     function(accessToken, refreshToken, profile, done) {
       // make the code asynchronous
@@ -24,9 +25,9 @@ module.exports = function(app, passport, config) {
 
           attributes: ['id', 'name', 'img_url', 'gender', 'google_auth_id']
         }).then(function(user) {
-            // If the user does not exist create one
-            if (!user) {
-              Users.build({
+          // If the user does not exist create one
+          if (!user) {
+            Users.build({
                 email: profile.emails[0].value,
                 role: 'user',
                 username: profile.username,
@@ -38,60 +39,61 @@ module.exports = function(app, passport, config) {
               })
               // save the user instance build
               .save()
-                .then(function(user) {
-                  user.token = null;
-                  var token = jwt.sign({id: user.id}, config.superSecret, {
-                    expireIn: '8760h'
-                  });
+              .then(function(newUser) {
+                user = newUser.dataValues;
 
-                  user.token = token;
-                  Users.update(user, {
-                    where: {
-                      id: user.id
-                    }
-                  }).then(function(ok, err) {
-                    if (err) {
-                      return done(err, null);
-                    }
-
-                    user.password = undefined;
-                    done(null, user);
-                  });
-                }).catch(function(err) {
-                  if (err) {
-                    return done(err);
-                  }
+                user.token = null;
+                var token = jwt.sign({ id: user.id }, config.superSecret, {
+                  expireIn: '8760h'
                 });
-            }
-            // If the user was found, then just do a redirect
-            else {
-              // or TODO maybe create cookies/sessions
-              user.token = null;
-              var token = jwt.sign({id: user.id}, config.superSecret, {
-                expiresIn: '8760h'
-              });
 
-              user.token = token;
-              Users.update({token: user.token}, {
-                where: {
-                  id: user.id
-                }
-              }).then(function(ok, err) {
+                user.token = token;
+                Users.update(user, {
+                  where: {
+                    id: user.id
+                  }
+                }).then(function(ok, err) {
+                  if (err) {
+                    return done(err, null);
+                  }
+
+                  user.password = undefined;
+                  return done(null, user);
+                });
+              }).catch(function(err) {
                 if (err) {
-                  return done(err, null);
+                  return done(err);
                 }
-
-                user.password = undefined;
-                done(null, user);
               });
-            }
-          }).catch(function(err) {
-            if (err) {
-              return done(err);
-            }
-          });
+          }
+          // If the user was found, then just do a redirect
+          else {
+            // or TODO maybe create cookies/sessions
+            user.token = null;
+            var token = jwt.sign({ id: user.id }, config.superSecret, {
+              expiresIn: '8760h'
+            });
+
+            user.token = token;
+            Users.update({ token: user.token }, {
+              where: {
+                id: user.id
+              }
+            }).then(function(ok, err) {
+              if (err) {
+                return done(err, null);
+              }
+
+              user.password = undefined;
+              done(null, user);
+            });
+          }
+        }).catch(function(err) {
+          if (err) {
+            return done(err);
+          }
+        });
       });
     }
   ));
-
 };

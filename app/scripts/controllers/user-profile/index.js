@@ -13,7 +13,9 @@ angular.module('vvida.controllers')
         }];
 
         $scope.ownerMenu = [{
-          link: 'userProfile.edit',
+          link: 'userProfile.edit({id:' +
+          $rootScope.currentUser.id +
+          '})',
           title: 'Edit Your Profile',
           icon: 'fa fa-pencil'
         }];

@@ -160,11 +160,12 @@
           }
         })
         .state('authSuccess', {
-          url: '/auth/success/{token}',
+          url: '/auth/success/{token}/{id}',
           controller: ['$stateParams', 'Auth', '$state',
             function($stateParams, Auth, $state) {
                 Auth.setToken($stateParams.token);
-                var loc = $state.href('userProfile', {}, {absolute:true});
+                var loc = $state.href('userProfile',
+                  {id : $stateParams.id}, {absolute:true});
                 window.location.href = loc;
               }
           ]
@@ -181,13 +182,13 @@
         })
 
       .state('userProfile', {
-          url: '/user/profile',
+          url: '/user/{id}/profile',
           authenticate: true,
           controller: 'UserProfileCtrl',
           templateUrl: 'views/user-profile.html'
         })
         .state('userProfile.edit', {
-          url: '/{id}/edit',
+          url: '/edit',
           views: {
             'inner-view@userProfile': {
               controller: 'ProfileCtrl',
