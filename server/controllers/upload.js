@@ -95,7 +95,7 @@
           where: {
             public_id: req.params.id
           }
-        }).then(function(ok) {
+        }).then(function() {
           req.info.db = {
             message: 'Delete succesful'
           };

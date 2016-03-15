@@ -2,9 +2,7 @@ module.exports = function(app, passport, config) {
   var bcrypt = require('bcrypt-nodejs'),
     Users = app.get('models').Users,
     jwt = require('jsonwebtoken'),
-    LocalStrategy = config.strategy.Local,
-    user;
-
+    LocalStrategy = config.strategy.Local;
   // signup middleware for local signup
   passport.use('signup', new LocalStrategy({
     usernameField: 'email',
