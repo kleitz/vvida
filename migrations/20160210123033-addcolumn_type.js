@@ -14,7 +14,7 @@
             msg: 'Must be either Item, Event'
           }
         },
-        allowNull: false
+        allowNull: true
       });
     }
 
