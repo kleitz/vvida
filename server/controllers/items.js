@@ -69,7 +69,7 @@
         }).then(function(item) {
           if (!item) {
             res.status(404).json({
-              message: 'Item not found'
+              error: 'Item not found'
             });
           } else {
             res.json(item);

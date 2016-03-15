@@ -14,8 +14,8 @@ module.exports = function(app, passport, config) {
     return Users.create({
       email: email,
       password: hash
-    }).then(function(newUser) {
-      user = newUser.dataValues;
+    }).then(function(user) {
+      user = user.dataValues;
 
       user.token = null;
       var token = jwt.sign({ id: user.id }, config.superSecret, {
@@ -46,8 +46,8 @@ module.exports = function(app, passport, config) {
       where: {
         email: username
       }
-    }).then(function(getUser) {
-      user = getUser.dataValues;
+    }).then(function(user) {
+      user = user.dataValues;
       if (!user) {
         return done(null, false);
       }

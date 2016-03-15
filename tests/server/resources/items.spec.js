@@ -203,13 +203,13 @@
         });
     });
 
-    it('should assert the document was deleted.', function(done) {
+    it('should assert the resource was deleted.', function(done) {
       request
         .get(resourceApiUrl + '/' + id)
         .accept('application/json')
         .end(function(err, res) {
           _expect(res.status).to.be(404);
-          _expect(res.body.message).to.be('Item not found');
+          _expect(res.body.error).to.be('Item not found');
           done();
         });
     });

@@ -38,8 +38,8 @@ module.exports = function(app, passport, config) {
               })
               // save the user instance build
               .save()
-              .then(function(newUser) {
-                user = newUser.dataValues;
+              .then(function(user) {
+                user = user.dataValues;
 
                 user.token = null;
                 var token = jwt.sign({ id: user.id }, config.superSecret, {

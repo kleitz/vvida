@@ -28,8 +28,7 @@
             res.json(stripUser(user));
           } else {
             res.status(401).json({
-              error: 'Authentication failed.',
-              err: err
+              error: 'Authentication failed.'
             });
           }
         })(req, res, next);
@@ -40,7 +39,7 @@
           // check for errors
           if (err) {
             res.status(500).json({
-              error: err.message || err.errors[0].message || err
+              error: err.message || err.errors[0].message
             });
           }
           // If passport doesn't return the user object,  signup failed
@@ -50,7 +49,7 @@
             });
           } else {
             delete user.password;
-            return res.json(stripUser(user));
+            res.json(stripUser(user));
           }
           // else signup succesful
         })(req, res, next);
@@ -68,8 +67,7 @@
           }
         }).catch(function(err) {
           res.status(500).json({
-            error: 'Authentication Error.',
-            err: err
+            error: err.message || err.errors[0].message
           });
         });
       },
@@ -83,8 +81,7 @@
           res.json(users);
         }).catch(function(err) {
           res.status(500).json({
-            message: 'Error retrieving user',
-            err: err
+            error: err.message || err.errors[0].message
           });
         });
       },
@@ -94,15 +91,14 @@
         Users.findById(req.params.id).then(function(user) {
           if (!user) {
             res.status(404).json({
-              message: 'User not found'
+              error: 'User not found'
             });
           } else {
             res.json(stripUser(user));
           }
         }).catch(function(err) {
           res.status(500).json({
-            message: 'Error retrieving user',
-            err: err
+            error: err.message || err.errors[0].message
           });
         });
       },
@@ -156,8 +152,7 @@
           });
         }).catch(function(err) {
           res.status(500).json({
-            error: 'Failed to logout user.',
-            err: err
+            error: err.message || err.errors[0].message
           });
         });
       },

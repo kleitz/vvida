@@ -32,7 +32,7 @@
           res.json(review);
         }).catch(function(err) {
           res.status(500).json({
-            error: err.message || err.error[0].message
+            error: err.message || err.errors[0].message
           });
         });
       },
@@ -77,7 +77,7 @@
         }).then(function(review) {
           if (!review) {
             res.status(404).json({
-              message: 'Review not found'
+              error: 'Review not found'
             });
           } else {
             res.json(review);

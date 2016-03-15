@@ -40,7 +40,7 @@
           }
         } : {};
 
-        return Events.findAll({
+        Events.findAll({
           where: filter,
           order: [
             ['time', 'ASC']
@@ -52,8 +52,7 @@
           res.json(event);
         }).catch(function(err) {
           res.status(500).json({
-            message: 'Error retrieving event',
-            error: err
+            error: err.message || err.errors[0].message
           });
         });
       },
@@ -81,11 +80,10 @@
             event.images = event.images.split(',');
             return event;
           });
-          return res.json(response);
+           res.json(response);
         }, function(err) {
-          return res.status(500).send({
-            message: 'Error retrieving events',
-            error: err
+          res.status(500).json({
+            error: err.message || err.errors[0].message
           });
         });
       },
@@ -100,15 +98,14 @@
         }).then(function(event) {
           if (!event) {
             res.status(404).json({
-              message: 'Event not found'
+              error: 'Event not found'
             });
           } else {
             res.json(event);
           }
         }).catch(function(err) {
           res.status(500).json({
-            message: 'Error retrieving event',
-            error: err
+            error: err.message || err.errors[0].message
           });
         });
       },
@@ -122,11 +119,10 @@
         }).then(function(ok, err) {
           if (err) {
             res.status(500).json({
-              error: 'Update failed'
+              error: err.message || err.errors[0].message
             });
           } else {
             res.json({
-              isUpdate: true,
               message: 'You have successfully Edited Your event'
             });
           }
@@ -142,7 +138,7 @@
         }).then(function(ok, err) {
           if (err) {
             res.status(500).json({
-              error: 'Delete failed'
+              error: err.message || err.errors[0].message
             });
           } else {
             res.json({

@@ -31,8 +31,7 @@
             res.json(category);
         }).catch(function(err) {
           res.status(500).json({
-            message: 'Error retrieving category(ies)',
-            error: err
+            error: err.message || err.errors[0].message
           });
         });
       },
@@ -47,19 +46,17 @@
             model: app.get('models')[req.query.model],
             include: [Images, Reviews]
           }]
-        }).then(function(categoryItems) {
-          if (!categoryItems) {
+        }).then(function(category) {
+          if (!category) {
             res.status(404).json({
-              message: 'Category not found!',
-              success: false
+              error: 'Category not found!'
             });
           } else {
-            res.json(categoryItems);
+            res.json(category);
           }
         }).catch(function(err) {
           res.status(500).json({
-            message: 'Error retrieving category',
-            error: err
+            error: err.message || err.errors[0].message
           });
         });
       },

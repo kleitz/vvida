@@ -162,7 +162,7 @@
         });
     });
 
-    it('should assert the document was deleted.', function(done) {
+    it('should assert the resource was deleted.', function(done) {
       request
         .get(resourceApiUrl + '/' + id)
         .query({
@@ -171,7 +171,7 @@
         .accept('application/json')
         .end(function(err, res) {
           _expect(res.status).to.be(404);
-          _expect(res.body.success).to.be(false);
+          _expect(res.body.error).to.be('Category not found!');
           done();
         });
     });
