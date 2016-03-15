@@ -35,7 +35,7 @@
                   | {{event.venue}}
                 span.time {{getTime(event.time).day}} @{{getTime(event.time).time}}
             md-card-content
-              md-button.md-raised(md-ink-ripple) Review
+              md-button.md-raised(md-ink-ripple ui-sref="viewEvent({id: event.id})") Review
 
         md-divider
         .md-padding(layout="row" layout-align="start center" ng-if="popularEvents.length > 0")
@@ -52,7 +52,7 @@
                   | {{event.venue}}
                 span.time {{getTime(event.time).day}} @{{getTime(event.time).time}}
             md-card-content
-              md-button.md-raised(md-ink-ripple) Review
+              md-button.md-raised(md-ink-ripple ui-sref="viewEvent({id: event.id})") Review
 
       div(ui-view="inner")
 

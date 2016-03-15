@@ -5,7 +5,7 @@ md-content.content(ng-if="currentUser" ng-init="init()")
       div(layout-gt-sm="row" layout='column' layout-align-gt-sm='start start' layout-align='start center')
         .md-padding
           md-card.ripple-container.prof-child-img(md-ink-ripple flex)
-            .card-images.md-card-image.bg-img-event
+            .card-images.md-card-image(style="background-image: url({{event.Images[0].img_url}});")
         .md-padding(flex layout='column' layout-align-gt-sm='start start' layout-align='start center')
           p.md-headline.packed-bottom.bold-title {{event.name}}
           p.md-subhead.packed

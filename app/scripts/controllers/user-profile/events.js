@@ -9,8 +9,7 @@ angular.module('vvida.controllers')
     'Events',
     'FileUploader',
     'Categories',
-    '$mdDialog',
-    function($scope, $rootScope,
+    '$mdDialog', function($scope, $rootScope,
       $state, $stateParams, Users, Utils, Events,
       FileUploader, Categories, $mdDialog) {
 

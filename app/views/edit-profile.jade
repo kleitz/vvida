@@ -1,16 +1,14 @@
-md-card.md-margin(layout='column' flex='90')
-  br
+div.md-margin(layout='column' flex='90')
   .md-padding(layout='column' layout-align='center center')
-    P.md-display-2.packed EDIT PROFILE
+    p User Profile
     div(layout='column' layout-align='center center')
-      p.packed
+      p
         | Welcome. The email address you have provided is&nbsp;
-        span.email {{currentUser.email}}.
-      p.packed Please complete the following form with your details to complete your registration.
+        span.email {{userData.email}}.
+      span Please complete the following form with your details to complete your registration.
   md-card-content.md-margin.content(layout-gt-md='row' layout='column')
     div(layout='column' flex)
       md-card.md-padding.upload-div(layout='column' layout-align='start center' flex)
-        h3.md-margin Your Profile Picture
         p.packed-bottom Pick your profile picture and click UPLOAD.
         p.packed-top Click REMOVE to cancel.
         input.upload-btn(type="file" nv-file-select="" uploader="uploader" ng-click='uploader.clearQueue()')
@@ -34,27 +32,25 @@ md-card.md-margin(layout='column' flex='90')
     form(method='post' ng-submit='editProfile()' flex layout='column')
       md-card.md-padding.md-padding(flex)
         div(layout='row' layout-align='center center')
-          h3.md-margin Your Profile Details
         md-input-container
           md-icon(class='fa fa-user-secret')
-          input(ng-model='currentUser.username' type='text' placeholder='Username' ng-required='true')
+          input(ng-model='userData.username' type='text' placeholder='Username' ng-required='true')
         md-input-container(flex)
             md-icon(class='fa fa-user')
-            input(ng-model='currentUser.name' type='text' placeholder='Names' ng-required='true')
+            input(ng-model='userData.name' type='text' placeholder='Names' ng-required='true')
         div(layout='row' layout-sm='column')
           md-input-container(flex)
             md-icon(class='fa fa-building')
-            input(ng-model='currentUser.city' type='text' placeholder='City' ng-required='true')
-          md-input-container.datepicker-cont(aria-label='Date of Birth')
-            md-datepicker.datepicker(md-placeholder='Date of Birth' ng-model='currentUser.dob' aria-label='Date of Birth')
+            input(ng-model='userData.city' type='text' placeholder='City' ng-required='true')
+          md-datepicker.datepicker(md-placeholder='Date of Birth' ng-model='userData.dob' aria-label='Date of Birth')
         div(layout='row' style='margin-left: 10px' layout-sm='column')
           md-input-container(layout='row' layout-align='center center' flex)
             md-icon(class='fa fa-globe')
-            md-select.md-padding.md-margin(placeholder='Country' ng-model='currentUser.country' aria-label='Country' flex)
+            md-select.md-padding.md-margin(placeholder='Country' ng-model='userData.country' aria-label='Country' flex)
               md-option(ng-repeat='country in countries' ng-value='country.name') {{country.name}}
           md-input-container(layout='row' layout-align='center center' flex)
             md-icon(class='fa fa-venus-mars')
-            md-select.md-padding.md-margin(placeholder='Gender' ng-model='currentUser.gender' aria-label='Gender' flex)
+            md-select.md-padding.md-margin(placeholder='Gender' ng-model='userData.gender' aria-label='Gender' flex)
               md-option(ng-repeat='type in gender' ng-value='type.type') {{type.type}}
         p {{message}}
         div(layout='row' flex layout-align='center end')

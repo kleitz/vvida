@@ -2,8 +2,7 @@ angular.module('vvida.controllers')
   .controller('UserProductsCtrl', ['$scope',
     '$rootScope',
     'Users',
-    'Utils',
-    function($scope, $rootScope, Users, Utils) {
+    'Utils', function($scope, $rootScope, Users, Utils, Items) {
       $scope.init = function() {
         Users.items($rootScope.currentUser, function(err, res) {
           if (err) {
