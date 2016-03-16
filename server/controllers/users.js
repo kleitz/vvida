@@ -263,13 +263,7 @@
             user_id: req.params.id
           }
         }).then(function(results) {
-          if (!results) {
-            res.status(404).json({
-              error: 'User reviews not found'
-            });
-          } else {
             res.json(results);
-          }
         }).catch(function(err) {
           res.status(500).json({
             error: err.message || err.errors[0].message
@@ -283,13 +277,7 @@
             user_id: req.params.id
           }
         }).then(function(results) {
-          if (!results) {
-            res.status(404).json({
-              error: 'User events not found'
-            });
-          } else {
             res.json(results);
-          }
         }).catch(function(err) {
           res.status(500).json({
             error: err.message || err.errors[0].message
