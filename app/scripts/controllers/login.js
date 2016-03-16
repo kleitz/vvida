@@ -11,8 +11,9 @@
             if (!err) {
               Auth.setToken(res.token);
               $rootScope.currentUser = res;
-              var goTo = $rootScope.intendedState || 'welcome';
-              $state.go(goTo);
+              $state.go('userProfile', {
+                id: $rootScope.currentUser.id
+              });
             } else {
               $scope.messageLogin = err.error || err || err[0].message;
             }

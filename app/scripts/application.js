@@ -68,7 +68,6 @@
         } else if (!toState.authenticate) {
           $state.go(toState);
         } else {
-          $rootScope.intendedState = toState;
           $state.go('login');
         }
       }
@@ -183,7 +182,6 @@
 
       .state('userProfile', {
           url: '/user/{id}/profile',
-          authenticate: true,
           controller: 'UserProfileCtrl',
           templateUrl: 'views/user-profile.html'
         })
