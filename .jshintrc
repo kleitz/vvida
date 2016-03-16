@@ -32,8 +32,7 @@
     "by",
     "exports",
     "sinon",
-    "spyOn",
-    "Sequelize"
+    "spyOn"
   ],
   "quotmark": true,
   "trailing": true,

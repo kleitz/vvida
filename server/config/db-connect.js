@@ -1,10 +1,10 @@
 (function() {
   'use strict';
 
-var _Sequelize = require('sequelize'),
+var Sequelize = require('sequelize'),
   env = process.env.NODE_ENV || 'development',
   config = require('./index'),
-  sequelize = new _Sequelize(config.db.url, {
+  sequelize = new Sequelize(config.db.url, {
     protocol: 'postgres',
     dialect: config.db.dialect,
     port: config.db.port,
