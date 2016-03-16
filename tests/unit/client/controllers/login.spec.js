@@ -111,7 +111,7 @@ describe('LoginCtrl tests', function() {
     scope.signup();
     expect(scope.messageSignup).toBeDefined();
     expect(scope.messageSignup).toEqual
-    ('Your password need to contain both uppercase and lower characters');
+    ('Your password should contain uppercase and lower characters');
   });
 
 

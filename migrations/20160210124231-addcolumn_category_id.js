@@ -6,7 +6,7 @@
     up: function(queryInterface, Sequelize) {
       return queryInterface.addColumn('Events', 'category_id', {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: true
       });
     }
 

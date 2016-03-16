@@ -8,7 +8,7 @@
       cloudinaryUpload = function(req, path, cb) {
         cloudinary.uploader.upload(path, function(result) {
           if (result && !result.error) {
-            return Images.create({
+            Images.create({
               item_id: req.body.ItemId,
               event_id: req.body.eventId,
               user_id: req.body.userId,
@@ -49,7 +49,7 @@
               res.json(image);
             } else {
               res.status(400).json({
-                error: 'Upload'
+                error: 'Upload failed'
               });
             }
           };
@@ -91,22 +91,15 @@
       },
 
       deleteImage: function(req, res) {
-         Images.destroy({
+        Images.destroy({
           where: {
             public_id: req.params.id
           }
-        }).then(function(ok) {
-          if (!ok) {
-            req.info.db = {
-              error: 'Delete failed'
-            };
-            res.status(500).json(req.info);
-          } else {
-            req.info.db = {
-              message: 'Delete succesful'
-            };
-            res.json(req.info);
-          }
+        }).then(function() {
+          req.info.db = {
+            message: 'Delete succesful'
+          };
+          res.json(req.info);
         }).catch(function(err) {
           res.status(500).json({
             error: err.message || err.errors[0].message
