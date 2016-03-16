@@ -21,7 +21,7 @@
           sponsor: req.body.sponsor,
           category_id: req.body.category_id
         }).then(function(event) {
-            res.json(event);
+          res.json(event);
         }).catch(function(err) {
           res.status(500).json({
             error: err.message || err.errors[0].message
@@ -40,7 +40,7 @@
           }
         } : {};
 
-        return Events.findAll({
+        Events.findAll({
           where: filter,
           order: [
             ['time', 'ASC']
@@ -49,11 +49,10 @@
           limit: limit,
           include: [Images, Reviews, Categories]
         }).then(function(event) {
-            res.json(event);
+          res.json(event);
         }).catch(function(err) {
           res.status(500).json({
-            message: 'Error retrieving event',
-            error: err
+            error: err.message || err.errors[0].message
           });
         });
       },
@@ -65,11 +64,13 @@
 
         var stmt =
           'SELECT Ev1.*, string_agg(Im1.img_url,\',\') AS Images, ' +
+          'Cat1.name AS CatName, ' +
           'COUNT(Rv1.id) AS review_count, ROUND(AVG(Rv1.rating)) ' +
           'AS avg_rating FROM public."Events" AS Ev1 ' +
+          'LEFT JOIN public."Categories" AS Cat1 ON Cat1.id=Ev1.category_id ' +
           'INNER JOIN public."Reviews" AS Rv1 ON Ev1.id=Rv1.event_id ' +
           'LEFT JOIN public."Images" AS Im1 ON Ev1.id=Im1.event_id ' +
-          'GROUP BY Ev1.id, Ev1.name ORDER BY review_count DESC ' +
+          'GROUP BY Ev1.id, Ev1.name, Cat1.id ORDER BY review_count DESC ' +
           'LIMIT ' + limit + ' OFFSET ' + offset;
 
         sequelize.query(stmt, {
@@ -79,11 +80,10 @@
             event.images = event.images.split(',');
             return event;
           });
-          return res.json(response);
+           res.json(response);
         }, function(err) {
-          return res.status(500).send({
-            message: 'Error retrieving events',
-            error: err
+          res.status(500).json({
+            error: err.message || err.errors[0].message
           });
         });
       },
@@ -98,15 +98,14 @@
         }).then(function(event) {
           if (!event) {
             res.status(404).json({
-              message: 'Event not found'
+              error: 'Event not found'
             });
           } else {
             res.json(event);
           }
         }).catch(function(err) {
           res.status(500).json({
-            message: 'Error retrieving event',
-            error: err
+            error: err.message || err.errors[0].message
           });
         });
       },
@@ -120,11 +119,10 @@
         }).then(function(ok, err) {
           if (err) {
             res.status(500).json({
-              error: 'Update failed'
+              error: err.message || err.errors[0].message
             });
           } else {
             res.json({
-              isUpdate: true,
               message: 'You have successfully Edited Your event'
             });
           }
@@ -140,7 +138,7 @@
         }).then(function(ok, err) {
           if (err) {
             res.status(500).json({
-              error: 'Delete failed'
+              error: err.message || err.errors[0].message
             });
           } else {
             res.json({

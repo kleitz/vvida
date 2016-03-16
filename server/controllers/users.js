@@ -3,7 +3,6 @@
 
   module.exports = function(app) {
     var passport = require('passport');
-    var jwt = require('jsonwebtoken');
 
     var Users = app.get('models').Users,
       Items = app.get('models').Items,
@@ -12,7 +11,6 @@
       Reviews = app.get('models').Reviews,
       stripUser = function(user) {
         user.password = null;
-        user.token = null;
         user.facebook_auth_id = null;
         user.facebook_auth_token = null;
         user.img_public_id = null;
@@ -25,89 +23,65 @@
       // login middleware
       login: function(req, res, next) {
         passport.authenticate('login', function(err, user) {
-          if (err) {
-            return res.status(500).json({
-              error: 'Something went wrong while logging you in.'
-            });
-          }
-          // Generate a JSON response reflecting authentication status
-          if (!user) {
-            return res.status(500).json({
+          if (user) {
+            user.password = null;
+            res.json(stripUser(user));
+          } else {
+            res.status(401).json({
               error: 'Authentication failed.'
             });
-          } else {
-            user.password = null;
-            req.session.user = user;
-            return res.json(user);
           }
         })(req, res, next);
       },
 
       signup: function(req, res, next) {
         passport.authenticate('signup', function(err, user) {
-          // check for errors, if exist send a response with error
+          // check for errors
           if (err) {
-            return res.status(500).json({
-              error: err.message || err.errors[0].message || err
+            res.status(500).json({
+              error: err.message || err.errors[0].message
             });
           }
           // If passport doesn't return the user object,  signup failed
-          if (!user) {
-            return res.status(409).json({
+          else if (!user) {
+            res.status(409).json({
               error: 'Signup failed. User already exists.'
             });
+          } else {
+            delete user.password;
+            res.json(stripUser(user));
           }
           // else signup succesful
-          return res.json(stripUser(user.dataValues));
         })(req, res, next);
       },
 
       session: function(req, res) {
-        var token = req.headers['x-access-token'] || req.params.token ||
-          req.session.user.token;
-        if (token && token !== 'null') {
-          jwt.verify(token, req.app.get('superSecret'), function(err, decoded) {
-            if (err) {
-              res.status(403).json({
-                error: 'Session has expired or does not exist.'
-              });
-            } else {
-              Users.findById(decoded.id).then(function(user) {
-                if (!user) {
-                  res.status(404).json({
-                    message: 'User not found'
-                  });
-                } else {
-                  delete user.password;
-                  req.decoded = user;
-                  res.json(stripUser(user));
-                }
-              }).catch(function(err) {
-                res.status(500).json({
-                  message: 'Error retrieving user',
-                  err: err
-                });
-              });
-            }
+        Users.findById(req.decoded.id).then(function(user) {
+          if (user && user.dataValues.token === req.token) {
+            delete user.dataValues.password;
+            res.json(stripUser(user.dataValues));
+          } else {
+            res.status(401).json({
+              error: 'Invalid token.'
+            });
+          }
+        }).catch(function(err) {
+          res.status(500).json({
+            error: err.message || err.errors[0].message
           });
-        } else {
-          res.status(401).json({
-            error: 'Session has expired or does not exist.'
-          });
-        }
+        });
       },
 
       // Middleware to get all users
       all: function(req, res) {
         Users.findAll().then(function(users) {
-            users.map(function(user) {
-              user.password = null;
-            });
-            res.json(users);
+          users.map(function(user) {
+            user.password = null;
+          });
+          res.json(users);
         }).catch(function(err) {
           res.status(500).json({
-            message: 'Error retrieving user',
-            err: err
+            error: err.message || err.errors[0].message
           });
         });
       },
@@ -117,15 +91,14 @@
         Users.findById(req.params.id).then(function(user) {
           if (!user) {
             res.status(404).json({
-              message: 'User not found'
+              error: 'User not found'
             });
           } else {
             res.json(stripUser(user));
           }
         }).catch(function(err) {
           res.status(500).json({
-            message: 'Error retrieving user',
-            err: err
+            error: err.message || err.errors[0].message
           });
         });
       },
@@ -139,7 +112,7 @@
           }
         }).then(function(ok, err) {
           if (err) {
-            return res.status(500).json({
+            res.status(500).json({
               error: err.message || err.errors[0].message
             });
           } else {
@@ -155,30 +128,32 @@
           where: {
             id: req.params.id
           }
-        }).then(function(ok, err) {
-          if (err) {
-            return res.status(500).json({
-              error: err.message || err.errors[0].message
-            });
-          } else {
-            res.json({
-              message: 'User deleted successfully'
-            });
-          }
+        }).then(function() {
+          res.json({
+            message: 'User deleted successfully.'
+          });
+        }).catch(function(err) {
+          res.status(500).json({
+            error: err.message || err.errors[0].message
+          });
         });
       },
 
       logout: function(req, res) {
-        req.session.destroy(function(err) {
-          if (!err) {
-            res.json({
-              message: 'Successfully logged out'
-            });
-          } else {
-            res.status(500).json({
-              error: err.message || err.errors[0].message
-            });
+        Users.update({
+          token: null
+        }, {
+          where: {
+            id: req.decoded.id
           }
+        }).then(function() {
+          res.json({
+            message: 'Successfully logged out.'
+          });
+        }).catch(function(err) {
+          res.status(500).json({
+            error: err.message || err.errors[0].message
+          });
         });
       },
 

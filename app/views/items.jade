@@ -1,60 +1,74 @@
 div(layout="row")
-  div(layout="row")
+  div.itemSideNav(layout="row")
     md-sidenav.md-sidenav-left.md-whiteframe-z2(md-component-id="catNav" md-is-locked-open="$mdMedia(\"gt-md\")")
       md-toolbar
-        h1.md-toolbar-tools(ui-sref="items") All Categories
-      md-content(layout-padding)
+        h1.md-toolbar-tools(ui-sref="items") Products - All
+      md-content
         md-button.btn-style(md-ink-ripple ng-repeat="category in categories" ui-sref="categoryItems({catId: category.id})")  {{category.name}}
         md-divider
         md-button.btn-style(md-ink-ripple hide-gt-md ng-click="close()") Close Navbar
 
-  div(layout="column")
-    div(layout="row" layout-wrap)
-      .md-padding(ng-show="categoryId" layout="row")
+  div.itemGridList(layout="column" layout-padding flex)
+
+    div(layout="row")
+      .md-padding.Crumb(ng-if="categoryId" layout="row")
         a.md-subheadline(ui-sref="items") Products
-        a(ui-sref="categoryItems({catId: categoryId})") &nbsp;> {{categoryItems.name}}
-      .md-padding(layout="row" layout-align="start center" ng-show="!categoryId" hide-gt-md)
+        span &nbsp;&lt;
+        a(ui-sref="categoryItems({catId: categoryId})") &nbsp; {{categoryItems.name}}
+
+      div(layout="row" layout-align="start center" ng-if="!categoryId" hide-gt-md)
         md-button.md-icon-button(ng-click="toggleSidenav()" aria-label="Menu")
           i.fa.fa-bars
-        h4.md-subheader Product Categories
+        h3.md-subheader Product Categories
+        span.md-padding(ng-show="recentItems.length === 0" class="no_events_msg") There are currently no Items.
+    md-divider
 
-    div(flex ng-if="!categoryId")
-      md-subheader Recent Products
-      md-content(layout-wrap layout="row" flex layout-xs="column")
-        div(flex="100" flex-sm="100" flex-md="50" ng-repeat="item in recentItems | limitTo : 6")
-          md-card
-            img(ng-src="{{item.Images[0].img_url}}")
-            md-card-title
-              md-card-title-text
-                span.md-headline(layout layout-padding layout-align="center center" ui-sref="viewItem({id:item.id})") {{item.name}}
-            md-card-content
-              div(layout="row" layout-align="start center")
-                i.fa.fa-star.colorpink(ng-if="maxReview(item.Reviews).rating > 0" ng-repeat="i in range(maxReview(item.Reviews).rating) track by $index")
-                i.fa.fa-star-o.colorpink(ng-repeat="i in range(5 - maxReview(item.Reviews).rating) track by $index")
-                h4.md-subheader &nbsp;&nbsp;{{item.Reviews.length}} reviews
-              div(layout="column")
-                p.truncate {{maxReview(item.Reviews).review}}
-                h4.md-subheader - {{maxReview(item.Reviews).User.username}}
-            md-card-actions(layout="row" layout-align="start center")
-              md-button.md-accent(ui-sref="viewItem({id:item.id})") Write Review
+    div.itemsList(flex ng-if="!categoryId")
+      .md-padding.recentProducts(layout="row" layout-align="start center" ng-if="recentItems.length > 0")
+        h3.md-subheader Recent Products
+
+      md-divider
+
+      div.gridItems(flex layout="row" layout-sm="column" layout-align="start start")
+        md-card(flex flex-sm="50" flex-md="45" flex-gt-md="{{recentItems.length > 3? \"\": \"25\"}}" ng-repeat="item in recentItems | limitTo : 6")
+          img.md-card-image(ng-src="{{item.Images[0].img_url}}")
+          md-card-title.itemCard(layout="column"  layout-align="end start")
+            md-card-title-text(layout="column")
+              span.md-subhead.category {{item.Category.name}}
+              span.md-subheadline.name(ui-sref="viewItem({id:item.id})") {{item.name}}
+          md-card-content
+            div(layout="row" layout-align="start center" layout-margin)
+              i.fa.fa-star.colorpink(ng-if="averageReview(item.Reviews) > 0" ng-repeat="i in range(averageReview(item.Reviews)) track by $index")
+              i.fa.fa-star-o.colorpink(ng-repeat="i in range(5 - averageReview(item.Reviews)) track by $index")
+              h4.md-subheader &nbsp;&nbsp;{{item.Reviews.length}} {{reviewNum(item.Reviews)}}
+            div(layout="column" layout-margin)
+              p.truncate {{maxReview(item.Reviews).review}}
+              h4.md-subheader - {{maxReview(item.Reviews).User.username}}
+          md-card-actions(layout="row" layout-align="end center")
+            md-button.md-primary(ui-sref="viewItem({id:item.id})") Write Review
 
     md-content(ng-if="categoryId" ng-init="getCategory()")
       h2.md-padding(ng-if="categoryItems.Items.length === 0") No Available Items in this Category
-      div(layout)
+      div.list(layout)
         md-list
           md-list-item.md-3-line(ng-repeat="item in categoryItems.Items")
             img.face(ng-src="{{item.Images[0].img_url}}" ui-sref="viewItem({id:item.id})")
             .md-list-item-text
-              div(layout="row" layout-margin)
-                div
-                  h3(layout layout-padding ui-sref="viewItem({id:item.id})") {{$index + 1}}. {{item.name}}
-                  div(layout="row" layout-align="start center" layout-padding)
-                    i.fa.fa-star.colorpink(ng-if="maxReview(item.Reviews).rating > 0" ng-repeat="i in range(maxReview(item.Reviews).rating) track by $index")
-                    i.fa.fa-star-o.colorpink(ng-repeat="i in range(5 - maxReview(item.Reviews).rating) track by $index")
-                    span.reviews(layout layout-margin layout-padding).md-primary {{item.Reviews.length}} reviews
-                div.left-border.itemcity(layout-align="start start" layout-padding layout-wrap layout="column")
-                  h4 {{item.street}}
-                  h4 {{item.city}}
-                  h4 {{item.phone}}
-                  h4 {{item.email}}
+              div(layout="row" layout-sm="column")
+                .md-padding(flex="60")
+                  h3(ui-sref="viewItem({id:item.id})") {{$index + 1}}. {{item.name}}
+                  div(layout="row" layout-align="start center")
+                    i.fa.fa-star.colorpink(ng-if="averageReview(item.Reviews) > 0" ng-repeat="i in range(averageReview(item.Reviews)) track by $index")
+                    i.fa.fa-star-o.colorpink(ng-repeat="i in range(5 - averageReview(item.Reviews)) track by $index")
+                    span.reviews(layout layout-margin layout-padding).md-primary {{item.Reviews.length}} {{reviewNum(item.Reviews)}}
+                md-divider
+                .listDetails(layout-align="center start" layout-margin layout="column")
+                  i.fa.fa-street-view
+                    | &nbsp;{{item.street}}
+                  i.fa.fa-globe
+                    | &nbsp;{{item.city}}
+                  i.fa.fa-mobile.md-subheader
+                    | &nbsp; - {{item.phone}}
+                  i.fa.fa-envelope.md-subheadline
+                    | &nbsp;{{item.email}}
               md-divider(ng-if="!$last")

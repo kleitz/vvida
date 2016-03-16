@@ -42,6 +42,9 @@
   // Require Directives
   require('./directives/ng-thumb');
 
+  // Requier Filters
+  require('./filters/clip-text');
+
   window.app = angular.module('vvida', [
     'vvida.controllers',
     'vvida.services',
@@ -65,29 +68,14 @@
         } else if (!toState.authenticate) {
           $state.go(toState);
         } else {
-          $rootScope.intendedState = toState;
           $state.go('login');
         }
       }
+
       // Check if the user's session is still being persisted in the servers
       Users.session(function(err, res) {
-        if (!err) {
-          var user = {};
-          if (res.name) {
-            user.name = res.name;
-            user.id = res.id;
-            user.img_url = res.img_url;
-            user.email = res.email;
-          } else {
-            user.name = res.name;
-            user.id = res.id;
-            user.img_url = res.img_url;
-            user.username = res.username;
-            user.email = res.email;
-          }
-          if (user.img_url) {
-            $rootScope.currentUser = user;
-          }
+        if (!err && res) {
+          $rootScope.currentUser = res;
         }
       });
 
@@ -170,6 +158,17 @@
             }
           }
         })
+        .state('authSuccess', {
+          url: '/auth/success/{token}/{id}',
+          controller: ['$stateParams', 'Auth', '$state',
+            function($stateParams, Auth, $state) {
+                Auth.setToken($stateParams.token);
+                var loc = $state.href('userProfile',
+                  {id : $stateParams.id}, {absolute:true});
+                window.location.href = loc;
+              }
+          ]
+        })
         .state('viewEvent', {
           url: '/events/{id}',
           controller: 'EventCtrl',
@@ -180,18 +179,14 @@
           controller: 'ItemCtrl',
           templateUrl: 'views/items.html'
         })
-        .state('profile', {
-          url: '/user/{id}/edit',
-          controller: 'ProfileCtrl',
-          templateUrl: 'views/edit-profile.html'
-        })
-        .state('userProfile', {
-          url: '/user/profile',
+
+      .state('userProfile', {
+          url: '/user/{id}/profile',
           controller: 'UserProfileCtrl',
           templateUrl: 'views/user-profile.html'
         })
         .state('userProfile.edit', {
-          url: '/{id}/edit',
+          url: '/edit',
           views: {
             'inner-view@userProfile': {
               controller: 'ProfileCtrl',
@@ -277,5 +272,4 @@
       $locationProvider.html5Mode(true);
     }
   ]);
-
 })();
