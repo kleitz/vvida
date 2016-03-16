@@ -11,8 +11,5 @@ module.exports = {
     clientID: process.env.GOOGLE_ID,
     clientSecret: process.env.GOOGLE_SECRET,
     callbackURL: process.env.GOOGLE_CALLBACK_URL
-      // returnURL: 'http://localhost:3000/auth/google/callback',
-      // realm: 'http://localhost:3000/',
-      // passReqToCallback: true
   }
 };

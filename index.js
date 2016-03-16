@@ -3,7 +3,7 @@ if (env === 'development') {
   require('dotenv').load();
 }
 
-var config = require('./server/config')[env],
+var config = require('./server/config'),
   express = require('express'),
   path = require('path'),
   multer = require('multer'),
@@ -22,7 +22,6 @@ var config = require('./server/config')[env],
 // the models variable must be somehow singleton-esque
 // http://bit.ly/1S9cnn5
 app.set('models', models);
-app.set('superSecret', process.env.WEB_TOKEN_SECRET);
 
 
 

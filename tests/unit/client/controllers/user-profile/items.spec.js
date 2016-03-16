@@ -20,6 +20,7 @@ describe('UserProductsCtrl tests', function() {
       dob: '1941-09-29T21:00:00.000Z',
       email: 'koske.hannah@gmail.com',
       enabled: 'yes',
+
       facebook_auth_id: null,
       facebook_auth_token: null,
       firstname: 'Hannah',
