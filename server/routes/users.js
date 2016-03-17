@@ -3,10 +3,10 @@ module.exports = function(app, auth) {
 
   //logout route
   app.route('/api/users/logout')
-    .get(Users.logout);
+    .get(auth.authenticate, Users.logout);
 
   app.route('/api/users/session')
-    .get(Users.session);
+    .get(auth.authenticate, Users.session);
 
   // login with email
   app.route('/api/users/login')

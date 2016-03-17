@@ -3,7 +3,6 @@ module.exports = function(app, passport, config) {
     Users = app.get('models').Users,
     jwt = require('jsonwebtoken'),
     LocalStrategy = config.strategy.Local;
-
   // signup middleware for local signup
   passport.use('signup', new LocalStrategy({
     usernameField: 'email',
@@ -14,24 +13,21 @@ module.exports = function(app, passport, config) {
       email: email,
       password: hash
     }).then(function(user) {
-      if (!user) {
-        return done(null, false);
-      }
+      user = user.dataValues;
+
       user.token = null;
-      var token = jwt.sign(user, app.get('superSecret'), {
-        expireIn: '24h'
+      var token = jwt.sign({ id: user.id }, config.superSecret, {
+        expiresIn: '8760h'
       });
+
       user.token = token;
-      Users.update(user, {
+      Users.update({ token: token }, {
         where: {
-          email: user.email
+          id: user.id
         }
-      }).then(function(ok, err) {
-        if (err) {
-          return done(err, null);
-        }
+      }).then(function() {
         user.password = undefined;
-        done(null, user);
+        return done(null, user);
       });
     }).catch(function(err) {
       return done(err);
@@ -49,6 +45,7 @@ module.exports = function(app, passport, config) {
         email: username
       }
     }).then(function(user) {
+      user = user.dataValues;
       if (!user) {
         return done(null, false);
       }
@@ -58,21 +55,20 @@ module.exports = function(app, passport, config) {
         return done(null, false);
       }
       user.token = null;
-      var token = jwt.sign(user, app.get('superSecret'), {
-        expireIn: '24h'
+      var token = jwt.sign({ id: user.id }, config.superSecret, {
+        expiresIn: '8760h'
       });
-
       user.token = token;
       Users.update(user, {
         where: {
-          email: user.email
+          id: user.id
         }
       }).then(function(ok, err) {
         if (err) {
           return done(err, null);
         }
         user.password = undefined;
-        done(null, user);
+        return done(null, user);
       });
     }).catch(function(err) {
       return done(err);

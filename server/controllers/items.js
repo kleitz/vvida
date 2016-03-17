@@ -23,7 +23,7 @@
               email: req.body.email
             })
             .then(function(item) {
-                res.json(item);
+              res.json(item);
             })
             .catch(function(err) {
               res.status(500).json({
@@ -50,8 +50,9 @@
           }, {
             model: Categories
           }]
+
         }).then(function(item) {
-            res.json(item);
+          res.json(item);
         }).catch(function(err) {
           res.status(500).json({
             error: err.message || err.errors[0].message
@@ -60,18 +61,18 @@
       },
 
       find: function(req, res) {
-         Items.find({
+        Items.find({
           where: {
             id: req.params.id
           },
           include: [Images, Reviews, Categories]
         }).then(function(item) {
           if (!item) {
-             res.status(404).json({
-              message: 'Item not found'
+            res.status(404).json({
+              error: 'Item not found'
             });
           } else {
-             res.json(item);
+            res.json(item);
           }
         }).catch(function(err) {
           res.status(500).json({
@@ -86,11 +87,11 @@
             id: req.params.id
           }
         }).then(function() {
-            res.json({
-              message: 'Item has been updated.'
-            });
+          res.json({
+            message: 'Item has been updated.'
+          });
         }).catch(function(err) {
-           res.status(500).json({
+          res.status(500).json({
             error: err.message || err.errors[0].message
           });
         });
@@ -102,9 +103,9 @@
             id: req.params.id
           }
         }).then(function() {
-            res.json({
-              message: 'Delete successful'
-            });
+          res.json({
+            message: 'Delete successful'
+          });
         }).catch(function(err) {
           res.status(500).json({
             error: err.message || err.errors[0].message
