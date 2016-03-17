@@ -5,7 +5,7 @@
   module.exports = {
     up: function(queryInterface, Sequelize) {
       return queryInterface.addColumn('Reviews', 'event_id', {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         allowNull: true
       });
     }
