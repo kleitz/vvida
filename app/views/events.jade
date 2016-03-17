@@ -13,7 +13,7 @@
       md-button.md-icon-button(md-no-ink ng-click="toggleSidenav()" aria-label="Menu" hide-gt-md)
         i.fa.fa-bars
       span(hide-gt-md) Categories
-      span.md-padding(ng-show="recentEvents.length === 0 && popularEvents.length === 0" class="no_events_msg") There are currently no events.
+      span.md-padding(ng-if="recentEvents.length === 0 && popularEvents.length === 0" class="no_events_msg") There are currently no events.
     md-divider
 
     div(ng-if="recentEvents.length > 0")
@@ -55,6 +55,3 @@
               md-button.md-raised(md-ink-ripple) Review
 
       div(ui-view="inner")
-
-
-

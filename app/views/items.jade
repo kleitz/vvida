@@ -27,7 +27,7 @@ div(layout="row")
       .md-padding.recentProducts(layout="row" layout-align="start center" ng-if="recentItems.length > 0")
         h3.md-subheader Recent Products
 
-      md-divider
+      md-divider(ng-if="recentItems.length > 0")
 
       div.gridItems(flex layout="row" layout-sm="column" layout-align="start start")
         md-card(flex flex-sm="50" flex-md="45" flex-gt-md="{{recentItems.length > 3? \"\": \"25\"}}" ng-repeat="item in recentItems | limitTo : 6")
