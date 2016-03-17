@@ -1,18 +1,18 @@
 (function() {
   'use strict';
 
-  var Sequelize = require('sequelize'),
-    env = process.env.NODE_ENV || 'development',
-    config = require('./index')[env],
-    sequelize = new Sequelize(config.db.url, {
-      protocol: 'postgres',
-      dialect: config.db.dialect,
-      port: config.db.port,
-      logging: false,
-      dialectOptions: {
-        ssl: /(production|staging)/.test(env)
-      }
-    });
+var Sequelize = require('sequelize'),
+  env = process.env.NODE_ENV || 'development',
+  config = require('./index'),
+  sequelize = new Sequelize(config.db.url, {
+    protocol: 'postgres',
+    dialect: config.db.dialect,
+    port: config.db.port,
+    logging: false,
+    dialectOptions: {
+      ssl: /(production|staging)/.test(env)
+    }
+  });
 
   // log the progress/outcome of the connection
   sequelize.authenticate()

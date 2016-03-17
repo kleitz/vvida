@@ -1,22 +1,26 @@
-var request = require('superagent'),
-  _expect = require('expect.js');
+(function() {
+  'use strict';
 
-describe('Root route test', function() {
+  var request = require('superagent'),
+    _expect = require('expect.js');
 
-  /**
-   * Display a listing of the resource.
-   * GET / (root route)
-   *
-   * @return Response
-   */
+  describe('Root route test', function() {
 
-  it('should return index.html', function(done) {
-    request
-      .get('http://localhost:3000')
-      .end(function(err, res) {
-        _expect(res.status).to.be(200);
-        _expect(res.header['content-type']).to.match(/(text\/html)/g);
-        done();
-      });
+    /**
+     * Display a listing of the resource.
+     * GET / (root route)
+     *
+     * @return Response
+     */
+
+    it('should return index.html', function(done) {
+      request
+        .get('http://localhost:3000')
+        .end(function(err, res) {
+          _expect(res.status).to.be(200);
+          _expect(res.header['content-type']).to.match(/(text\/html)/g);
+          done();
+        });
+    });
   });
-});
+})();

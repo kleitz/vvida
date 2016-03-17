@@ -12,7 +12,6 @@ module.exports = function(app, passport, config) {
       // make the code asynchronous
       // User.findOne won't fire until we have all our data back from Google
       process.nextTick(function() {
-
         // check if the user exists in our database
         Users.findOne({
           where: {
@@ -24,11 +23,10 @@ module.exports = function(app, passport, config) {
           },
 
           attributes: ['id', 'name', 'img_url', 'gender', 'google_auth_id']
-        })
-          .then(function(user) {
-            // If the user does not exist create one
-            if (!user) {
-              Users.build({
+        }).then(function(user) {
+          // If the user does not exist create one
+          if (!user) {
+            Users.build({
                 email: profile.emails[0].value,
                 role: 'user',
                 username: profile.username,
@@ -38,62 +36,63 @@ module.exports = function(app, passport, config) {
                 img_url: profile.photos[0].value,
                 gender: ucfirst(profile.gender)
               })
-
               // save the user instance build
               .save()
-                .then(function(user) {
-                  user.token = null;
-                  var token = jwt.sign(user, app.get('superSecret'), {
-                    expireIn: '24h'
-                  });
-                  user.token = token;
-                  Users.update(user, {
-                    where: {
-                      email: user.email
-                    }
-                  }).then(function(ok, err) {
-                    if (err) {
-                      return done(err, null);
-                    }
-                    user.password = undefined;
-                    done(null, user);
-                  });
-                })
-                .catch(function(err) {
-                  if (err) {
-                    return done(err);
-                  }
-                });
-            }
-            // If the user was found, then just do a redirect
-            else {
-              // or TODO maybe create cookies/sessions
+              .then(function(user) {
+                user = user.dataValues;
 
-              user.token = null;
-              var token = jwt.sign(user, app.get('superSecret'), {
-                expiresIn: '24h'
-              });
-              user.token = token;
-              Users.update(user, {
-                where: {
-                  email: user.email
-                }
-              }).then(function(ok, err) {
+                user.token = null;
+                var token = jwt.sign({ id: user.id }, config.superSecret, {
+                  expireIn: '8760h'
+                });
+
+                user.token = token;
+                Users.update(user, {
+                  where: {
+                    id: user.id
+                  }
+                }).then(function(ok, err) {
+                  if (err) {
+                    return done(err, null);
+                  }
+
+                  user.password = undefined;
+                  return done(null, user);
+                });
+              }).catch(function(err) {
                 if (err) {
-                  return done(err, null);
+                  return done(err);
                 }
-                user.password = undefined;
-                done(null, user);
               });
-            }
-          })
-          .catch(function(err) {
-            if (err) {
-              return done(err);
-            }
-          });
+          }
+          // If the user was found, then just do a redirect
+          else {
+            // or TODO maybe create cookies/sessions
+            user.token = null;
+            var token = jwt.sign({ id: user.id }, config.superSecret, {
+              expiresIn: '8760h'
+            });
+
+            user.token = token;
+            Users.update({ token: user.token }, {
+              where: {
+                id: user.id
+              }
+            }).then(function(ok, err) {
+              if (err) {
+                return done(err, null);
+              }
+
+              user.password = undefined;
+              done(null, user);
+            });
+          }
+        }).catch(function(err) {
+          if (err) {
+            return done(err);
+          }
+        });
       });
     }
   ));
-
 };
