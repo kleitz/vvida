@@ -30,11 +30,11 @@
           },
           event_id: {
             type: Sequelize.INTEGER,
-            allowNull: false
+            allowNull: true
           },
           item_id: {
             type: Sequelize.INTEGER,
-            allowNull: false
+            allowNull: true
           },
         },
         // table configuration
