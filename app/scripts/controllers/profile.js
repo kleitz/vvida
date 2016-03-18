@@ -1,4 +1,3 @@
-
 angular.module('vvida.controllers')
   .controller('ProfileCtrl', [
     '$rootScope',
@@ -11,6 +10,14 @@ angular.module('vvida.controllers')
     function($rootScope, $scope, $state, Users, Countries,
       FileUploader, Utils) {
       $scope.init = function() {
+
+        Users.get({
+          id: $rootScope.currentUser.id
+        }, function(res) {
+          $scope.userData = res;
+          $scope.userData.dob = new Date(res.dob);
+        });
+
         $scope.uploader = new FileUploader({
           url: '/api/users/image-upload',
           alias: 'photos',
@@ -59,15 +66,13 @@ angular.module('vvida.controllers')
       };
 
       $scope.editProfile = function() {
-        $rootScope.currentUser.dob = new Date($rootScope.currentUser.dob);
-        Users.update($rootScope.currentUser, function() {
-          $scope.message =
-            'You have successfully updated your profile. ' +
+        $scope.userData.dob = new Date($scope.userData.dob);
+        Users.update($scope.userData, function() {
+          $scope.message = 'You have successfully updated your profile. ' +
             'Click on the home button to get to vvida homepage.';
 
         }, function() {
-          $scope.message =
-            'There was a problem updating your profile.';
+          $scope.message = 'There was a problem updating your profile.';
         });
       };
 

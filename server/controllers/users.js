@@ -9,6 +9,7 @@
       Categories = app.get('models').Categories,
       Events = app.get('models').Events,
       Reviews = app.get('models').Reviews,
+      Images = app.get('models').Images,
       stripUser = function(user) {
         user.password = null;
         user.facebook_auth_id = null;
@@ -164,7 +165,7 @@
           },
           include: [{
             model: Items,
-            include: [Categories, Reviews]
+            include: [Categories, Reviews, Images]
           }]
         }).then(function(user) {
           if (!user) {
@@ -187,7 +188,10 @@
           where: {
             id: req.params.id
           },
-          include: [Events]
+          include: [{
+          model: Events,
+          include: [Categories, Reviews, Images]
+        }]
         }).then(function(user) {
           if (!user) {
             res.status(404).json({
@@ -213,7 +217,10 @@
             model: Reviews,
             include: [{
               model: Items,
-              include: [Categories]
+              include: [Categories, Images]
+            }, {
+              model: Events,
+              include: [Categories, Images]
             }]
           }]
         }).then(function(user) {
@@ -237,14 +244,8 @@
           where: {
             user_id: req.params.id
           }
-        }).then(function(results) {
-          if (!results) {
-            res.status(404).json({
-              error: 'User reviews not found'
-            });
-          } else {
-            res.json(results);
-          }
+        }).then(function(count) {
+          res.json(count);
         }).catch(function(err) {
           res.status(500).json({
             error: err.message || err.errors[0].message
@@ -257,14 +258,8 @@
           where: {
             user_id: req.params.id
           }
-        }).then(function(results) {
-          if (!results) {
-            res.status(404).json({
-              error: 'User events not found'
-            });
-          } else {
-            res.json(results);
-          }
+        }).then(function(count) {
+          res.json(count);
         }).catch(function(err) {
           res.status(500).json({
             error: err.message || err.errors[0].message
@@ -278,7 +273,7 @@
             user_id: req.params.id
           }
         }).then(function(count) {
-          res.json(count || 0);
+          res.json(count);
         }).catch(function(err) {
           res.status(500).json({
             error: err.message || err.errors[0].message

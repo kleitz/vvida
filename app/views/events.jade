@@ -8,15 +8,15 @@
         md-divider
         md-button.btn-style(md-ink-ripple hide-gt-md ng-click="close()") Close Navbar
 
-  div(layout="column" flex)
+  div(layout="column" flex layout-padding)
     div(layout="row" layout-align="start center")
       md-button.md-icon-button(md-no-ink ng-click="toggleSidenav()" aria-label="Menu" hide-gt-md)
         i.fa.fa-bars
-      span(hide-gt-md) Categories
-      span.md-padding(ng-show="recentEvents.length === 0 && popularEvents.length === 0" class="no_events_msg") There are currently no events.
+      h3.md-subheader.sidenav(hide-gt-md) Categories
+      span.no_events_msg.md-padding(ng-if="recentEvents.length === 0 && popularEvents.length === 0 && !nextView") There are currently no events.
     md-divider
 
-    div(ng-if="recentEvents.length > 0")
+    div
       .eventsList(layout="column" ng-if="!nextView")
         .md-padding.recentEvents(layout="row" layout-align="start center" ng-if="recentEvents.length > 0")
           h3.md-subheader Recent Events
@@ -25,7 +25,7 @@
 
         md-divider
         div.gridItems(flex layout="row" layout-sm="column" layo ut-align="start start")
-          md-card(flex flex-sm="50" flex-md="45" flex-gt-md="{{recentEvents.length > 3? \"\": \"25\"}}" ng-repeat="event in recentEvents | orderBy:'-time' ")
+          md-card(flex flex-sm="50" flex-md="45" ng-repeat="event in recentEvents | orderBy:'-time' ")
             img.md-card-image(ng-src="{{event.Images[0].img_url}}")
             md-card-title(layout="column"  layout-align="end start")
               md-card-title-text(layout="column")
@@ -42,7 +42,7 @@
           h3.md-subheader Popular Events
         md-divider
         div.gridItems(flex layout="row" layout-sm="column" layout-align="start start")
-          md-card(flex flex-sm="50" flex-md="45" flex-gt-md="{{popularEvents.length > 3? \"\": \"25\"}}" ng-repeat="event in popularEvents | orderBy:'-time' ")
+          md-card(flex flex-sm="50" flex-md="45" ng-repeat="event in popularEvents")
             img.md-card-image(ng-src="{{event.images[0]}}")
             md-card-title(layout="column"  layout-align="end start")
               md-card-title-text(layout="column")

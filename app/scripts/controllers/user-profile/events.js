@@ -9,9 +9,9 @@ angular.module('vvida.controllers')
     'Events',
     'FileUploader',
     'Categories',
-    '$mdDialog', function($scope, $rootScope,
-      $state, $stateParams, Users, Utils, Events,
-      FileUploader, Categories, $mdDialog) {
+    '$mdDialog',
+    function($scope, $rootScope, $state, $stateParams,
+      Users, Utils, Events, FileUploader, Categories, $mdDialog) {
 
       $scope.init = function() {
 
@@ -25,12 +25,13 @@ angular.module('vvida.controllers')
             }
           }
         });
+
         // get all categories
         $scope.categories = Categories.query({
           type: 'Event'
         });
+
       };
-      // $scope.init();
 
       // create event
       $scope.addEvent = function() {
@@ -46,6 +47,7 @@ angular.module('vvida.controllers')
         });
       };
 
+      // get selected event id
       $scope.getEvent = function() {
         $scope.eventId = $stateParams.id;
         $scope.uploader = new FileUploader({
@@ -67,10 +69,12 @@ angular.module('vvida.controllers')
             });
           }
         });
+
         Events.get({
           id: $stateParams.id
         }, function(event) {
           $scope.event = event;
+          $scope.event.time = new Date(event.time);
         });
 
         $scope.categories = Categories.query({
@@ -81,6 +85,16 @@ angular.module('vvida.controllers')
       $scope.updateEvent = function() {
         Events.update($scope.event, function(event) {
           Utils.toast(event.message);
+          $state.go('userProfile.events');
+        });
+      };
+
+      $scope.deleteEvent = function(id) {
+        Events.delete({
+          id: id
+        }, function(msg) {
+          Utils.toast(msg.message);
+          $state.go('userProfile.events', {}, { reload: true });
         });
       };
 
@@ -93,7 +107,7 @@ angular.module('vvida.controllers')
       };
 
       $scope.parseDate = function(date) {
-        return new Date(Date.parse(date)).toUTCString();
+        return Utils.parseTime(date);
       };
 
       $scope.addEventModal = function(ev) {

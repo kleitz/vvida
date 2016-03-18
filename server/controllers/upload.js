@@ -9,7 +9,7 @@
         cloudinary.uploader.upload(path, function(result) {
           if (result && !result.error) {
             Images.create({
-              item_id: req.body.ItemId,
+              item_id: req.body.itemId,
               event_id: req.body.eventId,
               user_id: req.body.userId,
               public_id: result.public_id,

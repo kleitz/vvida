@@ -4,26 +4,26 @@ describe('UserProfileCtrl tests', function() {
     controller,
     Users = {
       eventsCount: function(currentUser, cb) {
-        var res = 0;
         if (currentUser) {
-          res = 3;
+          cb(null, 3);
+        } else {
+          cb(!currentUser);
         }
-        cb(!currentUser, res);
       },
       itemsCount: function(currentUser, cb) {
-        var res=0;
         if (currentUser) {
-          res = 3;
+          cb(null, 3);
+        } else {
+          cb(!currentUser);
         }
-        cb(!currentUser, res);
       },
       reviewsCount: function(currentUser, cb) {
-        var res=0;
         if (currentUser) {
-          res = 3;
+          cb(null, 3);
+        } else {
+          cb(!currentUser);
         }
-        cb(!currentUser, res);
-      },
+      }
     },
     currentUser = {
       city: 'Nairobi',
@@ -77,9 +77,10 @@ describe('UserProfileCtrl tests', function() {
     expect(Users.eventsCount).toHaveBeenCalled();
     expect(Users.reviewsCount).toHaveBeenCalled();
     expect(Users.itemsCount).toHaveBeenCalled();
-    expect(scope.itemsCount).toBe(0);
-    expect(scope.eventsCount).toBe(0);
-    expect(scope.reviewsCount).toBe(0);
+    expect(scope.itemsCount).not.toBeDefined();
+    expect(scope.eventsCount).not.toBeDefined();
+    expect(scope.reviewsCount).not.toBeDefined();
+    expect(scope.message).toBe('Error loading page');
   });
 
   it('should initialize contoller', function() {
