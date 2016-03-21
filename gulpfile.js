@@ -138,6 +138,9 @@ gulp.task('test:bend', ['test:fend', 'pre-test'], function() {
     }))
     .once('error', function(err) {
       throw err;
+    })
+    .once('end', function() {
+      process.exit();
     });
 });
 
@@ -182,5 +185,6 @@ gulp.task('build', ['jade', 'less', 'static-files',
 gulp.task('heroku:production', ['build']);
 gulp.task('heroku:staging', ['build']);
 gulp.task('production', ['nodemon', 'build']);
-gulp.task('test', ['test:fend', 'test:bend', 'codeclimate-reporter']);
+gulp.task('test', ['test:fend', 'test:bend', 'codeclimate-reporter',
+ 'coveralls-reporter']);
 gulp.task('default', ['nodemon', 'watch', 'build']);
