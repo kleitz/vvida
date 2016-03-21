@@ -19,7 +19,8 @@ uploads
 lib-cov
 
 # Coverage directory used by tools like istanbul
-coverage
+coverage_bend
+coverage_fend
 
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt

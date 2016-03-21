@@ -1,10 +1,11 @@
 (function() {
   'use strict';
 
-  var request = require('superagent'),
+  var app = require('./../../../index.js'),
+    request = require('supertest')(app),
     faker = require('faker'),
     _expect = require('expect.js'),
-    resourceApiUrl = 'http://localhost:3000/api/items';
+    resourceApiUrl = '/api/items';
 
   describe('Items resource API tests', function() {
 
@@ -39,7 +40,7 @@
     it('Must create session to run actions on items', function(done) {
       // Must log in to retain a session
       request
-        .post('http://localhost:3000/api/users/login')
+        .post('/api/users/login')
         .send({
           email: 'vvidaapp@gmail.com',
           password: '3at1ngYums@wh1leD0ingTh3Whip.c0m'

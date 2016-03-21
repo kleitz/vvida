@@ -1,6 +1,7 @@
-var request = require('superagent'),
+var app = require('./../../../index.js'),
+  request = require('supertest')(app),
   _expect = require('expect.js'),
-  resourceApiUrl = 'http://localhost:3000/api/countries';
+  resourceApiUrl = '/api/countries';
 
 describe('Countries resource API tests', function() {
 

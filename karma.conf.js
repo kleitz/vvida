@@ -97,7 +97,7 @@ module.exports = function(config) {
     singleRun: false,
      coverageReporter: {
       // specify a common output directory
-      dir: 'coverage',
+      dir: 'coverage_fend',
       reporters: [
         // reporters not supporting the `file` property
         { type: 'html', subdir: 'report-html' },

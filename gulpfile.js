@@ -17,6 +17,8 @@ var gulp = require('gulp'),
   karma = require('gulp-karma'),
   protractor = require('gulp-protractor').protractor,
   mocha = require('gulp-mocha'),
+  istanbul = require('gulp-istanbul'),
+  coveralls = require('gulp-coveralls'),
   paths = {
     public: 'public/**',
     jade: ['!app/shared/**', 'app/**/*.jade'],
@@ -28,6 +30,7 @@ var gulp = require('gulp'),
       'app/**/*.*'
     ],
     unitTests: [],
+    server: ['./server/**/*.js'],
     serverTests: ['./tests/server/**/*.spec.js'],
     libTests: ['lib/tests/**/*.js'],
     styles: 'app/styles/*.+(less|css)'
@@ -113,10 +116,25 @@ gulp.task('test:fend', ['browserify', 'bower'], function() {
     });
 });
 
-gulp.task('test:bend', ['test:fend'], function() {
+gulp.task('pre-test', function() {
+  return gulp.src(paths.server)
+    .pipe(istanbul())
+    .pipe(istanbul.hookRequire());
+});
+
+gulp.task('test:bend', ['test:fend', 'pre-test'], function() {
   return gulp.src(paths.serverTests)
     .pipe(mocha({
       reporter: 'spec'
+    }))
+    .pipe(istanbul.writeReports({
+      dir: './coverage_bend',
+      reporters: [ 'lcov', 'json', 'text-summary', 'html'],
+      reportOpts: {
+        lcov: {dir: './coverage_bend/lcov', file: 'lcov.info'},
+        json: {dir: './coverage_bend/json', file: 'coverage.json'},
+        html: {dir: './coverage_bend/html', file: 'coverage.html'}
+      }
     }))
     .once('error', function(err) {
       throw err;
@@ -135,8 +153,13 @@ gulp.task('test:e2e', function(cb) {
     .on('end', cb);
 });
 
-gulp.task('codeclimate-reporter', ['test:fend', 'test:bend'], function() {
-  return gulp.src(['coverage/report-lcov/lcov.info'], {
+gulp.task('coveralls-reporter', function() {
+  return gulp.src(['coverage_bend/lcov/lcov.info'])
+    .pipe(coveralls());
+});
+
+gulp.task('codeclimate-reporter', function() {
+  return gulp.src(['coverage_fend/report-lcov/lcov.info'], {
       read: false
     })
     .pipe(reporter({

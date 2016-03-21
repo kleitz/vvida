@@ -78,6 +78,7 @@ describe('ProfileCtrl tests', function() {
   });
 
   it('should update user Profile', function() {
+    scope.userData = currentUser;
     spyOn(Users, 'update');
     scope.editProfile();
     expect(Users.update).toHaveBeenCalled();

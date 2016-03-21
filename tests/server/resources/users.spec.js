@@ -1,10 +1,11 @@
 (function() {
   'use strict';
 
-  var request = require('superagent'),
+  var app = require('./../../../index.js'),
+    request = require('supertest')(app),
     faker = require('faker'),
     _expect = require('expect.js'),
-    resourceApiUrl = 'http://localhost:3000/api/users';
+    resourceApiUrl = '/api/users';
 
   describe('User RESTful API tests', function() {
 

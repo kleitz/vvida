@@ -6,7 +6,7 @@
   "scripts": {
     "prestart": "sequelize db:migrate",
     "start": "node index.js",
-    "test": "node index.js &\ngulp test",
+    "test": "gulp test",
     "build": "gulp heroku:production"
   },
   "repository": {
@@ -36,8 +36,11 @@
     "gulp-bower": "0.0.10",
     "gulp-codeclimate-reporter": "^1.2.0",
     "gulp-concat": "^2.6.0",
+    "gulp-coveralls": "^0.1.4",
     "gulp-imagemin": "^2.3.0",
+    "gulp-istanbul": "^0.10.3",
     "gulp-jade": "^1.1.0",
+    "gulp-jshint": "^2.0.0",
     "gulp-karma": "0.0.4",
     "gulp-less": "^3.0.3",
     "gulp-mocha": "^2.2.0",
@@ -74,9 +77,8 @@
     "sinon": "^1.17.2",
     "stringify": "^3.1.0",
     "superagent": "^1.4.0",
-    "vinyl-source-stream": "^1.1.0",
-    "method-override": "^2.3.5",
-    "gulp-jshint": "^2.0.0"
+    "supertest": "^1.2.0",
+    "vinyl-source-stream": "^1.1.0"
   },
   "engines": {
     "node": "0.12.5"
