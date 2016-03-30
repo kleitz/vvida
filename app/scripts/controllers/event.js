@@ -47,7 +47,6 @@
             });
         };
 
-
         $scope.close = function() {
           $mdSidenav('evcatNav').close();
         };

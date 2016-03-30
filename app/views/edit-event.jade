@@ -1,16 +1,12 @@
-md-card.items(layout="column" flex="55" ng-init="getEvent()")
-  br
-  md-card-content
-    md-subheader.md-no-sticky  Below is your product information, read through carefully to ensure your product information is accurate, edit when necceasry. Ensure you upload images for your event.
+md-card.md-whiteframe-z2.items(layout="column" flex="55" ng-init="getEvent()")
+  md-subheader.md-no-sticky  Below is your product information, read through carefully to ensure your product information is accurate, edit when necceasry. Ensure you upload images for your event.
 
 md-card.items(layout='column' flex='55' ng-init="getEvent()")
-  br
   md-content
     md-tabs(md-dynamic-height='', md-border-bottom='' md-selected="tabIndex")
-      md-tab(label='Edit Item')
+      md-tab(label='Edit Event')
         md-content.md-padding
           h4.md-display-9 Edit Item
-          br
           form(method="post" enctype="multipart/data" ng-submit="updateEvent()")
             md-input-container
               i.fa.fa-glass
@@ -33,10 +29,11 @@ md-card.items(layout='column' flex='55' ng-init="getEvent()")
               i.fa.fa-university
                 |   Venue
               input(ng-model="event.venue" type="text" ng-required="true" rows='2' aria-label="event.venue")
-            md-input-container
-              i.fa.fa-calendar
-                |   Date
-              md-datepicker(ng-model="event.time" md-placeholder="Enter date" )
+            span Start Date
+            br   
+            md-datepicker(ng-model='event.time', md-placeholder='Start date')
+            md-divider
+            br
             md-input-container
               i.fa.fa-thumbs-o-up
                 |   Sponsor

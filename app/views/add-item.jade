@@ -1,5 +1,5 @@
-md-content(layout="column" layout-md="column" layout-sm="column" flex="100")
-  form(method="post" enctype="multipart/data" ng-submit="addItems()")
+md-content(ng-controller="UserProductsCtrl" layout="column" flex="100" ng-init="init()")
+  form(method="post" enctype="multipart/data" ng-submit="addItem()")
     div(layout="row")
       md-input-container(flex-gt-sm)
         label Category

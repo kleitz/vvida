@@ -1,19 +1,18 @@
 describe('ProfileCtrl tests', function() {
   'use strict';
   var scope,
-    testVariables={
-      countries:false
+    testVariables = {
+      countries: false
     },
     controller,
     Utils,
     Users,
-    Countries={
-      all:function(cb){
-        if(testVariables.countries){
-          cb(null,[1,2]);
-        }
-        else{
-          cb(true,null);
+    Countries = {
+      all: function(cb) {
+        if (testVariables.countries) {
+          cb(null, [1, 2]);
+        } else {
+          cb(true, null);
         }
       }
     },
@@ -78,6 +77,7 @@ describe('ProfileCtrl tests', function() {
   });
 
   it('should update user Profile', function() {
+    scope.userData = currentUser;
     spyOn(Users, 'update');
     scope.editProfile();
     expect(Users.update).toHaveBeenCalled();
@@ -97,9 +97,9 @@ describe('ProfileCtrl tests', function() {
   });
 
   it('should call Countries.all', function() {
-    testVariables.countries=true;
+    testVariables.countries = true;
     scope.init();
-    expect(scope.countries).toEqual([1,2]);
+    expect(scope.countries).toEqual([1, 2]);
   });
 
   it('should call uploader.uploadAll', function() {

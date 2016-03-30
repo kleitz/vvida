@@ -11,20 +11,22 @@ div(layout="row")
   div.itemGridList(layout="column" layout-padding flex)
 
     div(layout="row")
+
+      div(layout="row" layout-align="start center" hide-gt-md)
+        md-button.md-icon-button(ng-click="toggleSidenav()" aria-label="Menu")
+          i.fa.fa-bars
+        h3.md-subheader Product Categories
+      span.no_events_msg.md-padding(ng-if="recentItems.length === 0 && !categoryId") There are currently no Items.
+
       .md-padding.Crumb(ng-if="categoryId" layout="row")
         a.md-subheadline(ui-sref="items") Products
         span &nbsp;&lt;
         a(ui-sref="categoryItems({catId: categoryId})") &nbsp; {{categoryItems.name}}
 
-      div(layout="row" layout-align="start center" ng-if="!categoryId" hide-gt-md)
-        md-button.md-icon-button(ng-click="toggleSidenav()" aria-label="Menu")
-          i.fa.fa-bars
-        h3.md-subheader Product Categories
-        span.md-padding(ng-show="recentItems.length === 0" class="no_events_msg") There are currently no Items.
     md-divider
 
-    div.itemsList(flex ng-if="!categoryId")
-      .md-padding.recentProducts(layout="row" layout-align="start center" ng-if="recentItems.length > 0")
+    div.itemsList(flex ng-if="!categoryId && recentItems.length > 0")
+      .md-padding.recentProducts(layout="row" layout-align="start center")
         h3.md-subheader Recent Products
 
       md-divider

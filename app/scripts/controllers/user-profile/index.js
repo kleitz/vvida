@@ -1,6 +1,7 @@
 angular.module('vvida.controllers')
-  .controller('UserProfileCtrl', ['$scope', '$rootScope', '$state', 'Users',
-    function($scope, $rootScope, $state, Users) {
+  .controller('UserProfileCtrl', ['$scope', '$rootScope', '$state',
+    'Users', '$mdSidenav',
+    function($scope, $rootScope, $state, Users, $mdSidenav) {
       $scope.init = function() {
         $scope.menu = [{
           link: 'userProfile.events',
@@ -18,12 +19,23 @@ angular.module('vvida.controllers')
           icon: 'fa fa-pencil'
         }];
 
+        $scope.close = function() {
+          $mdSidenav('profileSideNav').close();
+        };
+
+        $scope.toggleSidenav = function() {
+          $mdSidenav('profileSideNav').toggle();
+        };
+
         // Route to defualt view
-        $state.go('userProfile.events');
+        var stateName = $state.current.name;
+        if (/^userProfile$/.test(stateName)) {
+          $state.go('userProfile.events');
+        }
 
         Users.eventsCount($rootScope.currentUser, function(err, res) {
           if (err) {
-            $scope.eventsCount = 0;
+            $scope.message = 'Error loading page';
           } else {
             $scope.eventsCount = res;
           }
@@ -31,7 +43,7 @@ angular.module('vvida.controllers')
 
         Users.itemsCount($rootScope.currentUser, function(err, res) {
           if (err) {
-            $scope.itemsCount = 0;
+            $scope.message = 'Error loading page';
           } else {
             $scope.itemsCount = res;
           }
@@ -39,7 +51,7 @@ angular.module('vvida.controllers')
 
         Users.reviewsCount($rootScope.currentUser, function(err, res) {
           if (err) {
-            $scope.reviewsCount = 0;
+            $scope.message = 'Error loading page';
           } else {
             $scope.reviewsCount = res;
           }

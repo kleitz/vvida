@@ -12,7 +12,7 @@ md-card.items(layout="column" flex="55" ng-if="currentUser" ng-init="getItem()")
                 i.fa.fa-list
                   |   Categories
                 md-select(ng-model="item.category_id" class="select" aria-label="item.category_id")
-                  md-option(ng-value="category.id" ng-repeat="category in categories")   {{category.type}}
+                  md-option(ng-value="category.id" ng-repeat="category in categories")   {{category.name}}
               md-input-container
                 i.fa.fa-coffee
                   |   Product

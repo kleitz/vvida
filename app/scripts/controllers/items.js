@@ -57,18 +57,6 @@
           $scope.selectedImage = image;
         };
 
-        $scope.addItems = function() {
-          Items.save($scope.item, function(item) {
-            if (item) {
-              $state.go('editItem', {
-                id: item.id
-              });
-            } else {
-              Utils.toast('Item not created');
-            }
-          });
-        };
-
         $scope.addItemReview = function() {
           $scope.itemReview.itemId = $stateParams.id;
           Reviews.save($scope.itemReview, function(review) {
@@ -76,36 +64,6 @@
               $scope.item.Reviews.push(review);
               $scope.itemReview = {};
             }
-          });
-        };
-
-        $scope.getItem = function() {
-          // get selected item id
-          $scope.itemId = $stateParams.id;
-          $scope.uploader = new FileUploader({
-            url: '/api/image/',
-            alias: 'photos',
-            formData: [{
-              id: $scope.itemId,
-              userId: $rootScope.currentUser.id
-            }],
-            onCompleteItem: function() {
-              Items.update($scope.item, function() {
-                $state.go($state.current, {
-                  id: $scope.itemId,
-                  tabIndex: 1
-                }, {
-                  reload: true
-                });
-              });
-            }
-          });
-          //load the item
-          Items.get({
-            id: $scope.itemId
-          }, function(item) {
-            $scope.images = item.Images;
-            $scope.item = item;
           });
         };
 
@@ -124,20 +82,6 @@
           $scope.tabIndex = $stateParams.tabIndex;
         };
 
-        $scope.updateItem = function() {
-          Items.update($scope.item, function(item) {
-            $scope.getItem();
-            Utils.toast(item.message);
-          });
-        };
-
-        $scope.showToast = function() {
-          Utils.toast('Upload complete');
-        };
-
-        $scope.upload = function() {
-          $scope.uploader.uploadAll();
-        };
         $scope.deleteImage = function(id) {
           Images.delete(id, function() {
             $state.go($state.current, {
@@ -148,6 +92,7 @@
             });
           });
         };
+
         $scope.init();
       }
     ]);
