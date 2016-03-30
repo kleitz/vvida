@@ -161,12 +161,12 @@
         .state('authSuccess', {
           url: '/auth/success/{token}/{id}',
           controller: ['$stateParams', 'Auth', '$state',
-            function($stateParams, Auth, $state) {
-                Auth.setToken($stateParams.token);
-                var loc = $state.href('userProfile',
-                  {id : $stateParams.id}, {absolute:true});
-                window.location.href = loc;
-              }
+          function($stateParams, Auth, $state) {
+              Auth.setToken($stateParams.token);
+              var loc = $state.href('userProfile',
+                {id : $stateParams.id}, {absolute:true});
+              window.location.href = loc;
+            }
           ]
         })
         .state('viewEvent', {
@@ -203,6 +203,18 @@
             }
           }
         })
+        .state('userProfile.editItem', {
+          url: '/items/{id}/edit',
+          params: {
+            tabIndex: 0
+          },
+          views: {
+            'inner-view@userProfile': {
+              controller: 'UserProductsCtrl',
+              templateUrl: 'views/edit-item.html'
+            }
+          }
+        })
         .state('userProfile.events', {
           url: '/events',
           views: {
@@ -214,26 +226,15 @@
         })
         .state('userProfile.editEvent', {
           url: '/events/{id}/edit',
+          params: {
+            tabIndex: 0
+          },
           views: {
             'inner-view@userProfile': {
               controller: 'UserEventsCtrl',
               templateUrl: 'views/edit-event.html'
             }
           }
-        })
-        .state('addItem', {
-          url: '/items/create',
-          controller: 'ItemCtrl',
-          templateUrl: 'views/add-item.html',
-          authenticate: true
-        })
-        .state('editItem', {
-          url: '/items/{id}/edit',
-          params: {
-            tabIndex: 0
-          },
-          controller: 'ItemCtrl',
-          templateUrl: 'views/edit-item.html'
         })
         .state('viewItem', {
           url: '/items/{id}',

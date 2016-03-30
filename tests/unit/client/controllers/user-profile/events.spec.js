@@ -140,7 +140,7 @@ describe('UserEventsCtrl tests', function() {
     expect(Events.get).toHaveBeenCalled();
     expect(scope.event).toEqual({
       message: 'Sample Event Message',
-      time: null
+      time: new Date(null)
     });
   });
 

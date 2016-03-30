@@ -28,6 +28,12 @@ input {
 
 .text-center {
     text-align: center;
+    .email-profile {
+        font-size: 16px;
+    }
+    .user {
+        font-size: 14px;
+    }
 }
 
 .small-font {
@@ -383,8 +389,10 @@ md-sidenav.md-sidenav-left {
         font-style: italic;
     }
     & h3 {
-        font-size: 1.1em;
-        margin: auto 0;
+        &:not(.[sidenav]) {
+            font-size: 1.1em;
+            margin: auto 0;
+        }
     }
 }
 
@@ -762,8 +770,7 @@ md-sidenav.md-sidenav-left {
 .profile-pic {
     width: 70px;
     height: 70px;
-    margin: 0 110px;
-    padding: 0;
+    margin: auto;
     border-radius: 50%;
 }
 
@@ -900,10 +907,10 @@ md-toolbar.navbar {
     font-weight: bolder;
 }
 
-.add-event-btn {
+.add-btn {
     position: fixed;
+    bottom: 10px;
     right: 0;
-    margin-bottom: 40%;
 }
 
 .upload-div {
@@ -1131,19 +1138,7 @@ md-dialog {
                 height: 120px;
                 md-card-title-text {
                     padding: 5px;
-                    span.category {
-                        text-transform: uppercase;
-                        color: grey;
-                        font-size: 11px;
-                    }
-                    span.name {
-                        margin-top: 5px;
-                        color: #ff4081;
-                    }
-                    i {
-                        margin-top: 15px;
-                        color: #009090;
-                    }
+                    .my-mixin
                 }
             }
             md-card-content {
@@ -1156,6 +1151,22 @@ md-dialog {
                 }
             }
         }
+    }
+}
+
+.my-mixin {
+    span.category {
+        text-transform: uppercase;
+        color: grey;
+        font-size: 11px;
+    }
+    span.name {
+        margin-top: 5px;
+        color: #ff4081;
+    }
+    i {
+        margin-top: 15px;
+        color: #009090;
     }
 }
 
@@ -1175,6 +1186,47 @@ md-tabs-canvas {
     .recentProducts {
         h3 {
             font-size: 1.1em;
+        }
+    }
+}
+
+md-list-item.md-3-line .md-list-item-text h3.unhide {
+    overflow: visible;
+}
+
+@media (min-width: 800px) {
+    .gridItems {
+        padding-left: 30px;
+        md-card {
+            flex: 0 0 30%;
+        }
+    }
+    .userCards {
+        padding-left: 40px;
+        md-card {
+            max-width: 300px;
+            md-card-title-text {
+                height: 160px;
+            }
+        }
+    }
+}
+
+@media (min-width: 600px) {
+    .userCards {
+        md-card {
+            max-width: 300px;
+            md-card-title-text {
+                height: 180px;
+            }
+        }
+    }
+}
+
+@media (min-width:960px) {
+    md-card-title-media {
+        &.item {
+            margin-top: 30px;
         }
     }
 }
@@ -1233,6 +1285,29 @@ md-tabs-canvas {
             .md-button {
                 font-size: 12px;
                 margin: 2px;
+            }
+        }
+    }
+}
+
+.user-profile {
+    div.userCards {
+        flex-wrap: wrap;
+        md-card {
+            width: 90%;
+            md-card-title {
+                padding: 24px 16px 16px;
+                flex: 1 1 auto;
+                md-card-title-text {
+                    span.md-caption {
+                        margin: 3px 0;
+                    }
+                    .my-mixin
+                }
+                md-card-title-media .md-media-md {
+                    height: 120px;
+                    width: 120px;
+                }
             }
         }
     }

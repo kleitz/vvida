@@ -2,6 +2,27 @@ describe('UserProductsCtrl tests', function() {
   'use strict';
   var scope,
     controller,
+    Utils,
+    Items = {
+      save: function(item, cb) {
+        item ? cb(item) : cb(false);
+      },
+      update: function(item, cb) {
+        item ? cb(item) : cb(false);
+      },
+      get: function(id, cb) {
+        cb({
+          message: 'I am groot',
+          Images: [1, 3, 4]
+        });
+      },
+      query: function() {
+        return [{
+          message: 'I am groot',
+          Images: [1, 3, 4]
+        }];
+      }
+    },
     Users = {
       items: function(currentUser, cb) {
         var res;
@@ -51,8 +72,10 @@ describe('UserProductsCtrl tests', function() {
       scope = $injector.get('$rootScope');
       controller = $controller('UserProductsCtrl', {
         $scope: scope,
-        Users: Users
+        Users: Users,
+        Items: Items
       });
+      Utils = $injector.get('Utils');
     });
 
   });
@@ -71,5 +94,57 @@ describe('UserProductsCtrl tests', function() {
     scope.init();
     expect(Users.items).toHaveBeenCalled();
     expect(scope.message).not.toBeTruthy();
+  });
+
+  it('should call Items.update', function() {
+    scope.currentUser = currentUser;
+    scope.item = {
+      message: 'I am groot'
+    };
+    spyOn(Items, 'update').and.callThrough();
+    spyOn(Utils, 'toast').and.callThrough();
+    scope.updateItem();
+    expect(Items.update).toHaveBeenCalled();
+    expect(Utils.toast).toHaveBeenCalledWith('I am groot');
+  });
+
+  it('should call Items.save and fail', function() {
+    spyOn(Items, 'save').and.callThrough();
+    spyOn(Utils, 'toast').and.callThrough();
+    scope.item = false;
+    scope.addItem();
+    expect(Items.save).toHaveBeenCalled();
+    expect(Utils.toast).toHaveBeenCalledWith('Item not created');
+  });
+
+  it('should call Items.save', function() {
+    spyOn(Items, 'save').and.callThrough();
+    spyOn(Utils, 'toast').and.callThrough();
+    scope.item = true;
+
+    scope.addItem();
+    expect(Items.save).toHaveBeenCalled();
+    expect(Utils.toast).not.toHaveBeenCalled();
+  });
+
+  it('should call Items.get', function() {
+    scope.currentUser = currentUser;
+    spyOn(Items, 'get').and.callThrough();
+    scope.getItem();
+    expect(scope.uploader).toBeDefined();
+    expect(Items.get).toHaveBeenCalled();
+    expect(scope.item).toEqual({
+      message: 'I am groot',
+      Images: [1, 3, 4]
+    });
+  });
+
+  it('should call uploader.uploadAll', function() {
+    scope.currentUser = currentUser;
+    scope.getItem();
+    expect(scope.uploader.uploadAll).toBeDefined();
+    spyOn(scope.uploader, 'uploadAll');
+    scope.upload();
+    expect(scope.uploader.uploadAll).toHaveBeenCalled();
   });
 });

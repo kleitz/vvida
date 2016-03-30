@@ -8,7 +8,7 @@ md-toolbar.navbar.md-whiteframe-z3.header-spacing(ng-controller="HeaderCtrl" lay
     a(ng-repeat="menuItem in menu" ui-sref="{{menuItem.state}}" hide-sm)
       md-button
         | {{menuItem.name}}
-    a(ng-if="currentUser" ui-sref="userProfile" )
+    a(ng-if="currentUser" ui-sref="userProfile({id:currentUser.id})" ui-sref-opts="{reload:true}")
       md-button.md-icon-button.icon-button(aria-label="Comment")
         img(ng-src="{{currentUser.img_url}}")
         md-tooltip {{currentUser.name}}
