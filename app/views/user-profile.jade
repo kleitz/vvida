@@ -7,15 +7,14 @@
     md-button.login-btn.md-raised.md-primary(aria-label='Login/Signup', ng-click='login()') Go to Login/Signup Page
 
 .profile-page(ng-if='currentUser' layout ng-init="init()")
-  .md-content(layout="row")
-    md-sidenav.md-sidenav-left.md-whiteframe-z2(layout="column", md-component-id='left', md-is-locked-open="$mdMedia('gt-md')")
+  div(layout="row")
+    md-sidenav.md-sidenav-left.md-whiteframe-z2(layout="column", md-component-id='profileSideNav', md-is-locked-open="$mdMedia(\"gt-md\")")
       md-toolbar.md-tall.md-hue-2.toolbar-header
-        span(flex='')
         .md-toolbar-tools-bottom.inset(layout='column')
-          span
           img(class='profile-pic' ng-src='{{currentUser.img_url}}')
-          .text-center {{currentUser.username || currentUser.name}}
-          .text-center {{currentUser.email}}
+          .text-center.md-padding
+            .user {{currentUser.username || currentUser.name}}
+            .email-profile {{currentUser.email}}
       md-list
         a(class='remove-link-deco' ng-repeat='item in menu' ui-sref='{{item.link}}')
           md-list-item(md-ink-ripple )
@@ -33,4 +32,10 @@
                 span(class='{{item.icon}}')
               .inset
                 | {{item.title}}
-  .md-padding(flex ui-view='inner-view')
+
+  div(flex layout="column")
+    div(layout="row" layout-align="start center" hide-gt-md)
+      md-button.md-icon-button(md-no-ink ng-click="toggleSidenav()" aria-label="Menu")
+        i.fa.fa-bars
+      h3.md-subheader.sidenav Menu
+    div(ui-view='inner-view')

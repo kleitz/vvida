@@ -79,60 +79,10 @@ describe('ItemCtrl tests', function() {
     expect(Categories.query).toHaveBeenCalled();
   });
 
-  it('should call Items.update', function() {
-    scope.currentUser = currentUser;
-    scope.item = {
-      message: 'I am groot'
-    };
-    spyOn(Items, 'update').and.callThrough();
-    spyOn(Utils, 'toast').and.callThrough();
-    scope.updateItem();
-    expect(Items.update).toHaveBeenCalled();
-    expect(Utils.toast).toHaveBeenCalledWith('I am groot');
-  });
-
-  it('should call Items.save and fail', function() {
-    spyOn(Items, 'save').and.callThrough();
-    spyOn(Utils, 'toast').and.callThrough();
-    scope.item = false;
-    scope.addItems();
-    expect(Items.save).toHaveBeenCalled();
-    expect(Utils.toast).toHaveBeenCalledWith('Item not created');
-  });
-
-  it('should call Items.save', function() {
-    spyOn(Items, 'save').and.callThrough();
-    spyOn(Utils, 'toast').and.callThrough();
-    scope.item = true;
-
-    scope.addItems();
-    expect(Items.save).toHaveBeenCalled();
-    expect(Utils.toast).not.toHaveBeenCalled();
-  });
-
-  it('should call Items.get', function() {
-    scope.currentUser = currentUser;
-    spyOn(Items, 'get').and.callThrough();
-    scope.getItem();
-    expect(scope.uploader).toBeDefined();
-    expect(Items.get).toHaveBeenCalled();
-    expect(scope.item).toEqual({
-      message: 'I am groot',
-      Images: [1, 3, 4]
-    });
-    expect(scope.images).toEqual([1, 3, 4]);
-  });
-
   it('should call Categories.get', function() {
     spyOn(Categories, 'get');
     scope.getCategory();
     expect(Categories.get).toHaveBeenCalled();
-  });
-
-  it('should call Utils.toast', function() {
-    spyOn(Utils, 'toast');
-    scope.showToast();
-    expect(Utils.toast).toHaveBeenCalledWith('Upload complete');
   });
 
   it('should call Reviews.save', function() {
@@ -141,15 +91,6 @@ describe('ItemCtrl tests', function() {
     spyOn(Reviews, 'save');
     scope.addItemReview();
     expect(Reviews.save).toHaveBeenCalled();
-  });
-
-  it('should call uploader.uploadAll', function() {
-    scope.currentUser = currentUser;
-    scope.getItem();
-    expect(scope.uploader.uploadAll).toBeDefined();
-    spyOn(scope.uploader, 'uploadAll');
-    scope.upload();
-    expect(scope.uploader.uploadAll).toHaveBeenCalled();
   });
 
   it('should return array of length n', function() {
